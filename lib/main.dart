@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'tela_inicial.dart'; // Certifique-se de que o arquivo existe
+import 'tela_inicial.dart'; 
+
 
 void main() {
   runApp(const GlicogotasApp());
