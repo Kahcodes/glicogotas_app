@@ -4,7 +4,7 @@ import 'tela_opcoes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TelaInicial extends StatelessWidget {
-  const TelaInicial({Key? key}) : super(key: key);
+  const TelaInicial({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,18 +36,21 @@ class TelaInicial extends StatelessWidget {
                       height: 407,
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  // Texto central
-                  Text(
-                    'Desvendando o Diabetes',
-                    style: GoogleFonts.sansitaSwashed(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0xFF265F95), // cor azul
-                      height: 1.0,
+                  SizedBox(
+                    width: 300,
+                    height: 29,
+                    child: Text(
+                      'Desvendando o Diabetes',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.sansitaSwashed(
+                        color: const Color(0xFF265F95),
+                        fontSize: 24,
+                        fontWeight: FontWeight.w400,
+                        height: 0,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 40), // Espaçamento entre o texto e o botão
+              ),
+                  const SizedBox(height: 38), // Espaçamento entre o texto e o botão
 
                   // Botão de iniciar
                   ElevatedButton(
@@ -64,13 +67,13 @@ class TelaInicial extends StatelessWidget {
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Padding do botão
                     ),
-                    child: const SizedBox(
+                    child: SizedBox(
                       width: 153,
                       height: 32,
                       child: Center(
                         child: Text(
                           'INICIAR',
-                          style: TextStyle(
+                            style: GoogleFonts.podkova(
                             color: Colors.white,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,

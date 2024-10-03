@@ -7,7 +7,7 @@ void main() {
 }
 
 class GlicogotasApp extends StatelessWidget {
-  const GlicogotasApp({Key? key}) : super(key: key); // Adicione o key aqui
+  const GlicogotasApp({super.key}); 
 
   @override
   Widget build(BuildContext context) {

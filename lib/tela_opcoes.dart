@@ -24,7 +24,7 @@ class TelaOpcoes extends StatelessWidget {
 
             // Ícones de voltar e configurações no topo
             Positioned(
-              top: 40, // Ajuste a posição vertical conforme necessário
+              top: 40,
               left: 16,
               child: IconButton(
                 icon: const Icon(Icons.arrow_back_ios, color: Color(0xFF265F95)),
@@ -32,7 +32,7 @@ class TelaOpcoes extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 40, // Ajuste a posição vertical conforme necessário
+              top: 40,
               right: 16,
               child: IconButton(
                 icon: const Icon(Icons.settings, color: Color(0xFF265F95)),
@@ -40,58 +40,84 @@ class TelaOpcoes extends StatelessWidget {
               ),
             ),
 
-            // Conteúdo da tela centralizado
+            // Conteúdo da tela
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  // Ícone central
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Image.asset(
-                      'assets/images/talita_icon.png',
-                      height: 150,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Como vamos ',
-                          style: GoogleFonts.sansitaSwashed(
-                            fontSize: 24,
-                            color: Colors.blue,
+                  // Row para alinhar a imagem e o texto lado a lado
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Ícone central
+                      Container(
+                        width: 131,
+                        height: 282,
+                        child: ClipRect(
+                          child: Image.asset(
+                            'assets/images/talita_icon.png',
+                            fit: BoxFit.contain, // Ajusta a imagem para não distorcer
                           ),
                         ),
-                        TextSpan(
-                          text: 'aprender hoje?',
-                          style: GoogleFonts.sansitaSwashed(
-                            fontSize: 24,
-                            color: Colors.pinkAccent,
+                      ),
+                      const SizedBox(width: 20), // Espaçamento entre a imagem e o texto
+                      // Texto lado a lado
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start, // Alinhamento à esquerda
+                        children: [
+                          Text(
+                            'Como vamos',
+                            style: GoogleFonts.sansitaSwashed(
+                              color: const Color(0xFF37ABDC),
+                              fontSize: 24,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'aprender',
+                                  style: GoogleFonts.sansitaSwashed(
+                                    color: const Color(0xFFF4719C), // Cor rosa para "aprender"
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: ' hoje?',
+                                  style: GoogleFonts.sansitaSwashed(
+                                    color: const Color(0xFF37ABDC), // Cor azul para "hoje?"
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 40), // Espaçamento entre o texto e os botões
                   // Botões de opções
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, // Cor do botão
+                      backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     ),
-                    child: const SizedBox(
+                    child: SizedBox(
                       width: 153,
                       height: 32,
                       child: Center(
                         child: Text(
                           'LIVRO',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                            style: GoogleFonts.podkova(
+                              color: Colors.white, fontSize: 18),
                         ),
                       ),
                     ),
@@ -100,19 +126,21 @@ class TelaOpcoes extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF00D287), // Cor do botão
+                      backgroundColor: const Color(0xFF00D287),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     ),
-                    child: const SizedBox(
+                    child: SizedBox(
                       width: 153,
                       height: 32,
                       child: Center(
-                        child: Text(
+                          child: Text(
                           'HISTÓRIA',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                            style: GoogleFonts.podkova(
+                        color: Colors.white, 
+                        fontSize: 18),
                         ),
                       ),
                     ),
@@ -121,19 +149,21 @@ class TelaOpcoes extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.pinkAccent, // Cor do botão
+                      backgroundColor: Colors.pinkAccent,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     ),
-                    child: const SizedBox(
+                    child: SizedBox(
                       width: 153,
                       height: 32,
                       child: Center(
                         child: Text(
                           'JOGOS',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                            style: GoogleFonts.podkova(
+                            color: Colors.white, 
+                            fontSize: 18),
                         ),
                       ),
                     ),
