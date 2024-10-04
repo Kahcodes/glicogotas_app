@@ -27,7 +27,8 @@ class TelaOpcoes extends StatelessWidget {
               top: 40,
               left: 16,
               child: IconButton(
-                icon: const Icon(Icons.arrow_back_ios, color: Color(0xFF265F95)),
+                icon:
+                    const Icon(Icons.arrow_back_ios, color: Color(0xFF265F95)),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
@@ -56,14 +57,16 @@ class TelaOpcoes extends StatelessWidget {
                         child: ClipRect(
                           child: Image.asset(
                             'assets/images/talita_icon.png',
-                            fit: BoxFit.contain, // Ajusta a imagem para não distorcer
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ),
-                      const SizedBox(width: 20), // Espaçamento entre a imagem e o texto
+                      const SizedBox(
+                          width: 20), // Espaçamento entre a imagem e o texto
                       // Texto lado a lado
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start, // Alinhamento à esquerda
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start, // Alinhamento à esquerda
                         children: [
                           Text(
                             'Como vamos',
@@ -79,7 +82,7 @@ class TelaOpcoes extends StatelessWidget {
                                 TextSpan(
                                   text: 'aprender',
                                   style: GoogleFonts.sansitaSwashed(
-                                    color: const Color(0xFFF4719C), // Cor rosa para "aprender"
+                                    color: const Color(0xFFF4719C),
                                     fontSize: 24,
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -87,7 +90,7 @@ class TelaOpcoes extends StatelessWidget {
                                 TextSpan(
                                   text: ' hoje?',
                                   style: GoogleFonts.sansitaSwashed(
-                                    color: const Color(0xFF37ABDC), // Cor azul para "hoje?"
+                                    color: const Color(0xFF37ABDC),
                                     fontSize: 24,
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -99,8 +102,11 @@ class TelaOpcoes extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 40), // Espaçamento entre o texto e os botões
-                  // Botões de opções
+
+                  const SizedBox(
+                      height: 40), // Espaçamento entre o texto e os botões
+
+                  // Botões de opções, um abaixo do outro
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
@@ -108,21 +114,39 @@ class TelaOpcoes extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
                     ),
                     child: SizedBox(
-                      width: 153,
+                      width: 153, // Mantendo o tamanho do botão
                       height: 32,
-                      child: Center(
-                        child: Text(
-                          'LIVRO',
-                            style: GoogleFonts.podkova(
-                              color: Colors.white, fontSize: 18),
-                        ),
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: SvgPicture.asset(
+                              "assets/images/livro.svg",
+                              fit: BoxFit.cover,
+                              height: 24,
+                              width: 24,
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'LIVRO',
+                              style: GoogleFonts.podkova(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 20), // Espaçamento entre os botões
+
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
@@ -130,22 +154,39 @@ class TelaOpcoes extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
                     ),
                     child: SizedBox(
                       width: 153,
                       height: 32,
-                      child: Center(
-                          child: Text(
-                          'HISTÓRIA',
-                            style: GoogleFonts.podkova(
-                        color: Colors.white, 
-                        fontSize: 18),
-                        ),
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: SvgPicture.asset(
+                              "assets/images/historia.svg",
+                              fit: BoxFit.cover,
+                              height: 24,
+                              width: 24,
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'HISTÓRIA',
+                              style: GoogleFonts.podkova(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 20), // Espaçamento entre os botões
+
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
@@ -153,18 +194,34 @@ class TelaOpcoes extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
                     ),
                     child: SizedBox(
                       width: 153,
                       height: 32,
-                      child: Center(
-                        child: Text(
-                          'JOGOS',
-                            style: GoogleFonts.podkova(
-                            color: Colors.white, 
-                            fontSize: 18),
-                        ),
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: SvgPicture.asset(
+                              "assets/images/jogos.svg",
+                              fit: BoxFit.cover,
+                              height: 24,
+                              width: 24,
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'JOGOS',
+                              style: GoogleFonts.podkova(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

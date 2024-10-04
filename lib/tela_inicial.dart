@@ -49,23 +49,28 @@ class TelaInicial extends StatelessWidget {
                         height: 0,
                       ),
                     ),
-              ),
-                  const SizedBox(height: 38), // Espaçamento entre o texto e o botão
+                  ),
+                  const SizedBox(
+                      height: 38), // Espaçamento entre o texto e o botão
 
                   // Botão de iniciar
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const TelaOpcoes()),
+                        MaterialPageRoute(
+                            builder: (context) => const TelaOpcoes()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF00D287), // Cor de fundo do botão (verde)
+                      backgroundColor: const Color(
+                          0xFF00D287), // Cor de fundo do botão (verde)
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40), // Borda arredondada
+                        borderRadius:
+                            BorderRadius.circular(40), // Borda arredondada
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Padding do botão
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8), // Padding do botão
                     ),
                     child: SizedBox(
                       width: 153,
@@ -73,7 +78,7 @@ class TelaInicial extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'INICIAR',
-                            style: GoogleFonts.podkova(
+                          style: GoogleFonts.podkova(
                             color: Colors.white,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,

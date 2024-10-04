@@ -63,7 +63,9 @@ flutter:
     - assets/images/glicogotas_logo.png
     - assets/images/talita_icon.png
     - assets/images/decoracao.svg
-
+    - assets/images/livro.svg
+    - assets/images/historia.svg
+    - assets/images/jogos.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
