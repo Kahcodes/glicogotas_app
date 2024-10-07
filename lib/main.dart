@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'tela_inicial.dart'; 
-
+import 'tela_inicial.dart';
 
 void main() {
   runApp(const GlicogotasApp());
 }
 
 class GlicogotasApp extends StatelessWidget {
-  const GlicogotasApp({super.key}); 
+  const GlicogotasApp({super.key});
 
   @override
   Widget build(BuildContext context) {

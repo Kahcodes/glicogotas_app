@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'livro.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TelaOpcoes extends StatelessWidget {
@@ -51,6 +52,7 @@ class TelaOpcoes extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Ícone central
+                      // ignore: sized_box_for_whitespace
                       Container(
                         width: 131,
                         height: 282,
@@ -108,7 +110,13 @@ class TelaOpcoes extends StatelessWidget {
 
                   // Botões de opções, um abaixo do outro
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LivroPage()),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(

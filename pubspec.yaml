@@ -66,6 +66,12 @@ flutter:
     - assets/images/livro.svg
     - assets/images/historia.svg
     - assets/images/jogos.svg
+    - assets/images/talita_capa.png
+    - assets/images/pancreas.png
+    - assets/images/btn-voltar.svg
+    - assets/images/btn-som.svg
+    - assets/images/btn-ler.svg
+    - assets/images/btn-avancar.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
