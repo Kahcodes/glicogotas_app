@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:math'; // Para manipulação de ângulos
+import 'dart:math';
 
 class LivroPage extends StatelessWidget {
   const LivroPage({super.key});
@@ -37,60 +37,70 @@ class LivroPage extends StatelessWidget {
             // Espaçamento entre a parte superior e o conteúdo principal
             const SizedBox(height: 40),
 
-            // Textos centrais (título e subtítulo)
+            // Textos centrais
             Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Stack(
                 children: [
-                  // Texto "GLICOGOTAS" em arco
-                  CustomPaint(
-                    painter: ArcTextPainter(),
-                    child: Container(
-                      height: 100, // Altura que o arco vai ocupar
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'DESCOMPLICANDO',
-                    style: GoogleFonts.chewy(
-                      fontSize: 24,
-                      color: Colors.yellow,
-                    ),
-                  ),
-                  Text(
-                    'o Diabetes',
-                    style: GoogleFonts.chewy(
-                      fontSize: 24,
-                      color: Colors.yellow,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  // Imagens centralizadas
-                  Row(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        'assets/images/talita_capa.png',
-                        height: 175,
-                        fit: BoxFit.cover,
+                      // Texto "GLICOGOTAS" em arco
+                      CustomPaint(
+                        painter: ArcTextPainter(),
+                        child: Container(
+                          height: 80,
+                        ),
                       ),
-                      const SizedBox(width: 10),
-                      Image.asset(
-                        'assets/images/pancreas.png',
-                        height: 134,
-                        fit: BoxFit.cover,
+
+                      const SizedBox(height: 10),
+                      Text(
+                        'DESCOMPLICANDO',
+                        style: GoogleFonts.chewy(
+                          fontSize: 36,
+                          color: Colors.yellow,
+                        ),
+                      ),
+
+                      Text(
+                        'o Diabetes',
+                        style: GoogleFonts.chewy(
+                          fontSize: 36,
+                          color: Colors.yellow,
+                        ),
                       ),
                     ],
+                  ),
+
+                  // Posicionando a Talita
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    child: Image.asset(
+                      'assets/images/talita_capa.png',
+                      height: 175,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+
+                  // Posicionando o pâncreas no canto inferior direito
+                  Positioned(
+                    bottom: 0,
+                    right: 20, // Adicionei um pequeno padding da direita
+                    child: Image.asset(
+                      'assets/images/pancreas.png',
+                      height: 150, // Ajuste de altura do pâncreas
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ],
               ),
             ),
 
-            // Parte inferior da tela (botões de navegação)
+            // Parte inferior da tela
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: const BoxDecoration(
-                color: Color(0xFFFFD700), // Cor de fundo amarela
+                color: Color(0xFFFFFFFF),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -98,7 +108,7 @@ class LivroPage extends StatelessWidget {
                   IconButton(
                     icon: SvgPicture.asset(
                       'assets/images/btn-voltar.svg',
-                      width: 30,
+                      width: 55,
                     ),
                     onPressed: () {
                       // Ação do botão anterior
@@ -107,7 +117,7 @@ class LivroPage extends StatelessWidget {
                   IconButton(
                     icon: SvgPicture.asset(
                       'assets/images/btn-som.svg',
-                      width: 30,
+                      width: 55,
                     ),
                     onPressed: () {
                       // Ação do botão música
@@ -116,7 +126,7 @@ class LivroPage extends StatelessWidget {
                   IconButton(
                     icon: SvgPicture.asset(
                       'assets/images/btn-ler.svg',
-                      width: 30,
+                      width: 55,
                     ),
                     onPressed: () {
                       // Ação do botão ler
@@ -125,7 +135,7 @@ class LivroPage extends StatelessWidget {
                   IconButton(
                     icon: SvgPicture.asset(
                       'assets/images/btn-avancar.svg',
-                      width: 30,
+                      width: 55,
                     ),
                     onPressed: () {
                       // Ação do botão próximo
@@ -151,23 +161,24 @@ class ArcTextPainter extends CustomPainter {
     );
 
     final textStyle = GoogleFonts.chewy(
-      fontSize: 36,
+      fontSize: 50,
       color: Colors.yellow,
       fontWeight: FontWeight.bold,
     );
 
     const text = "GLICOGOTAS";
-    final radius = size.width / 2; // Raio do arco
+    final radius = size.width / 4; // Raio do arco
     final centerX = size.width / 2; // Centro do arco no eixo X
-    final centerY = size.height /
-        3; // Centro do arco no eixo Y (ajuste para posicionamento)
+    final centerY = size.height / 1.2; // Centro do arco no eixo Y
 
-    // Ângulo inicial para a primeira letra
-    double startAngle = -pi / 2; // Inicia o arco curvado para cima
+    // Ajuste para ângulo inicial: para começar a 80 graus antes do topo (160 graus / 2)
+    double startAngle = -pi / 2 - (160 * pi / 180) / 2; // Ângulo inicial
 
-    // Ângulo que cada letra ocupará
-    final anglePerLetter =
-        pi / (text.length - 1); // Divide o arco igualmente entre as letras
+    // Ângulo total que o texto vai ocupar: 160 graus (em radianos)
+    const totalAngle = 160 * pi / 180; // Converte 160 graus para radianos
+
+    // Calcula o ângulo que cada letra ocupará
+    const anglePerLetter = totalAngle / (text.length - 1);
 
     for (int i = 0; i < text.length; i++) {
       // Calcula a posição de cada letra no arco

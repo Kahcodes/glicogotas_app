@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'tela_opcoes.dart';
+import 'home.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TelaInicial extends StatelessWidget {
@@ -18,7 +18,7 @@ class TelaInicial extends StatelessWidget {
             // O fundo com as ondinhas
             Positioned.fill(
               child: SvgPicture.asset(
-                'assets/images/decoracao.svg', // O caminho para o SVG exportado
+                'assets/images/decoracao.svg',
                 fit: BoxFit.cover,
               ),
             ),
@@ -36,6 +36,7 @@ class TelaInicial extends StatelessWidget {
                       height: 407,
                     ),
                   ),
+
                   SizedBox(
                     width: 300,
                     height: 29,
@@ -50,8 +51,8 @@ class TelaInicial extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                      height: 38), // Espaçamento entre o texto e o botão
+
+                  const SizedBox(height: 38),
 
                   // Botão de iniciar
                   ElevatedButton(
@@ -59,7 +60,7 @@ class TelaInicial extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const TelaOpcoes()),
+                            builder: (context) => const TelaHome()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -70,7 +71,7 @@ class TelaInicial extends StatelessWidget {
                             BorderRadius.circular(40), // Borda arredondada
                       ),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 8), // Padding do botão
+                          horizontal: 12, vertical: 8),
                     ),
                     child: SizedBox(
                       width: 153,

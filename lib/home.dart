@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'livro.dart';
+import 'package:glicogotas_app/Personagens/glicogotas.dart';
+import 'package:glicogotas_app/Livro/capa.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TelaOpcoes extends StatelessWidget {
-  const TelaOpcoes({super.key});
+class TelaHome extends StatelessWidget {
+  const TelaHome({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +53,7 @@ class TelaOpcoes extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Ícone central
-                      // ignore: sized_box_for_whitespace
-                      Container(
+                      SizedBox(
                         width: 131,
                         height: 282,
                         child: ClipRect(
@@ -63,6 +63,7 @@ class TelaOpcoes extends StatelessWidget {
                           ),
                         ),
                       ),
+
                       const SizedBox(
                           width: 20), // Espaçamento entre a imagem e o texto
                       // Texto lado a lado
@@ -114,6 +115,53 @@ class TelaOpcoes extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
+                            builder: (context) => const PersonagensPage()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF00D287),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
+                    ),
+                    child: SizedBox(
+                      width: 154,
+                      height: 32,
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: SvgPicture.asset(
+                              "assets/images/person.svg",
+                              fit: BoxFit.cover,
+                              height: 23,
+                              width: 23,
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              'PERSONAGENS',
+                              style: GoogleFonts.podkova(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
                             builder: (context) => const LivroPage()),
                       );
                     },
@@ -126,7 +174,7 @@ class TelaOpcoes extends StatelessWidget {
                           horizontal: 12, vertical: 8),
                     ),
                     child: SizedBox(
-                      width: 153, // Mantendo o tamanho do botão
+                      width: 153,
                       height: 32,
                       child: Stack(
                         children: [
@@ -153,12 +201,12 @@ class TelaOpcoes extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20), // Espaçamento entre os botões
+                  const SizedBox(height: 20),
 
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF00D287),
+                      backgroundColor: Colors.yellow,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
