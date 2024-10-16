@@ -40,13 +40,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^4.0.0
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^4.0.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -63,7 +65,16 @@ flutter:
     - assets/images/glicogotas_logo.png
     - assets/images/talita_icon.png
     - assets/images/decoracao.svg
-
+    - assets/images/person.svg
+    - assets/images/livro.svg
+    - assets/images/historia.svg
+    - assets/images/jogos.svg
+    - assets/images/talita_capa.png
+    - assets/images/pancreas.png
+    - assets/images/btn-voltar.svg
+    - assets/images/btn-som.svg
+    - assets/images/btn-ler.svg
+    - assets/images/btn-avancar.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

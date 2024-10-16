@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'tela_inicial.dart'; 
-
+import 'Iniciar.dart';
 
 void main() {
   runApp(const GlicogotasApp());
 }
 
 class GlicogotasApp extends StatelessWidget {
-  const GlicogotasApp({Key? key}) : super(key: key); // Adicione o key aqui
+  const GlicogotasApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class GlicogotasApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const TelaInicial(), // Usando const para otimização
+      home: const TelaInicial(),
     );
   }
 }
