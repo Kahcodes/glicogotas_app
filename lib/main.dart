@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Iniciar.dart';
+import 'iniciar.dart.dart';
 
 void main() {
   runApp(const GlicogotasApp());
