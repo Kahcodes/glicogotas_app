@@ -75,9 +75,34 @@ flutter:
     - assets/images/btn-som.svg
     - assets/images/btn-ler.svg
     - assets/images/btn-avancar.svg
-    - assets/images/tela-inicial-perso.png
+    - assets/images/tela-inicial-perso.svg
     - assets/images/fundo-azul.svg
-    
+    - assets/images/btn-avancar-branco.svg
+    - assets/images/fundo-lita.svg
+    - assets/images/btn-voltar-azul.svg
+    - assets/images/btn-som-azul.svg
+    - assets/images/btn-avancar-azul.svg
+    - assets/images/lita-person.svg
+    - assets/images/lita-heroina.svg
+    - assets/images/fundo-rei.svg
+    - assets/images/rei-da-hiper.svg
+    - assets/images/eclipse-rei.svg
+    - assets/images/fundo-bobo.svg
+    - assets/images/eclipse-bobo.svg
+    - assets/images/bobo-person.svg
+    - assets/images/fundo-fe.svg
+    - assets/images/eclipse-fe.svg
+    - assets/images/fe-person.svg
+    - assets/images/fundo-insulins.svg
+    - assets/images/eclipse-insulins.svg
+    - assets/images/insulins-person.svg
+    - assets/images/pumps-person.svg
+    - assets/images/eclipse-pumps.svg
+    - assets/images/fundo-pumps.svg
+    - assets/images/fundo-betinho.svg
+    - assets/images/eclipse-betinho.svg
+    - assets/images/betinho-person.svg
+    - assets/images/btn-som-branco.svg
 
 
   # To add assets to your application, add an assets section, like this:
