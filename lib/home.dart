@@ -4,6 +4,7 @@ import 'package:glicogotas_app/Personagens/glicogotas.dart';
 import 'package:glicogotas_app/Livro/capa.dart';
 import 'package:glicogotas_app/iniciar.dart.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'configuracoes.dart';
 
 class TelaHome extends StatelessWidget {
   const TelaHome({super.key});
@@ -49,7 +50,15 @@ class TelaHome extends StatelessWidget {
               child: IconButton(
                 iconSize: 30,
                 icon: const Icon(Icons.settings, color: Color(0xFF265F95)),
-                onPressed: () {},
+                onPressed: () {
+                  // Abrindo o diálogo de configurações
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const ConfigDialog(); // Chama o diálogo de configurações
+                    },
+                  );
+                },
               ),
             ),
 
