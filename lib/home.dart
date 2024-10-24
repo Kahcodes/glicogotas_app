@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/glicogotas.dart';
 import 'package:glicogotas_app/Livro/capa.dart';
+import 'package:glicogotas_app/iniciar.dart.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TelaHome extends StatelessWidget {
@@ -29,15 +30,24 @@ class TelaHome extends StatelessWidget {
               top: 40,
               left: 16,
               child: IconButton(
+                iconSize: 30,
                 icon:
                     const Icon(Icons.arrow_back_ios, color: Color(0xFF265F95)),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const TelaInicial()),
+                  );
+                },
               ),
             ),
+
             Positioned(
               top: 40,
               right: 16,
               child: IconButton(
+                iconSize: 30,
                 icon: const Icon(Icons.settings, color: Color(0xFF265F95)),
                 onPressed: () {},
               ),

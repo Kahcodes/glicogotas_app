@@ -1,160 +1,223 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:glicogotas_app/Personagens/glicogotas.dart';
+import 'package:glicogotas_app/Personagens/rei.dart';
+import 'package:glicogotas_app/home.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PersonagensPage extends StatelessWidget {
-  const PersonagensPage({super.key});
+class PersonagemLitaPage extends StatelessWidget {
+  const PersonagemLitaPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-        ),
-        child: Stack(
-          children: [
-            // O fundo lita
-            Positioned.fill(
+      backgroundColor: const Color(0xFFEAF7FF),
+      body: Stack(
+        children: [
+          // Fundo com as listras
+          Positioned.fill(
+            child: SvgPicture.asset(
+              'assets/images/fundo-lita.svg',
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          // Botão de voltar no topo esquerdo
+          Positioned(
+            top: 40,
+            left: 16,
+            child: IconButton(
+              iconSize: 30,
+              icon: const Icon(
+                Icons.home_rounded,
+                color: Color.fromARGB(255, 0, 132, 255),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const TelaHome()),
+                );
+              },
+            ),
+          ),
+
+          // Botão de configurações no topo direito
+          Positioned(
+            top: 40,
+            right: 16,
+            child: IconButton(
+              iconSize: 30,
+              icon: const Icon(
+                Icons.settings,
+                color: Color.fromARGB(255, 0, 132, 255),
+              ),
+              onPressed: () {},
+            ),
+          ),
+
+          // Nome do personagem (Lita) centralizado
+          Positioned(
+            top: size.height * 0.15,
+            left: 0,
+            right: 0,
+            child: Stack(
+              alignment: Alignment.center, // Alinha os textos exatamente
+              children: [
+                // Texto branco (borda)
+                Text(
+                  'Lita',
+                  style: GoogleFonts.chewy(
+                    fontSize: size.width * 0.13,
+                    foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 8
+                      ..color = const Color(0xFFFFFEFF), // Cor da borda branca
+                    shadows: [
+                      Shadow(
+                        color: Colors.black.withOpacity(0.25), // Sombra suave
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 5.0,
+                      ),
+                    ],
+                  ),
+                ),
+                // Texto rosa
+                Text(
+                  'Lita',
+                  style: GoogleFonts.chewy(
+                    fontSize: size.width * 0.13,
+                    color: const Color(0xFFF4719C), // Cor rosa
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // A bola do personagem no fundo
+          Positioned(
+            top: size.height * 0.28,
+            left: 0,
+            right: 0,
+            child: Center(
               child: SvgPicture.asset(
-                'assets/images/fundo-lita.svg',
-                fit: BoxFit.cover,
+                'assets/images/lita-person.svg',
+                height: size.height * 0.36, // Aumentei ligeiramente a bola
               ),
             ),
+          ),
 
-            // Ícones de voltar e configurações no topo
-            Positioned(
-              top: 40,
-              left: 16,
-              child: IconButton(
-                icon:
-                    const Icon(Icons.arrow_back_ios, color: Color(0xFF265F95)),
-                onPressed: () => Navigator.of(context).pop(),
+          // Personagem sobreposta à bola
+          Positioned(
+            top: size.height * 0.26,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: SvgPicture.asset(
+                'assets/images/lita-heroina.svg',
+                height: size.height * 0.42,
               ),
             ),
-            Positioned(
-              top: 40,
-              right: 16,
-              child: IconButton(
-                icon: const Icon(Icons.settings, color: Color(0xFF265F95)),
-                onPressed: () {},
-              ),
-            ),
+          ),
 
-            // Conteúdo da tela
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  // Título com sombra
-                  Text(
-                    'Lita',
-                    style: GoogleFonts.chewy(
-                      color: const Color(0xFFF4719C),
-                      fontSize: 32,
-                      fontWeight: FontWeight.w400,
-                      shadows: [
-                        Shadow(
-                          color: Colors.white, // Cor da sombra
-                          offset: Offset(2.0, 2.0), // Deslocamento da sombra
-                          blurRadius: 4.0, // Raio de desfoque da sombra
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 16), // Espaço entre título e logo
-
-                  // Ícone central
-                  SizedBox(
-                    width: 131,
-                    height: 282,
-                    child: ClipRect(
-                      child: Image.asset(
-                        'assets/images/talita_icon.png',
-                        fit: BoxFit.contain,
+          // Descrição do personagem
+          Positioned(
+            bottom: size.height * 0.20,
+            left: 20,
+            right: 20,
+            child: Stack(
+              alignment: Alignment
+                  .center, // Alinhamento central para as camadas de texto
+              children: [
+                // Texto branco (borda)
+                Text(
+                  'Ela é uma super-heroína que enfrenta o DMI em grandes aventuras!',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.chewy(
+                    fontSize: size.width * 0.05,
+                    foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 8
+                      ..color = const Color(0xFFFFFEFF), // Cor da borda branca
+                    shadows: [
+                      Shadow(
+                        color: Colors.black.withOpacity(0.25), // Sombra suave
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 5.0,
                       ),
-                    ),
+                    ],
                   ),
-
-                  const SizedBox(
-                      height: 16), // Espaçamento entre a imagem e o texto
-
-                  // Texto abaixo da imagem
-                  SizedBox(
-                    width: 300,
-                    child: Text(
-                      'Ela é uma super-heroína que enfrenta o DM1 em grandes aventuras!',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.chewy(
-                        color: const Color(0xFF265F95),
-                        fontSize: 15.5,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(
-                      height: 40), // Espaçamento entre o texto e os botões
-                ],
-              ),
-            ),
-
-            // Parte inferior da tela
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                decoration: const BoxDecoration(
-                  color: Colors
-                      .transparent, // Mantém a parte inferior transparente
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    IconButton(
-                      icon: SvgPicture.asset(
-                        'assets/images/btn-voltar.svg',
-                        width: 55,
-                      ),
-                      onPressed: () {
-                        // Ação do botão anterior
-                      },
-                    ),
-                    IconButton(
-                      icon: SvgPicture.asset(
-                        'assets/images/btn-som.svg',
-                        width: 55,
-                      ),
-                      onPressed: () {
-                        // Ação do botão música
-                      },
-                    ),
-                    IconButton(
-                      icon: SvgPicture.asset(
-                        'assets/images/btn-ler.svg',
-                        width: 55,
-                      ),
-                      onPressed: () {
-                        // Ação do botão ler
-                      },
-                    ),
-                    IconButton(
-                      icon: SvgPicture.asset(
-                        'assets/images/btn-avancar.svg',
-                        width: 55,
-                      ),
-                      onPressed: () {
-                        // Ação do botão próximo
-                      },
-                    ),
-                  ],
+                // Texto rosa
+                Text(
+                  'Ela é uma super-heroína que enfrenta o DMI em grandes aventuras!',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.chewy(
+                    fontSize: size.width * 0.05,
+                    color: const Color(0xFFF4719C), // Cor rosa
+                  ),
                 ),
+              ],
+            ),
+          ),
+
+          // Botões de navegação e som
+          Positioned(
+            bottom:
+                22, // Ajuste a altura aqui para aumentar a posição dos botões
+            left: 20,
+            child: IconButton(
+              icon: SvgPicture.asset(
+                'assets/images/btn-voltar-azul.svg',
+                width: 65,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PersonagensPage()),
+                ); // Ação do botão voltar
+              },
+            ),
+          ),
+
+          // Centralizando o botão do meio usando Align
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  bottom: 22), // Ajuste a altura aqui também
+              child: IconButton(
+                icon: SvgPicture.asset(
+                  'assets/images/btn-som-azul.svg',
+                  width: 65,
+                ),
+                onPressed: () {
+                  // Ação do botão som
+                },
               ),
             ),
-          ],
-        ),
+          ),
+
+          Positioned(
+            bottom: 22, // Ajuste a altura aqui também para o botão da direita
+            right: 20,
+            child: IconButton(
+              icon: SvgPicture.asset(
+                'assets/images/btn-avancar-azul.svg',
+                width: 65,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PersonagemReiPage()),
+                ); // Ação do botão avançar
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
