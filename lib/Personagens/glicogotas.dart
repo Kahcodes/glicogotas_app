@@ -49,7 +49,7 @@ class PersonagensPage extends StatelessWidget {
 
           // Título "Bem-Vindos" com contorno branco e sombra
           Positioned(
-            top: size.height * 0.08,
+            top: size.height * 0.12,
             left: 0,
             right: 0,
             child: Center(
