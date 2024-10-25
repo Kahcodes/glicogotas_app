@@ -81,7 +81,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                 });
               }),
 
-              const SizedBox(height: 20), // Espaçamento ajustado
+              const SizedBox(height: 20),
 
               // Ajuste de música com Switch on/off
               _buildSwitchOption('MÚSICA', _musicaOn, (value) {
@@ -90,9 +90,9 @@ class ConfigDialogState extends State<ConfigDialog> {
                 });
               }),
 
-              const SizedBox(height: 20), // Espaçamento ajustado
+              const SizedBox(height: 20),
 
-              // Ajuste de volume com Slider ao lado do texto
+              // Ajuste de volume com Slider
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -264,8 +264,8 @@ class ConfigDialogState extends State<ConfigDialog> {
         ),
         Switch(
           value: value,
-          activeColor: const Color(0xFF00E676), //
-          inactiveTrackColor: const Color(0xFFFF4081), //
+          activeColor: const Color(0xFFFCB44E), //
+          inactiveTrackColor: const Color(0xFFFFFFFF), //
           onChanged: onChanged,
         ),
       ],
