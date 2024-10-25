@@ -92,16 +92,53 @@ class ConfigDialogState extends State<ConfigDialog> {
 
               const SizedBox(height: 20), // Espaçamento ajustado
 
-              // Ajuste de volume com Slider
-              _buildSliderOption('VOLUME', _volumeValue, (value) {
-                setState(() {
-                  _volumeValue = value;
-                });
-              }),
+              // Ajuste de volume com Slider ao lado do texto
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'VOLUME',
+                    style: GoogleFonts.chewy(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xFFFFFFFF), // Títulos em FCB44E
+                      shadows: [
+                        Shadow(
+                          color: Colors.black.withOpacity(0.5),
+                          offset: const Offset(2, 2),
+                          blurRadius: 4,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: SliderTheme(
+                      data: SliderThemeData(
+                        trackHeight: 4, // Altura da barra
+                        thumbColor: const Color(0xFFFCB44E), // Cor da bolinha
+                        activeTrackColor:
+                            const Color(0xFFFCB44E), // Parte preenchida
+                        inactiveTrackColor:
+                            const Color(0xFFFFFFFF), // Parte não preenchida
+                      ),
+                      child: Slider(
+                        value: _volumeValue,
+                        min: 0,
+                        max: 1,
+                        onChanged: (value) {
+                          setState(() {
+                            _volumeValue = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
 
               const SizedBox(height: 20),
 
-              // idioma
+              // Idioma
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -109,7 +146,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                   style: GoogleFonts.chewy(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xFFFFFFFF), // Cor FCB44E
+                    color: const Color(0xFFFFFFFF),
                     shadows: [
                       Shadow(
                         color: Colors.black.withOpacity(0.5),
@@ -134,7 +171,7 @@ class ConfigDialogState extends State<ConfigDialog> {
 
               const SizedBox(height: 20),
 
-              //  ícone ?
+              // Ícone de ajuda
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -164,45 +201,6 @@ class ConfigDialogState extends State<ConfigDialog> {
           ),
         ),
       ),
-    );
-  }
-
-  // Função para criar as opções de controle deslizante
-  Widget _buildSliderOption(
-      String title, double value, ValueChanged<double> onChanged) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: GoogleFonts.chewy(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: const Color(0xFFFFFFFF), // Títulos em FCB44E
-            shadows: [
-              Shadow(
-                color: Colors.black.withOpacity(0.5),
-                offset: const Offset(2, 2),
-                blurRadius: 4,
-              ),
-            ],
-          ),
-        ),
-        SliderTheme(
-          data: SliderThemeData(
-            trackHeight: 4, // Altura da barra
-            thumbColor: const Color(0xFFFCB44E), // Cor da bolinha
-            activeTrackColor: const Color(0xFFFCB44E), // Parte preenchida
-            inactiveTrackColor: const Color(0xFFFFFFFF), // Parte não preenchida
-          ),
-          child: Slider(
-            value: value,
-            min: 0,
-            max: 1,
-            onChanged: onChanged,
-          ),
-        ),
-      ],
     );
   }
 
@@ -243,7 +241,7 @@ class ConfigDialogState extends State<ConfigDialog> {
     );
   }
 
-  // Função para criar as opções de switch (on/off) com sombra
+  //(on/off) com cores mais vibrantes
   Widget _buildSwitchOption(
       String title, bool value, ValueChanged<bool> onChanged) {
     return Row(
@@ -266,9 +264,8 @@ class ConfigDialogState extends State<ConfigDialog> {
         ),
         Switch(
           value: value,
-          activeColor: const Color(0xFF00D287), // Cor do switch quando ligado
-          inactiveTrackColor:
-              const Color(0xFFF4719C), // Cor do switch quando desligado
+          activeColor: const Color(0xFF00E676), //
+          inactiveTrackColor: const Color(0xFFFF4081), //
           onChanged: onChanged,
         ),
       ],
