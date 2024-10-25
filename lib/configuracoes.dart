@@ -53,7 +53,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                       child: Text(
                         'CONFIGURAÇÕES',
                         style: GoogleFonts.chewy(
-                          fontSize: 20,
+                          fontSize: 23,
                           fontWeight: FontWeight.bold,
                           color: const Color(0xFFFCB44E), // Cor FCB44E
                           shadows: [
@@ -99,7 +99,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                   Text(
                     'VOLUME',
                     style: GoogleFonts.chewy(
-                      fontSize: 16,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: const Color(0xFFFFFFFF), // Títulos em FCB44E
                       shadows: [
@@ -144,7 +144,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                 child: Text(
                   'IDIOMA:',
                   style: GoogleFonts.chewy(
-                    fontSize: 16,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: const Color(0xFFFFFFFF),
                     shadows: [
@@ -250,7 +250,7 @@ class ConfigDialogState extends State<ConfigDialog> {
         Text(
           title,
           style: GoogleFonts.chewy(
-            fontSize: 16,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
             color: const Color(0xFFFFFFFF), // Títulos em FCB44E
             shadows: [
