@@ -103,6 +103,7 @@ flutter:
     - assets/images/eclipse-betinho.svg
     - assets/images/betinho-person.svg
     - assets/images/btn-som-branco.svg
+    - assets/images/fundopaglivro.svg
 
 
   # To add assets to your application, add an assets section, like this:

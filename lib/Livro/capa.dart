@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
+import 'package:glicogotas_app/Livro/pagina1.dart'; // Certifique-se de que esse caminho está correto
 
 class CapaPage extends StatelessWidget {
   const CapaPage({super.key});
@@ -126,7 +127,13 @@ class CapaPage extends StatelessWidget {
                       width: 55,
                     ),
                     onPressed: () {
-                      // Ação do botão próximo
+                      // Ação do botão próximo, que vai navegar para pagina1
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const Pagina1Page()), // Corrigido para Pagina1Page
+                      );
                     },
                   ),
                 ],
