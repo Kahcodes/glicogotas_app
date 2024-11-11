@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'pagina4.dart'; // Importando a próxima página
+import 'package:glicogotas_app/Livro/pagina4.dart';
 
 class Pagina3Page extends StatelessWidget {
   const Pagina3Page({super.key});
@@ -29,7 +29,7 @@ class Pagina3Page extends StatelessWidget {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
-                Navigator.pop(context); // Navega para a página anterior
+                Navigator.pop(context);
               },
             ),
           ),
@@ -37,34 +37,13 @@ class Pagina3Page extends StatelessWidget {
             top: size.height * 0.15,
             left: 0,
             right: 0,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Text(
-                  'Título da Página 3',
-                  style: TextStyle(
-                    fontSize: size.width * 0.13,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 8
-                      ..color = const Color(0xFFFFFEFF),
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withOpacity(0.25),
-                        offset: Offset(3.0, 3.0),
-                        blurRadius: 5.0,
-                      ),
-                    ],
-                  ),
-                ),
-                Text(
-                  'Título da Página 3',
-                  style: TextStyle(
-                    fontSize: size.width * 0.13,
-                    color: const Color(0xFFF4719C),
-                  ),
-                ),
-              ],
+            child: Text(
+              'Título da Página 3',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: size.width * 0.1,
+                color: const Color(0xFFF4719C),
+              ),
             ),
           ),
           Positioned(
@@ -79,11 +58,11 @@ class Pagina3Page extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-som.svg',
+                      'assets/images/btn-voltar.svg',
                       width: 55,
                     ),
                     onPressed: () {
-                      // Ação do botão música
+                      Navigator.pop(context);
                     },
                   ),
                   IconButton(
@@ -97,6 +76,15 @@ class Pagina3Page extends StatelessWidget {
                   ),
                   IconButton(
                     icon: SvgPicture.asset(
+                      'assets/images/btn-som.svg',
+                      width: 55,
+                    ),
+                    onPressed: () {
+                      // Ação do botão som
+                    },
+                  ),
+                  IconButton(
+                    icon: SvgPicture.asset(
                       'assets/images/btn-avancar.svg',
                       width: 55,
                     ),
@@ -104,9 +92,7 @@ class Pagina3Page extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              const Pagina4Page(), // Navega para a próxima página
-                        ),
+                            builder: (context) => const Pagina4Page()),
                       );
                     },
                   ),

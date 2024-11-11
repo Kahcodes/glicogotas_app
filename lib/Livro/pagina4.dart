@@ -12,15 +12,12 @@ class Pagina4Page extends StatelessWidget {
       backgroundColor: const Color(0xFFfffcf3),
       body: Stack(
         children: [
-          // Fundo com as listras
           Positioned.fill(
             child: SvgPicture.asset(
-              'assets/images/fundopaglivro.svg', // Fundo da página
+              'assets/images/fundopaglivro.svg',
               fit: BoxFit.cover,
             ),
           ),
-
-          // Ícone de voltar no topo esquerdo
           Positioned(
             top: 40,
             left: 16,
@@ -31,50 +28,23 @@ class Pagina4Page extends StatelessWidget {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
-                Navigator.pop(context); // Volta para a página anterior
+                Navigator.pop(context);
               },
             ),
           ),
-
-          // Nome do personagem ou título centralizado
           Positioned(
             top: size.height * 0.15,
             left: 0,
             right: 0,
-            child: Stack(
-              alignment: Alignment.center, // Alinha os textos exatamente
-              children: [
-                // Texto branco (borda)
-                Text(
-                  'Título da Página 4', // Título da nova página
-                  style: TextStyle(
-                    fontSize: size.width * 0.13,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 8
-                      ..color = const Color(0xFFFFFEFF), // Cor da borda branca
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withOpacity(0.25), // Sombra suave
-                        offset: Offset(3.0, 3.0),
-                        blurRadius: 5.0,
-                      ),
-                    ],
-                  ),
-                ),
-                // Texto central
-                Text(
-                  'Título da Página 4',
-                  style: TextStyle(
-                    fontSize: size.width * 0.13,
-                    color: const Color(0xFFF4719C), // Cor rosa
-                  ),
-                ),
-              ],
+            child: Text(
+              'Título da Página 4',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: size.width * 0.1,
+                color: const Color(0xFFF4719C),
+              ),
             ),
           ),
-
-          // Parte inferior da tela com botões
           Positioned(
             bottom: 0,
             left: 0,
@@ -87,11 +57,11 @@ class Pagina4Page extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-som.svg',
+                      'assets/images/btn-voltar.svg',
                       width: 55,
                     ),
                     onPressed: () {
-                      // Ação do botão música
+                      Navigator.pop(context);
                     },
                   ),
                   IconButton(
@@ -105,11 +75,11 @@ class Pagina4Page extends StatelessWidget {
                   ),
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-avancar.svg',
+                      'assets/images/btn-som.svg',
                       width: 55,
                     ),
                     onPressed: () {
-                      // Ação do botão avançar (não há próxima página)
+                      // Ação do botão som
                     },
                   ),
                 ],

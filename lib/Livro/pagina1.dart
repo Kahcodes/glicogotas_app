@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:glicogotas_app/Livro/pagina2.dart';
 
 class Pagina1Page extends StatelessWidget {
   const Pagina1Page({super.key});
@@ -12,15 +13,12 @@ class Pagina1Page extends StatelessWidget {
       backgroundColor: const Color(0xFFfffcf3),
       body: Stack(
         children: [
-          // Fundo com as listras
           Positioned.fill(
             child: SvgPicture.asset(
-              'assets/images/fundopaglivro.svg', // fundo e tals
+              'assets/images/fundopaglivro.svg',
               fit: BoxFit.cover,
             ),
           ),
-
-          // Ícone de voltar no topo esquerdo
           Positioned(
             top: 40,
             left: 16,
@@ -31,66 +29,23 @@ class Pagina1Page extends StatelessWidget {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
-                Navigator.pop(context); // Voltar à página anterior
+                Navigator.pop(context);
               },
             ),
           ),
-
-          // Ícone de configurações no topo direito
-          Positioned(
-            top: 40,
-            right: 16,
-            child: IconButton(
-              iconSize: 30,
-              icon: const Icon(
-                Icons.settings,
-                color: Color(0xFF265F95),
-              ),
-              onPressed: () {
-                // Ação do botão de configurações
-              },
-            ),
-          ),
-
-          // Nome do personagem ou título centralizado
           Positioned(
             top: size.height * 0.15,
             left: 0,
             right: 0,
-            child: Stack(
-              alignment: Alignment.center, // Alinha os textos exatamente
-              children: [
-                // Texto branco (borda)
-                Text(
-                  'Título da Página 1', // Título da nova página
-                  style: TextStyle(
-                    fontSize: size.width * 0.13,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 8
-                      ..color = const Color(0xFFFFFEFF), // Cor da borda branca
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withOpacity(0.25), // Sombra suave
-                        offset: Offset(3.0, 3.0),
-                        blurRadius: 5.0,
-                      ),
-                    ],
-                  ),
-                ),
-                // Texto central
-                Text(
-                  'Título da Página 1',
-                  style: TextStyle(
-                    fontSize: size.width * 0.13,
-                    color: const Color(0xFFF4719C), // Cor rosa
-                  ),
-                ),
-              ],
+            child: Text(
+              'Título da Página 1',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: size.width * 0.1,
+                color: const Color(0xFFF4719C),
+              ),
             ),
           ),
-
-          // Parte inferior da tela com botões
           Positioned(
             bottom: 0,
             left: 0,
@@ -103,21 +58,16 @@ class Pagina1Page extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-avancar.svg', // Avançar
+                      'assets/images/btn-voltar.svg',
                       width: 55,
                     ),
                     onPressed: () {
-                      // Ação do botão avançar (Página 2)
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Pagina1Page()),
-                      );
+                      Navigator.pop(context);
                     },
                   ),
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-ler.svg', // Ler
+                      'assets/images/btn-ler.svg',
                       width: 55,
                     ),
                     onPressed: () {
@@ -126,7 +76,7 @@ class Pagina1Page extends StatelessWidget {
                   ),
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-som.svg', // Som
+                      'assets/images/btn-som.svg',
                       width: 55,
                     ),
                     onPressed: () {
@@ -135,12 +85,15 @@ class Pagina1Page extends StatelessWidget {
                   ),
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-som.svg', // Som (botão de voltar)
+                      'assets/images/btn-avancar.svg',
                       width: 55,
                     ),
                     onPressed: () {
-                      // Ação do botão voltar
-                      Navigator.pop(context); // Voltar à página anterior
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Pagina2Page()),
+                      );
                     },
                   ),
                 ],
