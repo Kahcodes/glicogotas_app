@@ -107,15 +107,6 @@ class LivroPage extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-voltar.svg',
-                      width: 55,
-                    ),
-                    onPressed: () {
-                      // Ação do botão anterior
-                    },
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
                       'assets/images/btn-som.svg',
                       width: 55,
                     ),
