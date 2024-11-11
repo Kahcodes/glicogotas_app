@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Pagina1Page extends StatelessWidget {
-  const Pagina1Page({super.key});
+class Pagina2Page extends StatelessWidget {
+  const Pagina2Page({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -103,21 +103,16 @@ class Pagina1Page extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-avancar.svg', // Avançar
+                      'assets/images/btn-som.svg',
                       width: 55,
                     ),
                     onPressed: () {
-                      // Ação do botão avançar (Página 2)
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Pagina1Page()),
-                      );
+                      // Ação do botão música
                     },
                   ),
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-ler.svg', // Ler
+                      'assets/images/btn-ler.svg',
                       width: 55,
                     ),
                     onPressed: () {
@@ -126,21 +121,26 @@ class Pagina1Page extends StatelessWidget {
                   ),
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-som.svg', // Som
+                      'assets/images/btn-avancar.svg', // Usando o mesmo ícone para "avançar"
                       width: 55,
                     ),
                     onPressed: () {
-                      // Ação do botão som
+                      // Ação do botão avançar (Página 2)
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Pagina2Page()),
+                      );
                     },
                   ),
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-som.svg', // Som (botão de voltar)
+                      'assets/images/btn-avancar.svg', // Usando o mesmo ícone de "avançar" para o "voltar"
                       width: 55,
                     ),
                     onPressed: () {
-                      // Ação do botão voltar
-                      Navigator.pop(context); // Voltar à página anterior
+                      // Ação do botão voltar (retornar à página anterior)
+                      Navigator.pop(context);
                     },
                   ),
                 ],

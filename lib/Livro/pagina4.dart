@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Pagina1Page extends StatelessWidget {
-  const Pagina1Page({super.key});
+class Pagina4Page extends StatelessWidget {
+  const Pagina4Page({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class Pagina1Page extends StatelessWidget {
           // Fundo com as listras
           Positioned.fill(
             child: SvgPicture.asset(
-              'assets/images/fundopaglivro.svg', // fundo e tals
+              'assets/images/fundopaglivro.svg', // Fundo da página
               fit: BoxFit.cover,
             ),
           ),
@@ -31,23 +31,7 @@ class Pagina1Page extends StatelessWidget {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
-                Navigator.pop(context); // Voltar à página anterior
-              },
-            ),
-          ),
-
-          // Ícone de configurações no topo direito
-          Positioned(
-            top: 40,
-            right: 16,
-            child: IconButton(
-              iconSize: 30,
-              icon: const Icon(
-                Icons.settings,
-                color: Color(0xFF265F95),
-              ),
-              onPressed: () {
-                // Ação do botão de configurações
+                Navigator.pop(context); // Volta para a página anterior
               },
             ),
           ),
@@ -62,7 +46,7 @@ class Pagina1Page extends StatelessWidget {
               children: [
                 // Texto branco (borda)
                 Text(
-                  'Título da Página 1', // Título da nova página
+                  'Título da Página 4', // Título da nova página
                   style: TextStyle(
                     fontSize: size.width * 0.13,
                     foreground: Paint()
@@ -80,7 +64,7 @@ class Pagina1Page extends StatelessWidget {
                 ),
                 // Texto central
                 Text(
-                  'Título da Página 1',
+                  'Título da Página 4',
                   style: TextStyle(
                     fontSize: size.width * 0.13,
                     color: const Color(0xFFF4719C), // Cor rosa
@@ -103,21 +87,16 @@ class Pagina1Page extends StatelessWidget {
                 children: [
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-avancar.svg', // Avançar
+                      'assets/images/btn-som.svg',
                       width: 55,
                     ),
                     onPressed: () {
-                      // Ação do botão avançar (Página 2)
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Pagina1Page()),
-                      );
+                      // Ação do botão música
                     },
                   ),
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-ler.svg', // Ler
+                      'assets/images/btn-ler.svg',
                       width: 55,
                     ),
                     onPressed: () {
@@ -126,21 +105,11 @@ class Pagina1Page extends StatelessWidget {
                   ),
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-som.svg', // Som
+                      'assets/images/btn-avancar.svg',
                       width: 55,
                     ),
                     onPressed: () {
-                      // Ação do botão som
-                    },
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/images/btn-som.svg', // Som (botão de voltar)
-                      width: 55,
-                    ),
-                    onPressed: () {
-                      // Ação do botão voltar
-                      Navigator.pop(context); // Voltar à página anterior
+                      // Ação do botão avançar (não há próxima página)
                     },
                   ),
                 ],
