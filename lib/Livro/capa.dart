@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
 
-class LivroPage extends StatelessWidget {
-  const LivroPage({super.key});
+class CapaPage extends StatelessWidget {
+  const CapaPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,7 @@ class LivroPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back_ios,
-                        color: Color(0xFFFFFFFF)),
+                    icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   IconButton(
@@ -37,38 +36,38 @@ class LivroPage extends StatelessWidget {
             // Espaçamento entre a parte superior e o conteúdo principal
             const SizedBox(height: 40),
 
-            // Textos centrais
+            // Stack para centralizar o conteúdo
             Expanded(
               child: Stack(
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Texto "GLICOGOTAS" em arco
-                      CustomPaint(
-                        painter: ArcTextPainter(),
-                        child: Container(
-                          height: 80,
-                        ),
+                  // Centralizando o texto e movendo um pouco para cima
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 100), // Ajustando o topo
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          // Texto "GLICOGOTAS" em arco
+                          CustomPaint(
+                            painter: ArcTextPainter(),
+                            child: Container(height: 80),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'DESCOMPLICANDO',
+                            style: GoogleFonts.chewy(
+                                fontSize: 36, color: Colors.yellow),
+                          ),
+                          Text(
+                            'o Diabetes',
+                            style: GoogleFonts.chewy(
+                                fontSize: 36, color: Colors.yellow),
+                          ),
+                        ],
                       ),
-
-                      const SizedBox(height: 10),
-                      Text(
-                        'DESCOMPLICANDO',
-                        style: GoogleFonts.chewy(
-                          fontSize: 36,
-                          color: Colors.yellow,
-                        ),
-                      ),
-
-                      Text(
-                        'o Diabetes',
-                        style: GoogleFonts.chewy(
-                          fontSize: 36,
-                          color: Colors.yellow,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
 
                   // Posicionando a Talita
@@ -85,10 +84,10 @@ class LivroPage extends StatelessWidget {
                   // Posicionando o pâncreas no canto inferior direito
                   Positioned(
                     bottom: 0,
-                    right: 20, // Adicionei um pequeno padding da direita
+                    right: 20,
                     child: Image.asset(
                       'assets/images/pancreas.png',
-                      height: 150, // Ajuste de altura do pâncreas
+                      height: 150,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -96,12 +95,10 @@ class LivroPage extends StatelessWidget {
               ),
             ),
 
-            // Parte inferior da tela
+            // Parte inferior da tela com botões
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: const BoxDecoration(
-                color: Color(0xFFFFFFFF),
-              ),
+              decoration: const BoxDecoration(color: Colors.white),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -142,7 +139,7 @@ class LivroPage extends StatelessWidget {
   }
 }
 
-// CustomPainter para o texto em arco curvado para cima
+// CustomPainter para o texto em arco
 class ArcTextPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -158,51 +155,30 @@ class ArcTextPainter extends CustomPainter {
     );
 
     const text = "GLICOGOTAS";
-    final radius = size.width / 4; // Raio do arco
-    final centerX = size.width / 2; // Centro do arco no eixo X
-    final centerY = size.height / 1.2; // Centro do arco no eixo Y
+    final radius = size.width / 4;
+    final centerX = size.width / 2;
+    final centerY = size.height / 1.2;
 
-    // Ajuste para ângulo inicial: para começar a 80 graus antes do topo (160 graus / 2)
-    double startAngle = -pi / 2 - (160 * pi / 180) / 2; // Ângulo inicial
-
-    // Ângulo total que o texto vai ocupar: 160 graus (em radianos)
-    const totalAngle = 160 * pi / 180; // Converte 160 graus para radianos
-
-    // Calcula o ângulo que cada letra ocupará
+    double startAngle = -pi / 2 - (160 * pi / 180) / 2;
+    const totalAngle = 160 * pi / 180;
     const anglePerLetter = totalAngle / (text.length - 1);
 
     for (int i = 0; i < text.length; i++) {
-      // Calcula a posição de cada letra no arco
       final angle = startAngle + (i * anglePerLetter);
 
-      // Coordenadas para cada letra no arco
       final offset = Offset(
         centerX + radius * cos(angle),
         centerY + radius * sin(angle),
       );
 
-      // Definindo a rotação de cada letra para alinhá-las no arco
-      textPainter.text = TextSpan(
-        text: text[i],
-        style: textStyle,
-      );
+      textPainter.text = TextSpan(text: text[i], style: textStyle);
       textPainter.layout();
 
-      // Salva o estado do canvas para rotacionar cada letra individualmente
       canvas.save();
-
-      // Move o canvas para a posição da letra
       canvas.translate(offset.dx, offset.dy);
-
-      // Rotaciona a letra para que siga o arco corretamente
-      canvas.rotate(
-          angle + pi / 2); // Rotaciona as letras para alinhá-las no arco
-
-      // Desenha a letra
+      canvas.rotate(angle + pi / 2);
       textPainter.paint(
           canvas, Offset(-textPainter.width / 2, -textPainter.height / 2));
-
-      // Restaura o estado do canvas
       canvas.restore();
     }
   }

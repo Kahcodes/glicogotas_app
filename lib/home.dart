@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/glicogotas.dart';
-import 'package:glicogotas_app/Livro/capa.dart';
+import 'package:glicogotas_app/Livro/capa.dart'; // Certifique-se de que este import esteja correto
 import 'package:glicogotas_app/iniciar.dart.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'configuracoes.dart';
@@ -67,62 +67,63 @@ class TelaHome extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  // Row para alinhar a imagem e o texto lado a lado
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Ícone central
-                      SizedBox(
-                        width: 131,
-                        height: 282,
-                        child: ClipRect(
-                          child: Image.asset(
-                            'assets/images/talita_icon.png',
-                            fit: BoxFit.contain,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10), // Ajuste ainda mais para cima
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Ícone central
+                        SizedBox(
+                          width: 131,
+                          height: 282,
+                          child: ClipRect(
+                            child: Image.asset(
+                              'assets/images/talita_icon.png',
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
-                      ),
-
-                      const SizedBox(
-                          width: 20), // Espaçamento entre a imagem e o texto
-                      // Texto lado a lado
-                      Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start, // Alinhamento à esquerda
-                        children: [
-                          Text(
-                            'Como vamos',
-                            style: GoogleFonts.sansitaSwashed(
-                              color: const Color(0xFF37ABDC),
-                              fontSize: 24,
-                              fontWeight: FontWeight.w400,
+                        const SizedBox(
+                            width: 20), // Espaçamento entre a imagem e o texto
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment
+                              .start, // Alinhamento à esquerda
+                          children: [
+                            Text(
+                              'Como vamos',
+                              style: GoogleFonts.sansitaSwashed(
+                                color: const Color(0xFF37ABDC),
+                                fontSize: 24,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'aprender',
-                                  style: GoogleFonts.sansitaSwashed(
-                                    color: const Color(0xFFF4719C),
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w400,
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'aprender',
+                                    style: GoogleFonts.sansitaSwashed(
+                                      color: const Color(0xFFF4719C),
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(
-                                  text: ' hoje?',
-                                  style: GoogleFonts.sansitaSwashed(
-                                    color: const Color(0xFF37ABDC),
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w400,
+                                  TextSpan(
+                                    text: ' hoje?',
+                                    style: GoogleFonts.sansitaSwashed(
+                                      color: const Color(0xFF37ABDC),
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
 
                   const SizedBox(
@@ -181,7 +182,8 @@ class TelaHome extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LivroPage()),
+                            builder: (context) =>
+                                const CapaPage()), // Corrigido para CapaPage
                       );
                     },
                     style: ElevatedButton.styleFrom(
