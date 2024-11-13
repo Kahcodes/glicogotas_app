@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:glicogotas_app/Livro/capa.dart';
 import 'package:glicogotas_app/Livro/pagina2.dart';
+import 'package:glicogotas_app/home.dart';
 
 class Pagina1Page extends StatelessWidget {
   const Pagina1Page({super.key});
@@ -25,27 +27,53 @@ class Pagina1Page extends StatelessWidget {
             child: IconButton(
               iconSize: 30,
               icon: const Icon(
-                Icons.arrow_back_ios,
+                Icons.home_rounded,
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const TelaHome()),
+                );
               },
             ),
           ),
           Positioned(
-            top: size.height * 0.15,
-            left: 0,
-            right: 0,
-            child: Text(
-              'Título da Página 1',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: size.width * 0.1,
-                color: const Color(0xFFF4719C),
+            top: 40,
+            right: 16,
+            child: IconButton(
+              iconSize: 30,
+              icon: const Icon(
+                Icons.settings,
+                color: Color(0xFF265F95),
               ),
+              onPressed: () {},
             ),
           ),
+
+          // Personagem Lita centralizada e maior
+          Positioned(
+            top: size.height * 0.25,
+            right: size.width * 0.15,
+            child: SvgPicture.asset(
+              'assets/images/lita.svg', // Substitua pelo caminho correto do arquivo da imagem da Lita
+              height: size.height * 0.6, // Aumentado para 40% da altura da tela
+            ),
+          ),
+
+          // Balão de fala reposicionado e maior
+          Positioned(
+            top: size.height *
+                0.05, // Descido um pouco mais para ficar mais próximo da Lita
+            left: size.width * 0.05,
+            right: size.width * 0.05,
+            child: SvgPicture.asset(
+              'assets/images/balão-duplo.svg', // Caminho do SVG do balão duplo
+              width: size.width * 1.2, // Aumentado para 120% da largura da tela
+            ),
+          ),
+
+          // TabBar laranja com botão de avançar à direita
           Positioned(
             bottom: 0,
             left: 0,
@@ -54,29 +82,24 @@ class Pagina1Page extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: const BoxDecoration(color: Color(0xFFFCB44E)),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-voltar.svg',
+                      'assets/images/btn-voltar-laranja.svg',
                       width: 55,
                     ),
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CapaPage()),
+                      );
                     },
                   ),
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-ler.svg',
-                      width: 55,
-                    ),
-                    onPressed: () {
-                      // Ação do botão ler
-                    },
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/images/btn-som.svg',
+                      'assets/images/btn-som-laranja.svg',
                       width: 55,
                     ),
                     onPressed: () {
@@ -85,7 +108,7 @@ class Pagina1Page extends StatelessWidget {
                   ),
                   IconButton(
                     icon: SvgPicture.asset(
-                      'assets/images/btn-avancar.svg',
+                      'assets/images/btn-avancar-laranja.svg',
                       width: 55,
                     ),
                     onPressed: () {
