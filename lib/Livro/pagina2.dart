@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Livro/pagina1.dart';
 import 'package:glicogotas_app/Livro/pagina3.dart';
+import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 
 class Pagina2Page extends StatefulWidget {
@@ -23,7 +24,13 @@ class _Pagina2PageState extends State<Pagina2Page> {
       Navigator.push(
         // ignore: use_build_context_synchronously
         context,
-        MaterialPageRoute(builder: (context) => const Pagina3Page()),
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              Pagina3Page(),
+          transitionDuration: Duration.zero, // Remove a duração da transição
+          reverseTransitionDuration:
+              Duration.zero, // Remove a duração da transição reversa
+        ),
       );
     });
   }
@@ -68,7 +75,14 @@ class _Pagina2PageState extends State<Pagina2Page> {
                 Icons.settings,
                 color: Color(0xFF265F95),
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const ConfigDialog(); // Chama o diálogo de configurações
+                  },
+                );
+              },
             ),
           ),
 

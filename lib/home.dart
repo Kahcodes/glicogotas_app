@@ -183,7 +183,7 @@ class TelaHome extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const CapaPage()), // Corrigido para CapaPage
+                                CapaPage()), // Corrigido para CapaPage
                       );
                     },
                     style: ElevatedButton.styleFrom(
