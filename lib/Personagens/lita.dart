@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/glicogotas.dart';
 import 'package:glicogotas_app/Personagens/rei.dart';
+import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -53,7 +54,14 @@ class PersonagemLitaPage extends StatelessWidget {
                 Icons.settings,
                 color: Color.fromARGB(255, 0, 132, 255),
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const ConfigDialog(); // Chama o diálogo de configurações
+                  },
+                );
+              },
             ),
           ),
 

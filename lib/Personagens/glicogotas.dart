@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/lita.dart';
+import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -43,7 +44,14 @@ class PersonagensPage extends StatelessWidget {
             child: IconButton(
               iconSize: 30,
               icon: const Icon(Icons.settings, color: Colors.white),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const ConfigDialog(); // Chama o diálogo de configurações
+                  },
+                );
+              },
             ),
           ),
 

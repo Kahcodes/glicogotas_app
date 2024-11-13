@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Livro/capa.dart';
 import 'package:glicogotas_app/Livro/pagina2.dart';
+import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 
 class Pagina1Page extends StatelessWidget {
@@ -47,7 +48,14 @@ class Pagina1Page extends StatelessWidget {
                 Icons.settings,
                 color: Color(0xFF265F95),
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const ConfigDialog(); // Chama o diálogo de configurações
+                  },
+                );
+              },
             ),
           ),
 

@@ -2,12 +2,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Livro/pagina1.dart';
+import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 
 class Pagina4Page extends StatefulWidget {
   const Pagina4Page({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _Pagina4PageState createState() => _Pagina4PageState();
 }
 
@@ -60,7 +62,14 @@ class _Pagina4PageState extends State<Pagina4Page> {
                 Icons.settings,
                 color: Color(0xFF265F95),
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const ConfigDialog(); // Chama o diálogo de configurações
+                  },
+                );
+              },
             ),
           ),
 
