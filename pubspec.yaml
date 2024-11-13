@@ -104,6 +104,18 @@ flutter:
     - assets/images/betinho-person.svg
     - assets/images/btn-som-branco.svg
     - assets/images/fundopaglivro.svg
+    - assets/images/btn-avancar-laranja.svg
+    - assets/images/btn-som-laranja.svg
+    - assets/images/lita.svg    
+    - assets/images/balão-duplo.svg
+    - assets/images/btn-voltar-laranja.svg
+    - assets/images/balão-page2.svg
+    - assets/images/lita-falando.svg
+    - assets/images/balão-page3.svg
+    - assets/images/lita-pancreas.svg
+    - assets/images/balão-page4.svg
+    - assets/images/pancreas.svg
+
 
 
   # To add assets to your application, add an assets section, like this:

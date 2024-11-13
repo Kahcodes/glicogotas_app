@@ -72,23 +72,24 @@ class CapaPage extends StatelessWidget {
                   ),
 
                   // Posicionando a Talita
+                  // Personagem Talita no canto inferior esquerdo, com tamanho maior
                   Positioned(
                     bottom: 0,
                     left: 0,
                     child: Image.asset(
                       'assets/images/talita_capa.png',
-                      height: 175,
+                      height: 290, // Aumentado para 250 para ocupar mais espaço
                       fit: BoxFit.cover,
                     ),
                   ),
 
-                  // Posicionando o pâncreas no canto inferior direito
+// Pâncreas no canto inferior direito, com tamanho maior
                   Positioned(
                     bottom: 0,
                     right: 20,
                     child: Image.asset(
                       'assets/images/pancreas.png',
-                      height: 150,
+                      height: 180, // Aumentado para 220 para ocupar mais espaço
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -97,46 +98,49 @@ class CapaPage extends StatelessWidget {
             ),
 
             // Parte inferior da tela com botões
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: const BoxDecoration(color: Colors.white),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/images/btn-som.svg',
-                      width: 55,
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 255, 255, 255)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 60, // Largura equivalente ao botão de voltar
                     ),
-                    onPressed: () {
-                      // Ação do botão música
-                    },
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/images/btn-ler.svg',
-                      width: 55,
+                    // Botão "som" centralizado
+                    IconButton(
+                      icon: SvgPicture.asset(
+                        'assets/images/btn-som-azul.svg',
+                        width: 60,
+                      ),
+                      onPressed: () {
+                        // Ação do botão som
+                      },
                     ),
-                    onPressed: () {
-                      // Ação do botão ler
-                    },
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/images/btn-avancar.svg',
-                      width: 55,
+
+                    IconButton(
+                      icon: SvgPicture.asset(
+                        'assets/images/btn-avancar-azul.svg',
+                        width: 60,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Pagina1Page()),
+                        ); // Ação do botão voltar
+                      },
                     ),
-                    onPressed: () {
-                      // Ação do botão próximo, que vai navegar para pagina1
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const Pagina1Page()), // Corrigido para Pagina1Page
-                      );
-                    },
-                  ),
-                ],
+
+                    // Botão invisível para ocupar o espaço à direita
+                  ],
+                ),
               ),
             ),
           ],
