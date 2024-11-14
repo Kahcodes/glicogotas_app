@@ -68,7 +68,7 @@ class CapaPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            'DESCOMPLICAÇÃO',
+                            'DESCOMPLICANDO',
                             style: GoogleFonts.chewy(
                                 fontSize: 36, color: Colors.yellow),
                           ),
