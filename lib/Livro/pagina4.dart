@@ -49,7 +49,7 @@ class Pagina4PageState extends State<Pagina4Page> {
     _playAudio();
 
     // Aguarda 5 segundos antes de navegar para a próxima página
-    Future.delayed(const Duration(seconds: 14), () {
+    Future.delayed(const Duration(seconds: 16), () {
       _stopAudio(); // Para o áudio antes de navegar
 
       // Navega para a próxima página
