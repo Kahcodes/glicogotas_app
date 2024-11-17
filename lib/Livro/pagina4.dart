@@ -10,11 +10,9 @@ class Pagina4Page extends StatefulWidget {
   const Pagina4Page({super.key});
 
   @override
-  Pagina4PageState createState() =>
-      Pagina4PageState(); // Aqui mantém a referência para a classe pública
+  Pagina4PageState createState() => Pagina4PageState();
 }
 
-// TORNANDO A CLASSE PÚBLICA REMOVENDO O UNDERLINE
 class Pagina4PageState extends State<Pagina4Page> {
   final AudioPlayer _audioPlayer = AudioPlayer();
   bool _isPlaying = false;
