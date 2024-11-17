@@ -5,21 +5,25 @@ import 'package:glicogotas_app/Livro/pagina1.dart';
 import 'package:glicogotas_app/Livro/pagina4.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
+import 'package:audioplayers/audioplayers.dart'; // Importa a biblioteca para áudio
 
 class Pagina3Page extends StatefulWidget {
   const Pagina3Page({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _Pagina3PageState createState() => _Pagina3PageState();
+  Pagina3PageState createState() =>
+      Pagina3PageState(); // Agora a classe é pública
 }
 
-class _Pagina3PageState extends State<Pagina3Page> {
+class Pagina3PageState extends State<Pagina3Page> {
+  final AudioPlayer _audioPlayer = AudioPlayer(); // Instancia o player de áudio
+  bool _isPlaying = false; // Estado para controle de áudio
+
   @override
   void initState() {
     super.initState();
 
-    // Definindo o tempo para 3 segundos antes de mudar de página
+    // Definindo o tempo para 5 segundos antes de mudar de página
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.push(
         // ignore: use_build_context_synchronously
@@ -27,11 +31,35 @@ class _Pagina3PageState extends State<Pagina3Page> {
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
               Pagina4Page(),
-          transitionDuration: Duration.zero, // Remove a duração da transição
-          reverseTransitionDuration:
-              Duration.zero, // Remove a duração da transição reversa
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
         ),
       );
+    });
+
+    // Tocar o áudio quando a página for carregada
+    _playAudio();
+  }
+
+  // Função para reproduzir o áudio
+  Future<void> _playAudio() async {
+    await _audioPlayer.play(AssetSource('audio/audiopag3.mp3'));
+  }
+
+  // Função para pausar o áudio
+  Future<void> _pauseAudio() async {
+    await _audioPlayer.pause();
+  }
+
+  // Função para alternar entre play e pause
+  Future<void> _toggleAudio() async {
+    if (_isPlaying) {
+      await _pauseAudio(); // Pausa o áudio
+    } else {
+      await _playAudio(); // Inicia o áudio
+    }
+    setState(() {
+      _isPlaying = !_isPlaying; // Alterna o estado de áudio
     });
   }
 
@@ -79,35 +107,29 @@ class _Pagina3PageState extends State<Pagina3Page> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return const ConfigDialog(); // Chama o diálogo de configurações
+                    return const ConfigDialog();
                   },
                 );
               },
             ),
           ),
-
           Positioned(
-            top: size.height *
-                0.2, // Move para cima, para permitir que o SVG exceda o limite
-            left: -size.width *
-                0.1, // Move para a esquerda, para permitir que o SVG exceda o limite
+            top: size.height * 0.2,
+            left: -size.width * 0.1,
             child: SvgPicture.asset(
               'assets/images/lita-pancreas.svg',
-              width: size.width * 0.7, // 120% da largura da tela
-              height: size.height * 0.6, // 120% da altura da tela
+              width: size.width * 0.7,
+              height: size.height * 0.6,
             ),
           ),
-
-          // Balão de fala reposicionado
           Positioned(
             top: size.height * 0.15,
             left: size.width * 0.1,
             child: SvgPicture.asset(
               'assets/images/balão-page3.svg',
-              width: size.width * 0.8, // Ajuste para caber melhor
+              width: size.width * 0.8,
             ),
           ),
-
           Positioned(
             bottom: 0,
             left: 0,
@@ -118,7 +140,6 @@ class _Pagina3PageState extends State<Pagina3Page> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Botão "voltar" à esquerda
                   IconButton(
                     icon: SvgPicture.asset(
                       'assets/images/btn-voltar-laranja.svg',
@@ -129,24 +150,19 @@ class _Pagina3PageState extends State<Pagina3Page> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => const Pagina1Page()),
-                      ); // Ação do botão voltar
+                      );
                     },
                   ),
-
-                  // Botão "som" centralizado
                   IconButton(
                     icon: SvgPicture.asset(
                       'assets/images/btn-som-laranja.svg',
                       width: 60,
                     ),
-                    onPressed: () {
-                      // Ação do botão som
-                    },
+                    onPressed:
+                        _toggleAudio, // Chama a função para alternar o áudio
                   ),
-
-                  // Botão invisível para ocupar o espaço à direita
-                  SizedBox(
-                    width: 60, // Largura equivalente ao botão de voltar
+                  const SizedBox(
+                    width: 60, // Espaço para manter o layout equilibrado
                   ),
                 ],
               ),

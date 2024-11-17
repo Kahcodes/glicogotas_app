@@ -4,6 +4,7 @@ import 'package:glicogotas_app/Livro/capa.dart';
 import 'package:glicogotas_app/Livro/pagina2.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
+import 'package:audioplayers/audioplayers.dart'; // Importa o pacote de áudio
 
 class Pagina1Page extends StatelessWidget {
   const Pagina1Page({super.key});
@@ -11,6 +12,7 @@ class Pagina1Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final audioPlayer = AudioPlayer(); // Instancia o player de áudio
 
     return Scaffold(
       backgroundColor: const Color(0xFFfffcf3),
@@ -64,8 +66,8 @@ class Pagina1Page extends StatelessWidget {
             top: size.height * 0.25,
             right: size.width * 0.15,
             child: SvgPicture.asset(
-              'assets/images/lita.svg', // Substitua pelo caminho correto do arquivo da imagem da Lita
-              height: size.height * 0.6, // Aumentado para 40% da altura da tela
+              'assets/images/lita.svg', // Substitua pelo caminho correto do arquivo da Lita
+              height: size.height * 0.6, // Aumentado para 60% da altura da tela
             ),
           ),
 
@@ -110,8 +112,10 @@ class Pagina1Page extends StatelessWidget {
                       'assets/images/btn-som-laranja.svg',
                       width: 55,
                     ),
-                    onPressed: () {
-                      // Ação do botão som
+                    onPressed: () async {
+                      // Ação do botão som: toca o áudio
+                      await audioPlayer.play(AssetSource(
+                          'audio/audiopag1.mp3')); // Ajuste o caminho do arquivo de áudio conforme necessário
                     },
                   ),
                   IconButton(
@@ -120,6 +124,8 @@ class Pagina1Page extends StatelessWidget {
                       width: 55,
                     ),
                     onPressed: () {
+                      audioPlayer
+                          .stop(); // Para o áudio quando for para a próxima página
                       Navigator.push(
                         context,
                         MaterialPageRoute(

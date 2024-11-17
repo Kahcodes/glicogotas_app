@@ -1,35 +1,52 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:glicogotas_app/Livro/pagina1.dart';
 import 'package:glicogotas_app/Livro/pagina3.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class Pagina2Page extends StatefulWidget {
   const Pagina2Page({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _Pagina2PageState createState() => _Pagina2PageState();
+  Pagina2PageState createState() => Pagina2PageState();
 }
 
-class _Pagina2PageState extends State<Pagina2Page> {
+class Pagina2PageState extends State<Pagina2Page> {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  // Função para reproduzir o áudio
+  Future<void> _playAudio() async {
+    await _audioPlayer.play(AssetSource('audio/audiopag2.mp3'));
+  }
+
+  // Função para parar o áudio
+  Future<void> _stopAudio() async {
+    await _audioPlayer.stop();
+  }
+
   @override
   void initState() {
     super.initState();
 
-    // Definindo o tempo para 3 segundos antes de mudar de página
+    // Inicia o áudio logo após a página ser carregada
+    _playAudio();
+
+    // Aguarda 5 segundos antes de navegar para a próxima página
     Future.delayed(const Duration(seconds: 5), () {
+      // Para o áudio quando a página mudar
+      _stopAudio();
+
+      // Navega para a próxima página
       Navigator.push(
         // ignore: use_build_context_synchronously
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              Pagina3Page(),
-          transitionDuration: Duration.zero, // Remove a duração da transição
-          reverseTransitionDuration:
-              Duration.zero, // Remove a duração da transição reversa
+              const Pagina3Page(),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
         ),
       );
     });
@@ -85,30 +102,23 @@ class _Pagina2PageState extends State<Pagina2Page> {
               },
             ),
           ),
-
-          // Personagem Lita centralizada e maior
           Positioned(
             top: size.height * 0.30,
             right: size.width * 0.15,
             child: SvgPicture.asset(
-              'assets/images/lita-falando.svg', // Substitua pelo caminho correto do arquivo da imagem da Lita
-              height: size.height * 0.6, // Aumentado para 40% da altura da tela
+              'assets/images/lita-falando.svg',
+              height: size.height * 0.6,
             ),
           ),
-
-          // Balão de fala reposicionado e maior
           Positioned(
             top: size.height * 0.2,
             left: size.width * 0.02,
             right: size.width * 0.03,
             child: SvgPicture.asset(
-              'assets/images/balão-page2.svg', // Caminho do SVG do balão duplo
-              width: size.width * 0.80, // Aumentado para 80% da largura da tela
+              'assets/images/balão-page2.svg',
+              width: size.width * 0.80,
             ),
           ),
-
-          // TabBar laranja com botão de avançar à direita
-          // TabBar laranja com botão de avançar à direita
           Positioned(
             bottom: 0,
             left: 0,
@@ -119,7 +129,6 @@ class _Pagina2PageState extends State<Pagina2Page> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Botão "voltar" à esquerda
                   IconButton(
                     icon: SvgPicture.asset(
                       'assets/images/btn-voltar-laranja.svg',
@@ -129,12 +138,10 @@ class _Pagina2PageState extends State<Pagina2Page> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Pagina1Page()),
-                      ); // Ação do botão voltar
+                            builder: (context) => const TelaHome()),
+                      );
                     },
                   ),
-
-                  // Botão "som" centralizado
                   IconButton(
                     icon: SvgPicture.asset(
                       'assets/images/btn-som-laranja.svg',
@@ -144,10 +151,8 @@ class _Pagina2PageState extends State<Pagina2Page> {
                       // Ação do botão som
                     },
                   ),
-
-                  // Botão invisível para ocupar o espaço à direita
-                  SizedBox(
-                    width: 60, // Largura equivalente ao botão de voltar
+                  const SizedBox(
+                    width: 60,
                   ),
                 ],
               ),

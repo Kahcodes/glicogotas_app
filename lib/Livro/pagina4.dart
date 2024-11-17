@@ -4,22 +4,66 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Livro/pagina1.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class Pagina4Page extends StatefulWidget {
   const Pagina4Page({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _Pagina4PageState createState() => _Pagina4PageState();
+  Pagina4PageState createState() =>
+      Pagina4PageState(); // Aqui mantém a referência para a classe pública
 }
 
-class _Pagina4PageState extends State<Pagina4Page> {
+// TORNANDO A CLASSE PÚBLICA REMOVENDO O UNDERLINE
+class Pagina4PageState extends State<Pagina4Page> {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  bool _isPlaying = false;
+
+  // Função para reproduzir o áudio
+  Future<void> _playAudio() async {
+    await _audioPlayer.play(AssetSource('audio/audiopag4.mp3'));
+  }
+
+  // Função para parar o áudio
+  Future<void> _stopAudio() async {
+    await _audioPlayer.stop();
+  }
+
+  // Função para alternar entre tocar e pausar o áudio
+  Future<void> _toggleAudio() async {
+    if (_isPlaying) {
+      await _audioPlayer.pause(); // Pausa o áudio
+    } else {
+      await _playAudio(); // Inicia o áudio
+    }
+    setState(() {
+      _isPlaying = !_isPlaying; // Alterna o estado
+    });
+  }
+
   @override
   void initState() {
     super.initState();
 
-    // Definindo o tempo para 3 segundos antes de mudar de página
-    Future.delayed(const Duration(seconds: 5), () {});
+    // Inicia o áudio logo após a página ser carregada
+    _playAudio();
+
+    // Aguarda 5 segundos antes de navegar para a próxima página
+    Future.delayed(const Duration(seconds: 14), () {
+      _stopAudio(); // Para o áudio antes de navegar
+
+      // Navega para a próxima página
+      Navigator.push(
+        // ignore: use_build_context_synchronously
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const Pagina1Page(),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ),
+      );
+    });
   }
 
   @override
@@ -72,27 +116,23 @@ class _Pagina4PageState extends State<Pagina4Page> {
               },
             ),
           ),
-
           Positioned(
             top: size.height * 0.15,
             right: size.width * 0.03,
             left: size.width * 0.03,
             child: SvgPicture.asset(
-              'assets/images/pancreas.svg', // Substitua pelo caminho correto do arquivo da imagem da Lita
-              height: size.height * 0.9, // Aumentado para 40% da altura da tela
+              'assets/images/pancreas.svg',
+              height: size.height * 0.9,
             ),
           ),
-
-          // Balão de fala reposicionado
           Positioned(
             top: size.height * 0.17,
             right: size.width * 0.07,
             child: SvgPicture.asset(
               'assets/images/balão-page4.svg',
-              width: size.width * 1.0, // Ajuste para caber melhor
+              width: size.width * 1.0,
             ),
           ),
-
           Positioned(
             bottom: 0,
             left: 0,
@@ -103,7 +143,6 @@ class _Pagina4PageState extends State<Pagina4Page> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Botão "voltar" à esquerda
                   IconButton(
                     icon: SvgPicture.asset(
                       'assets/images/btn-voltar-laranja.svg',
@@ -114,24 +153,19 @@ class _Pagina4PageState extends State<Pagina4Page> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => const Pagina1Page()),
-                      ); // Ação do botão voltar
+                      );
                     },
                   ),
-
-                  // Botão "som" centralizado
                   IconButton(
                     icon: SvgPicture.asset(
                       'assets/images/btn-som-laranja.svg',
                       width: 60,
                     ),
-                    onPressed: () {
-                      // Ação do botão som
-                    },
+                    onPressed: _toggleAudio, // Ação do botão de som
                   ),
-
-                  // Botão invisível para ocupar o espaço à direita
-                  SizedBox(
-                    width: 60, // Largura equivalente ao botão de voltar
+                  const SizedBox(
+                    width:
+                        60, // Espaço ocupado para manter o layout equilibrado
                   ),
                 ],
               ),

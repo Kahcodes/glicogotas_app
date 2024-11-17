@@ -34,7 +34,7 @@ dependencies:
     sdk: flutter
   google_fonts: ^6.2.1
   flutter_svg: ^2.0.10
-  audioplayers: ^6.0.0
+  audioplayers: ^6.1.0
   
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -126,6 +126,10 @@ flutter:
     - assets/images/balão-page4.svg
     - assets/images/pancreas.svg
     - assets/audio/titulo.mp3
+    - assets/audio/audiopag1.mp3
+    - assets/audio/audiopag2.mp3
+    - assets/audio/audiopag3.mp3
+    - assets/audio/audiopag4.mp3
 
 
 
