@@ -22,6 +22,7 @@ class _Pagina3PageState extends State<Pagina3Page> {
     // Definindo o tempo para 3 segundos antes de mudar de página
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.push(
+        // ignore: use_build_context_synchronously
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
