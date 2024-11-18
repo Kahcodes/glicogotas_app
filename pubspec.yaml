@@ -125,6 +125,7 @@ flutter:
     - assets/images/lita-pancreas.svg
     - assets/images/balão-page4.svg
     - assets/images/pancreas.svg
+    - assets/images/error.svg
     - assets/audio/titulo.mp3
     - assets/audio/audiopag1.mp3
     - assets/audio/audiopag2.mp3

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/glicogotas.dart';
-import 'package:glicogotas_app/Livro/capa.dart'; // Certifique-se de que este import esteja correto
+import 'package:glicogotas_app/Livro/capa.dart';
 import 'package:glicogotas_app/iniciar.dart.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'configuracoes.dart';
+import 'jogos.dart';
 
 class TelaHome extends StatelessWidget {
   const TelaHome({super.key});
@@ -265,7 +266,14 @@ class TelaHome extends StatelessWidget {
                   const SizedBox(height: 20), // Espaçamento entre os botões
 
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const JogosPage(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.pinkAccent,
                       shape: RoundedRectangleBorder(
