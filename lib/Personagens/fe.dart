@@ -143,7 +143,7 @@ class PersonagemFePage extends StatelessWidget {
                   'A fitinha mágica que mede o açúcar no sangue e ajuda a Lita a ficar bem!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.05,
+                    fontSize: size.width * 0.06,
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
@@ -162,7 +162,7 @@ class PersonagemFePage extends StatelessWidget {
                   'A fitinha mágica que mede o açúcar no sangue e ajuda a Lita a ficar bem!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.05,
+                    fontSize: size.width * 0.06,
                     color: const Color(0xFF37ABDC), // Cor rosa
                   ),
                 ),

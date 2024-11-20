@@ -48,6 +48,7 @@ class JogosPage extends StatelessWidget {
                 height: 400, // Tamanho da imagem
                 fit: BoxFit.cover, // Ajuste da imagem
               ),
+              
             ],
           ),
         ),

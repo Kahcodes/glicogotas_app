@@ -143,7 +143,7 @@ class PersonagemInsulinsPage extends StatelessWidget {
                   'Os irmãos Lento e Rápido, juntos controlam o diabetes da Lita!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.05,
+                    fontSize: size.width * 0.06,
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
@@ -162,7 +162,7 @@ class PersonagemInsulinsPage extends StatelessWidget {
                   'Os irmãos Lento e Rápido, juntos controlam o diabetes da Lita!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.05,
+                    fontSize: size.width * 0.06,
                     color: const Color(0xFFFCB44E), // Cor rosa
                   ),
                 ),

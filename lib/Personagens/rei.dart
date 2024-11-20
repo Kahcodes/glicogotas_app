@@ -143,7 +143,7 @@ class PersonagemReiPage extends StatelessWidget {
                   'Um vilão que faz o açúcar subir com sua coroa vermelha e sintomas poderosos!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.05,
+                    fontSize: size.width * 0.06,
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
@@ -162,7 +162,7 @@ class PersonagemReiPage extends StatelessWidget {
                   'Um vilão que faz o açúcar subir com sua coroa vermelha e sintomas poderosos!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.05,
+                    fontSize: size.width * 0.06,
                     color: const Color(0xFFEF291D), // Cor rosa
                   ),
                 ),

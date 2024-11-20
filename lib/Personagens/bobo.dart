@@ -143,7 +143,7 @@ class PersonagemBoboPage extends StatelessWidget {
                   'Um trapalhão que faz o açúcar no sangue cair e causa muita confusão!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.05,
+                    fontSize: size.width * 0.06,
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
@@ -162,7 +162,7 @@ class PersonagemBoboPage extends StatelessWidget {
                   'Um trapalhão que faz o açúcar no sangue cair e causa muita confusão!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.05,
+                    fontSize: size.width * 0.06,
                     color: const Color(0xFF00D287), // Cor rosa
                   ),
                 ),

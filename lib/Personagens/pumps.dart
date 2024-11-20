@@ -143,7 +143,7 @@ class PersonagemPumpsPage extends StatelessWidget {
                   'A bombinha de insulina, que ajuda a regular o açúcar no sangue e avisa quando precisa de atenção!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.05,
+                    fontSize: size.width * 0.06,
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
@@ -162,7 +162,7 @@ class PersonagemPumpsPage extends StatelessWidget {
                   'A bombinha de insulina, que ajuda a regular o açúcar no sangue e avisa quando precisa de atenção!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.05,
+                    fontSize: size.width * 0.06,
                     color: const Color(0xFFD91B91), // Cor rosa
                   ),
                 ),

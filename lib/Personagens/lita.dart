@@ -143,7 +143,7 @@ class PersonagemLitaPage extends StatelessWidget {
                   'Ela é uma super-heroína que enfrenta o DMI em grandes aventuras!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.05,
+                    fontSize: size.width * 0.06,
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
@@ -162,7 +162,7 @@ class PersonagemLitaPage extends StatelessWidget {
                   'Ela é uma super-heroína que enfrenta o DMI em grandes aventuras!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.05,
+                    fontSize: size.width * 0.06,
                     color: const Color(0xFFF4719C), // Cor rosa
                   ),
                 ),

@@ -142,7 +142,7 @@ class PersonagemBetinhoPage extends StatelessWidget {
                   'O monitor de glicemia, sempre atento para manter a Lita segura!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.05,
+                    fontSize: size.width * 0.06,
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
@@ -161,7 +161,7 @@ class PersonagemBetinhoPage extends StatelessWidget {
                   'O monitor de glicemia, sempre atento para manter a Lita segura!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.05,
+                    fontSize: size.width * 0.06,
                     color: const Color(0xFF01C881), // Cor verde
                   ),
                 ),
