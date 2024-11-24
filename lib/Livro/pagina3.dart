@@ -4,6 +4,7 @@ import 'package:glicogotas_app/Livro/pagina4.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
 
 class Pagina3Page extends StatefulWidget {
   const Pagina3Page({super.key});
@@ -12,7 +13,7 @@ class Pagina3Page extends StatefulWidget {
   Pagina3PageState createState() => Pagina3PageState();
 }
 
-class Pagina3PageState extends State<Pagina3Page> {
+class Pagina3PageState extends State<Pagina3Page> with RouteAware {
   final AudioPlayer _audioPlayer = AudioPlayer();
 
   // Função para reproduzir o áudio
@@ -32,10 +33,30 @@ class Pagina3PageState extends State<Pagina3Page> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(
+        this,
+        ModalRoute.of(context) as PageRoute<
+            dynamic>); // Inscreve o observador para mudanças de rota
+  }
+
+  @override
   void dispose() {
+    routeObserver.unsubscribe(this); // Desinscreve o observador
     _stopAudio(); // Para o áudio ao sair da página
     _audioPlayer.dispose();
     super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    _stopAudio(); // Para o áudio ao ir para a próxima página
+  }
+
+  @override
+  void didPopNext() {
+    _playAudio(); // Reinicia o áudio ao voltar para esta página
   }
 
   @override

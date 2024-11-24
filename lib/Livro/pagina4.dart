@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:glicogotas_app/main.dart'; // Certifique-se de que o caminho esteja correto
 import 'pagina5.dart';
 
 class Pagina4Page extends StatefulWidget {
@@ -33,17 +34,27 @@ class Pagina4PageState extends State<Pagina4Page> with RouteAware {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
+  }
+
+  @override
   void dispose() {
-    _stopAudio(); // Para o áudio ao sair da página
+    routeObserver.unsubscribe(this); // Desinscreve-se ao sair
+    _stopAudio(); // Para o áudio ao sair
     _audioPlayer.dispose();
     super.dispose();
   }
 
-  // Método que é chamado sempre que a página anterior é reaberta
+  @override
+  void didPushNext() {
+    _stopAudio(); // Para o áudio ao ir para outra página
+  }
+
   @override
   void didPopNext() {
-    super.didPopNext();
-    _playAudio(); // Reinicia o áudio sempre que voltar para a página
+    _playAudio(); // Reinicia o áudio ao voltar para esta página
   }
 
   @override
@@ -122,6 +133,7 @@ class Pagina4PageState extends State<Pagina4Page> with RouteAware {
             ),
           ),
 
+          // Botões invisíveis de navegação (lado esquerdo e direito)
           // Botão invisível para voltar (lado esquerdo)
           Positioned(
             top: 80, // Ajuste para ficar abaixo dos botões de navegação
@@ -129,7 +141,7 @@ class Pagina4PageState extends State<Pagina4Page> with RouteAware {
             child: GestureDetector(
               onTap: () {
                 _stopAudio(); // Para o áudio ao navegar
-                Navigator.pop(context); // Volta para a página anterior
+                Navigator.pop(context); // Voltar para a página anterior
               },
               child: Container(
                 width: size.width * 0.45,

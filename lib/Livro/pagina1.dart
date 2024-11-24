@@ -5,6 +5,7 @@ import 'package:glicogotas_app/Livro/pagina2.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
 
 class Pagina1Page extends StatefulWidget {
   const Pagina1Page({super.key});
@@ -13,8 +14,14 @@ class Pagina1Page extends StatefulWidget {
   State<Pagina1Page> createState() => _Pagina1PageState();
 }
 
-class _Pagina1PageState extends State<Pagina1Page> {
+class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
   final AudioPlayer _audioPlayer = AudioPlayer();
+
+  // Função para reproduzir o áudio
+  Future<void> _playAudio() async {
+    await _audioPlayer.stop(); // Garante que o áudio anterior seja parado
+    await _audioPlayer.play(AssetSource('audio/audiopag1.mp3'));
+  }
 
   @override
   void initState() {
@@ -25,19 +32,25 @@ class _Pagina1PageState extends State<Pagina1Page> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _playAudio(); // Garante que o áudio reinicie ao voltar para a página
-  }
-
-  Future<void> _playAudio() async {
-    await _audioPlayer.stop(); // Garante que o áudio anterior seja parado
-    await _audioPlayer.play(AssetSource('audio/audiopag1.mp3'));
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
   }
 
   @override
   void dispose() {
+    routeObserver.unsubscribe(this);
     _audioPlayer.stop(); // Para o áudio ao sair da página
     _audioPlayer.dispose();
     super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    _audioPlayer.stop(); // Para o áudio ao navegar para a próxima página
+  }
+
+  @override
+  void didPopNext() {
+    _playAudio(); // Reinicia o áudio ao voltar para esta página
   }
 
   @override
