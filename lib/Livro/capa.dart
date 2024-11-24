@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:glicogotas_app/Livro/pagina1.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
@@ -25,6 +24,7 @@ class _CapaPageState extends State<CapaPage> {
 
   @override
   void dispose() {
+    _audioPlayer.stop(); // Para o áudio ao sair da página
     _audioPlayer.dispose(); // Libera os recursos do áudio ao fechar a página
     super.dispose();
   }
@@ -48,11 +48,14 @@ class _CapaPageState extends State<CapaPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      // Ícone Home
                       IconButton(
                         iconSize: 30,
                         icon:
                             const Icon(Icons.home_rounded, color: Colors.white),
                         onPressed: () {
+                          _audioPlayer
+                              .stop(); // Parar o áudio antes de ir para a home
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -60,6 +63,7 @@ class _CapaPageState extends State<CapaPage> {
                           );
                         },
                       ),
+                      // Ícone Configurações
                       IconButton(
                         iconSize: 30,
                         icon: const Icon(Icons.settings, color: Colors.white),
@@ -150,6 +154,7 @@ class _CapaPageState extends State<CapaPage> {
   }
 }
 
+// Classe para desenhar o texto em arco
 class ArcTextPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
