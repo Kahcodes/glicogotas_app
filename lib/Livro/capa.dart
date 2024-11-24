@@ -121,31 +121,32 @@ class _CapaPageState extends State<CapaPage> {
                         child: Image.asset("assets/images/pancreas.png",
                             height: 180, fit: BoxFit.cover),
                       ),
+                      // Botão invisível para avançar para a próxima página
+                      Positioned(
+                        bottom: 120, // Ajuste para posicionar acima da imagem
+                        right: 0,
+                        child: GestureDetector(
+                          onTap: () {
+                            _audioPlayer
+                                .stop(); // Para o áudio ao ir para a próxima página
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Pagina1Page()),
+                            );
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            height: 400, // Aumentei a altura do botão invisível
+                            color:
+                                Colors.transparent, // Invisível, mas funcional
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ],
-            ),
-            // Botão invisível para avançar para a próxima página
-            Positioned(
-              top: 0,
-              bottom: 0,
-              right: 0,
-              child: GestureDetector(
-                onTap: () {
-                  _audioPlayer
-                      .stop(); // Para o áudio ao ir para a próxima página
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Pagina1Page()),
-                  );
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  color: Colors.transparent, // Invisível, mas funcional
-                ),
-              ),
             ),
           ],
         ),

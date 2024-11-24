@@ -123,8 +123,9 @@ class Pagina4PageState extends State<Pagina4Page> with RouteAware {
           ),
 
           // Botão invisível para voltar (lado esquerdo)
-          Align(
-            alignment: Alignment.centerLeft,
+          Positioned(
+            top: 80, // Ajuste para ficar abaixo dos botões de navegação
+            left: 0,
             child: GestureDetector(
               onTap: () {
                 _stopAudio(); // Para o áudio ao navegar
@@ -132,28 +133,27 @@ class Pagina4PageState extends State<Pagina4Page> with RouteAware {
               },
               child: Container(
                 width: size.width * 0.45,
-                height: size.height,
+                height: size.height - 80, // Aumenta a área de interação
                 color: Colors.transparent, // Invisível mas funcional
               ),
             ),
           ),
 
           // Botão invisível para avançar (lado direito)
-          Align(
-            alignment: Alignment.centerRight,
+          Positioned(
+            top: 80, // Ajuste para ficar abaixo dos botões de navegação
+            right: 0,
             child: GestureDetector(
               onTap: () {
                 _stopAudio(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const Pagina5Page()), // Navega para a próxima página
+                  MaterialPageRoute(builder: (context) => const Pagina5Page()),
                 );
               },
               child: Container(
                 width: size.width * 0.45,
-                height: size.height,
+                height: size.height - 80, // Aumenta a área de interação
                 color: Colors.transparent, // Invisível mas funcional
               ),
             ),

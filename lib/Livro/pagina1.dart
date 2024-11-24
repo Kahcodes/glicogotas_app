@@ -4,7 +4,7 @@ import 'package:glicogotas_app/Livro/capa.dart';
 import 'package:glicogotas_app/Livro/pagina2.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
-import 'package:audioplayers/audioplayers.dart'; // Importa o pacote de áudio
+import 'package:audioplayers/audioplayers.dart';
 
 class Pagina1Page extends StatefulWidget {
   const Pagina1Page({super.key});
@@ -22,10 +22,15 @@ class _Pagina1PageState extends State<Pagina1Page> {
     _playAudio(); // Inicia o áudio ao carregar a página
   }
 
-  void _playAudio() async {
-    await _audioPlayer.play(
-      AssetSource('audio/audiopag1.mp3'), // Caminho para o arquivo de áudio
-    );
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _playAudio(); // Garante que o áudio reinicie ao voltar para a página
+  }
+
+  Future<void> _playAudio() async {
+    await _audioPlayer.stop(); // Garante que o áudio anterior seja parado
+    await _audioPlayer.play(AssetSource('audio/audiopag1.mp3'));
   }
 
   @override
@@ -51,7 +56,7 @@ class _Pagina1PageState extends State<Pagina1Page> {
             ),
           ),
 
-          // Personagem Lita centralizada e maior
+          // Personagem Lita
           Positioned(
             top: size.height * 0.25,
             right: size.width * 0.15,
@@ -61,7 +66,7 @@ class _Pagina1PageState extends State<Pagina1Page> {
             ),
           ),
 
-          // Balão de fala reposicionado e maior
+          // Balão de fala
           Positioned(
             top: size.height * 0.05,
             left: size.width * 0.05,
@@ -72,7 +77,44 @@ class _Pagina1PageState extends State<Pagina1Page> {
             ),
           ),
 
-          // Ícone Home
+          // Botões invisíveis de navegação (colocados abaixo dos ícones)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: GestureDetector(
+              onTap: () {
+                _audioPlayer
+                    .stop(); // Para o áudio ao ir para a página anterior
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CapaPage()),
+                );
+              },
+              child: Container(
+                width: size.width * 0.45,
+                height: size.height,
+                color: Colors.transparent,
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: () {
+                _audioPlayer.stop(); // Para o áudio ao ir para a próxima página
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Pagina2Page()),
+                );
+              },
+              child: Container(
+                width: size.width * 0.45,
+                height: size.height,
+                color: Colors.transparent,
+              ),
+            ),
+          ),
+
+          // Ícone Home (por cima dos botões invisíveis)
           Positioned(
             top: 40,
             left: 16,
@@ -92,7 +134,7 @@ class _Pagina1PageState extends State<Pagina1Page> {
             ),
           ),
 
-          // Ícone Configurações
+          // Ícone Configurações (por cima dos botões invisíveis)
           Positioned(
             top: 40,
             right: 16,
@@ -110,45 +152,6 @@ class _Pagina1PageState extends State<Pagina1Page> {
                   },
                 );
               },
-            ),
-          ),
-
-          // Botão invisível para voltar (lado esquerdo)
-          Align(
-            alignment: Alignment.centerLeft,
-            child: GestureDetector(
-              onTap: () {
-                _audioPlayer
-                    .stop(); // Para o áudio ao ir para a página anterior
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CapaPage()),
-                );
-              },
-              child: Container(
-                width: size.width * 0.45,
-                height: size.height,
-                color: Colors.transparent,
-              ),
-            ),
-          ),
-
-          // Botão invisível para avançar (lado direito)
-          Align(
-            alignment: Alignment.centerRight,
-            child: GestureDetector(
-              onTap: () {
-                _audioPlayer.stop(); // Para o áudio ao ir para a próxima página
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Pagina2Page()),
-                );
-              },
-              child: Container(
-                width: size.width * 0.45,
-                height: size.height,
-                color: Colors.transparent,
-              ),
             ),
           ),
         ],
