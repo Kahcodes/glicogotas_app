@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:glicogotas_app/Livro/pagina1.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
@@ -7,128 +7,139 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:math';
 
-class CapaPage extends StatelessWidget {
+class CapaPage extends StatefulWidget {
   const CapaPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Instancia o AudioPlayer fora do onPressed para evitar recarga constante
-    final audioPlayer = AudioPlayer();
+  State<CapaPage> createState() => _CapaPageState();
+}
 
+class _CapaPageState extends State<CapaPage> {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  @override
+  void initState() {
+    super.initState();
+    _playAudio(); // Toca o áudio ao abrir a página
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose(); // Libera os recursos do áudio ao fechar a página
+    super.dispose();
+  }
+
+  Future<void> _playAudio() async {
+    await _audioPlayer.play(AssetSource('audio/titulo.mp3'));
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF265F95),
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    iconSize: 30,
-                    icon: const Icon(Icons.home_rounded, color: Colors.white),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const TelaHome()),
-                      );
-                    },
-                  ),
-                  IconButton(
-                    iconSize: 30,
-                    icon: const Icon(Icons.settings, color: Colors.white),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const ConfigDialog();
+            Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        iconSize: 30,
+                        icon:
+                            const Icon(Icons.home_rounded, color: Colors.white),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const TelaHome()),
+                          );
                         },
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 40),
-            Expanded(
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 100),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          CustomPaint(
-                            painter: ArcTextPainter(),
-                            child: Container(height: 80),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'DESCOMPLICANDO',
-                            style: GoogleFonts.chewy(
-                                fontSize: 36, color: Colors.yellow),
-                          ),
-                          Text(
-                            'o Diabetes',
-                            style: GoogleFonts.chewy(
-                                fontSize: 36, color: Colors.yellow),
-                          ),
-                        ],
                       ),
-                    ),
+                      IconButton(
+                        iconSize: 30,
+                        icon: const Icon(Icons.settings, color: Colors.white),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const ConfigDialog();
+                            },
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    child: Image.asset("assets/images/talita_capa.png",
-                        height: 290, fit: BoxFit.cover),
+                ),
+                const SizedBox(height: 40),
+                Expanded(
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 100),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              CustomPaint(
+                                painter: ArcTextPainter(),
+                                child: Container(height: 80),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                'DESCOMPLICANDO',
+                                style: GoogleFonts.chewy(
+                                    fontSize: 36, color: Colors.yellow),
+                              ),
+                              Text(
+                                'o Diabetes',
+                                style: GoogleFonts.chewy(
+                                    fontSize: 36, color: Colors.yellow),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        child: Image.asset("assets/images/talita_capa.png",
+                            height: 290, fit: BoxFit.cover),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 20,
+                        child: Image.asset("assets/images/pancreas.png",
+                            height: 180, fit: BoxFit.cover),
+                      ),
+                    ],
                   ),
-                  Positioned(
-                    bottom: 0,
-                    right: 20,
-                    child: Image.asset("assets/images/pancreas.png",
-                        height: 180, fit: BoxFit.cover),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
+            // Botão invisível para avançar para a próxima página
             Positioned(
+              top: 0,
               bottom: 0,
-              left: 0,
               right: 0,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                decoration: const BoxDecoration(color: Colors.white),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const SizedBox(width: 60),
-                    IconButton(
-                      icon: SvgPicture.asset("assets/images/btn-som-azul.svg",
-                          width: 60),
-                      onPressed: () async {
-                        // Executa o som
-                        await audioPlayer.play(AssetSource('audio/titulo.mp3'));
-                      },
-                    ),
-                    IconButton(
-                      icon: SvgPicture.asset(
-                          "assets/images/btn-avancar-azul.svg",
-                          width: 60),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Pagina1Page()),
-                        );
-                      },
-                    ),
-                  ],
+              child: GestureDetector(
+                onTap: () {
+                  _audioPlayer
+                      .stop(); // Para o áudio ao ir para a próxima página
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Pagina1Page()),
+                  );
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  color: Colors.transparent, // Invisível, mas funcional
                 ),
               ),
             ),

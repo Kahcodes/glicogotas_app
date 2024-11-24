@@ -6,24 +6,73 @@ import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:audioplayers/audioplayers.dart'; // Importa o pacote de áudio
 
-class Pagina1Page extends StatelessWidget {
+class Pagina1Page extends StatefulWidget {
   const Pagina1Page({super.key});
+
+  @override
+  State<Pagina1Page> createState() => _Pagina1PageState();
+}
+
+class _Pagina1PageState extends State<Pagina1Page> {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  @override
+  void initState() {
+    super.initState();
+    _playAudio(); // Inicia o áudio ao carregar a página
+  }
+
+  void _playAudio() async {
+    await _audioPlayer.play(
+      AssetSource('audio/audiopag1.mp3'), // Caminho para o arquivo de áudio
+    );
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.stop(); // Para o áudio ao sair da página
+    _audioPlayer.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final audioPlayer = AudioPlayer(); // Instancia o player de áudio
 
     return Scaffold(
       backgroundColor: const Color(0xFFfffcf3),
       body: Stack(
         children: [
+          // Fundo da página
           Positioned.fill(
             child: SvgPicture.asset(
               'assets/images/fundopaglivro.svg',
               fit: BoxFit.cover,
             ),
           ),
+
+          // Personagem Lita centralizada e maior
+          Positioned(
+            top: size.height * 0.25,
+            right: size.width * 0.15,
+            child: SvgPicture.asset(
+              'assets/images/lita.svg',
+              height: size.height * 0.6,
+            ),
+          ),
+
+          // Balão de fala reposicionado e maior
+          Positioned(
+            top: size.height * 0.05,
+            left: size.width * 0.05,
+            right: size.width * 0.05,
+            child: SvgPicture.asset(
+              'assets/images/balão-duplo.svg',
+              width: size.width * 1.2,
+            ),
+          ),
+
+          // Ícone Home
           Positioned(
             top: 40,
             left: 16,
@@ -34,6 +83,7 @@ class Pagina1Page extends StatelessWidget {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao voltar à tela inicial
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),
@@ -41,6 +91,8 @@ class Pagina1Page extends StatelessWidget {
               },
             ),
           ),
+
+          // Ícone Configurações
           Positioned(
             top: 40,
             right: 16,
@@ -54,86 +106,48 @@ class Pagina1Page extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return const ConfigDialog(); // Chama o diálogo de configurações
+                    return const ConfigDialog();
                   },
                 );
               },
             ),
           ),
 
-          // Personagem Lita centralizada e maior
-          Positioned(
-            top: size.height * 0.25,
-            right: size.width * 0.15,
-            child: SvgPicture.asset(
-              'assets/images/lita.svg', // Substitua pelo caminho correto do arquivo da Lita
-              height: size.height * 0.6, // Aumentado para 60% da altura da tela
+          // Botão invisível para voltar (lado esquerdo)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: GestureDetector(
+              onTap: () {
+                _audioPlayer
+                    .stop(); // Para o áudio ao ir para a página anterior
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CapaPage()),
+                );
+              },
+              child: Container(
+                width: size.width * 0.45,
+                height: size.height,
+                color: Colors.transparent,
+              ),
             ),
           ),
 
-          // Balão de fala reposicionado e maior
-          Positioned(
-            top: size.height *
-                0.05, // Descido um pouco mais para ficar mais próximo da Lita
-            left: size.width * 0.05,
-            right: size.width * 0.05,
-            child: SvgPicture.asset(
-              'assets/images/balão-duplo.svg', // Caminho do SVG do balão duplo
-              width: size.width * 1.2, // Aumentado para 120% da largura da tela
-            ),
-          ),
-
-          // TabBar laranja com botão de avançar à direita
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: const BoxDecoration(color: Color(0xFFFCB44E)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/images/btn-voltar-laranja.svg',
-                      width: 55,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CapaPage()),
-                      );
-                    },
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/images/btn-som-laranja.svg',
-                      width: 55,
-                    ),
-                    onPressed: () async {
-                      // Ação do botão som: toca o áudio
-                      await audioPlayer.play(AssetSource(
-                          'audio/audiopag1.mp3')); // Ajuste o caminho do arquivo de áudio conforme necessário
-                    },
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/images/btn-avancar-laranja.svg',
-                      width: 55,
-                    ),
-                    onPressed: () {
-                      audioPlayer
-                          .stop(); // Para o áudio quando for para a próxima página
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Pagina2Page()),
-                      );
-                    },
-                  ),
-                ],
+          // Botão invisível para avançar (lado direito)
+          Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: () {
+                _audioPlayer.stop(); // Para o áudio ao ir para a próxima página
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Pagina2Page()),
+                );
+              },
+              child: Container(
+                width: size.width * 0.45,
+                height: size.height,
+                color: Colors.transparent,
               ),
             ),
           ),

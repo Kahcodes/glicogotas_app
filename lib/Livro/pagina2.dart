@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Livro/pagina3.dart';
@@ -29,27 +28,14 @@ class Pagina2PageState extends State<Pagina2Page> {
   @override
   void initState() {
     super.initState();
+    _playAudio(); // Inicia o áudio ao carregar a página
+  }
 
-    // Inicia o áudio logo após a página ser carregada
-    _playAudio();
-
-    // Aguarda 5 segundos antes de navegar para a próxima página
-    Future.delayed(const Duration(seconds: 5), () {
-      // Para o áudio quando a página mudar
-      _stopAudio();
-
-      // Navega para a próxima página
-      Navigator.push(
-        // ignore: use_build_context_synchronously
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const Pagina3Page(),
-          transitionDuration: Duration.zero,
-          reverseTransitionDuration: Duration.zero,
-        ),
-      );
-    });
+  @override
+  void dispose() {
+    _stopAudio(); // Para o áudio ao sair da página
+    _audioPlayer.dispose();
+    super.dispose();
   }
 
   @override
@@ -60,12 +46,36 @@ class Pagina2PageState extends State<Pagina2Page> {
       backgroundColor: const Color(0xFFfffcf3),
       body: Stack(
         children: [
+          // Fundo da página
           Positioned.fill(
             child: SvgPicture.asset(
               'assets/images/fundopaglivro.svg',
               fit: BoxFit.cover,
             ),
           ),
+
+          // Lita falando
+          Positioned(
+            top: size.height * 0.30,
+            right: size.width * 0.15,
+            child: SvgPicture.asset(
+              'assets/images/lita-falando.svg',
+              height: size.height * 0.6,
+            ),
+          ),
+
+          // Balão de fala
+          Positioned(
+            top: size.height * 0.2,
+            left: size.width * 0.02,
+            right: size.width * 0.03,
+            child: SvgPicture.asset(
+              'assets/images/balão-page2.svg',
+              width: size.width * 0.80,
+            ),
+          ),
+
+          // Botão Home
           Positioned(
             top: 40,
             left: 16,
@@ -76,6 +86,7 @@ class Pagina2PageState extends State<Pagina2Page> {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
+                _stopAudio(); // Para o áudio ao voltar à tela inicial
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),
@@ -83,6 +94,8 @@ class Pagina2PageState extends State<Pagina2Page> {
               },
             ),
           ),
+
+          // Botão Configurações
           Positioned(
             top: 40,
             right: 16,
@@ -102,59 +115,40 @@ class Pagina2PageState extends State<Pagina2Page> {
               },
             ),
           ),
-          Positioned(
-            top: size.height * 0.30,
-            right: size.width * 0.15,
-            child: SvgPicture.asset(
-              'assets/images/lita-falando.svg',
-              height: size.height * 0.6,
+
+          // Botão invisível para voltar (lado esquerdo)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: GestureDetector(
+              onTap: () {
+                _stopAudio(); // Para o áudio ao navegar
+                Navigator.pop(context); // Volta para a página anterior
+              },
+              child: Container(
+                width: size.width * 0.45,
+                height: size.height,
+                color: Colors.transparent, // Invisível mas funcional
+              ),
             ),
           ),
-          Positioned(
-            top: size.height * 0.2,
-            left: size.width * 0.02,
-            right: size.width * 0.03,
-            child: SvgPicture.asset(
-              'assets/images/balão-page2.svg',
-              width: size.width * 0.80,
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: const BoxDecoration(color: Color(0xFFFCB44E)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/images/btn-voltar-laranja.svg',
-                      width: 60,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const TelaHome()),
-                      );
-                    },
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/images/btn-som-laranja.svg',
-                      width: 60,
-                    ),
-                    onPressed: () {
-                      // Ação do botão som
-                    },
-                  ),
-                  const SizedBox(
-                    width: 60,
-                  ),
-                ],
+
+          // Botão invisível para avançar (lado direito)
+          Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: () {
+                _stopAudio(); // Para o áudio ao navegar
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const Pagina3Page()), // Navega para a próxima página
+                );
+              },
+              child: Container(
+                width: size.width * 0.45,
+                height: size.height,
+                color: Colors.transparent, // Invisível mas funcional
               ),
             ),
           ),

@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:glicogotas_app/Livro/pagina1.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'pagina5.dart';
 
 class Pagina4Page extends StatefulWidget {
   const Pagina4Page({super.key});
@@ -13,9 +13,8 @@ class Pagina4Page extends StatefulWidget {
   Pagina4PageState createState() => Pagina4PageState();
 }
 
-class Pagina4PageState extends State<Pagina4Page> {
+class Pagina4PageState extends State<Pagina4Page> with RouteAware {
   final AudioPlayer _audioPlayer = AudioPlayer();
-  bool _isPlaying = false;
 
   // Função para reproduzir o áudio
   Future<void> _playAudio() async {
@@ -27,41 +26,24 @@ class Pagina4PageState extends State<Pagina4Page> {
     await _audioPlayer.stop();
   }
 
-  // Função para alternar entre tocar e pausar o áudio
-  Future<void> _toggleAudio() async {
-    if (_isPlaying) {
-      await _audioPlayer.pause(); // Pausa o áudio
-    } else {
-      await _playAudio(); // Inicia o áudio
-    }
-    setState(() {
-      _isPlaying = !_isPlaying; // Alterna o estado
-    });
-  }
-
   @override
   void initState() {
     super.initState();
+    _playAudio(); // Inicia o áudio ao carregar a página
+  }
 
-    // Inicia o áudio logo após a página ser carregada
-    _playAudio();
+  @override
+  void dispose() {
+    _stopAudio(); // Para o áudio ao sair da página
+    _audioPlayer.dispose();
+    super.dispose();
+  }
 
-    // Aguarda 5 segundos antes de navegar para a próxima página
-    Future.delayed(const Duration(seconds: 16), () {
-      _stopAudio(); // Para o áudio antes de navegar
-
-      // Navega para a próxima página
-      Navigator.push(
-        // ignore: use_build_context_synchronously
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              const Pagina1Page(),
-          transitionDuration: Duration.zero,
-          reverseTransitionDuration: Duration.zero,
-        ),
-      );
-    });
+  // Método que é chamado sempre que a página anterior é reaberta
+  @override
+  void didPopNext() {
+    super.didPopNext();
+    _playAudio(); // Reinicia o áudio sempre que voltar para a página
   }
 
   @override
@@ -72,12 +54,34 @@ class Pagina4PageState extends State<Pagina4Page> {
       backgroundColor: const Color(0xFFfffcf3),
       body: Stack(
         children: [
+          // Fundo da página
           Positioned.fill(
             child: SvgPicture.asset(
               'assets/images/fundopaglivro.svg',
               fit: BoxFit.cover,
             ),
           ),
+
+          // Elementos visuais principais
+          Positioned(
+            top: size.height * 0.15,
+            right: size.width * 0.03,
+            left: size.width * 0.03,
+            child: SvgPicture.asset(
+              'assets/images/pancreas.svg',
+              height: size.height * 0.9,
+            ),
+          ),
+          Positioned(
+            top: size.height * 0.17,
+            right: size.width * 0.07,
+            child: SvgPicture.asset(
+              'assets/images/balão-page4.svg',
+              width: size.width * 1.0,
+            ),
+          ),
+
+          // Botão Home
           Positioned(
             top: 40,
             left: 16,
@@ -88,6 +92,7 @@ class Pagina4PageState extends State<Pagina4Page> {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
+                _stopAudio(); // Para o áudio ao voltar à tela inicial
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),
@@ -95,6 +100,8 @@ class Pagina4PageState extends State<Pagina4Page> {
               },
             ),
           ),
+
+          // Botão Configurações
           Positioned(
             top: 40,
             right: 16,
@@ -114,58 +121,40 @@ class Pagina4PageState extends State<Pagina4Page> {
               },
             ),
           ),
-          Positioned(
-            top: size.height * 0.15,
-            right: size.width * 0.03,
-            left: size.width * 0.03,
-            child: SvgPicture.asset(
-              'assets/images/pancreas.svg',
-              height: size.height * 0.9,
+
+          // Botão invisível para voltar (lado esquerdo)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: GestureDetector(
+              onTap: () {
+                _stopAudio(); // Para o áudio ao navegar
+                Navigator.pop(context); // Volta para a página anterior
+              },
+              child: Container(
+                width: size.width * 0.45,
+                height: size.height,
+                color: Colors.transparent, // Invisível mas funcional
+              ),
             ),
           ),
-          Positioned(
-            top: size.height * 0.17,
-            right: size.width * 0.07,
-            child: SvgPicture.asset(
-              'assets/images/balão-page4.svg',
-              width: size.width * 1.0,
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: const BoxDecoration(color: Color(0xFFFCB44E)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/images/btn-voltar-laranja.svg',
-                      width: 60,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Pagina1Page()),
-                      );
-                    },
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/images/btn-som-laranja.svg',
-                      width: 60,
-                    ),
-                    onPressed: _toggleAudio, // Ação do botão de som
-                  ),
-                  const SizedBox(
-                    width:
-                        60, // Espaço ocupado para manter o layout equilibrado
-                  ),
-                ],
+
+          // Botão invisível para avançar (lado direito)
+          Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: () {
+                _stopAudio(); // Para o áudio ao navegar
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const Pagina5Page()), // Navega para a próxima página
+                );
+              },
+              child: Container(
+                width: size.width * 0.45,
+                height: size.height,
+                color: Colors.transparent, // Invisível mas funcional
               ),
             ),
           ),
