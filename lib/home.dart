@@ -6,6 +6,7 @@ import 'package:glicogotas_app/iniciar.dart.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'configuracoes.dart';
 import 'jogos.dart';
+import 'tirinha.dart';  // Importando a tela de Tirinha
 
 class TelaHome extends StatelessWidget {
   const TelaHome({super.key});
@@ -69,8 +70,7 @@ class TelaHome extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 10), // Ajuste ainda mais para cima
+                    padding: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -85,11 +85,9 @@ class TelaHome extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                            width: 20), // Espaçamento entre a imagem e o texto
+                        const SizedBox(width: 20),
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment
-                              .start, // Alinhamento à esquerda
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Como vamos',
@@ -127,8 +125,7 @@ class TelaHome extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(
-                      height: 40), // Espaçamento entre o texto e os botões
+                  const SizedBox(height: 40), // Espaçamento entre o texto e os botões
 
                   // Botões de opções, um abaixo do outro
                   ElevatedButton(
@@ -183,8 +180,7 @@ class TelaHome extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                CapaPage()), // Corrigido para CapaPage
+                            builder: (context) => CapaPage()), // Corrigido para CapaPage
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -223,12 +219,21 @@ class TelaHome extends StatelessWidget {
                       ),
                     ),
                   ),
+
                   const SizedBox(height: 20),
 
+                  // Botão HISTÓRIA modificado para navegação para a tela de Tirinha
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Tirinha(), // Navega para a tela de tirinha
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFCB44E),
+                      backgroundColor: const Color(0xFFFCB44E),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
@@ -263,6 +268,7 @@ class TelaHome extends StatelessWidget {
                       ),
                     ),
                   ),
+
                   const SizedBox(height: 20), // Espaçamento entre os botões
 
                   ElevatedButton(

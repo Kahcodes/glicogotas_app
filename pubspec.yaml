@@ -81,16 +81,13 @@ flutter:
     - assets/images/jogos.svg
     - assets/images/talita_capa.png
     - assets/images/pancreas.png
-    - assets/images/btn-voltar.svg
-    - assets/images/btn-som.svg
-    - assets/images/btn-ler.svg
-    - assets/images/btn-avancar.svg
+    - assets/images/tirinha1.png
+    - assets/images/tirinha2.png
+    - assets/images/tirinha3.png
     - assets/images/tela-inicial-perso.svg
     - assets/images/fundo-azul.svg
     - assets/images/btn-avancar-branco.svg
     - assets/images/fundo-lita.svg
-    - assets/images/btn-voltar-azul.svg
-    - assets/images/btn-som-azul.svg
     - assets/images/btn-avancar-azul.svg
     - assets/images/lita-person.svg
     - assets/images/lita-heroina.svg
@@ -112,16 +109,15 @@ flutter:
     - assets/images/fundo-betinho.svg
     - assets/images/eclipse-betinho.svg
     - assets/images/betinho-person.svg
-    - assets/images/btn-som-branco.svg
     - assets/images/fundopaglivro.svg
     - assets/images/btn-avancar-laranja.svg
-    - assets/images/btn-som-laranja.svg
     - assets/images/lita.svg    
     - assets/images/balão-duplo.svg
     - assets/images/btn-voltar-laranja.svg
     - assets/images/balão-page2.svg
     - assets/images/lita-falando.svg
     - assets/images/balão-page3.svg
+    - assets/images/fundo-hist.svg
     - assets/images/lita-pancreas.svg
     - assets/images/balão-page4.svg
     - assets/images/pancreas.svg
