@@ -70,7 +70,7 @@ class PersonagemBetinhoPage extends StatelessWidget {
             left: 0,
             right: 0,
             child: Stack(
-              alignment: Alignment.center, // Alinha os textos exatamente
+              alignment: Alignment.center,
               children: [
                 // Texto branco (borda)
                 Text(
@@ -80,10 +80,10 @@ class PersonagemBetinhoPage extends StatelessWidget {
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
-                      ..color = const Color(0xFFFFFEFF), // Cor da borda branca
+                      ..color = const Color(0xFFFFFEFF),
                     shadows: [
                       Shadow(
-                        color: Colors.black.withOpacity(0.25), // Sombra suave
+                        color: Colors.black.withOpacity(0.25),
                         offset: const Offset(3.0, 3.0),
                         blurRadius: 5.0,
                       ),
@@ -95,7 +95,7 @@ class PersonagemBetinhoPage extends StatelessWidget {
                   'Betinho',
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.13,
-                    color: const Color(0xFF01C881), // Cor verde
+                    color: const Color(0xFF01C881),
                   ),
                 ),
               ],
@@ -134,8 +134,7 @@ class PersonagemBetinhoPage extends StatelessWidget {
             left: 20,
             right: 20,
             child: Stack(
-              alignment: Alignment
-                  .center, // Alinhamento central para as camadas de texto
+              alignment: Alignment.center,
               children: [
                 // Texto branco (borda)
                 Text(
@@ -146,10 +145,10 @@ class PersonagemBetinhoPage extends StatelessWidget {
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
-                      ..color = const Color(0xFFFFFEFF), // Cor da borda branca
+                      ..color = const Color(0xFFFFFEFF),
                     shadows: [
                       Shadow(
-                        color: Colors.black.withOpacity(0.25), // Sombra suave
+                        color: Colors.black.withOpacity(0.25),
                         offset: const Offset(3.0, 3.0),
                         blurRadius: 5.0,
                       ),
@@ -162,22 +161,22 @@ class PersonagemBetinhoPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
-                    color: const Color(0xFF01C881), // Cor verde
+                    color: const Color(0xFF01C881),
                   ),
                 ),
               ],
             ),
           ),
 
-          // Botões de navegação e som
+          // Botões de navegação ao lado da imagem de Betinho
           Positioned(
-            bottom:
-                22, // Ajuste a altura aqui para aumentar a posição dos botões
-            left: 20,
+            top: size.height * 0.50,
+            left: 0, // Totalmente próximo à lateral esquerda
             child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/images/btn-voltar-azul.svg',
-                width: 65,
+              icon: const Icon(
+                Icons.arrow_back_ios_rounded,
+                color: Color(0xFF01C881),
+                size: 48,
               ),
               onPressed: () {
                 Navigator.push(
@@ -186,24 +185,6 @@ class PersonagemBetinhoPage extends StatelessWidget {
                       builder: (context) => const PersonagemPumpsPage()),
                 ); // Ação do botão voltar
               },
-            ),
-          ),
-
-          // Centralizando o botão do meio usando Align
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  bottom: 22), // Ajuste a altura aqui também
-              child: IconButton(
-                icon: SvgPicture.asset(
-                  'assets/images/btn-som-azul.svg',
-                  width: 65,
-                ),
-                onPressed: () {
-                  // Ação do botão som
-                },
-              ),
             ),
           ),
         ],

@@ -65,7 +65,7 @@ class PersonagemReiPage extends StatelessWidget {
             ),
           ),
 
-          // Nome do personagem (Lita) centralizado
+          // Nome do personagem (Rei da Hiper) centralizado
           Positioned(
             top: size.height * 0.15,
             left: 0,
@@ -91,12 +91,12 @@ class PersonagemReiPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                // Texto rosa
+                // Texto vermelho
                 Text(
                   'Rei da Hiper',
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.13,
-                    color: const Color(0xFFEF291D), // Cor rosa
+                    color: const Color(0xFFEF291D), // Cor vermelha
                   ),
                 ),
               ],
@@ -157,28 +157,28 @@ class PersonagemReiPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                // Texto rosa
+                // Texto vermelho
                 Text(
                   'Um vilão que faz o açúcar subir com sua coroa vermelha e sintomas poderosos!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
-                    color: const Color(0xFFEF291D), // Cor rosa
+                    color: const Color(0xFFEF291D), // Cor vermelha
                   ),
                 ),
               ],
             ),
           ),
 
-          // Botões de navegação e som
+          // Botões de navegação laterais
           Positioned(
-            bottom:
-                22, // Ajuste a altura aqui para aumentar a posição dos botões
-            left: 20,
+            top: size.height * 0.50,
+            left: 0, // Ajuste para ficar mais próximo da lateral esquerda
             child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/images/btn-voltar-azul.svg',
-                width: 65,
+              icon: const Icon(
+                Icons.arrow_back_ios_rounded,
+                color: Color(0xFFFCB44E),
+                size: 48,
               ),
               onPressed: () {
                 Navigator.push(
@@ -189,39 +189,21 @@ class PersonagemReiPage extends StatelessWidget {
               },
             ),
           ),
-
-          // Centralizando o botão do meio usando Align
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  bottom: 22), // Ajuste a altura aqui também
-              child: IconButton(
-                icon: SvgPicture.asset(
-                  'assets/images/btn-som-azul.svg',
-                  width: 65,
-                ),
-                onPressed: () {
-                  // Ação do botão som
-                },
-              ),
-            ),
-          ),
-
           Positioned(
-            bottom: 22, // Ajuste a altura aqui também para o botão da direita
-            right: 20,
+            top: size.height * 0.50,
+            right: 0, // Ajuste para ficar mais próximo da lateral direita
             child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/images/btn-avancar-azul.svg',
-                width: 65,
+              icon: const Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: Color(0xFFFCB44E),
+                size: 48,
               ),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const PersonagemBoboPage()),
-                );
+                ); // Ação do botão avançar
               },
             ),
           ),

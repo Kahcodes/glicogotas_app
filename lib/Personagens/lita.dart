@@ -170,15 +170,15 @@ class PersonagemLitaPage extends StatelessWidget {
             ),
           ),
 
-          // Botões de navegação e som
+          // Botões de navegação ao lado da imagem da Lita
           Positioned(
-            bottom:
-                22, // Ajuste a altura aqui para aumentar a posição dos botões
-            left: 20,
+            top: size.height * 0.50,
+            left: 0, // Totalmente próximo à lateral esquerda
             child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/images/btn-voltar-azul.svg',
-                width: 65,
+              icon: const Icon(
+                Icons.arrow_back_ios_rounded,
+                color: Color(0xFF00D287),
+                size: 48,
               ),
               onPressed: () {
                 Navigator.push(
@@ -189,32 +189,14 @@ class PersonagemLitaPage extends StatelessWidget {
               },
             ),
           ),
-
-          // Centralizando o botão do meio usando Align
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  bottom: 22), // Ajuste a altura aqui também
-              child: IconButton(
-                icon: SvgPicture.asset(
-                  'assets/images/btn-som-azul.svg',
-                  width: 65,
-                ),
-                onPressed: () {
-                  // Ação do botão som
-                },
-              ),
-            ),
-          ),
-
           Positioned(
-            bottom: 22, // Ajuste a altura aqui também para o botão da direita
-            right: 20,
+            top: size.height * 0.50,
+            right: 0, // Totalmente próximo à lateral direita
             child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/images/btn-avancar-azul.svg',
-                width: 65,
+              icon: const Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: Color(0xFF00D287),
+                size: 48,
               ),
               onPressed: () {
                 Navigator.push(

@@ -26,20 +26,6 @@ class PersonagensPage extends StatelessWidget {
           // Botão de configurações no topo direito
           Positioned(
             top: 40,
-            left: 16,
-            child: IconButton(
-              iconSize: 30,
-              icon: const Icon(Icons.home_rounded, color: Colors.white),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const TelaHome()),
-                );
-              },
-            ),
-          ),
-          Positioned(
-            top: 40,
             right: 16,
             child: IconButton(
               iconSize: 30,
@@ -166,31 +152,32 @@ class PersonagensPage extends StatelessWidget {
                   bottom: 22), // Ajuste a altura aqui também
               child: IconButton(
                 icon: SvgPicture.asset(
-                  'assets/images/btn-som-branco.svg',
+                  'assets/images/btn-avancar-branco.svg',
                   width: 65,
                 ),
                 onPressed: () {
-                  // Ação do botão som
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PersonagemLitaPage()),
+                  ); // Ação do botão próximo
                 },
               ),
             ),
           ),
 
-          // Botão de avançar no canto inferior direito
+          // Botão de home no canto superior esquerdo
           Positioned(
-            bottom: 22,
-            right: 20,
+            top: 40,
+            left: 16,
             child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/images/btn-avancar-branco.svg',
-                width: 65,
-              ),
+              iconSize: 30,
+              icon: const Icon(Icons.home_rounded, color: Colors.white),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const PersonagemLitaPage()),
-                ); // Ação do botão próximo
+                  MaterialPageRoute(builder: (context) => const TelaHome()),
+                );
               },
             ),
           ),

@@ -65,7 +65,7 @@ class PersonagemInsulinsPage extends StatelessWidget {
             ),
           ),
 
-          // Nome do personagem (Lita) centralizado
+          // Nome do personagem (Insulins) centralizado
           Positioned(
             top: size.height * 0.15,
             left: 0,
@@ -85,18 +85,18 @@ class PersonagemInsulinsPage extends StatelessWidget {
                     shadows: [
                       Shadow(
                         color: Colors.black.withOpacity(0.25), // Sombra suave
-                        offset: Offset(3.0, 3.0),
+                        offset: const Offset(3.0, 3.0),
                         blurRadius: 5.0,
                       ),
                     ],
                   ),
                 ),
-                // Texto rosa
+                // Texto dourado
                 Text(
                   'Insulins',
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.13,
-                    color: const Color(0xFFFCB44E),
+                    color: const Color(0xFFFCB44E), // Cor dourada
                   ),
                 ),
               ],
@@ -111,7 +111,7 @@ class PersonagemInsulinsPage extends StatelessWidget {
             child: Center(
               child: SvgPicture.asset(
                 'assets/images/eclipse-insulins.svg',
-                height: size.height * 0.36, // Aumentei ligeiramente a bola
+                height: size.height * 0.36,
               ),
             ),
           ),
@@ -151,77 +151,60 @@ class PersonagemInsulinsPage extends StatelessWidget {
                     shadows: [
                       Shadow(
                         color: Colors.black.withOpacity(0.25), // Sombra suave
-                        offset: Offset(3.0, 3.0),
+                        offset: const Offset(3.0, 3.0),
                         blurRadius: 5.0,
                       ),
                     ],
                   ),
                 ),
-                // Texto rosa
+                // Texto dourado
                 Text(
                   'Os irmãos Lento e Rápido, juntos controlam o diabetes da Lita!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
-                    color: const Color(0xFFFCB44E), // Cor rosa
+                    color: const Color(0xFFFCB44E), // Cor dourada
                   ),
                 ),
               ],
             ),
           ),
 
-          // Botões de navegação e som
+          // Botões de navegação ajustados
           Positioned(
-            bottom:
-                22, // Ajuste a altura aqui para aumentar a posição dos botões
-            left: 20,
+            top: size.height * 0.50,
+            left: 0, // Ajuste para ficar na lateral esquerda
             child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/images/btn-voltar-azul.svg',
-                width: 65,
+              icon: const Icon(
+                Icons.arrow_back_ios_rounded,
+                color: Color(0xFFF48F21),
+                size: 48,
               ),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const PersonagemFePage()),
-                ); // Ação do botão voltar
+                );
               },
             ),
           ),
 
-          // Centralizando o botão do meio usando Align
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  bottom: 22), // Ajuste a altura aqui também
-              child: IconButton(
-                icon: SvgPicture.asset(
-                  'assets/images/btn-som-azul.svg',
-                  width: 65,
-                ),
-                onPressed: () {
-                  // Ação do botão som
-                },
-              ),
-            ),
-          ),
-
           Positioned(
-            bottom: 22, // Ajuste a altura aqui também para o botão da direita
-            right: 20,
+            top: size.height * 0.50,
+            right: 0, // Ajuste para ficar na lateral direita
             child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/images/btn-avancar-azul.svg',
-                width: 65,
+              icon: const Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: Color(0xFFF48F21),
+                size: 48,
               ),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const PersonagemPumpsPage()),
-                ); // Ação do botão avançar
+                );
               },
             ),
           ),

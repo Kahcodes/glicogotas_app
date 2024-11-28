@@ -65,13 +65,13 @@ class PersonagemBoboPage extends StatelessWidget {
             ),
           ),
 
-          // Nome do personagem (Lita) centralizado
+          // Nome do personagem (Bobo da Hipo) centralizado
           Positioned(
             top: size.height * 0.15,
             left: 0,
             right: 0,
             child: Stack(
-              alignment: Alignment.center, // Alinha os textos exatamente
+              alignment: Alignment.center,
               children: [
                 // Texto branco (borda)
                 Text(
@@ -81,22 +81,22 @@ class PersonagemBoboPage extends StatelessWidget {
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
-                      ..color = const Color(0xFFFFFEFF), // Cor da borda branca
+                      ..color = const Color(0xFFFFFEFF),
                     shadows: [
                       Shadow(
-                        color: Colors.black.withOpacity(0.25), // Sombra suave
+                        color: Colors.black.withOpacity(0.25),
                         offset: Offset(3.0, 3.0),
                         blurRadius: 5.0,
                       ),
                     ],
                   ),
                 ),
-                // Texto rosa
+                // Texto verde
                 Text(
                   'Bobo da Hipo',
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.13,
-                    color: const Color(0xFF00D287), // Cor rosa
+                    color: const Color(0xFF00D287),
                   ),
                 ),
               ],
@@ -111,7 +111,7 @@ class PersonagemBoboPage extends StatelessWidget {
             child: Center(
               child: SvgPicture.asset(
                 'assets/images/eclipse-bobo.svg',
-                height: size.height * 0.36, // Aumentei ligeiramente a bola
+                height: size.height * 0.36,
               ),
             ),
           ),
@@ -120,7 +120,7 @@ class PersonagemBoboPage extends StatelessWidget {
           Positioned(
             top: size.height * 0.29,
             left: 0,
-            right: -30,
+            right: 0,
             child: Center(
               child: SvgPicture.asset(
                 'assets/images/bobo-person.svg',
@@ -135,8 +135,7 @@ class PersonagemBoboPage extends StatelessWidget {
             left: 20,
             right: 20,
             child: Stack(
-              alignment: Alignment
-                  .center, // Alinhamento central para as camadas de texto
+              alignment: Alignment.center,
               children: [
                 // Texto branco (borda)
                 Text(
@@ -147,74 +146,56 @@ class PersonagemBoboPage extends StatelessWidget {
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
-                      ..color = const Color(0xFFFFFEFF), // Cor da borda branca
+                      ..color = const Color(0xFFFFFEFF),
                     shadows: [
                       Shadow(
-                        color: Colors.black.withOpacity(0.25), // Sombra suave
+                        color: Colors.black.withOpacity(0.25),
                         offset: Offset(3.0, 3.0),
                         blurRadius: 5.0,
                       ),
                     ],
                   ),
                 ),
-                // Texto rosa
+                // Texto verde
                 Text(
                   'Um trapalhão que faz o açúcar no sangue cair e causa muita confusão!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
-                    color: const Color(0xFF00D287), // Cor rosa
+                    color: const Color(0xFF00D287),
                   ),
                 ),
               ],
             ),
           ),
 
-          // Botões de navegação e som
+          // Botões de navegação laterais
           Positioned(
-            bottom:
-                22, // Ajuste a altura aqui para aumentar a posição dos botões
-            left: 20,
+            top: size.height * 0.50,
+            left: 0, // Ajuste para ficar mais próximo da lateral esquerda
             child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/images/btn-voltar-azul.svg',
-                width: 65,
+              icon: const Icon(
+                Icons.arrow_back_ios_rounded,
+                color: Color(0xFF008AD7),
+                size: 48,
               ),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const PersonagemReiPage()),
-                ); // Ação do botão voltar
+                );
               },
             ),
           ),
-
-          // Centralizando o botão do meio usando Align
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  bottom: 22), // Ajuste a altura aqui também
-              child: IconButton(
-                icon: SvgPicture.asset(
-                  'assets/images/btn-som-azul.svg',
-                  width: 65,
-                ),
-                onPressed: () {
-                  // Ação do botão som
-                },
-              ),
-            ),
-          ),
-
           Positioned(
-            bottom: 22, // Ajuste a altura aqui também para o botão da direita
-            right: 20,
+            top: size.height * 0.50,
+            right: 0, // Ajuste para ficar mais próximo da lateral direita
             child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/images/btn-avancar-azul.svg',
-                width: 65,
+              icon: const Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: Color(0xFF008AD7),
+                size: 48,
               ),
               onPressed: () {
                 Navigator.push(
@@ -222,7 +203,6 @@ class PersonagemBoboPage extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) => const PersonagemFePage()),
                 );
-                // Ação do botão avançar
               },
             ),
           ),
