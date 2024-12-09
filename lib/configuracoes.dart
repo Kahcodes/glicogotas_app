@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ConfigDialog extends StatefulWidget {
   const ConfigDialog({super.key});
@@ -9,13 +11,15 @@ class ConfigDialog extends StatefulWidget {
 }
 
 class ConfigDialogState extends State<ConfigDialog> {
-  bool _somOn = true; // Estado do switch Som (on/off)
   bool _musicaOn = true; // Estado do switch Música (on/off)
   double _volumeValue = 0.7;
   String _selectedLanguage = 'Português';
 
   @override
   Widget build(BuildContext context) {
+    final configuracoesProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: true);
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pop(); // Fecha o diálogo ao tocar fora
@@ -79,11 +83,16 @@ class ConfigDialogState extends State<ConfigDialog> {
                   const SizedBox(height: 20),
 
                   // Ajuste de som com Switch on/off
-                  _buildSwitchOption('SOM', _somOn, (value) {
-                    setState(() {
-                      _somOn = value;
-                    });
-                  }),
+                  FutureBuilder(
+                      future: configuracoesProvider.getSoundOn(),
+                      builder: (context, snapshot) {
+                        return _buildSwitchOption('SOM', snapshot.data ?? true,
+                            (value) {
+                          setState(() {
+                            configuracoesProvider.switchSoundOn();
+                          });
+                        });
+                      }),
 
                   const SizedBox(height: 20),
 

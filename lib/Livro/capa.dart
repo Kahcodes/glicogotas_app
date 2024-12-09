@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:glicogotas_app/Livro/pagina1.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
+import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:math';
+
+import 'package:provider/provider.dart';
 
 class CapaPage extends StatefulWidget {
   const CapaPage({super.key});
@@ -33,8 +36,18 @@ class _CapaPageState extends State<CapaPage> {
     await _audioPlayer.play(AssetSource('audio/titulo.mp3'));
   }
 
-  @override
+  _updateAudioStream(BuildContext context) async {
+    final configuracoesProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: true);
+    if (configuracoesProvider.soundOn) {
+      _audioPlayer.resume();
+    } else {
+      _audioPlayer.pause();
+    }
+  }
+
   Widget build(BuildContext context) {
+    _updateAudioStream(context);
     return Scaffold(
       backgroundColor: const Color(0xFF265F95),
       body: SafeArea(
@@ -115,12 +128,7 @@ class _CapaPageState extends State<CapaPage> {
                         child: Image.asset("assets/images/talita_capa.png",
                             height: 290, fit: BoxFit.cover),
                       ),
-                      Positioned(
-                        bottom: 0,
-                        right: 20,
-                        child: Image.asset("assets/images/pancreas.png",
-                            height: 180, fit: BoxFit.cover),
-                      ),
+
                       // Botão invisível para avançar para a próxima página
                       Positioned(
                         bottom: 120, // Ajuste para posicionar acima da imagem
