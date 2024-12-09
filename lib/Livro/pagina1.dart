@@ -6,6 +6,8 @@ import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
+import 'package:provider/provider.dart';
+import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 
 class Pagina1Page extends StatefulWidget {
   const Pagina1Page({super.key});
@@ -21,6 +23,16 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
   Future<void> _playAudio() async {
     await _audioPlayer.stop(); // Garante que o áudio anterior seja parado
     await _audioPlayer.play(AssetSource('audio/audiopag1.mp3'));
+  }
+
+  Future<void> _updateAudioStream(BuildContext context) async {
+    final configuracoesProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: true);
+    if (configuracoesProvider.soundOn) {
+      _audioPlayer.resume();
+    } else {
+      _audioPlayer.pause();
+    }
   }
 
   @override
@@ -55,6 +67,7 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
+    _updateAudioStream(context);
     final size = MediaQuery.of(context).size;
 
     return Scaffold(

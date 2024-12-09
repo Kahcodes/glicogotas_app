@@ -5,6 +5,8 @@ import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
+import 'package:provider/provider.dart';
+import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 
 class Pagina3Page extends StatefulWidget {
   const Pagina3Page({super.key});
@@ -16,14 +18,21 @@ class Pagina3Page extends StatefulWidget {
 class Pagina3PageState extends State<Pagina3Page> with RouteAware {
   final AudioPlayer _audioPlayer = AudioPlayer();
 
-  // Função para reproduzir o áudio
   Future<void> _playAudio() async {
+    await _audioPlayer
+        .stop(); // Garante que qualquer áudio anterior seja parado
     await _audioPlayer.play(AssetSource('audio/audiopag3.mp3'));
   }
 
-  // Função para parar o áudio
-  Future<void> _stopAudio() async {
-    await _audioPlayer.stop();
+  Future<void> _updateAudioStream(BuildContext context) async {
+    final configuracoesProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: true);
+
+    if (configuracoesProvider.soundOn) {
+      _audioPlayer.resume();
+    } else {
+      _audioPlayer.pause();
+    }
   }
 
   @override
@@ -44,14 +53,14 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
   @override
   void dispose() {
     routeObserver.unsubscribe(this); // Desinscreve o observador
-    _stopAudio(); // Para o áudio ao sair da página
+    _audioPlayer.stop(); // Para o áudio ao sair da página
     _audioPlayer.dispose();
     super.dispose();
   }
 
   @override
   void didPushNext() {
-    _stopAudio(); // Para o áudio ao ir para a próxima página
+    _audioPlayer.stop(); // Para o áudio ao ir para a próxima página
   }
 
   @override
@@ -61,6 +70,9 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
+    _updateAudioStream(
+        context); // Atualiza o estado do áudio com base no Provider
+
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -108,7 +120,7 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
-                _stopAudio(); // Para o áudio ao voltar à tela inicial
+                _audioPlayer.stop(); // Para o áudio ao voltar à tela inicial
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),
@@ -144,7 +156,7 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
             left: 0,
             child: GestureDetector(
               onTap: () {
-                _stopAudio(); // Para o áudio ao navegar
+                _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.pop(context); // Voltar para a página anterior
               },
               child: Container(
@@ -161,7 +173,7 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
             right: 0,
             child: GestureDetector(
               onTap: () {
-                _stopAudio(); // Para o áudio ao navegar
+                _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina4Page()),

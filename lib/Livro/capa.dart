@@ -46,6 +46,7 @@ class _CapaPageState extends State<CapaPage> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     _updateAudioStream(context);
     return Scaffold(

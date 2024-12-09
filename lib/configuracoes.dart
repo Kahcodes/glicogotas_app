@@ -11,10 +11,6 @@ class ConfigDialog extends StatefulWidget {
 }
 
 class ConfigDialogState extends State<ConfigDialog> {
-  bool _musicaOn = true; // Estado do switch Música (on/off)
-  double _volumeValue = 0.7;
-  String _selectedLanguage = 'Português';
-
   @override
   Widget build(BuildContext context) {
     final configuracoesProvider =
@@ -47,7 +43,7 @@ class ConfigDialogState extends State<ConfigDialog> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // "Configurações" e voltar
+                  // Título e botão voltar
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -77,35 +73,39 @@ class ConfigDialogState extends State<ConfigDialog> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 48), // Espaço vazio para balancear
+                      const SizedBox(
+                          width: 48), // Espaço para balancear o layout
                     ],
                   ),
                   const SizedBox(height: 20),
 
-                  // Ajuste de som com Switch on/off
+                  // Controle de som
                   FutureBuilder(
-                      future: configuracoesProvider.getSoundOn(),
-                      builder: (context, snapshot) {
-                        return _buildSwitchOption('SOM', snapshot.data ?? true,
-                            (value) {
-                          setState(() {
-                            configuracoesProvider.switchSoundOn();
-                          });
-                        });
-                      }),
+                    future: configuracoesProvider.getSoundOn(),
+                    builder: (context, snapshot) {
+                      return _buildSwitchOption('SOM', snapshot.data ?? true,
+                          (value) {
+                        configuracoesProvider.switchSoundOn();
+                      });
+                    },
+                  ),
 
                   const SizedBox(height: 20),
 
-                  // Ajuste de música com Switch on/off
-                  _buildSwitchOption('MÚSICA', _musicaOn, (value) {
-                    setState(() {
-                      _musicaOn = value;
-                    });
-                  }),
+                  // Controle de música
+                  FutureBuilder(
+                    future: configuracoesProvider.getMusicOn(),
+                    builder: (context, snapshot) {
+                      return _buildSwitchOption('MÚSICA', snapshot.data ?? true,
+                          (value) {
+                        configuracoesProvider.switchMusicOn();
+                      });
+                    },
+                  ),
 
                   const SizedBox(height: 20),
 
-                  // Ajuste de volume com Slider
+                  // Controle de volume
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -133,13 +133,11 @@ class ConfigDialogState extends State<ConfigDialog> {
                             inactiveTrackColor: const Color(0xFFFFFFFF),
                           ),
                           child: Slider(
-                            value: _volumeValue,
+                            value: configuracoesProvider.volume,
                             min: 0,
                             max: 1,
                             onChanged: (value) {
-                              setState(() {
-                                _volumeValue = value;
-                              });
+                              configuracoesProvider.setVolume(value);
                             },
                           ),
                         ),
@@ -172,11 +170,11 @@ class ConfigDialogState extends State<ConfigDialog> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildLanguageButton('Português'),
+                      _buildLanguageButton('Português', configuracoesProvider),
                       const SizedBox(width: 10),
-                      _buildLanguageButton('Español'),
+                      _buildLanguageButton('Español', configuracoesProvider),
                       const SizedBox(width: 10),
-                      _buildLanguageButton('English'),
+                      _buildLanguageButton('English', configuracoesProvider),
                     ],
                   ),
 
@@ -202,9 +200,9 @@ class ConfigDialogState extends State<ConfigDialog> {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Icon(
+                      const Icon(
                         Icons.help_outline,
-                        color: const Color(0xFFFEDE74),
+                        color: Color(0xFFFEDE74),
                       ),
                     ],
                   ),
@@ -212,42 +210,6 @@ class ConfigDialogState extends State<ConfigDialog> {
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLanguageButton(String language) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: _selectedLanguage == language
-            ? const Color(0xFFFCB44E)
-            : const Color(0xFF37ABDC),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        shadowColor: Colors.black.withOpacity(0.5),
-        elevation: 5,
-      ),
-      onPressed: () {
-        setState(() {
-          _selectedLanguage = language;
-        });
-      },
-      child: Text(
-        language,
-        style: GoogleFonts.chewy(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-          shadows: [
-            Shadow(
-              color: Colors.black.withOpacity(0.5),
-              offset: const Offset(2, 2),
-              blurRadius: 4,
-            ),
-          ],
         ),
       ),
     );
@@ -280,6 +242,41 @@ class ConfigDialogState extends State<ConfigDialog> {
           onChanged: onChanged,
         ),
       ],
+    );
+  }
+
+  Widget _buildLanguageButton(
+      String language, ConfiguracoesRepository provider) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: provider.language == language
+            ? const Color(0xFFFCB44E)
+            : const Color(0xFF37ABDC),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        shadowColor: Colors.black.withOpacity(0.5),
+        elevation: 5,
+      ),
+      onPressed: () {
+        provider.setLanguage(language);
+      },
+      child: Text(
+        language,
+        style: GoogleFonts.chewy(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+          shadows: [
+            Shadow(
+              color: Colors.black.withOpacity(0.5),
+              offset: const Offset(2, 2),
+              blurRadius: 4,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

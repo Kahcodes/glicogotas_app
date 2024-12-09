@@ -6,7 +6,7 @@ import 'package:glicogotas_app/iniciar.dart.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'configuracoes.dart';
 import 'jogos.dart';
-import 'tirinha.dart';  // Importando a tela de Tirinha
+import 'tirinha.dart'; // Importando a tela de Tirinha
 
 class TelaHome extends StatelessWidget {
   const TelaHome({super.key});
@@ -125,7 +125,8 @@ class TelaHome extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 40), // Espaçamento entre o texto e os botões
+                  const SizedBox(
+                      height: 40), // Espaçamento entre o texto e os botões
 
                   // Botões de opções, um abaixo do outro
                   ElevatedButton(
@@ -180,7 +181,8 @@ class TelaHome extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CapaPage()), // Corrigido para CapaPage
+                            builder: (context) =>
+                                CapaPage()), // Corrigido para CapaPage
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -228,7 +230,8 @@ class TelaHome extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Tirinha(), // Navega para a tela de tirinha
+                          builder: (context) =>
+                              const Tirinha(), // Navega para a tela de tirinha
                         ),
                       );
                     },
