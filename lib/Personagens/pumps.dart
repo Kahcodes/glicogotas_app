@@ -1,13 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:glicogotas_app/Personagens/betinho.dart';
-import 'package:glicogotas_app/Personagens/insulins.dart';
-import 'package:glicogotas_app/configuracoes.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:glicogotas_app/home.dart';
+import 'package:glicogotas_app/Personagens/insulins.dart';
+import 'package:glicogotas_app/Personagens/betinho.dart';
+import 'package:glicogotas_app/configuracoes.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
 
-class PersonagemPumpsPage extends StatelessWidget {
+class PersonagemPumpsPage extends StatefulWidget {
   const PersonagemPumpsPage({super.key});
+
+  @override
+  PersonagemPumpsPageState createState() => PersonagemPumpsPageState();
+}
+
+class PersonagemPumpsPageState extends State<PersonagemPumpsPage>
+    with RouteAware {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  // Função para tocar o áudio
+  Future<void> _playAudio() async {
+    await _audioPlayer.stop(); // Garante que o áudio anterior seja parado
+    await _audioPlayer.play(AssetSource(
+        'audio/audioPersonagens/pumps.mp3')); // Substitua pelo arquivo correto
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playAudio(); // Inicia o áudio quando a página é carregada
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    _audioPlayer.stop(); // Para o áudio ao sair da página
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    _audioPlayer.stop(); // Para o áudio ao navegar para a próxima página
+  }
+
+  @override
+  void didPopNext() {
+    _playAudio(); // Reinicia o áudio ao voltar para esta página
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +83,7 @@ class PersonagemPumpsPage extends StatelessWidget {
                 color: Color.fromARGB(255, 0, 132, 255),
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao ir para a tela inicial
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),
@@ -140,7 +188,7 @@ class PersonagemPumpsPage extends StatelessWidget {
               children: [
                 // Texto branco (borda)
                 Text(
-                  'A bombinha de insulina, que ajuda a regular o açúcar no sangue e avisa quando precisa de atenção!',
+                  'É a bombinha de insulina que regula o açúcar no sangue e avisa quando precisa de atenção!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
@@ -159,7 +207,7 @@ class PersonagemPumpsPage extends StatelessWidget {
                 ),
                 // Texto rosa
                 Text(
-                  'A bombinha de insulina, que ajuda a regular o açúcar no sangue e avisa quando precisa de atenção!',
+                  'É a bombinha de insulina que regula o açúcar no sangue e avisa quando precisa de atenção!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
@@ -181,6 +229,7 @@ class PersonagemPumpsPage extends StatelessWidget {
                 size: 48,
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -199,6 +248,7 @@ class PersonagemPumpsPage extends StatelessWidget {
                 size: 48,
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(

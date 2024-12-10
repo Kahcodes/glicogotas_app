@@ -5,9 +5,55 @@ import 'package:glicogotas_app/Personagens/rei.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:audioplayers/audioplayers.dart'; // Adicionei a importação para o AudioPlayer
+import 'package:glicogotas_app/main.dart'; // Certifique-se de que routeObserver está importado
 
-class PersonagemBoboPage extends StatelessWidget {
+class PersonagemBoboPage extends StatefulWidget {
   const PersonagemBoboPage({super.key});
+
+  @override
+  PersonagemBoboPageState createState() => PersonagemBoboPageState();
+}
+
+class PersonagemBoboPageState extends State<PersonagemBoboPage>
+    with RouteAware {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  // Método para tocar o áudio
+  Future<void> _playAudio() async {
+    await _audioPlayer.stop(); // Garante que o áudio anterior seja parado
+    await _audioPlayer.play(AssetSource('audio/audioPersonagens/bobo.mp3'));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playAudio(); // Toca o áudio ao entrar na página
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    _audioPlayer.stop(); // Para o áudio ao sair da página
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    _audioPlayer.stop(); // Para o áudio ao navegar para outra página
+  }
+
+  @override
+  void didPopNext() {
+    _playAudio(); // Reinicia o áudio ao voltar para esta página
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +82,7 @@ class PersonagemBoboPage extends StatelessWidget {
                 color: Color.fromARGB(255, 0, 132, 255),
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao ir para a tela inicial
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),
@@ -139,7 +186,7 @@ class PersonagemBoboPage extends StatelessWidget {
               children: [
                 // Texto branco (borda)
                 Text(
-                  'Um trapalhão que faz o açúcar no sangue cair e causa muita confusão!',
+                  ' É um trapalhão que faz o açúcar no sangue cair causando alerta e muita confusão!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
@@ -158,7 +205,7 @@ class PersonagemBoboPage extends StatelessWidget {
                 ),
                 // Texto verde
                 Text(
-                  'Um trapalhão que faz o açúcar no sangue cair e causa muita confusão!',
+                  'É um trapalhão que faz o açúcar no sangue cair causando alerta e muita confusão!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
@@ -180,6 +227,7 @@ class PersonagemBoboPage extends StatelessWidget {
                 size: 48,
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -198,6 +246,7 @@ class PersonagemBoboPage extends StatelessWidget {
                 size: 48,
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(

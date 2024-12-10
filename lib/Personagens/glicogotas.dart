@@ -4,9 +4,36 @@ import 'package:glicogotas_app/Personagens/lita.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:audioplayers/audioplayers.dart';
 
-class PersonagensPage extends StatelessWidget {
+class PersonagensPage extends StatefulWidget {
   const PersonagensPage({super.key});
+
+  @override
+  PersonagensPageState createState() => PersonagensPageState();
+}
+
+class PersonagensPageState extends State<PersonagensPage> with RouteAware {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  Future<void> _playAudio() async {
+    await _audioPlayer.stop(); // Garante que o áudio anterior seja parado
+    await _audioPlayer
+        .play(AssetSource('audio/audioPersonagens/bemvindos.mp3'));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playAudio(); // Inicia o áudio ao abrir a página
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.stop(); // Para o áudio ao sair da página
+    _audioPlayer.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,8 +123,7 @@ class PersonagensPage extends StatelessWidget {
             ),
           ),
 
-          // Espaço extra com ajuste de posicionamento
-          // Texto "A Turminha do Glicogotas!" centralizado, com contorno e sombra
+          // Texto "À Turminha do Glicogotas!" centralizado
           Positioned(
             bottom: size.height * 0.15,
             left: size.width * 0.15,
@@ -105,13 +131,12 @@ class PersonagensPage extends StatelessWidget {
             child: Transform.rotate(
               angle: -0.03,
               child: FittedBox(
-                // Ajuste de tamanho automático
                 fit: BoxFit.scaleDown, // Reduz o texto para caber na área
                 child: Stack(
                   children: [
                     // Contorno branco
                     Text(
-                      'A Turminha do Glicogotas!',
+                      'À Turminha do Glicogotas!',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.chewy(
                         fontSize: size.width * 0.16,
@@ -131,7 +156,7 @@ class PersonagensPage extends StatelessWidget {
                     ),
                     // Preenchimento rosa e sombra
                     Text(
-                      'A Turminha do Glicogotas!',
+                      'À Turminha do Glicogotas!',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.chewy(
                         color: const Color(0xFFF4719C),
@@ -145,22 +170,23 @@ class PersonagensPage extends StatelessWidget {
             ),
           ),
 
+          // Botão "Avançar"
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(
-                  bottom: 22), // Ajuste a altura aqui também
+              padding: const EdgeInsets.only(bottom: 22),
               child: IconButton(
                 icon: SvgPicture.asset(
                   'assets/images/btn-avancar-branco.svg',
                   width: 65,
                 ),
                 onPressed: () {
+                  _audioPlayer.stop(); // Para o áudio ao navegar
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const PersonagemLitaPage()),
-                  ); // Ação do botão próximo
+                  );
                 },
               ),
             ),
@@ -174,6 +200,7 @@ class PersonagensPage extends StatelessWidget {
               iconSize: 30,
               icon: const Icon(Icons.home_rounded, color: Colors.white),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao voltar ao início
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),

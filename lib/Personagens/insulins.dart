@@ -1,13 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:glicogotas_app/Personagens/fe.dart';
 import 'package:glicogotas_app/Personagens/pumps.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:glicogotas_app/main.dart';
 
-class PersonagemInsulinsPage extends StatelessWidget {
+class PersonagemInsulinsPage extends StatefulWidget {
   const PersonagemInsulinsPage({super.key});
+
+  @override
+  PersonagemInsulinsPageState createState() => PersonagemInsulinsPageState();
+}
+
+class PersonagemInsulinsPageState extends State<PersonagemInsulinsPage>
+    with RouteAware {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  Future<void> _playAudio() async {
+    await _audioPlayer.stop(); // Garante que o áudio anterior seja parado
+    await _audioPlayer.play(AssetSource(
+        'audio/audioPersonagens/insulins.mp3')); // Substitua pelo seu arquivo de áudio
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playAudio(); // Inicia o áudio ao carregar a página
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    _audioPlayer.stop(); // Para o áudio ao sair da página
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    _audioPlayer.stop(); // Para o áudio ao ir para a próxima página
+  }
+
+  @override
+  void didPopNext() {
+    _playAudio(); // Reinicia o áudio ao voltar para esta página
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +82,7 @@ class PersonagemInsulinsPage extends StatelessWidget {
                 color: Color.fromARGB(255, 0, 132, 255),
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao ir para a tela inicial
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),
@@ -140,7 +187,7 @@ class PersonagemInsulinsPage extends StatelessWidget {
               children: [
                 // Texto branco (borda)
                 Text(
-                  'Os irmãos Lento e Rápido, juntos controlam o diabetes da Lita!',
+                  'Esses são Lento e Rápido, juntos eles controlam o diabetes da Lita!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
@@ -159,7 +206,7 @@ class PersonagemInsulinsPage extends StatelessWidget {
                 ),
                 // Texto dourado
                 Text(
-                  'Os irmãos Lento e Rápido, juntos controlam o diabetes da Lita!',
+                  'Esses são Lento e Rápido, juntos eles controlam o diabetes da Lita!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
@@ -181,6 +228,7 @@ class PersonagemInsulinsPage extends StatelessWidget {
                 size: 48,
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -200,6 +248,7 @@ class PersonagemInsulinsPage extends StatelessWidget {
                 size: 48,
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(

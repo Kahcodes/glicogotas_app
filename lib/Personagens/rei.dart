@@ -5,9 +5,54 @@ import 'package:glicogotas_app/Personagens/lita.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:audioplayers/audioplayers.dart'; // Importando para controlar o áudio
+import 'package:glicogotas_app/main.dart'; // Certifique-se de que routeObserver está importado
 
-class PersonagemReiPage extends StatelessWidget {
+class PersonagemReiPage extends StatefulWidget {
   const PersonagemReiPage({super.key});
+
+  @override
+  PersonagemReiPageState createState() => PersonagemReiPageState();
+}
+
+class PersonagemReiPageState extends State<PersonagemReiPage> with RouteAware {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  // Método para tocar o áudio
+  Future<void> _playAudio() async {
+    await _audioPlayer.stop(); // Garante que o áudio anterior seja parado
+    await _audioPlayer.play(AssetSource('audio/audioPersonagens/hiper.mp3'));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playAudio(); // Toca o áudio ao entrar na página
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    _audioPlayer.stop(); // Para o áudio ao sair da página
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    _audioPlayer.stop(); // Para o áudio ao navegar para outra página
+  }
+
+  @override
+  void didPopNext() {
+    _playAudio(); // Reinicia o áudio ao voltar para esta página
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +81,7 @@ class PersonagemReiPage extends StatelessWidget {
                 color: Color.fromARGB(255, 0, 132, 255),
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao ir para a tela inicial
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),
@@ -140,7 +186,7 @@ class PersonagemReiPage extends StatelessWidget {
               children: [
                 // Texto branco (borda)
                 Text(
-                  'Um vilão que faz o açúcar subir com sua coroa vermelha e sintomas poderosos!',
+                  'É o mensageiro do açúcar elevado, avisando que é hora de cuidar do equilíbrio no corpo!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
@@ -159,7 +205,7 @@ class PersonagemReiPage extends StatelessWidget {
                 ),
                 // Texto vermelho
                 Text(
-                  'Um vilão que faz o açúcar subir com sua coroa vermelha e sintomas poderosos!',
+                  'É o mensageiro do açúcar elevado, avisando que é hora de cuidar do equilíbrio no corpo!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
@@ -181,6 +227,7 @@ class PersonagemReiPage extends StatelessWidget {
                 size: 48,
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -199,6 +246,7 @@ class PersonagemReiPage extends StatelessWidget {
                 size: 48,
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(

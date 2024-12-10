@@ -1,13 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:glicogotas_app/home.dart';
 import 'package:glicogotas_app/Personagens/glicogotas.dart';
 import 'package:glicogotas_app/Personagens/rei.dart';
 import 'package:glicogotas_app/configuracoes.dart';
-import 'package:glicogotas_app/home.dart';
+import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
 import 'package:google_fonts/google_fonts.dart';
 
-class PersonagemLitaPage extends StatelessWidget {
+class PersonagemLitaPage extends StatefulWidget {
   const PersonagemLitaPage({super.key});
+
+  @override
+  PersonagemLitaPageState createState() => PersonagemLitaPageState();
+}
+
+class PersonagemLitaPageState extends State<PersonagemLitaPage>
+    with RouteAware {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  Future<void> _playAudio() async {
+    await _audioPlayer.stop(); // Garante que o áudio anterior seja parado
+    await _audioPlayer.play(AssetSource('audio/audioPersonagens/lita.mp3'));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playAudio(); // Inicia o áudio ao carregar a página
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    _audioPlayer.stop(); // Para o áudio ao sair da página
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    _audioPlayer.stop(); // Para o áudio ao ir para a próxima página
+  }
+
+  @override
+  void didPopNext() {
+    _playAudio(); // Reinicia o áudio ao voltar para esta página
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +81,7 @@ class PersonagemLitaPage extends StatelessWidget {
                 color: Color.fromARGB(255, 0, 132, 255),
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao ir para a tela inicial
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),
@@ -71,7 +117,7 @@ class PersonagemLitaPage extends StatelessWidget {
             left: 0,
             right: 0,
             child: Stack(
-              alignment: Alignment.center, // Alinha os textos exatamente
+              alignment: Alignment.center,
               children: [
                 // Texto branco (borda)
                 Text(
@@ -81,14 +127,7 @@ class PersonagemLitaPage extends StatelessWidget {
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
-                      ..color = const Color(0xFFFFFEFF), // Cor da borda branca
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withOpacity(0.25), // Sombra suave
-                        offset: Offset(3.0, 3.0),
-                        blurRadius: 5.0,
-                      ),
-                    ],
+                      ..color = const Color(0xFFFFFEFF),
                   ),
                 ),
                 // Texto rosa
@@ -96,7 +135,7 @@ class PersonagemLitaPage extends StatelessWidget {
                   'Lita',
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.13,
-                    color: const Color(0xFFF4719C), // Cor rosa
+                    color: const Color(0xFFF4719C),
                   ),
                 ),
               ],
@@ -111,7 +150,7 @@ class PersonagemLitaPage extends StatelessWidget {
             child: Center(
               child: SvgPicture.asset(
                 'assets/images/lita-person.svg',
-                height: size.height * 0.36, // Aumentei ligeiramente a bola
+                height: size.height * 0.36,
               ),
             ),
           ),
@@ -135,35 +174,27 @@ class PersonagemLitaPage extends StatelessWidget {
             left: 20,
             right: 20,
             child: Stack(
-              alignment: Alignment
-                  .center, // Alinhamento central para as camadas de texto
+              alignment: Alignment.center,
               children: [
                 // Texto branco (borda)
                 Text(
-                  'Ela é uma super-heroína que enfrenta o DMI em grandes aventuras!',
+                  'É uma super-heroína que enfrenta o DMI em grandes aventuras!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
-                      ..color = const Color(0xFFFFFEFF), // Cor da borda branca
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withOpacity(0.25), // Sombra suave
-                        offset: Offset(3.0, 3.0),
-                        blurRadius: 5.0,
-                      ),
-                    ],
+                      ..color = const Color(0xFFFFFEFF),
                   ),
                 ),
                 // Texto rosa
                 Text(
-                  'Ela é uma super-heroína que enfrenta o DMI em grandes aventuras!',
+                  'É uma super-heroína que enfrenta o DMI em grandes aventuras!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
-                    color: const Color(0xFFF4719C), // Cor rosa
+                    color: const Color(0xFFF4719C),
                   ),
                 ),
               ],
@@ -173,7 +204,7 @@ class PersonagemLitaPage extends StatelessWidget {
           // Botões de navegação ao lado da imagem da Lita
           Positioned(
             top: size.height * 0.50,
-            left: 0, // Totalmente próximo à lateral esquerda
+            left: 0,
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_rounded,
@@ -181,17 +212,18 @@ class PersonagemLitaPage extends StatelessWidget {
                 size: 48,
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const PersonagensPage()),
-                ); // Ação do botão voltar
+                );
               },
             ),
           ),
           Positioned(
             top: size.height * 0.50,
-            right: 0, // Totalmente próximo à lateral direita
+            right: 0,
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_forward_ios_rounded,
@@ -199,11 +231,12 @@ class PersonagemLitaPage extends StatelessWidget {
                 size: 48,
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const PersonagemReiPage()),
-                ); // Ação do botão avançar
+                );
               },
             ),
           ),

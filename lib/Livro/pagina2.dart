@@ -146,23 +146,30 @@ class Pagina2PageState extends State<Pagina2Page> with RouteAware {
 
           // Botão para voltar
           Align(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment(-0.95, -0.1), // Ajuste para mais para cima
             child: GestureDetector(
               onTap: () {
                 _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.pop(context); // Volta para a página anterior
               },
-              child: const Icon(
-                Icons.arrow_back_ios_rounded,
-                size: 24,
-                color: Color(0xFF265F95),
+              child: Container(
+                padding: const EdgeInsets.all(16), // Aumenta a área clicável
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.transparent, // Mantém a transparência
+                ),
+                child: const Icon(
+                  Icons.arrow_back_ios_rounded,
+                  size: 24, // Aumenta o tamanho do ícone
+                  color: Color(0xFF265F95),
+                ),
               ),
             ),
           ),
 
-// Botão para avançar
+          // Botão para avançar
           Align(
-            alignment: Alignment.centerRight,
+            alignment: Alignment(0.95, -0.1), // Ajuste para mais para cima
             child: GestureDetector(
               onTap: () {
                 _audioPlayer.stop(); // Para o áudio ao navegar
@@ -171,10 +178,17 @@ class Pagina2PageState extends State<Pagina2Page> with RouteAware {
                   MaterialPageRoute(builder: (context) => const Pagina3Page()),
                 );
               },
-              child: const Icon(
-                Icons.arrow_forward_ios_rounded,
-                size: 24,
-                color: Color(0xFF265F95),
+              child: Container(
+                padding: const EdgeInsets.all(16), // Aumenta a área clicável
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.transparent, // Mantém a transparência
+                ),
+                child: const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: 24, // Aumenta o tamanho do ícone
+                  color: Color(0xFF265F95),
+                ),
               ),
             ),
           ),

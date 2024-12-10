@@ -4,9 +4,54 @@ import 'package:glicogotas_app/Personagens/pumps.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:glicogotas_app/main.dart';
 
-class PersonagemBetinhoPage extends StatelessWidget {
+class PersonagemBetinhoPage extends StatefulWidget {
   const PersonagemBetinhoPage({super.key});
+
+  @override
+  PersonagemBetinhoPageState createState() => PersonagemBetinhoPageState();
+}
+
+class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
+    with RouteAware {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  Future<void> _playAudio() async {
+    await _audioPlayer.stop(); // Garante que o áudio anterior seja parado
+    await _audioPlayer.play(AssetSource('audio/audioPersonagens/betinho.mp3'));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playAudio(); // Inicia o áudio ao carregar a página
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    _audioPlayer.stop(); // Para o áudio ao sair da página
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    _audioPlayer.stop(); // Para o áudio ao ir para a próxima página
+  }
+
+  @override
+  void didPopNext() {
+    _playAudio(); // Reinicia o áudio ao voltar para esta página
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +80,7 @@ class PersonagemBetinhoPage extends StatelessWidget {
                 color: Color.fromARGB(255, 0, 132, 255),
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao ir para a tela inicial
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),
@@ -81,13 +127,6 @@ class PersonagemBetinhoPage extends StatelessWidget {
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
                       ..color = const Color(0xFFFFFEFF),
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withOpacity(0.25),
-                        offset: const Offset(3.0, 3.0),
-                        blurRadius: 5.0,
-                      ),
-                    ],
                   ),
                 ),
                 // Texto verde
@@ -138,7 +177,7 @@ class PersonagemBetinhoPage extends StatelessWidget {
               children: [
                 // Texto branco (borda)
                 Text(
-                  'O monitor de glicemia, sempre atento para manter a Lita segura!',
+                  'É o monitor de glicemia, sempre atento para manter a Lita segura!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
@@ -146,18 +185,11 @@ class PersonagemBetinhoPage extends StatelessWidget {
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 8
                       ..color = const Color(0xFFFFFEFF),
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withOpacity(0.25),
-                        offset: const Offset(3.0, 3.0),
-                        blurRadius: 5.0,
-                      ),
-                    ],
                   ),
                 ),
                 // Texto verde
                 Text(
-                  'O monitor de glicemia, sempre atento para manter a Lita segura!',
+                  'É o monitor de glicemia, sempre atento para manter a Lita segura!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
@@ -179,6 +211,7 @@ class PersonagemBetinhoPage extends StatelessWidget {
                 size: 48,
               ),
               onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(

@@ -130,7 +130,14 @@ flutter:
     - assets/audio/audiopag2.mp3
     - assets/audio/audiopag3.mp3
     - assets/audio/audiopag4.mp3
-
+    - assets/audio/audioPersonagens/bemvindos.mp3
+    - assets/audio/audioPersonagens/betinho.mp3
+    - assets/audio/audioPersonagens/bobo.mp3
+    - assets/audio/audioPersonagens/fe.mp3
+    - assets/audio/audioPersonagens/hiper.mp3
+    - assets/audio/audioPersonagens/insulins.mp3
+    - assets/audio/audioPersonagens/lita.mp3
+    - assets/audio/audioPersonagens/pumps.mp3
 
 
   # To add assets to your application, add an assets section, like this:

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/configuracoes.dart'; // Importando a tela de configurações
 
@@ -53,18 +52,13 @@ class TirinhaState extends State<Tirinha> {
                   children: [
                     // Ícone de seta de voltar
                     IconButton(
-                      icon: const Icon(Icons.arrow_back,
+                      icon: const Icon(Icons.arrow_back_ios_rounded,
                           color: Colors.black), // Cor preta
                       onPressed: () {
                         Navigator.pop(context); // Volta para a tela anterior
                       },
                     ),
-                    // Título "Tirinhas"
-                    Text(
-                      "Tirinhas",
-                      style: GoogleFonts.chewy(
-                          color: Colors.black, fontSize: 24), // Cor preta
-                    ),
+
                     const Spacer(), // Para empurrar os outros elementos para a direita
                     // Ícone de engrenagem
                     IconButton(

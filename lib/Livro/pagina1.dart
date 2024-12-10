@@ -105,7 +105,8 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
 
           // Botão de navegação anterior
           Align(
-            alignment: Alignment.centerLeft,
+            alignment:
+                Alignment(-0.95, -0.1), // Pequeno ajuste para mais para cima
             child: GestureDetector(
               onTap: () {
                 _audioPlayer
@@ -115,17 +116,25 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
                   MaterialPageRoute(builder: (context) => const CapaPage()),
                 );
               },
-              child: const Icon(
-                Icons.arrow_back_ios_rounded,
-                size: 24,
-                color: Color(0xFF265F95), // Cor do ícone
+              child: Container(
+                padding: const EdgeInsets.all(16), // Aumenta a área clicável
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.transparent, // Mantém a transparência
+                ),
+                child: const Icon(
+                  Icons.arrow_back_ios_rounded,
+                  size: 24, // Aumenta o tamanho do ícone se desejar
+                  color: Color(0xFF265F95), // Cor do ícone
+                ),
               ),
             ),
           ),
 
           // Botão de navegação próxima
           Align(
-            alignment: Alignment.centerRight,
+            alignment:
+                Alignment(0.95, -0.1), // Pequeno ajuste para mais para cima
             child: GestureDetector(
               onTap: () {
                 _audioPlayer.stop(); // Para o áudio ao ir para a próxima página
@@ -134,10 +143,17 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
                   MaterialPageRoute(builder: (context) => const Pagina2Page()),
                 );
               },
-              child: const Icon(
-                Icons.arrow_forward_ios_rounded,
-                size: 24,
-                color: Color(0xFF265F95), // Cor do ícone
+              child: Container(
+                padding: const EdgeInsets.all(16), // Aumenta a área clicável
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.transparent, // Mantém a transparência
+                ),
+                child: const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: 24, // Aumenta o tamanho do ícone se desejar
+                  color: Color(0xFF265F95), // Cor do ícone
+                ),
               ),
             ),
           ),
