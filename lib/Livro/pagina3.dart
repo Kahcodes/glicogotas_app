@@ -150,27 +150,26 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
             ),
           ),
 
-          // Botão invisível para voltar (lado esquerdo)
-          Positioned(
-            top: 80, // Ajuste para ficar abaixo dos botões de navegação
-            left: 0,
+          // Botão para voltar
+          // Botão para voltar
+          Align(
+            alignment: Alignment.centerLeft,
             child: GestureDetector(
               onTap: () {
                 _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.pop(context); // Voltar para a página anterior
               },
-              child: Container(
-                width: size.width * 0.45,
-                height: size.height - 80, // Aumenta a área de interação
-                color: Colors.transparent, // Invisível mas funcional
+              child: const Icon(
+                Icons.arrow_back_ios_rounded,
+                size: 24,
+                color: Color(0xFF265F95),
               ),
             ),
           ),
 
-          // Botão invisível para avançar (lado direito)
-          Positioned(
-            top: 80, // Ajuste para ficar abaixo dos botões de navegação
-            right: 0,
+// Botão para avançar
+          Align(
+            alignment: Alignment.centerRight,
             child: GestureDetector(
               onTap: () {
                 _audioPlayer.stop(); // Para o áudio ao navegar
@@ -179,10 +178,10 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
                   MaterialPageRoute(builder: (context) => const Pagina4Page()),
                 );
               },
-              child: Container(
-                width: size.width * 0.45,
-                height: size.height - 80, // Aumenta a área de interação
-                color: Colors.transparent, // Invisível mas funcional
+              child: const Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 24,
+                color: Color(0xFF265F95),
               ),
             ),
           ),

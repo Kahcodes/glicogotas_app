@@ -8,6 +8,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'dart:math';
 
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CapaPage extends StatefulWidget {
   const CapaPage({super.key});
@@ -130,10 +131,10 @@ class _CapaPageState extends State<CapaPage> {
                             height: 290, fit: BoxFit.cover),
                       ),
 
-                      // Botão invisível para avançar para a próxima página
+                      // Novo botão de avançar
                       Positioned(
-                        bottom: 120, // Ajuste para posicionar acima da imagem
-                        right: 0,
+                        bottom: 50, // Ajuste para posicionar perto da imagem
+                        right: 30, // Lateral direita
                         child: GestureDetector(
                           onTap: () {
                             _audioPlayer
@@ -144,11 +145,9 @@ class _CapaPageState extends State<CapaPage> {
                                   builder: (context) => const Pagina1Page()),
                             );
                           },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            height: 400, // Aumentei a altura do botão invisível
-                            color:
-                                Colors.transparent, // Invisível, mas funcional
+                          child: SvgPicture.asset(
+                            'assets/images/btn-avancar-branco.svg', // Novo botão
+                            height: 65, // Tamanho do botão
                           ),
                         ),
                       ),

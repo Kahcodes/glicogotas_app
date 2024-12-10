@@ -103,7 +103,7 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
             ),
           ),
 
-          // Botões invisíveis de navegação (colocados abaixo dos ícones)
+          // Botão de navegação anterior
           Align(
             alignment: Alignment.centerLeft,
             child: GestureDetector(
@@ -115,13 +115,15 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
                   MaterialPageRoute(builder: (context) => const CapaPage()),
                 );
               },
-              child: Container(
-                width: size.width * 0.45,
-                height: size.height,
-                color: Colors.transparent,
+              child: const Icon(
+                Icons.arrow_back_ios_rounded,
+                size: 24,
+                color: Color(0xFF265F95), // Cor do ícone
               ),
             ),
           ),
+
+          // Botão de navegação próxima
           Align(
             alignment: Alignment.centerRight,
             child: GestureDetector(
@@ -132,10 +134,10 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
                   MaterialPageRoute(builder: (context) => const Pagina2Page()),
                 );
               },
-              child: Container(
-                width: size.width * 0.45,
-                height: size.height,
-                color: Colors.transparent,
+              child: const Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 24,
+                color: Color(0xFF265F95), // Cor do ícone
               ),
             ),
           ),
