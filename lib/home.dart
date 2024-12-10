@@ -260,7 +260,7 @@ class TelaHome extends StatelessWidget {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              'HISTÓRIA',
+                              'TIRINHAS',
                               style: GoogleFonts.podkova(
                                 color: Colors.white,
                                 fontSize: 18,
