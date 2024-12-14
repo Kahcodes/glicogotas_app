@@ -123,6 +123,10 @@ flutter:
     - assets/images/fundo-hist.svg
     - assets/images/lita-pancreas.svg
     - assets/images/balão-page4.svg
+    - assets/images/diabetes-capa.png
+    - assets/images/chaves-capa.png
+    - assets/images/insulina-capa.png
+    - assets/images/pancreas-capa.png
     - assets/images/pancreas.svg
     - assets/images/error.svg
     - assets/audio/titulo.mp3

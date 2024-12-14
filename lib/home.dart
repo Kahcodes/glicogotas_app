@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/glicogotas.dart';
-import 'package:glicogotas_app/Livro/capa.dart';
 import 'package:glicogotas_app/iniciar.dart.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:glicogotas_app/Livro/cards.dart';
 import 'configuracoes.dart';
 import 'jogos.dart';
-import 'tirinha.dart'; // Importando a tela de Tirinha
+import 'tirinha.dart';
 
 class TelaHome extends StatelessWidget {
   const TelaHome({super.key});
@@ -20,7 +21,7 @@ class TelaHome extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            // O fundo com as ondinhas
+            // Fundo com decoração em SVG
             Positioned.fill(
               child: SvgPicture.asset(
                 'assets/images/decoracao.svg',
@@ -28,7 +29,7 @@ class TelaHome extends StatelessWidget {
               ),
             ),
 
-            // Ícones de voltar e configurações no topo
+            // Ícone de voltar
             Positioned(
               top: 40,
               left: 16,
@@ -40,12 +41,14 @@ class TelaHome extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const TelaInicial()),
+                      builder: (context) => const TelaInicial(),
+                    ),
                   );
                 },
               ),
             ),
 
+            // Ícone de configurações
             Positioned(
               top: 40,
               right: 16,
@@ -53,28 +56,28 @@ class TelaHome extends StatelessWidget {
                 iconSize: 30,
                 icon: const Icon(Icons.settings, color: Color(0xFF265F95)),
                 onPressed: () {
-                  // Abrindo o diálogo de configurações
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return const ConfigDialog(); // Chama o diálogo de configurações
+                      return const ConfigDialog();
                     },
                   );
                 },
               ),
             ),
 
-            // Conteúdo da tela
+            // Conteúdo principal
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  // Texto e imagem
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Ícone central
+                        // Ícone principal
                         SizedBox(
                           width: 131,
                           height: 282,
@@ -125,16 +128,16 @@ class TelaHome extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(
-                      height: 40), // Espaçamento entre o texto e os botões
+                  const SizedBox(height: 40),
 
-                  // Botões de opções, um abaixo do outro
+                  // Botão PERSONAGENS
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const PersonagensPage()),
+                          builder: (context) => const PersonagensPage(),
+                        ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -157,6 +160,10 @@ class TelaHome extends StatelessWidget {
                               fit: BoxFit.cover,
                               height: 23,
                               width: 23,
+                              colorFilter: const ColorFilter.mode(
+                                Colors.white,
+                                BlendMode.srcIn,
+                              ),
                             ),
                           ),
                           Align(
@@ -176,13 +183,14 @@ class TelaHome extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
+                  // Botão LIVRO
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                CapaPage()), // Corrigido para CapaPage
+                          builder: (context) => const LivroCardsPage(),
+                        ),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -205,6 +213,10 @@ class TelaHome extends StatelessWidget {
                               fit: BoxFit.cover,
                               height: 24,
                               width: 24,
+                              colorFilter: const ColorFilter.mode(
+                                Colors.white,
+                                BlendMode.srcIn,
+                              ),
                             ),
                           ),
                           Align(
@@ -224,14 +236,13 @@ class TelaHome extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  // Botão HISTÓRIA modificado para navegação para a tela de Tirinha
+                  // Botão TIRINHAS
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              const Tirinha(), // Navega para a tela de tirinha
+                          builder: (context) => const Tirinha(),
                         ),
                       );
                     },
@@ -255,6 +266,10 @@ class TelaHome extends StatelessWidget {
                               fit: BoxFit.cover,
                               height: 24,
                               width: 24,
+                              colorFilter: const ColorFilter.mode(
+                                Colors.white,
+                                BlendMode.srcIn,
+                              ),
                             ),
                           ),
                           Align(
@@ -272,8 +287,9 @@ class TelaHome extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 20), // Espaçamento entre os botões
+                  const SizedBox(height: 20),
 
+                  // Botão JOGOS
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -303,6 +319,10 @@ class TelaHome extends StatelessWidget {
                               fit: BoxFit.cover,
                               height: 24,
                               width: 24,
+                              colorFilter: const ColorFilter.mode(
+                                Colors.white,
+                                BlendMode.srcIn,
+                              ),
                             ),
                           ),
                           Align(
