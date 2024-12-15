@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:glicogotas_app/Livro/capa.dart'; // Importa a página de capa
 import 'package:glicogotas_app/home.dart'; // Importa a tela inicial
 import 'package:glicogotas_app/configuracoes.dart'; // Importa o diálogo de configurações
+import 'package:glicogotas_app/Tirinhas/tirinha_docura.dart'; // Importa a página Tirinha
+import 'package:glicogotas_app/Tirinhas/tirinha_insulina.dart';
 
-class LivroCardsPage extends StatelessWidget {
-  const LivroCardsPage({super.key});
+class TirinhaCardsPage extends StatelessWidget {
+  const TirinhaCardsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFEAF7FF), // Fundo da página
+      backgroundColor: const Color(0xFFfff3f6), // Fundo da página
       body: Stack(
         children: [
           // Título "Selecione um Capítulo" com ícones
@@ -25,7 +26,7 @@ class LivroCardsPage extends StatelessWidget {
                 IconButton(
                   icon: const Icon(
                     Icons.home_rounded,
-                    color: Color(0xFF265F95), // Cor do ícone ajustada
+                    color: Color(0xFFF4719C),
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -35,9 +36,9 @@ class LivroCardsPage extends StatelessWidget {
                   },
                 ),
                 Text(
-                  'Selecione um Capítulo',
+                  'Selecione uma tirinha', // Título da página
                   style: GoogleFonts.chewy(
-                    color: const Color(0xFF265F95),
+                    color: const Color(0xFF37ABDC),
                     fontSize: 24,
                   ),
                 ),
@@ -45,7 +46,7 @@ class LivroCardsPage extends StatelessWidget {
                 IconButton(
                   icon: const Icon(
                     Icons.settings,
-                    color: Color(0xFF265F95), // Cor do ícone ajustada
+                    color: Color(0xFFF4719C), // Cor do ícone ajustada
                   ),
                   onPressed: () {
                     showDialog(
@@ -75,7 +76,7 @@ class LivroCardsPage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const CapaPage()),
+                      MaterialPageRoute(builder: (context) => const Tirinha()),
                     );
                   },
                   child: Card(
@@ -87,7 +88,7 @@ class LivroCardsPage extends StatelessWidget {
                     child: Stack(
                       children: [
                         Image.asset(
-                          'assets/images/diabetes-capa.png',
+                          'assets/images/tirinha-docura-capa.png',
                           fit: BoxFit.cover,
                           width: double.infinity,
                           height: double.infinity,
@@ -101,7 +102,8 @@ class LivroCardsPage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const CapaPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const TirinhaInsulina()),
                     );
                   },
                   child: Card(
@@ -113,7 +115,7 @@ class LivroCardsPage extends StatelessWidget {
                     child: Stack(
                       children: [
                         Image.asset(
-                          'assets/images/pancreas-capa.png',
+                          'assets/images/tirinha-insu-capa.png', // Exemplo de imagem
                           fit: BoxFit.cover,
                           width: double.infinity,
                           height: double.infinity,
@@ -123,57 +125,8 @@ class LivroCardsPage extends StatelessWidget {
                   ),
                 ),
                 // Card 3
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const CapaPage()),
-                    );
-                  },
-                  child: Card(
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    child: Stack(
-                      children: [
-                        Image.asset(
-                          'assets/images/chaves-capa.png',
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: double.infinity,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                // Card 4
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const CapaPage()),
-                    );
-                  },
-                  child: Card(
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    child: Stack(
-                      children: [
-                        Image.asset(
-                          'assets/images/insulina-capa.png',
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: double.infinity,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+
+                // Card 4 (Exemplo adicional)
               ],
             ),
           ),

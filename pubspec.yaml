@@ -77,16 +77,24 @@ flutter:
   assets:
     - assets/images/glicogotas_logo.png
     - assets/images/talita_icon.png
+    - assets/images/diabetes-capa.png
+    - assets/images/chaves-capa.png
+    - assets/images/insulina-capa.png
+    - assets/images/pancreas-capa.png
+    - assets/images/tirinha-docura-capa.png
+    - assets/images/tirinha-insu-capa.png
+    - assets/images/tirinha-ins-1.png
+    - assets/images/tirinha-ins-2.png
+    - assets/images/tirinha-ins-3.png
+    - assets/images/talita_capa.png
+    - assets/images/tirinha1.png
+    - assets/images/tirinha2.png
+    - assets/images/tirinha3.png
     - assets/images/decoracao.svg
     - assets/images/person.svg
     - assets/images/livro.svg
     - assets/images/historia.svg
     - assets/images/jogos.svg
-    - assets/images/talita_capa.png
-    - assets/images/pancreas.png
-    - assets/images/tirinha1.png
-    - assets/images/tirinha2.png
-    - assets/images/tirinha3.png
     - assets/images/tela-inicial-perso.svg
     - assets/images/fundo-azul.svg
     - assets/images/btn-avancar-branco.svg
@@ -123,10 +131,6 @@ flutter:
     - assets/images/fundo-hist.svg
     - assets/images/lita-pancreas.svg
     - assets/images/balão-page4.svg
-    - assets/images/diabetes-capa.png
-    - assets/images/chaves-capa.png
-    - assets/images/insulina-capa.png
-    - assets/images/pancreas-capa.png
     - assets/images/pancreas.svg
     - assets/images/error.svg
     - assets/audio/titulo.mp3

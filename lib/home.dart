@@ -3,11 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/glicogotas.dart';
 import 'package:glicogotas_app/iniciar.dart.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:glicogotas_app/Tirinhas/tirinha.cards.dart';
 import 'package:glicogotas_app/Livro/cards.dart';
+import 'package:glicogotas_app/jogos.dart';
 import 'configuracoes.dart';
-import 'jogos.dart';
-import 'tirinha.dart';
 
 class TelaHome extends StatelessWidget {
   const TelaHome({super.key});
@@ -242,7 +241,7 @@ class TelaHome extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Tirinha(),
+                          builder: (context) => const TirinhaCardsPage(),
                         ),
                       );
                     },
