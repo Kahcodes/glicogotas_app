@@ -146,7 +146,7 @@ class Pagina2PageState extends State<Pagina2Page> with RouteAware {
 
           // Botão para voltar
           Align(
-            alignment: Alignment.bottomLeft, // Ajuste para mais para cima
+            alignment: Alignment.bottomLeft,
             child: GestureDetector(
               onTap: () {
                 _audioPlayer.stop(); // Para o áudio ao navegar

@@ -217,14 +217,13 @@ class PersonagemInsulinsPageState extends State<PersonagemInsulinsPage>
             ),
           ),
 
-          // Botões de navegação ajustados
           Positioned(
-            top: size.height * 0.50,
-            left: 0, // Ajuste para ficar na lateral esquerda
+            bottom: size.height * 0.08,
+            left: 20, // Ajuste para ficar na lateral esquerda
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_rounded,
-                color: Color(0xFFF48F21),
+                color: Color(0xFF8C52FF),
                 size: 48,
               ),
               onPressed: () {
@@ -239,12 +238,12 @@ class PersonagemInsulinsPageState extends State<PersonagemInsulinsPage>
           ),
 
           Positioned(
-            top: size.height * 0.50,
-            right: 0, // Ajuste para ficar na lateral direita
+            bottom: size.height * 0.08,
+            right: 20, // Ajuste para ficar na lateral direita
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_forward_ios_rounded,
-                color: Color(0xFFF48F21),
+                color: Color(0xFF8C52FF),
                 size: 48,
               ),
               onPressed: () {

@@ -220,12 +220,12 @@ class PersonagemPumpsPageState extends State<PersonagemPumpsPage>
 
           // Botões de navegação laterais
           Positioned(
-            top: size.height * 0.50,
-            left: 0, // Ajuste para ficar mais próximo da lateral esquerda
+            bottom: size.height * 0.08,
+            left: 20, // Ajuste para ficar mais próximo da lateral esquerda
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_rounded,
-                color: Color(0xFF6ED0DD),
+                color: Color(0xFFD91B91),
                 size: 48,
               ),
               onPressed: () {
@@ -239,12 +239,12 @@ class PersonagemPumpsPageState extends State<PersonagemPumpsPage>
             ),
           ),
           Positioned(
-            top: size.height * 0.50,
-            right: 0, // Ajuste para ficar mais próximo da lateral direita
+            bottom: size.height * 0.08,
+            right: 20, // Ajuste para ficar mais próximo da lateral direita
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_forward_ios_rounded,
-                color: Color(0xFF6ED0DD),
+                color: Color(0xFFD91B91),
                 size: 48,
               ),
               onPressed: () {

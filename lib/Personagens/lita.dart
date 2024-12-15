@@ -201,10 +201,10 @@ class PersonagemLitaPageState extends State<PersonagemLitaPage>
             ),
           ),
 
-          // Botões de navegação ao lado da imagem da Lita
+          // Botões de navegação
           Positioned(
-            top: size.height * 0.50,
-            left: 0,
+            bottom: size.height * 0.08, // Abaixo da descrição
+            left: 20, // Alinha à esquerda
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_rounded,
@@ -222,8 +222,8 @@ class PersonagemLitaPageState extends State<PersonagemLitaPage>
             ),
           ),
           Positioned(
-            top: size.height * 0.50,
-            right: 0,
+            bottom: size.height * 0.08, // Abaixo da descrição
+            right: 20, // Alinha à direita
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_forward_ios_rounded,

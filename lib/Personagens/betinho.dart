@@ -202,8 +202,8 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
 
           // Botões de navegação ao lado da imagem de Betinho
           Positioned(
-            top: size.height * 0.50,
-            left: 0, // Totalmente próximo à lateral esquerda
+            bottom: size.height * 0.08,
+            left: 20, // Totalmente próximo à lateral esquerda
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_rounded,

@@ -217,8 +217,8 @@ class PersonagemFePageState extends State<PersonagemFePage> with RouteAware {
 
           // Botões de navegação ajustados
           Positioned(
-            top: size.height * 0.50,
-            left: 0, // Ajuste para ficar mais próximo da lateral esquerda
+            bottom: size.height * 0.08,
+            left: 20, // Ajuste para ficar mais próximo da lateral esquerda
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_rounded,
@@ -237,8 +237,8 @@ class PersonagemFePageState extends State<PersonagemFePage> with RouteAware {
           ),
 
           Positioned(
-            top: size.height * 0.50,
-            right: 0, // Ajuste para ficar mais próximo da lateral direita
+            bottom: size.height * 0.08,
+            right: 20, // Ajuste para ficar mais próximo da lateral direita
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_forward_ios_rounded,

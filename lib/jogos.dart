@@ -47,12 +47,14 @@ class JogosPage extends StatelessWidget {
                     size: 32,
                   ),
                   onPressed: () {
-                    // Abre a página de configurações
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ConfigDialog(),
-                      ),
+                    // Exibe o diálogo de configurações como modal transparente
+                    showDialog(
+                      context: context,
+                      barrierColor: Colors.black
+                          .withOpacity(0.5), // Fundo semitransparente
+                      builder: (BuildContext context) {
+                        return const ConfigDialog(); // Chama o diálogo de configurações
+                      },
                     );
                   },
                 ),
