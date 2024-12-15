@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:glicogotas_app/Livro/pagina3.dart'; // Importar a página anterior
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -147,18 +148,22 @@ class Pagina4PageState extends State<Pagina4Page> with RouteAware {
           ),
 
           // Botão para voltar
-          Align(
-            alignment: Alignment.bottomLeft, // Ajuste para mais para cima
-            child: GestureDetector(
-              onTap: () {
-                _audioPlayer.stop(); // Para o áudio ao navegar
-                Navigator.pop(context); // Voltar para a página anterior
-              },
-              child: const Icon(
+          Positioned(
+            bottom: size.height * 0.08,
+            left: 20, // Ajuste para posicionar próximo da borda
+            child: IconButton(
+              icon: const Icon(
                 Icons.arrow_back_ios_rounded,
-                size: 24,
+                size: 48, // Tamanho consistente com outras páginas
                 color: Color(0xFF265F95),
               ),
+              onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Pagina3Page()),
+                ); // Navega para a página anterior
+              },
             ),
           ),
         ],

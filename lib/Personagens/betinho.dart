@@ -200,7 +200,6 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
             ),
           ),
 
-          // Botões de navegação ao lado da imagem de Betinho
           Positioned(
             bottom: size.height * 0.08,
             left: 20, // Totalmente próximo à lateral esquerda

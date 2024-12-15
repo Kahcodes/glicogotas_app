@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:glicogotas_app/home.dart';
 import 'package:glicogotas_app/Livro/capa.dart';
 import 'package:glicogotas_app/Livro/pagina2.dart';
 import 'package:glicogotas_app/configuracoes.dart';
-import 'package:glicogotas_app/home.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
 import 'package:provider/provider.dart';
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
@@ -103,61 +103,6 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
             ),
           ),
 
-          // Botão de navegação anterior
-          Align(
-            alignment:
-                Alignment.bottomLeft, // Alinhado para a parte inferior esquerda
-            child: GestureDetector(
-              onTap: () {
-                _audioPlayer
-                    .stop(); // Para o áudio ao ir para a página anterior
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CapaPage()),
-                );
-              },
-              child: Container(
-                padding: const EdgeInsets.all(16), // Aumenta a área clicável
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.transparent, // Mantém a transparência
-                ),
-                child: const Icon(
-                  Icons.arrow_back_ios_rounded,
-                  size: 24, // Aumenta o tamanho do ícone se desejar
-                  color: Color(0xFF265F95), // Cor do ícone
-                ),
-              ),
-            ),
-          ),
-
-          // Botão de navegação próxima
-          Align(
-            alignment:
-                Alignment.bottomRight, // Alinhado para a parte inferior direita
-            child: GestureDetector(
-              onTap: () {
-                _audioPlayer.stop(); // Para o áudio ao ir para a próxima página
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Pagina2Page()),
-                );
-              },
-              child: Container(
-                padding: const EdgeInsets.all(16), // Aumenta a área clicável
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.transparent, // Mantém a transparência
-                ),
-                child: const Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 24, // Aumenta o tamanho do ícone se desejar
-                  color: Color(0xFF265F95), // Cor do ícone
-                ),
-              ),
-            ),
-          ),
-
           // Ícone Home (por cima dos botões invisíveis)
           Positioned(
             top: 40,
@@ -195,6 +140,46 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
                     return const ConfigDialog();
                   },
                 );
+              },
+            ),
+          ),
+
+          // Botão de navegação anterior
+          Positioned(
+            bottom: size.height * 0.08,
+            left: 20, // Ajuste para ficar mais próximo da lateral esquerda
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_rounded,
+                color: Color(0xFF265F95),
+                size: 48,
+              ),
+              onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CapaPage()),
+                ); // Ação do botão voltar
+              },
+            ),
+          ),
+
+          // Botão de navegação próxima
+          Positioned(
+            bottom: size.height * 0.08,
+            right: 20, // Ajuste para ficar mais próximo da lateral direita
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: Color(0xFF265F95),
+                size: 48,
+              ),
+              onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Pagina2Page()),
+                ); // Ação do botão avançar
               },
             ),
           ),

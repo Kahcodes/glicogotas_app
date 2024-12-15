@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:glicogotas_app/Livro/pagina4.dart';
+import 'package:glicogotas_app/Livro/pagina2.dart'; // Importar a página anterior
+import 'package:glicogotas_app/Livro/pagina4.dart'; // Importar a próxima página
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -44,10 +45,7 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    routeObserver.subscribe(
-        this,
-        ModalRoute.of(context) as PageRoute<
-            dynamic>); // Inscreve o observador para mudanças de rota
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
   }
 
   @override
@@ -151,51 +149,42 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
           ),
 
           // Botão para voltar
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: GestureDetector(
-              onTap: () {
-                _audioPlayer.stop(); // Para o áudio ao navegar
-                Navigator.pop(context); // Voltar para a página anterior
-              },
-              child: Container(
-                padding: const EdgeInsets.all(16), // Aumenta a área clicável
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.transparent, // Mantém a transparência
-                ),
-                child: const Icon(
-                  Icons.arrow_back_ios_rounded,
-                  size: 24, // Aumenta o tamanho do ícone
-                  color: Color(0xFF265F95),
-                ),
+          Positioned(
+            bottom: size.height * 0.08,
+            left: 20, // Ajuste para posicionar próximo da borda
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_rounded,
+                size: 48, // Tamanho consistente com outras páginas
+                color: Color(0xFF265F95),
               ),
+              onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Pagina2Page()),
+                ); // Navega para a página anterior
+              },
             ),
           ),
 
           // Botão para avançar
-          Align(
-            alignment: Alignment.bottomRight, // Ajuste para mais para cima
-            child: GestureDetector(
-              onTap: () {
+          Positioned(
+            bottom: size.height * 0.08,
+            right: 20, // Ajuste para posicionar próximo da borda
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 48, // Tamanho consistente com outras páginas
+                color: Color(0xFF265F95),
+              ),
+              onPressed: () {
                 _audioPlayer.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina4Page()),
-                );
+                ); // Navega para a próxima página
               },
-              child: Container(
-                padding: const EdgeInsets.all(16), // Aumenta a área clicável
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.transparent, // Mantém a transparência
-                ),
-                child: const Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 24, // Aumenta o tamanho do ícone
-                  color: Color(0xFF265F95),
-                ),
-              ),
             ),
           ),
         ],
