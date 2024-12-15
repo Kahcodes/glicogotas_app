@@ -152,7 +152,7 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
 
           // Botão para voltar
           Align(
-            alignment: Alignment(-0.95, -0.1), // Ajuste para mais para cima
+            alignment: Alignment.bottomLeft,
             child: GestureDetector(
               onTap: () {
                 _audioPlayer.stop(); // Para o áudio ao navegar
@@ -175,7 +175,7 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
 
           // Botão para avançar
           Align(
-            alignment: Alignment(0.95, -0.1), // Ajuste para mais para cima
+            alignment: Alignment.bottomRight, // Ajuste para mais para cima
             child: GestureDetector(
               onTap: () {
                 _audioPlayer.stop(); // Para o áudio ao navegar

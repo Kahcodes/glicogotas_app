@@ -106,7 +106,7 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
           // Botão de navegação anterior
           Align(
             alignment:
-                Alignment(-0.95, -0.1), // Pequeno ajuste para mais para cima
+                Alignment.bottomLeft, // Alinhado para a parte inferior esquerda
             child: GestureDetector(
               onTap: () {
                 _audioPlayer
@@ -134,7 +134,7 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
           // Botão de navegação próxima
           Align(
             alignment:
-                Alignment(0.95, -0.1), // Pequeno ajuste para mais para cima
+                Alignment.bottomRight, // Alinhado para a parte inferior direita
             child: GestureDetector(
               onTap: () {
                 _audioPlayer.stop(); // Para o áudio ao ir para a próxima página
