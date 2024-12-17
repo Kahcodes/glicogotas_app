@@ -49,6 +49,7 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_launcher_icons: ^0.14.1
 
+
 flutter_icons:
   ios: true
   android: true
@@ -130,7 +131,10 @@ flutter:
     - assets/images/balão-page3.svg
     - assets/images/fundo-hist.svg
     - assets/images/lita-pancreas.svg
-    - assets/images/balão-page4.svg
+    - assets/images/balão-page4.svg  
+    - assets/images/balão-page5.svg    
+    - assets/images/balão-page6.svg
+    - assets/images/balão-page7.svg
     - assets/images/pancreas.svg
     - assets/images/error.svg
     - assets/audio/titulo.mp3

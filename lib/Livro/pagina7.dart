@@ -5,21 +5,19 @@ import 'package:glicogotas_app/main.dart';
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'package:provider/provider.dart';
 import 'package:audioplayers/audioplayers.dart';
-
-import 'package:glicogotas_app/Livro/pagina4.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Página 5 como StatefulWidget
-class Pagina5Page extends StatefulWidget {
-  const Pagina5Page({super.key});
+class Pagina7Page extends StatefulWidget {
+  const Pagina7Page({super.key});
 
   @override
-  Pagina5PageState createState() => Pagina5PageState();
+  Pagina7PageState createState() => Pagina7PageState();
 }
 
-class Pagina5PageState extends State<Pagina5Page> with RouteAware {
+class Pagina7PageState extends State<Pagina7Page> with RouteAware {
   final AudioPlayer _audioPlayer = AudioPlayer();
 
   // Função para reproduzir o áudio
@@ -49,7 +47,7 @@ class Pagina5PageState extends State<Pagina5Page> with RouteAware {
   void initState() {
     super.initState();
     _playAudio(); // Inicia o áudio ao carregar a página
-    _saveCurrentPage(5); // Salva que o usuário está na Página 1
+    _saveCurrentPage(7); // Salva que o usuário está na Página 1
   }
 
   @override
@@ -111,8 +109,8 @@ class Pagina5PageState extends State<Pagina5Page> with RouteAware {
             top: size.height * 0.16,
             left: -size.width * 0.04,
             child: SvgPicture.asset(
-              'assets/images/balão-page5.svg',
-              width: size.width * 0.94,
+              'assets/images/balão-page7.svg',
+              width: size.width * 0.99,
             ),
           ),
 
@@ -171,27 +169,8 @@ class Pagina5PageState extends State<Pagina5Page> with RouteAware {
                 _audioPlayer.stop();
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const Pagina4Page()),
-                );
-              },
-            ),
-          ),
-
-          Positioned(
-            bottom: size.height * 0.08,
-            right: 20, // Ajuste para posicionar próximo da borda
-            child: IconButton(
-              icon: const Icon(
-                Icons.arrow_forward_ios_rounded,
-                size: 48, // Tamanho consistente com outras páginas
-                color: Color(0xFF265F95),
-              ),
-              onPressed: () {
-                _audioPlayer.stop(); // Para o áudio ao navegar
-                Navigator.push(
-                  context,
                   MaterialPageRoute(builder: (context) => const Pagina6Page()),
-                ); // Navega para a próxima página
+                );
               },
             ),
           ),

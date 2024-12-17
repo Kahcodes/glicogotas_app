@@ -1,34 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:glicogotas_app/Livro/pagina2.dart'; // Importar a página anterior
-import 'package:glicogotas_app/Livro/pagina4.dart'; // Importar a próxima página
+import 'package:glicogotas_app/Livro/pagina5.dart';
+import 'package:glicogotas_app/Livro/pagina7.dart';
+import 'package:glicogotas_app/main.dart';
+import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
+import 'package:provider/provider.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
-import 'package:provider/provider.dart';
-import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Pagina3Page extends StatefulWidget {
-  const Pagina3Page({super.key});
+// Página 5 como StatefulWidget
+class Pagina6Page extends StatefulWidget {
+  const Pagina6Page({super.key});
 
   @override
-  Pagina3PageState createState() => Pagina3PageState();
+  Pagina6PageState createState() => Pagina6PageState();
 }
 
-class Pagina3PageState extends State<Pagina3Page> with RouteAware {
+class Pagina6PageState extends State<Pagina6Page> with RouteAware {
   final AudioPlayer _audioPlayer = AudioPlayer();
 
+  // Função para reproduzir o áudio
   Future<void> _playAudio() async {
-    await _audioPlayer
-        .stop(); // Garante que qualquer áudio anterior seja parado
-    await _audioPlayer.play(AssetSource('audio/audiopag3.mp3'));
+    await _audioPlayer.stop();
+    await _audioPlayer.play(AssetSource('audio/audiopag4.mp3'));
   }
 
-  Future<void> _updateAudioStream(BuildContext context) async {
+  // Pausar ou retomar áudio baseado no Provider
+  void _handleAudioSettings(BuildContext context) {
     final configuracoesProvider =
-        Provider.of<ConfiguracoesRepository>(context, listen: true);
+        Provider.of<ConfiguracoesRepository>(context, listen: false);
 
     if (configuracoesProvider.soundOn) {
       _audioPlayer.resume();
@@ -46,37 +48,38 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
   void initState() {
     super.initState();
     _playAudio(); // Inicia o áudio ao carregar a página
-    _saveCurrentPage(3); // Salva que o usuário está na Página 1
+    _saveCurrentPage(6); // Salva que o usuário está na Página 1
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
   }
 
   @override
   void dispose() {
-    routeObserver.unsubscribe(this); // Desinscreve o observador
-    _audioPlayer.stop(); // Para o áudio ao sair da página
+    routeObserver.unsubscribe(this);
+    _audioPlayer.stop();
     _audioPlayer.dispose();
     super.dispose();
   }
 
   @override
   void didPushNext() {
-    _audioPlayer.stop(); // Para o áudio ao ir para a próxima página
+    _audioPlayer.pause(); // Pausa o áudio ao ir para outra página
   }
 
   @override
   void didPopNext() {
-    _playAudio(); // Reinicia o áudio ao voltar para esta página
+    _playAudio(); // Retoma o áudio ao voltar para esta página
   }
 
   @override
   Widget build(BuildContext context) {
-    _updateAudioStream(
-        context); // Atualiza o estado do áudio com base no Provider
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _handleAudioSettings(context);
+    });
 
     final size = MediaQuery.of(context).size;
 
@@ -92,29 +95,27 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
             ),
           ),
 
-          // Imagem da Lita
+          // Imagem do pâncreas
           Positioned(
-            top: size.height * 0.25, // Ajuste para mover para baixo
-            left: -size.width * 0.1,
+            top: size.height * 0.33,
+            left: size.width * 0.05,
             child: SvgPicture.asset(
-              'assets/images/lita-pancreas.svg',
-              width: size.width * 0.7,
-              height: size.height * 0.6,
+              'assets/images/pancreas.svg',
+              width: size.width * 0.99,
             ),
           ),
 
-          // Balão de fala
+          // Balão com texto
           Positioned(
-            top: size.height * 0.22,
-            left: size.width * 0.01,
-            right: size.width * 0.03,
+            top: size.height * 0.16,
+            left: -size.width * 0.04,
             child: SvgPicture.asset(
-              'assets/images/balão-page3.svg',
-              width: size.width * 0.80,
+              'assets/images/balão-page6.svg',
+              width: size.width * 0.99,
             ),
           ),
 
-          // Ícone Home
+          // Botão Home
           Positioned(
             top: 40,
             left: 16,
@@ -125,8 +126,8 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
-                _audioPlayer.stop(); // Para o áudio ao voltar à tela inicial
-                Navigator.push(
+                _audioPlayer.stop();
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),
                 );
@@ -134,7 +135,7 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
             ),
           ),
 
-          // Ícone Configurações
+          // Botão Configurações
           Positioned(
             top: 40,
             right: 16,
@@ -148,34 +149,33 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return const ConfigDialog(); // Chama o diálogo de configurações
+                    return const ConfigDialog();
                   },
                 );
               },
             ),
           ),
 
-          // Botão para voltar
+          // Botão Voltar
           Positioned(
             bottom: size.height * 0.08,
-            left: 20, // Ajuste para posicionar próximo da borda
+            left: 20,
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_rounded,
-                size: 48, // Tamanho consistente com outras páginas
+                size: 48,
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
-                _audioPlayer.stop(); // Para o áudio ao navegar
-                Navigator.push(
+                _audioPlayer.stop();
+                Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const Pagina2Page()),
-                ); // Navega para a página anterior
+                  MaterialPageRoute(builder: (context) => const Pagina5Page()),
+                );
               },
             ),
           ),
 
-          // Botão para avançar
           Positioned(
             bottom: size.height * 0.08,
             right: 20, // Ajuste para posicionar próximo da borda
@@ -187,9 +187,9 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
               ),
               onPressed: () {
                 _audioPlayer.stop(); // Para o áudio ao navegar
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const Pagina4Page()),
+                  MaterialPageRoute(builder: (context) => const Pagina7Page()),
                 ); // Navega para a próxima página
               },
             ),

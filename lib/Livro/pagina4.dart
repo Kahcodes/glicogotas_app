@@ -2,12 +2,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Livro/pagina3.dart'; // Importar a página anterior
+import 'package:glicogotas_app/Livro/pagina5.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:glicogotas_app/main.dart'; // Certifique-se de que o caminho esteja correto
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Pagina4Page extends StatefulWidget {
   const Pagina4Page({super.key});
@@ -38,10 +40,16 @@ class Pagina4PageState extends State<Pagina4Page> with RouteAware {
     }
   }
 
+  Future<void> _saveCurrentPage(int page) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('current_page', page);
+  }
+
   @override
   void initState() {
     super.initState();
     _playAudio(); // Inicia o áudio ao carregar a página
+    _saveCurrentPage(4); // Salva que o usuário está na Página 1
   }
 
   @override
@@ -89,20 +97,20 @@ class Pagina4PageState extends State<Pagina4Page> with RouteAware {
 
           // Elementos visuais principais
           Positioned(
-            top: size.height * 0.15,
-            right: size.width * 0.03,
-            left: size.width * 0.03,
+            top: size.height * 0.25, // Ajuste para mover para baixo
+            left: -size.width * 0.1,
             child: SvgPicture.asset(
-              'assets/images/pancreas.svg',
-              height: size.height * 0.9,
+              'assets/images/lita-pancreas.svg',
+              width: size.width * 0.7,
+              height: size.height * 0.6,
             ),
           ),
           Positioned(
-            top: size.height * 0.17,
-            right: size.width * 0.07,
+            top: size.height * 0.16,
+            right: size.width * 0.04,
             child: SvgPicture.asset(
               'assets/images/balão-page4.svg',
-              width: size.width * 1.0,
+              width: size.width * 0.9,
             ),
           ),
 
@@ -163,6 +171,25 @@ class Pagina4PageState extends State<Pagina4Page> with RouteAware {
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina3Page()),
                 ); // Navega para a página anterior
+              },
+            ),
+          ),
+
+          Positioned(
+            bottom: size.height * 0.08,
+            right: 20, // Ajuste para posicionar próximo da borda
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 48, // Tamanho consistente com outras páginas
+                color: Color(0xFF265F95),
+              ),
+              onPressed: () {
+                _audioPlayer.stop(); // Para o áudio ao navegar
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Pagina5Page()),
+                ); // Navega para a próxima página
               },
             ),
           ),

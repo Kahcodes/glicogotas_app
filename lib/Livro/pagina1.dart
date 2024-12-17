@@ -8,6 +8,7 @@ import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
 import 'package:provider/provider.dart';
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Pagina1Page extends StatefulWidget {
   const Pagina1Page({super.key});
@@ -35,10 +36,17 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
     }
   }
 
+  // Salva o número da página atual
+  Future<void> _saveCurrentPage(int page) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('current_page', page);
+  }
+
   @override
   void initState() {
     super.initState();
     _playAudio(); // Inicia o áudio ao carregar a página
+    _saveCurrentPage(1); // Salva que o usuário está na Página 1
   }
 
   @override
@@ -94,12 +102,12 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
 
           // Balão de fala
           Positioned(
-            top: size.height * 0.05,
-            left: size.width * 0.05,
-            right: size.width * 0.05,
+            top: size.height * 0.14,
+            left: size.width * 0.02,
+            right: size.width * 0.02,
             child: SvgPicture.asset(
               'assets/images/balão-duplo.svg',
-              width: size.width * 1.2,
+              width: size.width * 0.8,
             ),
           ),
 
@@ -176,6 +184,7 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
               ),
               onPressed: () {
                 _audioPlayer.stop(); // Para o áudio ao navegar
+                _saveCurrentPage(2); // Salva a página 2 antes de navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina2Page()),

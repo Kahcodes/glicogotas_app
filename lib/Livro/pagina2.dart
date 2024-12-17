@@ -8,6 +8,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
 import 'package:provider/provider.dart';
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Pagina2Page extends StatefulWidget {
   const Pagina2Page({super.key});
@@ -19,11 +20,19 @@ class Pagina2Page extends StatefulWidget {
 class Pagina2PageState extends State<Pagina2Page> with RouteAware {
   final AudioPlayer _audioPlayer = AudioPlayer();
 
+  // Função para salvar o número da página
+  Future<void> _saveCurrentPage(int page) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('current_page', page);
+  }
+
+  // Função para reproduzir o áudio
   Future<void> _playAudio() async {
     await _audioPlayer.stop(); // Garante que o áudio anterior seja parado
     await _audioPlayer.play(AssetSource('audio/audiopag2.mp3'));
   }
 
+  // Função para atualizar configurações de áudio
   Future<void> _updateAudioStream(BuildContext context) async {
     final configuracoesProvider =
         Provider.of<ConfiguracoesRepository>(context, listen: true);
@@ -38,6 +47,7 @@ class Pagina2PageState extends State<Pagina2Page> with RouteAware {
   @override
   void initState() {
     super.initState();
+    _saveCurrentPage(2); // Salva o número da página atual
     _playAudio(); // Inicia o áudio ao carregar a página
   }
 
@@ -88,19 +98,19 @@ class Pagina2PageState extends State<Pagina2Page> with RouteAware {
             top: size.height * 0.30,
             right: size.width * 0.15,
             child: SvgPicture.asset(
-              'assets/images/lita-falando.svg',
+              'assets/images/lita.svg',
               height: size.height * 0.6,
             ),
           ),
 
           // Balão de fala
           Positioned(
-            top: size.height * 0.2,
-            left: size.width * 0.02,
+            top: size.height * 0.15,
+            left: size.width * 0.03,
             right: size.width * 0.03,
             child: SvgPicture.asset(
               'assets/images/balão-page2.svg',
-              width: size.width * 0.80,
+              width: size.width * 0.99,
             ),
           ),
 
@@ -148,7 +158,7 @@ class Pagina2PageState extends State<Pagina2Page> with RouteAware {
           // Botão de navegação anterior
           Positioned(
             bottom: size.height * 0.08,
-            left: 20, // Ajuste para ficar mais próximo da lateral esquerda
+            left: 20,
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_rounded,
@@ -168,7 +178,7 @@ class Pagina2PageState extends State<Pagina2Page> with RouteAware {
           // Botão de navegação próxima
           Positioned(
             bottom: size.height * 0.08,
-            right: 20, // Ajuste para ficar mais próximo da lateral direita
+            right: 20,
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_forward_ios_rounded,
