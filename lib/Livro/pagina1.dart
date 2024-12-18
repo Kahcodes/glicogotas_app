@@ -6,7 +6,7 @@ import 'package:glicogotas_app/Livro/capa.dart';
 import 'package:glicogotas_app/Livro/pagina2.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:glicogotas_app/marcapagina.dart';
 
 class Pagina1Page extends StatefulWidget {
   const Pagina1Page({super.key});
@@ -17,18 +17,18 @@ class Pagina1Page extends StatefulWidget {
 
 class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
   final AudioManager _audioManager = AudioManager();
+  final PageService _pageService = PageService();
 
   // Função para reproduzir o áudio
   Future<void> _saveCurrentPage(int page) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('current_page', page);
+    await _pageService.saveCurrentPage(page);
   }
 
   // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
-    _saveCurrentPage(2); // Salva o número da página atual
+    _saveCurrentPage(1); // Salva o número da página atual
     _audioManager.play('audio/audiopag1.mp3', context); // Reproduz o áudio
   }
 
@@ -146,7 +146,8 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
                 size: 48,
               ),
               onPressed: () {
-                _audioManager.stop(); // Para o áudio ao navegar
+                _audioManager.stop();
+                _saveCurrentPage(0); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const CapaPage()),

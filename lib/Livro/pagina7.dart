@@ -28,7 +28,7 @@ class Pagina7PageState extends State<Pagina7Page> with RouteAware {
   @override
   void initState() {
     super.initState();
-    _saveCurrentPage(2); // Salva o número da página atual
+    _saveCurrentPage(7); // Salva o número da página atual
     _audioManager.play('audio/audiopag1.mp3', context); // Reproduz o áudio
   }
 
@@ -146,6 +146,7 @@ class Pagina7PageState extends State<Pagina7Page> with RouteAware {
               ),
               onPressed: () {
                 _audioManager.stop();
+                _saveCurrentPage(6);
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina6Page()),

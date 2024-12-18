@@ -146,7 +146,8 @@ class Pagina2PageState extends State<Pagina2Page> with RouteAware {
                 size: 48,
               ),
               onPressed: () {
-                _audioManager.stop(); // Para o áudio ao navegar
+                _audioManager.stop();
+                _saveCurrentPage(1); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina1Page()),
@@ -166,7 +167,8 @@ class Pagina2PageState extends State<Pagina2Page> with RouteAware {
                 size: 48,
               ),
               onPressed: () {
-                _audioManager.stop(); // Para o áudio ao navegar
+                _audioManager.stop();
+                _saveCurrentPage(3); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina3Page()),

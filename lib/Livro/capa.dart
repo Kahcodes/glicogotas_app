@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:glicogotas_app/Livro/pagina1.dart';
+import 'package:glicogotas_app/Livro/pagina2.dart';
+import 'package:glicogotas_app/Livro/pagina3.dart';
+import 'package:glicogotas_app/Livro/pagina4.dart';
+import 'package:glicogotas_app/Livro/pagina5.dart';
+import 'package:glicogotas_app/Livro/pagina6.dart';
+import 'package:glicogotas_app/Livro/pagina7.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:glicogotas_app/main.dart';
+import 'package:glicogotas_app/marcapagina.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,19 +25,57 @@ class CapaPage extends StatefulWidget {
 
 class _CapaPageState extends State<CapaPage> with RouteAware {
   final AudioManager _audioManager = AudioManager();
+  final PageService _pageService = PageService();
 
   // Função para reproduzir o áudio
   Future<void> _saveCurrentPage(int page) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('current_page', page);
+    await _pageService.saveCurrentPage(page);
   }
 
   // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
-    _saveCurrentPage(2); // Salva o número da página atual
+    _checkSavedPage(); // Verifica a página salva
     _audioManager.play('audio/titulo.mp3', context); // Reproduz o áudio
+  }
+
+  Future<void> _checkSavedPage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedPage = prefs.getInt('current_page') ?? 1;
+
+    if (savedPage != 1) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => _getPageByNumber(savedPage),
+          ),
+        );
+      });
+    }
+  }
+
+// Função para retornar a página correspondente ao número
+  Widget _getPageByNumber(int pageNumber) {
+    switch (pageNumber) {
+      case 1:
+        return const Pagina1Page();
+      case 2:
+        return const Pagina2Page();
+      case 3:
+        return const Pagina3Page();
+      case 4:
+        return const Pagina4Page();
+      case 5:
+        return const Pagina5Page();
+      case 6:
+        return const Pagina6Page();
+      case 7:
+        return const Pagina7Page(); // Adicione mais casos para outras páginas
+      default:
+        return const CapaPage(); // Página padrão
+    }
   }
 
   @override
@@ -149,6 +194,7 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
                           onTap: () {
                             _audioManager
                                 .stop(); // Para o áudio ao ir para a próxima página
+                            _saveCurrentPage(2);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
