@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'iniciar.dart.dart';
 import 'package:provider/provider.dart';
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Garante que o Flutter está inicializado
+  await SharedPreferences.getInstance(); // Inicializa SharedPreferences
   runApp(const GlicogotasApp());
 }
 

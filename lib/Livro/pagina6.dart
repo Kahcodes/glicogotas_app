@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Livro/pagina5.dart';
 import 'package:glicogotas_app/Livro/pagina7.dart';
+import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/main.dart';
-import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
-import 'package:provider/provider.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,68 +17,49 @@ class Pagina6Page extends StatefulWidget {
 }
 
 class Pagina6PageState extends State<Pagina6Page> with RouteAware {
-  final AudioPlayer _audioPlayer = AudioPlayer();
+  final AudioManager _audioManager = AudioManager();
 
   // Função para reproduzir o áudio
-  Future<void> _playAudio() async {
-    await _audioPlayer.stop();
-    await _audioPlayer.play(AssetSource('audio/audiopag4.mp3'));
-  }
-
-  // Pausar ou retomar áudio baseado no Provider
-  void _handleAudioSettings(BuildContext context) {
-    final configuracoesProvider =
-        Provider.of<ConfiguracoesRepository>(context, listen: false);
-
-    if (configuracoesProvider.soundOn) {
-      _audioPlayer.resume();
-    } else {
-      _audioPlayer.pause();
-    }
-  }
-
   Future<void> _saveCurrentPage(int page) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('current_page', page);
   }
 
+  // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
-    _playAudio(); // Inicia o áudio ao carregar a página
-    _saveCurrentPage(6); // Salva que o usuário está na Página 1
+    _saveCurrentPage(2); // Salva o número da página atual
+    _audioManager.play('audio/audiopag1.mp3', context); // Reproduz o áudio
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute);
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
   }
 
   @override
   void dispose() {
     routeObserver.unsubscribe(this);
-    _audioPlayer.stop();
-    _audioPlayer.dispose();
+    _audioManager.stop(); // Para o áudio ao sair da página
+    _audioManager.dispose();
     super.dispose();
   }
 
   @override
   void didPushNext() {
-    _audioPlayer.pause(); // Pausa o áudio ao ir para outra página
+    _audioManager.stop(); // Para o áudio ao ir para a próxima página
   }
 
   @override
   void didPopNext() {
-    _playAudio(); // Retoma o áudio ao voltar para esta página
+    _audioManager.play(
+        'audio/audiopag5.mp3', context); // Reinicia o áudio ao voltar
   }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _handleAudioSettings(context);
-    });
-
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -126,7 +105,7 @@ class Pagina6PageState extends State<Pagina6Page> with RouteAware {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
-                _audioPlayer.stop();
+                _audioManager.stop();
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),
@@ -167,7 +146,7 @@ class Pagina6PageState extends State<Pagina6Page> with RouteAware {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
-                _audioPlayer.stop();
+                _audioManager.stop();
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina5Page()),
@@ -186,7 +165,7 @@ class Pagina6PageState extends State<Pagina6Page> with RouteAware {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
-                _audioPlayer.stop(); // Para o áudio ao navegar
+                _audioManager.stop(); // Para o áudio ao navegar
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina7Page()),

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:glicogotas_app/Livro/pagina1.dart';
 import 'package:glicogotas_app/configuracoes.dart';
+import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/home.dart';
-import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
+import 'package:glicogotas_app/main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'dart:math';
-
-import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CapaPage extends StatefulWidget {
   const CapaPage({super.key});
@@ -17,39 +16,50 @@ class CapaPage extends StatefulWidget {
   State<CapaPage> createState() => _CapaPageState();
 }
 
-class _CapaPageState extends State<CapaPage> {
-  final AudioPlayer _audioPlayer = AudioPlayer();
+class _CapaPageState extends State<CapaPage> with RouteAware {
+  final AudioManager _audioManager = AudioManager();
 
+  // Função para reproduzir o áudio
+  Future<void> _saveCurrentPage(int page) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('current_page', page);
+  }
+
+  // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
-    _playAudio(); // Toca o áudio ao abrir a página
+    _saveCurrentPage(2); // Salva o número da página atual
+    _audioManager.play('audio/titulo.mp3', context); // Reproduz o áudio
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
   }
 
   @override
   void dispose() {
-    _audioPlayer.stop(); // Para o áudio ao sair da página
-    _audioPlayer.dispose(); // Libera os recursos do áudio ao fechar a página
+    routeObserver.unsubscribe(this);
+    _audioManager.stop(); // Para o áudio ao sair da página
+    _audioManager.dispose();
     super.dispose();
   }
 
-  Future<void> _playAudio() async {
-    await _audioPlayer.play(AssetSource('audio/titulo.mp3'));
+  @override
+  void didPushNext() {
+    _audioManager.stop(); // Para o áudio ao ir para a próxima página
   }
 
-  _updateAudioStream(BuildContext context) async {
-    final configuracoesProvider =
-        Provider.of<ConfiguracoesRepository>(context, listen: true);
-    if (configuracoesProvider.soundOn) {
-      _audioPlayer.resume();
-    } else {
-      _audioPlayer.pause();
-    }
+  @override
+  void didPopNext() {
+    _audioManager.play(
+        'audio/titulo.mp3', context); // Reinicia o áudio ao voltar
   }
 
   @override
   Widget build(BuildContext context) {
-    _updateAudioStream(context);
     return Scaffold(
       backgroundColor: const Color(0xFF265F95),
       body: SafeArea(
@@ -69,7 +79,7 @@ class _CapaPageState extends State<CapaPage> {
                         icon:
                             const Icon(Icons.home_rounded, color: Colors.white),
                         onPressed: () {
-                          _audioPlayer
+                          _audioManager
                               .stop(); // Parar o áudio antes de ir para a home
                           Navigator.push(
                             context,
@@ -137,7 +147,7 @@ class _CapaPageState extends State<CapaPage> {
                         right: 30, // Lateral direita
                         child: GestureDetector(
                           onTap: () {
-                            _audioPlayer
+                            _audioManager
                                 .stop(); // Para o áudio ao ir para a próxima página
                             Navigator.push(
                               context,

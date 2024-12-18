@@ -3,11 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Livro/pagina2.dart'; // Importar a página anterior
 import 'package:glicogotas_app/Livro/pagina4.dart'; // Importar a próxima página
 import 'package:glicogotas_app/configuracoes.dart';
+import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/home.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
-import 'package:provider/provider.dart';
-import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Pagina3Page extends StatefulWidget {
@@ -18,35 +16,19 @@ class Pagina3Page extends StatefulWidget {
 }
 
 class Pagina3PageState extends State<Pagina3Page> with RouteAware {
-  final AudioPlayer _audioPlayer = AudioPlayer();
-
-  Future<void> _playAudio() async {
-    await _audioPlayer
-        .stop(); // Garante que qualquer áudio anterior seja parado
-    await _audioPlayer.play(AssetSource('audio/audiopag3.mp3'));
-  }
-
-  Future<void> _updateAudioStream(BuildContext context) async {
-    final configuracoesProvider =
-        Provider.of<ConfiguracoesRepository>(context, listen: true);
-
-    if (configuracoesProvider.soundOn) {
-      _audioPlayer.resume();
-    } else {
-      _audioPlayer.pause();
-    }
-  }
+  final AudioManager _audioManager = AudioManager();
 
   Future<void> _saveCurrentPage(int page) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('current_page', page);
   }
 
+  // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
-    _playAudio(); // Inicia o áudio ao carregar a página
-    _saveCurrentPage(3); // Salva que o usuário está na Página 1
+    _saveCurrentPage(2); // Salva o número da página atual
+    _audioManager.play('audio/audiopag1.mp3', context); // Reproduz o áudio
   }
 
   @override
@@ -57,27 +39,25 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
 
   @override
   void dispose() {
-    routeObserver.unsubscribe(this); // Desinscreve o observador
-    _audioPlayer.stop(); // Para o áudio ao sair da página
-    _audioPlayer.dispose();
+    routeObserver.unsubscribe(this);
+    _audioManager.stop(); // Para o áudio ao sair da página
+    _audioManager.dispose();
     super.dispose();
   }
 
   @override
   void didPushNext() {
-    _audioPlayer.stop(); // Para o áudio ao ir para a próxima página
+    _audioManager.stop(); // Para o áudio ao ir para a próxima página
   }
 
   @override
   void didPopNext() {
-    _playAudio(); // Reinicia o áudio ao voltar para esta página
+    _audioManager.play(
+        'audio/audiopag3.mp3', context); // Reinicia o áudio ao voltar
   }
 
   @override
   Widget build(BuildContext context) {
-    _updateAudioStream(
-        context); // Atualiza o estado do áudio com base no Provider
-
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -125,7 +105,7 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
-                _audioPlayer.stop(); // Para o áudio ao voltar à tela inicial
+                _audioManager.stop(); // Para o áudio ao voltar à tela inicial
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),
@@ -166,7 +146,7 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
-                _audioPlayer.stop(); // Para o áudio ao navegar
+                _audioManager.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina2Page()),
@@ -186,7 +166,7 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
                 color: Color(0xFF265F95),
               ),
               onPressed: () {
-                _audioPlayer.stop(); // Para o áudio ao navegar
+                _audioManager.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina4Page()),

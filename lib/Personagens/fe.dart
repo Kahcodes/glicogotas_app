@@ -3,10 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/bobo.dart';
 import 'package:glicogotas_app/Personagens/insulins.dart';
 import 'package:glicogotas_app/configuracoes.dart';
+import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:glicogotas_app/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PersonagemFePage extends StatefulWidget {
   const PersonagemFePage({super.key});
@@ -16,18 +17,21 @@ class PersonagemFePage extends StatefulWidget {
 }
 
 class PersonagemFePageState extends State<PersonagemFePage> with RouteAware {
-  final AudioPlayer _audioPlayer = AudioPlayer();
+  final AudioManager _audioManager = AudioManager();
 
-  Future<void> _playAudio() async {
-    await _audioPlayer.stop(); // Garante que o áudio anterior seja parado
-    await _audioPlayer.play(AssetSource(
-        'audio/audioPersonagens/fe.mp3')); // Substitua pelo arquivo correto
+  // Função para reproduzir o áudio
+  Future<void> _saveCurrentPage(int page) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('current_page', page);
   }
 
+  // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
-    _playAudio(); // Inicia o áudio ao carregar a página
+    _saveCurrentPage(2); // Salva o número da página atual
+    _audioManager.play(
+        'audio/audioPersonagens/fe.mp3', context); // Reproduz o áudio
   }
 
   @override
@@ -39,19 +43,20 @@ class PersonagemFePageState extends State<PersonagemFePage> with RouteAware {
   @override
   void dispose() {
     routeObserver.unsubscribe(this);
-    _audioPlayer.stop(); // Para o áudio ao sair da página
-    _audioPlayer.dispose();
+    _audioManager.stop(); // Para o áudio ao sair da página
+    _audioManager.dispose();
     super.dispose();
   }
 
   @override
   void didPushNext() {
-    _audioPlayer.stop(); // Para o áudio ao ir para a próxima página
+    _audioManager.stop(); // Para o áudio ao ir para a próxima página
   }
 
   @override
   void didPopNext() {
-    _playAudio(); // Reinicia o áudio ao voltar para esta página
+    _audioManager.play(
+        'audio/audioPersonagens/fe.mp3', context); // Reinicia o áudio ao voltar
   }
 
   @override
@@ -81,7 +86,7 @@ class PersonagemFePageState extends State<PersonagemFePage> with RouteAware {
                 color: Color.fromARGB(255, 0, 132, 255),
               ),
               onPressed: () {
-                _audioPlayer.stop(); // Para o áudio ao ir para a tela inicial
+                _audioManager.stop(); // Para o áudio ao ir para a tela inicial
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),
@@ -226,7 +231,7 @@ class PersonagemFePageState extends State<PersonagemFePage> with RouteAware {
                 size: 48,
               ),
               onPressed: () {
-                _audioPlayer.stop(); // Para o áudio ao navegar
+                _audioManager.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -246,7 +251,7 @@ class PersonagemFePageState extends State<PersonagemFePage> with RouteAware {
                 size: 48,
               ),
               onPressed: () {
-                _audioPlayer.stop(); // Para o áudio ao navegar
+                _audioManager.stop(); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(
