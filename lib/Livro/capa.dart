@@ -10,11 +10,10 @@ import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:glicogotas_app/main.dart';
-import 'package:glicogotas_app/marcapagina.dart';
+import 'package:glicogotas_app/sqlite.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CapaPage extends StatefulWidget {
   const CapaPage({super.key});
@@ -25,31 +24,30 @@ class CapaPage extends StatefulWidget {
 
 class _CapaPageState extends State<CapaPage> with RouteAware {
   final AudioManager _audioManager = AudioManager();
-  final PageService _pageService = PageService();
 
   // Função para reproduzir o áudio
-  Future<void> _saveCurrentPage(int page) async {
-    await _pageService.saveCurrentPage(page);
+  Future<void> saveCurrentPage(int page) async {
+    await PageDatabase.instance.saveCurrentPage(page);
   }
 
   // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
-    _checkSavedPage(); // Verifica a página salva
-    _audioManager.play('audio/titulo.mp3', context); // Reproduz o áudio
+    _audioManager.play(
+        'audio/titulo.mp3', context); // Reproduz o áudio inicial.
+    _navigateToSavedPage(); // Navega para a página salva, se necessário.
   }
 
-  Future<void> _checkSavedPage() async {
-    final prefs = await SharedPreferences.getInstance();
-    final savedPage = prefs.getInt('current_page') ?? 1;
+  Future<void> _navigateToSavedPage() async {
+    final savedPage = await PageDatabase.instance.getCurrentPage();
 
-    if (savedPage != 1) {
+    if (savedPage > 1) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => _getPageByNumber(savedPage),
+            builder: (_) => _getPageByNumber(savedPage),
           ),
         );
       });
@@ -58,24 +56,20 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
 
 // Função para retornar a página correspondente ao número
   Widget _getPageByNumber(int pageNumber) {
-    switch (pageNumber) {
-      case 1:
-        return const Pagina1Page();
-      case 2:
-        return const Pagina2Page();
-      case 3:
-        return const Pagina3Page();
-      case 4:
-        return const Pagina4Page();
-      case 5:
-        return const Pagina5Page();
-      case 6:
-        return const Pagina6Page();
-      case 7:
-        return const Pagina7Page(); // Adicione mais casos para outras páginas
-      default:
-        return const CapaPage(); // Página padrão
-    }
+    final pages = [
+      const CapaPage(),
+      const Pagina1Page(),
+      const Pagina2Page(),
+      const Pagina3Page(),
+      const Pagina4Page(),
+      const Pagina5Page(),
+      const Pagina6Page(),
+      const Pagina7Page(),
+    ];
+
+    return (pageNumber > 0 && pageNumber <= pages.length)
+        ? pages[pageNumber - 1]
+        : const CapaPage();
   }
 
   @override
@@ -194,11 +188,12 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
                           onTap: () {
                             _audioManager
                                 .stop(); // Para o áudio ao ir para a próxima página
-                            _saveCurrentPage(2);
+                            PageDatabase.instance.saveCurrentPage(2);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Pagina1Page()),
+                                builder: (_) => const Pagina1Page(),
+                              ),
                             );
                           },
                           child: SvgPicture.asset(

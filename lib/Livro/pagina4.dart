@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Livro/pagina3.dart'; // Importar a página anterior
@@ -7,7 +6,7 @@ import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:glicogotas_app/main.dart'; // Certifique-se de que o caminho esteja correto
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:glicogotas_app/sqlite.dart';
 
 class Pagina4Page extends StatefulWidget {
   const Pagina4Page({super.key});
@@ -20,16 +19,10 @@ class Pagina4PageState extends State<Pagina4Page> with RouteAware {
   final AudioManager _audioManager = AudioManager();
 
   // Função para reproduzir o áudio
-  Future<void> _saveCurrentPage(int page) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('current_page', page);
-  }
-
-  // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
-    _saveCurrentPage(4); // Salva o número da página atual
+    PageDatabase.instance.saveCurrentPage(5); // Salva o número da página atual
     _audioManager.play('audio/panc-pagina4.mp3', context); // Reproduz o áudio
   }
 
@@ -146,7 +139,8 @@ class Pagina4PageState extends State<Pagina4Page> with RouteAware {
               ),
               onPressed: () {
                 _audioManager.stop();
-                _saveCurrentPage(3); // Para o áudio ao navegar
+                PageDatabase.instance
+                    .saveCurrentPage(4); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina3Page()),
@@ -166,7 +160,8 @@ class Pagina4PageState extends State<Pagina4Page> with RouteAware {
               ),
               onPressed: () {
                 _audioManager.stop();
-                _saveCurrentPage(5); // Para o áudio ao navegar
+                PageDatabase.instance
+                    .saveCurrentPage(6); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina5Page()),

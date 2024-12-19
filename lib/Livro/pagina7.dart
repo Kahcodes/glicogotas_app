@@ -5,7 +5,7 @@ import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/main.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/home.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:glicogotas_app/sqlite.dart';
 
 // Página 5 como StatefulWidget
 class Pagina7Page extends StatefulWidget {
@@ -19,16 +19,10 @@ class Pagina7PageState extends State<Pagina7Page> with RouteAware {
   final AudioManager _audioManager = AudioManager();
 
   // Função para reproduzir o áudio
-  Future<void> _saveCurrentPage(int page) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('current_page', page);
-  }
-
-  // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
-    _saveCurrentPage(7); // Salva o número da página atual
+    PageDatabase.instance.saveCurrentPage(8); // Salva o número da página atual
     _audioManager.play('audio/panc-pagina7.mp3', context); // Reproduz o áudio
   }
 
@@ -146,7 +140,7 @@ class Pagina7PageState extends State<Pagina7Page> with RouteAware {
               ),
               onPressed: () {
                 _audioManager.stop();
-                _saveCurrentPage(6);
+                PageDatabase.instance.saveCurrentPage(7);
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina6Page()),

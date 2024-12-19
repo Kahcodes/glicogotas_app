@@ -6,7 +6,7 @@ import 'package:glicogotas_app/Livro/capa.dart';
 import 'package:glicogotas_app/Livro/pagina2.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
-import 'package:glicogotas_app/marcapagina.dart';
+import 'package:glicogotas_app/sqlite.dart';
 
 class Pagina1Page extends StatefulWidget {
   const Pagina1Page({super.key});
@@ -17,18 +17,11 @@ class Pagina1Page extends StatefulWidget {
 
 class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
   final AudioManager _audioManager = AudioManager();
-  final PageService _pageService = PageService();
 
-  // Função para reproduzir o áudio
-  Future<void> _saveCurrentPage(int page) async {
-    await _pageService.saveCurrentPage(page);
-  }
-
-  // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
-    _saveCurrentPage(1); // Salva o número da página atual
+    PageDatabase.instance.saveCurrentPage(2); // Salva o número da página atual
     _audioManager.play('audio/panc-pagina1.mp3', context); // Reproduz o áudio
   }
 
@@ -54,7 +47,7 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
   @override
   void didPopNext() {
     _audioManager.play(
-        'audio/titulo.mp3', context); // Reinicia o áudio ao voltar
+        'audio/audiopag2.mp3', context); // Reinicia o áudio ao voltar
   }
 
   @override
@@ -138,7 +131,7 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
           // Botão de navegação anterior
           Positioned(
             bottom: size.height * 0.08,
-            left: 20, // Ajuste para ficar mais próximo da lateral esquerda
+            left: 20,
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_rounded,
@@ -147,11 +140,11 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
               ),
               onPressed: () {
                 _audioManager.stop();
-                _saveCurrentPage(0); // Para o áudio ao navegar
+                PageDatabase.instance.saveCurrentPage(1);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const CapaPage()),
-                ); // Ação do botão voltar
+                );
               },
             ),
           ),
@@ -159,7 +152,7 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
           // Botão de navegação próxima
           Positioned(
             bottom: size.height * 0.08,
-            right: 20, // Ajuste para ficar mais próximo da lateral direita
+            right: 20,
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_forward_ios_rounded,
@@ -167,12 +160,12 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
                 size: 48,
               ),
               onPressed: () {
-                _audioManager.stop(); // Para o áudio ao navegar
-                _saveCurrentPage(2); // Salva a página 2 antes de navegar
+                _audioManager.stop();
+                PageDatabase.instance.saveCurrentPage(3);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina2Page()),
-                ); // Ação do botão avançar
+                );
               },
             ),
           ),

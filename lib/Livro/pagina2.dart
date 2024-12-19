@@ -6,7 +6,7 @@ import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:glicogotas_app/sqlite.dart';
 
 class Pagina2Page extends StatefulWidget {
   const Pagina2Page({super.key});
@@ -18,17 +18,11 @@ class Pagina2Page extends StatefulWidget {
 class Pagina2PageState extends State<Pagina2Page> with RouteAware {
   final AudioManager _audioManager = AudioManager();
 
-  // Função para salvar o número da página
-  Future<void> _saveCurrentPage(int page) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('current_page', page);
-  }
-
   // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
-    _saveCurrentPage(2); // Salva o número da página atual
+    PageDatabase.instance.saveCurrentPage(3); // Salva o número da página atual
     _audioManager.play('audio/panc-pagina2.mp3', context); // Reproduz o áudio
   }
 
@@ -147,7 +141,8 @@ class Pagina2PageState extends State<Pagina2Page> with RouteAware {
               ),
               onPressed: () {
                 _audioManager.stop();
-                _saveCurrentPage(1); // Para o áudio ao navegar
+                PageDatabase.instance
+                    .saveCurrentPage(2); // Salva o número da página atual
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina1Page()),
@@ -168,7 +163,9 @@ class Pagina2PageState extends State<Pagina2Page> with RouteAware {
               ),
               onPressed: () {
                 _audioManager.stop();
-                _saveCurrentPage(3); // Para o áudio ao navegar
+                PageDatabase.instance
+                    .saveCurrentPage(4); // Salva o número da página atual
+                // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina3Page()),

@@ -6,7 +6,7 @@ import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:glicogotas_app/sqlite.dart';
 
 class Pagina3Page extends StatefulWidget {
   const Pagina3Page({super.key});
@@ -18,16 +18,11 @@ class Pagina3Page extends StatefulWidget {
 class Pagina3PageState extends State<Pagina3Page> with RouteAware {
   final AudioManager _audioManager = AudioManager();
 
-  Future<void> _saveCurrentPage(int page) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('current_page', page);
-  }
-
   // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
-    _saveCurrentPage(3); // Salva o número da página atual
+    PageDatabase.instance.saveCurrentPage(4); // Salva o número da página atual
     _audioManager.play('audio/panc-pagina3.mp3', context); // Reproduz o áudio
   }
 
@@ -147,7 +142,8 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
               ),
               onPressed: () {
                 _audioManager.stop();
-                _saveCurrentPage(2); // Para o áudio ao navegar
+                PageDatabase.instance
+                    .saveCurrentPage(3); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina2Page()),
@@ -168,7 +164,8 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
               ),
               onPressed: () {
                 _audioManager.stop();
-                _saveCurrentPage(4); // Para o áudio ao navegar
+                PageDatabase.instance
+                    .saveCurrentPage(4); // Para o áudio ao navegar
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Pagina4Page()),
