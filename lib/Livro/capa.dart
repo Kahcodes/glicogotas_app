@@ -13,7 +13,6 @@ import 'package:glicogotas_app/main.dart';
 import 'package:glicogotas_app/sqlite.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class CapaPage extends StatefulWidget {
   const CapaPage({super.key});
@@ -180,26 +179,43 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
                             height: 290, fit: BoxFit.cover),
                       ),
 
-                      // Novo botão de avançar
+                      // Novo botão de avançar com texto
                       Positioned(
-                        bottom: 50, // Ajuste para posicionar perto da imagem
-                        right: 30, // Lateral direita
-                        child: GestureDetector(
-                          onTap: () {
-                            _audioManager
-                                .stop(); // Para o áudio ao ir para a próxima página
-                            PageDatabase.instance.saveCurrentPage(2);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const Pagina1Page(),
+                        bottom: MediaQuery.of(context).size.height * 0.08,
+                        right: 20,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Text(
+                                'Começar',
+                                style: GoogleFonts.sansitaSwashed(
+                                  fontSize: 24,
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
+                                ),
                               ),
-                            );
-                          },
-                          child: SvgPicture.asset(
-                            'assets/images/btn-avancar-branco.svg', // Novo botão
-                            height: 65, // Tamanho do botão
-                          ),
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                                size: 48,
+                              ),
+                              onPressed: () {
+                                _audioManager.stop();
+                                PageDatabase.instance.saveCurrentPage(3);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const Pagina1Page()),
+                                );
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ],

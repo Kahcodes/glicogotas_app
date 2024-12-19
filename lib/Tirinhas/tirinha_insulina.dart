@@ -6,10 +6,10 @@ class TirinhaInsulina extends StatefulWidget {
   const TirinhaInsulina({super.key});
 
   @override
-  TirinhaState createState() => TirinhaState();
+  TirinhaInsulinaState createState() => TirinhaInsulinaState();
 }
 
-class TirinhaState extends State<TirinhaInsulina> {
+class TirinhaInsulinaState extends State<TirinhaInsulina> {
   final List<String> tirinha = [
     'assets/images/tirinha-ins-1.png',
     'assets/images/tirinha-ins-2.png',
@@ -25,6 +25,19 @@ class TirinhaState extends State<TirinhaInsulina> {
     setState(() {
       currentIndex = index;
     });
+  }
+
+  void _navigateToPage(int index) {
+    if (index >= 0 && index < tirinha.length) {
+      _pageController.animateToPage(
+        index,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+      setState(() {
+        currentIndex = index;
+      });
+    }
   }
 
   @override
@@ -45,9 +58,10 @@ class TirinhaState extends State<TirinhaInsulina> {
               // Linha com o título e os ícones no topo da tela
               Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical:
-                        40.0), // Ajuste no padding para afastar os elementos do topo
+                  horizontal: 16.0,
+                  vertical:
+                      40.0, // Ajuste no padding para afastar os elementos do topo
+                ),
                 child: Row(
                   children: [
                     // Ícone de seta de voltar
@@ -114,11 +128,9 @@ class TirinhaState extends State<TirinhaInsulina> {
                   },
                 ),
               ),
-              // Indicadores de pontos (dots) movidos para cima
-              Positioned(
-                top: 140, // Ajusta a posição para mover os dots para cima
-                left: 0,
-                right: 0,
+              // Indicadores de pontos (dots)
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
@@ -138,8 +150,31 @@ class TirinhaState extends State<TirinhaInsulina> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20), // Espaçamento abaixo
             ],
+          ),
+          // Botão para navegar para a página anterior
+          Positioned(
+            bottom: 50,
+            left: 20,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_ios_rounded,
+                  size: 48, color: Color.fromARGB(255, 0, 0, 0)),
+              onPressed: () {
+                _navigateToPage(currentIndex - 1);
+              },
+            ),
+          ),
+          // Botão para navegar para a próxima página
+          Positioned(
+            bottom: 50,
+            right: 20,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_forward_ios_rounded,
+                  size: 48, color: Color.fromARGB(255, 0, 0, 0)),
+              onPressed: () {
+                _navigateToPage(currentIndex + 1);
+              },
+            ),
           ),
         ],
       ),
