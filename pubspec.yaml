@@ -138,10 +138,13 @@ flutter:
     - assets/images/pancreas.svg
     - assets/images/error.svg
     - assets/audio/titulo.mp3
-    - assets/audio/audiopag1.mp3
-    - assets/audio/audiopag2.mp3
-    - assets/audio/audiopag3.mp3
-    - assets/audio/audiopag4.mp3
+    - assets/audio/panc-pagina1.mp3
+    - assets/audio/panc-pagina2.mp3
+    - assets/audio/panc-pagina3.mp3
+    - assets/audio/panc-pagina4.mp3
+    - assets/audio/panc-pagina5.mp3
+    - assets/audio/panc-pagina6.mp3
+    - assets/audio/panc-pagina7.mp3
     - assets/audio/audioPersonagens/bemvindos.mp3
     - assets/audio/audioPersonagens/betinho.mp3
     - assets/audio/audioPersonagens/bobo.mp3

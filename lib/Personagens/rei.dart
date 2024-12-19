@@ -191,7 +191,7 @@ class PersonagemReiPageState extends State<PersonagemReiPage> with RouteAware {
               children: [
                 // Texto branco (borda)
                 Text(
-                  'O Rei da Hiper se forma quando o açúcar está elevado, causando estresse e sonolência. É hora de cuidar do equilíbrio do corpo!',
+                  'O Rei da Hiper se forma quando o açúcar está elevado. É hora de cuidar do equilíbrio do corpo!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
@@ -210,7 +210,7 @@ class PersonagemReiPageState extends State<PersonagemReiPage> with RouteAware {
                 ),
                 // Texto vermelho
                 Text(
-                  'O Rei da Hiper se forma quando o açúcar está elevado, causando estresse e sonolência. É hora de cuidar do equilíbrio do corpo!',
+                  'O Rei da Hiper se forma quando o açúcar está elevado. É hora de cuidar do equilíbrio do corpo!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,

@@ -191,7 +191,7 @@ class PersonagemBoboPageState extends State<PersonagemBoboPage>
               children: [
                 // Texto branco (borda)
                 Text(
-                  'O Bobo da Hipo aparece quando o açúcar está baixo, um verdadeiro trapalhão, que nos faz se meter em muita confusão!',
+                  'O Bobo da Hipo aparece quando o açúcar está baixo e nos faz entrar em muita confusão!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
@@ -210,7 +210,7 @@ class PersonagemBoboPageState extends State<PersonagemBoboPage>
                 ),
                 // Texto verde
                 Text(
-                  'O Bobo da Hipo aparece quando o açúcar está baixo, um verdadeiro trapalhão, que nos faz se meter em muita confusão!',
+                  'O Bobo da Hipo aparece quando o açúcar está baixo e nos faz entrar em muita confusão!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.chewy(
                     fontSize: size.width * 0.06,
