@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:glicogotas_app/controleaudio.dart';
+import 'package:glicogotas_app/main.dart';
+import 'package:glicogotas_app/sqlite.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'dart:math';
+
 import 'package:glicogotas_app/Livro/pagina1.dart';
 import 'package:glicogotas_app/Livro/pagina2.dart';
 import 'package:glicogotas_app/Livro/pagina3.dart';
@@ -6,13 +12,6 @@ import 'package:glicogotas_app/Livro/pagina4.dart';
 import 'package:glicogotas_app/Livro/pagina5.dart';
 import 'package:glicogotas_app/Livro/pagina6.dart';
 import 'package:glicogotas_app/Livro/pagina7.dart';
-import 'package:glicogotas_app/configuracoes.dart';
-import 'package:glicogotas_app/controleaudio.dart';
-import 'package:glicogotas_app/home.dart';
-import 'package:glicogotas_app/main.dart';
-import 'package:glicogotas_app/sqlite.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'dart:math';
 
 class CapaPage extends StatefulWidget {
   const CapaPage({super.key});
@@ -23,24 +22,31 @@ class CapaPage extends StatefulWidget {
 
 class _CapaPageState extends State<CapaPage> with RouteAware {
   final AudioManager _audioManager = AudioManager();
+  final PageController _pageController =
+      PageController(); // Controlador do PageView
+  int _currentPage = 0; // Página atual para controlar indicadores
 
-  // Função para reproduzir o áudio
-  Future<void> saveCurrentPage(int page) async {
-    await PageDatabase.instance.saveCurrentPage(page);
-  }
+  final List<Widget> _pages = const [
+    CapaContent(),
+    Pagina1Page(),
+    Pagina2Page(),
+    Pagina3Page(),
+    Pagina4Page(),
+    Pagina5Page(),
+    Pagina6Page(),
+    Pagina7Page(),
+  ];
 
-  // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
     _audioManager.play(
         'audio/titulo.mp3', context); // Reproduz o áudio inicial.
-    _navigateToSavedPage(); // Navega para a página salva, se necessário.
+    _navigateToSavedPage();
   }
 
   Future<void> _navigateToSavedPage() async {
     final savedPage = await PageDatabase.instance.getCurrentPage();
-
     if (savedPage > 1) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushReplacement(
@@ -53,28 +59,11 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
     }
   }
 
-// Função para retornar a página correspondente ao número
   Widget _getPageByNumber(int pageNumber) {
-    final pages = [
-      const CapaPage(),
-      const Pagina1Page(),
-      const Pagina2Page(),
-      const Pagina3Page(),
-      const Pagina4Page(),
-      const Pagina5Page(),
-      const Pagina6Page(),
-      const Pagina7Page(),
-    ];
-
-    return (pageNumber > 0 && pageNumber <= pages.length)
-        ? pages[pageNumber - 1]
-        : const CapaPage();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
+    if (pageNumber > 0 && pageNumber <= _pages.length) {
+      return _pages[pageNumber - 1];
+    }
+    return const CapaPage();
   }
 
   @override
@@ -91,138 +80,101 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
   }
 
   @override
-  void didPopNext() {
-    _audioManager.play(
-        'audio/titulo.mp3', context); // Reinicia o áudio ao voltar
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF265F95),
       body: SafeArea(
         child: Stack(
           children: [
-            Column(
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Ícone Home
-                      IconButton(
-                        iconSize: 30,
-                        icon:
-                            const Icon(Icons.home_rounded, color: Colors.white),
-                        onPressed: () {
-                          _audioManager
-                              .stop(); // Parar o áudio antes de ir para a home
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const TelaHome()),
-                          );
-                        },
-                      ),
-                      // Ícone Configurações
-                      IconButton(
-                        iconSize: 30,
-                        icon: const Icon(Icons.settings, color: Colors.white),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return const ConfigDialog();
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 40),
-                Expanded(
-                  child: Stack(
-                    children: [
-                      Align(
-                        alignment: Alignment.topCenter,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 100),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              CustomPaint(
-                                painter: ArcTextPainter(),
-                                child: Container(height: 80),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                'DESCOMPLICANDO',
-                                style: GoogleFonts.chewy(
-                                    fontSize: 36, color: Colors.yellow),
-                              ),
-                              Text(
-                                'o Diabetes',
-                                style: GoogleFonts.chewy(
-                                    fontSize: 36, color: Colors.yellow),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        left: 0,
-                        child: Image.asset("assets/images/talita_capa.png",
-                            height: 290, fit: BoxFit.cover),
-                      ),
+            PageView.builder(
+              controller: _pageController,
+              itemCount: _pages.length,
+              onPageChanged: (index) {
+                setState(() {
+                  _currentPage = index;
+                });
+              },
+              itemBuilder: (context, index) {
+                return AnimatedBuilder(
+                  animation: _pageController,
+                  builder: (context, child) {
+                    double scale = 1.0;
+                    double opacity = 1.0;
 
-                      // Novo botão de avançar com texto
-                      Positioned(
-                        bottom: MediaQuery.of(context).size.height * 0.08,
-                        right: 20,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Text(
-                                'Começar',
-                                style: GoogleFonts.sansitaSwashed(
-                                  fontSize: 24,
-                                  color:
-                                      const Color.fromARGB(255, 255, 255, 255),
-                                ),
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                size: 48,
-                              ),
-                              onPressed: () {
-                                _audioManager.stop();
-                                PageDatabase.instance.saveCurrentPage(3);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Pagina1Page()),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                    if (_pageController.position.haveDimensions) {
+                      double page = _pageController.page ?? 0.0;
+                      scale = (1 - (index - page).abs()).clamp(0.85, 1.0);
+                      opacity = (1 - (index - page).abs()).clamp(0.5, 1.0);
+                    }
+
+                    return Transform.scale(
+                      scale: scale,
+                      child: Opacity(
+                        opacity: opacity,
+                        child: _pages[index],
                       ),
-                    ],
+                    );
+                  },
+                );
+              },
+            ),
+            // Indicador de navegação (Dots)
+            Positioned(
+              bottom: 16,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  _pages.length,
+                  (index) => AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    height: 8,
+                    width: _currentPage == index ? 12 : 8,
+                    decoration: BoxDecoration(
+                      color: _currentPage == index
+                          ? Colors.yellow
+                          : Colors.white.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                   ),
                 ),
-              ],
+              ),
             ),
+            // Botão de avançar ou voltar
+            if (_currentPage > 0)
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.5,
+                left: 16,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back_ios,
+                      color: Color.fromARGB(0, 255, 255, 255)),
+                  onPressed: () {
+                    _audioManager.stop();
+                    _pageController.previousPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  },
+                ),
+              ),
+            if (_currentPage < _pages.length - 1)
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.5,
+                right: 16,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_forward_ios,
+                      color: Color.fromARGB(0, 255, 255, 255)),
+                  onPressed: () {
+                    _audioManager.stop();
+                    _pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  },
+                ),
+              ),
           ],
         ),
       ),
@@ -230,7 +182,84 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
   }
 }
 
-// Classe para desenhar o texto em arco
+// Conteúdo da capa
+class CapaContent extends StatelessWidget {
+  const CapaContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final audioManager = AudioManager();
+    return Stack(
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(height: 300),
+            CustomPaint(
+              painter: ArcTextPainter(),
+              child: Container(height: 80),
+            ),
+            Text(
+              'DESCOMPLICANDO',
+              style: GoogleFonts.chewy(fontSize: 36, color: Colors.yellow),
+            ),
+            Text(
+              'o Diabetes',
+              style: GoogleFonts.chewy(fontSize: 36, color: Colors.yellow),
+            ),
+          ],
+        ),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          child: Image.asset(
+            "assets/images/talita_capa.png",
+            height: 290,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Positioned(
+          bottom: MediaQuery.of(context).size.height * 0.08,
+          right: 20,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Text(
+                  'Começar',
+                  style: GoogleFonts.sansitaSwashed(
+                    fontSize: 24,
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                  ),
+                ),
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  size: 48,
+                ),
+                onPressed: () {
+                  PageDatabase.instance.saveCurrentPage(1);
+                  audioManager.stop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Pagina1Page()),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// Pintura do texto em arco
 class ArcTextPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

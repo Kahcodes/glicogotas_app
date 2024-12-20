@@ -141,6 +141,7 @@ flutter:
     - assets/images/error.svg
     - assets/audio/titulo.mp3
     - assets/audio/panc-pagina1.mp3
+    - assets/audio/musica.mp3
     - assets/audio/panc-pagina2.mp3
     - assets/audio/panc-pagina3.mp3
     - assets/audio/panc-pagina4.mp3

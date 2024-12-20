@@ -1,15 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/glicogotas.dart';
+import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/iniciar.dart.dart';
+import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:glicogotas_app/Tirinhas/tirinha.cards.dart';
 import 'package:glicogotas_app/Livro/cards.dart';
 import 'package:glicogotas_app/jogos.dart';
+import 'package:provider/provider.dart';
 import 'configuracoes.dart';
 
-class TelaHome extends StatelessWidget {
+class TelaHome extends StatefulWidget {
   const TelaHome({super.key});
+
+  @override
+  TelaHomeState createState() => TelaHomeState();
+}
+
+class TelaHomeState extends State<TelaHome> {
+  final AudioManager _audioManager = AudioManager();
+
+  @override
+  void initState() {
+    super.initState();
+    _playBackgroundMusic();
+  }
+
+  void _playBackgroundMusic() async {
+    final configProvider = Provider.of<ConfiguracoesRepository>(
+      context,
+      listen: false,
+    );
+
+    if (!mounted) return;
+
+    if (configProvider.musicOn) {
+      await _audioManager.setVolume(0.3); // Define o volume inicial
+      await _audioManager.play(
+          'audio/musica.mp3', context); // Corrija o caminho aqui
+    }
+  }
+
+  @override
+  void dispose() {
+    _audioManager.stop();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

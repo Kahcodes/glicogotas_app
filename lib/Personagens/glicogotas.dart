@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:glicogotas_app/Personagens/betinho.dart';
+import 'package:glicogotas_app/Personagens/bobo.dart';
+import 'package:glicogotas_app/Personagens/fe.dart';
+import 'package:glicogotas_app/Personagens/insulins.dart';
 import 'package:glicogotas_app/Personagens/lita.dart';
+import 'package:glicogotas_app/Personagens/pumps.dart';
+import 'package:glicogotas_app/Personagens/rei.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:glicogotas_app/main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class PersonagensPage extends StatefulWidget {
   const PersonagensPage({super.key});
@@ -17,18 +22,25 @@ class PersonagensPage extends StatefulWidget {
 
 class PersonagensPageState extends State<PersonagensPage> with RouteAware {
   final AudioManager _audioManager = AudioManager();
+  final PageController _pageController =
+      PageController(); // Controlador do PageView
+  int _currentPage = 0;
 
-  // Função para reproduzir o áudio
-  Future<void> _saveCurrentPage(int page) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('current_page', page);
-  }
+  final List<Widget> _pages = const [
+    PersonagensContent(),
+    PersonagemLitaPage(),
+    PersonagemReiPage(),
+    PersonagemBoboPage(),
+    PersonagemFePage(),
+    PersonagemInsulinsPage(),
+    PersonagemPumpsPage(),
+    PersonagemBetinhoPage(),
+  ];
 
   // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
-    _saveCurrentPage(2); // Salva o número da página atual
     _audioManager.play(
         'audio/audioPersonagens/bemvindos.mp3', context); // Reproduz o áudio
   }
@@ -60,7 +72,114 @@ class PersonagensPageState extends State<PersonagensPage> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF265F95),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            PageView.builder(
+              controller: _pageController,
+              itemCount: _pages.length,
+              onPageChanged: (index) {
+                setState(() {
+                  _currentPage = index;
+                });
+              },
+              itemBuilder: (context, index) {
+                return AnimatedBuilder(
+                  animation: _pageController,
+                  builder: (context, child) {
+                    double scale = 1.0;
+                    double opacity = 1.0;
+
+                    if (_pageController.position.haveDimensions) {
+                      double page = _pageController.page ?? 0.0;
+                      scale = (1 - (index - page).abs()).clamp(0.85, 1.0);
+                      opacity = (1 - (index - page).abs()).clamp(0.5, 1.0);
+                    }
+
+                    return Transform.scale(
+                      scale: scale,
+                      child: Opacity(
+                        opacity: opacity,
+                        child: _pages[index],
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+            // Indicador de navegação (Dots)
+            Positioned(
+              bottom: 16,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  _pages.length,
+                  (index) => AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    height: 8,
+                    width: _currentPage == index ? 12 : 8,
+                    decoration: BoxDecoration(
+                      color: _currentPage == index
+                          ? Colors.yellow
+                          : Colors.white.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            // Botão de avançar ou voltar
+            if (_currentPage > 0)
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.5,
+                left: 16,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back_ios,
+                      color: Color.fromARGB(0, 255, 255, 255)),
+                  onPressed: () {
+                    _audioManager.stop();
+                    _pageController.previousPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  },
+                ),
+              ),
+            if (_currentPage < _pages.length - 1)
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.5,
+                right: 16,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_forward_ios,
+                      color: Color.fromARGB(0, 255, 255, 255)),
+                  onPressed: () {
+                    _audioManager.stop();
+                    _pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  },
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PersonagensContent extends StatelessWidget {
+  const PersonagensContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final audioManager = AudioManager();
 
     return Scaffold(
       body: Stack(
@@ -204,7 +323,7 @@ class PersonagensPageState extends State<PersonagensPage> with RouteAware {
                   width: 65,
                 ),
                 onPressed: () {
-                  _audioManager.stop(); // Para o áudio ao navegar
+                  audioManager.stop(); // Para o áudio ao navegar
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -223,7 +342,7 @@ class PersonagensPageState extends State<PersonagensPage> with RouteAware {
               iconSize: 30,
               icon: const Icon(Icons.home_rounded, color: Colors.white),
               onPressed: () {
-                _audioManager.stop(); // Para o áudio ao voltar ao início
+                audioManager.stop(); // Para o áudio ao voltar ao início
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TelaHome()),

@@ -6,6 +6,10 @@ import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart
 class AudioManager {
   final AudioPlayer _audioPlayer = AudioPlayer();
 
+  Future<void> setVolume(double volume) async {
+    await _audioPlayer.setVolume(volume);
+  }
+
   Future<void> play(String assetPath, BuildContext context) async {
     final configuracoesProvider =
         Provider.of<ConfiguracoesRepository>(context, listen: false);
