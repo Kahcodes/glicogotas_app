@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
+import 'package:glicogotas_app/home.dart';
 import 'package:glicogotas_app/main.dart';
 import 'package:glicogotas_app/sqlite.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,9 +24,8 @@ class CapaPage extends StatefulWidget {
 
 class _CapaPageState extends State<CapaPage> with RouteAware {
   final AudioManager _audioManager = AudioManager();
-  final PageController _pageController =
-      PageController(); // Controlador do PageView
-  int _currentPage = 0; // Página atual para controlar indicadores
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
 
   final List<Widget> _pages = const [
     CapaContent(),
@@ -40,8 +41,7 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
   @override
   void initState() {
     super.initState();
-    _audioManager.play(
-        'audio/titulo.mp3', context); // Reproduz o áudio inicial.
+    _audioManager.play('audio/titulo.mp3', context);
     _navigateToSavedPage();
   }
 
@@ -69,14 +69,14 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
   @override
   void dispose() {
     routeObserver.unsubscribe(this);
-    _audioManager.stop(); // Para o áudio ao sair da página
+    _audioManager.stop();
     _audioManager.dispose();
     super.dispose();
   }
 
   @override
   void didPushNext() {
-    _audioManager.stop(); // Para o áudio ao ir para a próxima página
+    _audioManager.stop();
   }
 
   @override
@@ -118,7 +118,6 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
                 );
               },
             ),
-            // Indicador de navegação (Dots)
             Positioned(
               bottom: 16,
               left: 0,
@@ -142,7 +141,6 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
                 ),
               ),
             ),
-            // Botão de avançar ou voltar
             if (_currentPage > 0)
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.5,
@@ -182,7 +180,6 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
   }
 }
 
-// Conteúdo da capa
 class CapaContent extends StatelessWidget {
   const CapaContent({super.key});
 
@@ -194,7 +191,48 @@ class CapaContent extends StatelessWidget {
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(height: 300),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 40, left: 16),
+                  child: IconButton(
+                    iconSize: 30,
+                    icon: const Icon(
+                      Icons.home_rounded,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                    onPressed: () {
+                      audioManager.stop();
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TelaHome()),
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 40, right: 16),
+                  child: IconButton(
+                    iconSize: 30,
+                    icon: const Icon(
+                      Icons.settings,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const ConfigDialog();
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 200),
             CustomPaint(
               painter: ArcTextPainter(),
               child: Container(height: 80),
