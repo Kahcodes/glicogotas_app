@@ -33,12 +33,19 @@ class TelaHomeState extends State<TelaHome> {
       listen: false,
     );
 
-    if (!mounted) return;
+    // Escuta as mudanças na configuração de música
+    configProvider.addListener(() {
+      if (configProvider.musicOn) {
+        _audioManager.play('audio/musica.mp3', context);
+      } else {
+        _audioManager.stop();
+      }
+    });
 
+    // Inicia a música se a configuração estiver habilitada
     if (configProvider.musicOn) {
-      await _audioManager.setVolume(0.3); // Define o volume inicial
-      await _audioManager.play(
-          'audio/musica.mp3', context); // Corrija o caminho aqui
+      _audioManager.setVolume(0.3);
+      _audioManager.play('audio/musica.mp3', context);
     }
   }
 

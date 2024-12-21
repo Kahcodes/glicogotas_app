@@ -313,26 +313,6 @@ class PersonagensContent extends StatelessWidget {
           ),
 
           // Botão "Avançar"
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 22),
-              child: IconButton(
-                icon: SvgPicture.asset(
-                  'assets/images/btn-avancar-branco.svg',
-                  width: 65,
-                ),
-                onPressed: () {
-                  audioManager.stop(); // Para o áudio ao navegar
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PersonagemLitaPage()),
-                  );
-                },
-              ),
-            ),
-          ),
 
           // Botão de home no canto superior esquerdo
           Positioned(
@@ -348,6 +328,65 @@ class PersonagensContent extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const TelaHome()),
                 );
               },
+            ),
+          ),
+
+          Positioned(
+            bottom: MediaQuery.of(context).size.height * 0.08,
+            right: 20,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Stack(
+                    children: [
+                      Text(
+                        'Avançar',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.chewy(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w400,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withOpacity(0.25),
+                              offset: const Offset(3.0, 3.0),
+                              blurRadius: 4.0,
+                            ),
+                          ],
+                          foreground: Paint()
+                            ..style = PaintingStyle.stroke
+                            ..strokeWidth = 5
+                            ..color = const Color(0xFFFFFEFF),
+                        ),
+                      ),
+                      Text(
+                        'Avançar',
+                        style: GoogleFonts.chewy(
+                          fontSize: 24,
+                          color: const Color(0xFFF4719C),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    size: 48,
+                  ),
+                  onPressed: () {
+                    audioManager.stop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PersonagemLitaPage()),
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ],

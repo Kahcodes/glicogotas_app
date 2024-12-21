@@ -266,17 +266,17 @@ class CapaContent extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: Text(
-                  'Começar',
-                  style: GoogleFonts.sansitaSwashed(
+                  'Avançar',
+                  style: GoogleFonts.chewy(
                     fontSize: 24,
-                    color: const Color.fromARGB(255, 255, 255, 255),
+                    color: Colors.yellow,
                   ),
                 ),
               ),
               IconButton(
                 icon: const Icon(
                   Icons.arrow_forward_ios_rounded,
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: Colors.yellow,
                   size: 48,
                 ),
                 onPressed: () {
