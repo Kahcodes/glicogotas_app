@@ -347,7 +347,7 @@ class PersonagensContent extends StatelessWidget {
                         'Avançar',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.chewy(
-                          fontSize: 24,
+                          fontSize: 30,
                           fontWeight: FontWeight.w400,
                           shadows: [
                             Shadow(
@@ -365,7 +365,7 @@ class PersonagensContent extends StatelessWidget {
                       Text(
                         'Avançar',
                         style: GoogleFonts.chewy(
-                          fontSize: 28,
+                          fontSize: 30,
                           color: const Color(0xFFF4719C),
                         ),
                       ),
