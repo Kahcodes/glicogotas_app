@@ -268,7 +268,7 @@ class CapaContent extends StatelessWidget {
                 child: Text(
                   'Avançar',
                   style: GoogleFonts.chewy(
-                    fontSize: 24,
+                    fontSize: 28,
                     color: Colors.yellow,
                   ),
                 ),
@@ -277,7 +277,7 @@ class CapaContent extends StatelessWidget {
                 icon: const Icon(
                   Icons.arrow_forward_ios_rounded,
                   color: Colors.yellow,
-                  size: 48,
+                  size: 42,
                 ),
                 onPressed: () {
                   PageDatabase.instance.saveCurrentPage(1);

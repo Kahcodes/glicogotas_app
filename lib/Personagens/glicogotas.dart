@@ -216,37 +216,86 @@ class PersonagensContent extends StatelessWidget {
             left: 0,
             right: 0,
             child: Center(
-              child: Stack(
+              child: Column(
                 children: [
-                  // Contorno branco
-                  Text(
-                    'Bem-Vindos',
-                    style: GoogleFonts.chewy(
-                      fontSize: size.width * 0.13, // Fonte maior
-                      fontWeight: FontWeight.w400,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black.withOpacity(0.25), // Sombra suave
-                          offset: const Offset(3.0, 3.0), // Ajuste de sombra
-                          blurRadius: 5.0,
+                  Stack(
+                    children: [
+                      // Contorno branco
+                      Text(
+                        'Bem-Vindos',
+                        style: GoogleFonts.chewy(
+                          fontSize: size.width * 0.13, // Fonte maior
+                          fontWeight: FontWeight.w400,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black
+                                  .withOpacity(0.25), // Sombra suave
+                              offset:
+                                  const Offset(3.0, 3.0), // Ajuste de sombra
+                              blurRadius: 5.0,
+                            ),
+                          ],
+                          foreground: Paint()
+                            ..style = PaintingStyle.stroke
+                            ..strokeWidth = 8
+                            ..color = const Color(
+                                0xFFFFFEFF), // Cor do contorno (branca)
                         ),
-                      ],
-                      foreground: Paint()
-                        ..style = PaintingStyle.stroke
-                        ..strokeWidth = 8
-                        ..color =
-                            const Color(0xFFFFFEFF), // Cor do contorno (branca)
-                    ),
+                      ),
+                      // Preenchimento rosa e sombra
+                      Text(
+                        'Bem-Vindos',
+                        style: GoogleFonts.chewy(
+                          color: const Color(
+                              0xFFF4719C), // Cor do preenchimento (rosa)
+                          fontSize: size.width * 0.13, // Fonte maior
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
                   ),
-                  // Preenchimento rosa e sombra
-                  Text(
-                    'Bem-Vindos',
-                    style: GoogleFonts.chewy(
-                      color: const Color(
-                          0xFFF4719C), // Cor do preenchimento (rosa)
-                      fontSize: size.width * 0.13, // Fonte maior
-                      fontWeight: FontWeight.w400,
-                    ),
+
+                  // Frase "À Turminha do Glicogotas!"
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Stack(
+                        children: [
+                          // Contorno branco
+                          Text(
+                            'À Turminha do Glicogotas!',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.chewy(
+                              fontSize: size.width * 0.06,
+                              fontWeight: FontWeight.w400,
+                              shadows: [
+                                Shadow(
+                                  color: Colors.black.withOpacity(0.25),
+                                  offset: const Offset(3.0, 3.0),
+                                  blurRadius: 5.0,
+                                ),
+                              ],
+                              foreground: Paint()
+                                ..style = PaintingStyle.stroke
+                                ..strokeWidth = 5
+                                ..color = const Color(0xFFFFFEFF),
+                            ),
+                          ),
+                          // Preenchimento rosa e sombra
+                          Text(
+                            'À Turminha do Glicogotas!',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.chewy(
+                              color: const Color(0xFFF4719C),
+                              fontSize: size.width * 0.06,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -265,55 +314,6 @@ class PersonagensContent extends StatelessWidget {
             ),
           ),
 
-          // Texto "À Turminha do Glicogotas!" centralizado
-          Positioned(
-            bottom: size.height * 0.15,
-            left: size.width * 0.15,
-            right: size.width * 0.15,
-            child: Transform.rotate(
-              angle: -0.03,
-              child: FittedBox(
-                fit: BoxFit.scaleDown, // Reduz o texto para caber na área
-                child: Stack(
-                  children: [
-                    // Contorno branco
-                    Text(
-                      'À Turminha do Glicogotas!',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.chewy(
-                        fontSize: size.width * 0.16,
-                        fontWeight: FontWeight.w400,
-                        shadows: [
-                          Shadow(
-                            color: Colors.black.withOpacity(0.25),
-                            offset: const Offset(3.0, 3.0),
-                            blurRadius: 5.0,
-                          ),
-                        ],
-                        foreground: Paint()
-                          ..style = PaintingStyle.stroke
-                          ..strokeWidth = 8
-                          ..color = const Color(0xFFFFFEFF),
-                      ),
-                    ),
-                    // Preenchimento rosa e sombra
-                    Text(
-                      'À Turminha do Glicogotas!',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.chewy(
-                        color: const Color(0xFFF4719C),
-                        fontSize: size.width * 0.16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-          // Botão "Avançar"
-
           // Botão de home no canto superior esquerdo
           Positioned(
             top: 40,
@@ -331,6 +331,7 @@ class PersonagensContent extends StatelessWidget {
             ),
           ),
 
+          // Botão "Avançar"
           Positioned(
             bottom: MediaQuery.of(context).size.height * 0.08,
             right: 20,
@@ -364,7 +365,7 @@ class PersonagensContent extends StatelessWidget {
                       Text(
                         'Avançar',
                         style: GoogleFonts.chewy(
-                          fontSize: 24,
+                          fontSize: 28,
                           color: const Color(0xFFF4719C),
                         ),
                       ),
@@ -372,10 +373,10 @@ class PersonagensContent extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_forward_ios_rounded,
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    size: 48,
+                    color: Color(0xfff6aebf), // Cor do ícone
+                    size: 38,
                   ),
                   onPressed: () {
                     audioManager.stop();
