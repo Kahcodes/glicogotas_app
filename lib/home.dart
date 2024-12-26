@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/glicogotas.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/iniciar.dart.dart';
+import 'package:glicogotas_app/main.dart';
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:glicogotas_app/Tirinhas/tirinha.cards.dart';
@@ -18,7 +19,7 @@ class TelaHome extends StatefulWidget {
   TelaHomeState createState() => TelaHomeState();
 }
 
-class TelaHomeState extends State<TelaHome> {
+class TelaHomeState extends State<TelaHome> with RouteAware {
   final AudioManager _audioManager = AudioManager();
 
   @override
@@ -43,16 +44,34 @@ class TelaHomeState extends State<TelaHome> {
     });
 
     // Inicia a música se a configuração estiver habilitada
-    if (configProvider.musicOn) {
-      _audioManager.setVolume(0.3);
+    if (configProvider.musicOn && !_audioManager.isPlaying) {
+      _audioManager.setVolume(configProvider.volume);
       _audioManager.play('audio/musica.mp3', context);
     }
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(
+        this, ModalRoute.of(context)! as PageRoute<dynamic>);
+  }
+
+  @override
   void dispose() {
+    routeObserver.unsubscribe(this);
     _audioManager.stop();
     super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    _audioManager.stop();
+  }
+
+  @override
+  void didPopNext() {
+    _audioManager.play('audio/musica.mp3', context);
   }
 
   @override
@@ -176,6 +195,7 @@ class TelaHomeState extends State<TelaHome> {
                   // Botão PERSONAGENS
                   ElevatedButton(
                     onPressed: () {
+                      _audioManager.stop();
                       Navigator.push(
                         context,
                         MaterialPageRoute(

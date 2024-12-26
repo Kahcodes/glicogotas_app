@@ -1,12 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:glicogotas_app/controleaudio.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:glicogotas_app/home.dart'; // Importa a tela inicial
 import 'package:glicogotas_app/configuracoes.dart'; // Importa o diálogo de configurações
 import 'package:glicogotas_app/Tirinhas/tirinha_docura.dart'; // Importa a página Tirinha
 import 'package:glicogotas_app/Tirinhas/tirinha_insulina.dart';
 
-class TirinhaCardsPage extends StatelessWidget {
+class TirinhaCardsPage extends StatefulWidget {
   const TirinhaCardsPage({super.key});
+
+  @override
+  TirinhaCardsPageState createState() => TirinhaCardsPageState();
+}
+
+class TirinhaCardsPageState extends State<TirinhaCardsPage> with RouteAware {
+  final AudioManager _audioManager = AudioManager();
+  final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route is PageRoute) {
+      routeObserver.subscribe(this, route);
+    }
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    _audioManager.stop();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -25,6 +25,8 @@ class AudioManager {
     await _audioPlayer.stop();
   }
 
+  bool get isPlaying => _audioPlayer.state == PlayerState.playing;
+
   void dispose() {
     _audioPlayer.dispose();
   }

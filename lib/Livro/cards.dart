@@ -1,11 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:glicogotas_app/controleaudio.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:glicogotas_app/Livro/capa.dart'; // Importa a página de capa
 import 'package:glicogotas_app/home.dart'; // Importa a tela inicial
 import 'package:glicogotas_app/configuracoes.dart'; // Importa o diálogo de configurações
 
-class LivroCardsPage extends StatelessWidget {
+class LivroCardsPage extends StatefulWidget {
   const LivroCardsPage({super.key});
+
+  @override
+  LivroCardsState createState() => LivroCardsState();
+}
+
+class LivroCardsState extends State<LivroCardsPage> with RouteAware {
+  final AudioManager _audioManager = AudioManager();
+  final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route is PageRoute) {
+      routeObserver.subscribe(this, route);
+    }
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    _audioManager.stop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +102,7 @@ class LivroCardsPage extends StatelessWidget {
                 // Card 1
                 GestureDetector(
                   onTap: () {
+                    _audioManager.stop();
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const CapaPage()),
@@ -99,6 +129,7 @@ class LivroCardsPage extends StatelessWidget {
                 // Card 2
                 GestureDetector(
                   onTap: () {
+                    _audioManager.stop();
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const CapaPage()),
@@ -125,6 +156,7 @@ class LivroCardsPage extends StatelessWidget {
                 // Card 3
                 GestureDetector(
                   onTap: () {
+                    _audioManager.stop();
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const CapaPage()),
@@ -151,6 +183,7 @@ class LivroCardsPage extends StatelessWidget {
                 // Card 4
                 GestureDetector(
                   onTap: () {
+                    _audioManager.stop();
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const CapaPage()),
