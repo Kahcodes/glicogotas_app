@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:glicogotas_app/Livro/cards.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
-import 'package:glicogotas_app/home.dart';
 import 'package:glicogotas_app/main.dart';
 import 'package:glicogotas_app/sqlite.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:glicogotas_app/Livro/pagina1.dart';
 import 'package:glicogotas_app/Livro/pagina2.dart';
@@ -195,11 +196,11 @@ class CapaContent extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 40, left: 16),
+                  padding: EdgeInsets.only(top: 40.h, left: 16.w),
                   child: IconButton(
-                    iconSize: 30,
+                    iconSize: 30.sp,
                     icon: const Icon(
-                      Icons.home_rounded,
+                      Icons.arrow_back_ios_rounded,
                       color: Color.fromARGB(255, 255, 255, 255),
                     ),
                     onPressed: () {
@@ -207,15 +208,15 @@ class CapaContent extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const TelaHome()),
+                            builder: (context) => const LivroCardsPage()),
                       );
                     },
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 40, right: 16),
+                  padding: EdgeInsets.only(top: 40.h, right: 16.w),
                   child: IconButton(
-                    iconSize: 30,
+                    iconSize: 30.sp,
                     icon: const Icon(
                       Icons.settings,
                       color: Color.fromARGB(255, 255, 255, 255),
@@ -232,18 +233,18 @@ class CapaContent extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 200),
+            SizedBox(height: 100.h),
             CustomPaint(
               painter: ArcTextPainter(),
-              child: Container(height: 80),
+              child: Container(height: 80.h),
             ),
             Text(
               'DESCOMPLICANDO',
-              style: GoogleFonts.chewy(fontSize: 36, color: Colors.yellow),
+              style: GoogleFonts.chewy(fontSize: 36.sp, color: Colors.yellow),
             ),
             Text(
               'o Diabetes',
-              style: GoogleFonts.chewy(fontSize: 36, color: Colors.yellow),
+              style: GoogleFonts.chewy(fontSize: 36.sp, color: Colors.yellow),
             ),
           ],
         ),
@@ -252,32 +253,32 @@ class CapaContent extends StatelessWidget {
           left: 0,
           child: Image.asset(
             "assets/images/talita_capa.png",
-            height: 290,
+            height: 290.h,
             fit: BoxFit.cover,
           ),
         ),
         Positioned(
-          bottom: MediaQuery.of(context).size.height * 0.08,
-          right: 20,
+          bottom: 0.08.sh,
+          right: 20.w,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 8.0),
+                padding: EdgeInsets.only(right: 8.w),
                 child: Text(
                   'Avançar',
                   style: GoogleFonts.chewy(
-                    fontSize: 28,
+                    fontSize: 28.sp,
                     color: Colors.yellow,
                   ),
                 ),
               ),
               IconButton(
-                icon: const Icon(
+                icon: Icon(
                   Icons.arrow_forward_ios_rounded,
                   color: Colors.yellow,
-                  size: 42,
+                  size: 42.sp,
                 ),
                 onPressed: () {
                   PageDatabase.instance.saveCurrentPage(1);

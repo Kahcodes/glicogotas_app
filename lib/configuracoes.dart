@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ConfigDialog extends StatefulWidget {
   const ConfigDialog({super.key});
@@ -22,21 +23,21 @@ class ConfigDialogState extends State<ConfigDialog> {
       },
       child: Dialog(
         backgroundColor: Colors.transparent,
-        insetPadding: const EdgeInsets.all(10),
+        insetPadding: EdgeInsets.all(10.w),
         child: GestureDetector(
           onTap: () {}, // Impede o fechamento ao tocar dentro do diálogo
           child: Center(
             child: Container(
-              width: 300,
-              padding: const EdgeInsets.all(16.0),
+              width: 300.w,
+              padding: EdgeInsets.all(16.w),
               decoration: BoxDecoration(
                 color: const Color(0xFF008AD7),
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(20.r),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.3),
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
+                    blurRadius: 10.r,
+                    offset: Offset(0, 5.h),
                   ),
                 ],
               ),
@@ -59,25 +60,24 @@ class ConfigDialogState extends State<ConfigDialog> {
                           child: Text(
                             'CONFIGURAÇÕES',
                             style: GoogleFonts.chewy(
-                              fontSize: 23,
+                              fontSize: 23.sp,
                               fontWeight: FontWeight.bold,
                               color: const Color(0xFFFCB44E),
                               shadows: [
                                 Shadow(
                                   color: Colors.black.withOpacity(0.5),
-                                  offset: const Offset(2, 2),
-                                  blurRadius: 4,
+                                  offset: Offset(2.w, 2.h),
+                                  blurRadius: 4.r,
                                 ),
                               ],
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(
-                          width: 48), // Espaço para balancear o layout
+                      SizedBox(width: 48.w), // Espaço para balancear o layout
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
 
                   // Controle de som
                   FutureBuilder(
@@ -90,7 +90,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                     },
                   ),
 
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
 
                   // Controle de música
                   FutureBuilder(
@@ -103,7 +103,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                     },
                   ),
 
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
 
                   // Controle de volume
                   Row(
@@ -112,14 +112,14 @@ class ConfigDialogState extends State<ConfigDialog> {
                       Text(
                         'VOLUME',
                         style: GoogleFonts.chewy(
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                           color: const Color(0xFFFFFFFF),
                           shadows: [
                             Shadow(
                               color: Colors.black.withOpacity(0.5),
-                              offset: const Offset(2, 2),
-                              blurRadius: 4,
+                              offset: Offset(2.w, 2.h),
+                              blurRadius: 4.r,
                             ),
                           ],
                         ),
@@ -127,7 +127,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                       Expanded(
                         child: SliderTheme(
                           data: SliderThemeData(
-                            trackHeight: 4,
+                            trackHeight: 4.h,
                             thumbColor: const Color(0xFFFCB44E),
                             activeTrackColor: const Color(0xFFFCB44E),
                             inactiveTrackColor: const Color(0xFFFFFFFF),
@@ -145,7 +145,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                     ],
                   ),
 
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
 
                   // Idioma
                   Align(
@@ -153,32 +153,32 @@ class ConfigDialogState extends State<ConfigDialog> {
                     child: Text(
                       'IDIOMA:',
                       style: GoogleFonts.chewy(
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                         color: const Color(0xFFFFFFFF),
                         shadows: [
                           Shadow(
                             color: Colors.black.withOpacity(0.5),
-                            offset: const Offset(2, 2),
-                            blurRadius: 4,
+                            offset: Offset(2.w, 2.h),
+                            blurRadius: 4.r,
                           ),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _buildLanguageButton('Português', configuracoesProvider),
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10.w),
                       _buildLanguageButton('Español', configuracoesProvider),
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10.w),
                       _buildLanguageButton('English', configuracoesProvider),
                     ],
                   ),
 
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
 
                   // Ícone de ajuda
                   Row(
@@ -187,19 +187,19 @@ class ConfigDialogState extends State<ConfigDialog> {
                       Text(
                         'AJUDA',
                         style: GoogleFonts.podkova(
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
                           color: const Color(0xFFFFFFFF),
                           shadows: [
                             Shadow(
                               color: Colors.black.withOpacity(0.5),
-                              offset: const Offset(2, 2),
-                              blurRadius: 4,
+                              offset: Offset(2.w, 2.h),
+                              blurRadius: 4.r,
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      SizedBox(width: 8.w),
                       const Icon(
                         Icons.help_outline,
                         color: Color(0xFFFEDE74),
@@ -223,14 +223,14 @@ class ConfigDialogState extends State<ConfigDialog> {
         Text(
           title,
           style: GoogleFonts.chewy(
-            fontSize: 20,
+            fontSize: 20.sp,
             fontWeight: FontWeight.bold,
             color: const Color(0xFFFFFFFF),
             shadows: [
               Shadow(
                 color: Colors.black.withOpacity(0.5),
-                offset: const Offset(2, 2),
-                blurRadius: 4,
+                offset: Offset(2.w, 2.h),
+                blurRadius: 4.r,
               ),
             ],
           ),
@@ -253,9 +253,9 @@ class ConfigDialogState extends State<ConfigDialog> {
             ? const Color(0xFFFCB44E)
             : const Color(0xFF37ABDC),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.r),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         shadowColor: Colors.black.withOpacity(0.5),
         elevation: 5,
       ),
@@ -265,14 +265,14 @@ class ConfigDialogState extends State<ConfigDialog> {
       child: Text(
         language,
         style: GoogleFonts.chewy(
-          fontSize: 12,
+          fontSize: 12.sp,
           fontWeight: FontWeight.bold,
           color: Colors.white,
           shadows: [
             Shadow(
               color: Colors.black.withOpacity(0.5),
-              offset: const Offset(2, 2),
-              blurRadius: 4,
+              offset: Offset(2.w, 2.h),
+              blurRadius: 4.r,
             ),
           ],
         ),

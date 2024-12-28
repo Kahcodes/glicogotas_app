@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'iniciar.dart.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
@@ -22,13 +23,16 @@ class GlicogotasApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => ConfiguracoesRepository()),
       ],
-      child: MaterialApp(
-        title: 'Glicogotas',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const TelaInicial(),
-        navigatorObservers: [routeObserver], // Registra o RouteObserver aqui
+      child: ScreenUtilInit(
+        designSize: const Size(360, 690), // Tamanho de design base
+        builder: (context, child) {
+          return MaterialApp(
+            home: const TelaInicial(),
+            navigatorObservers: [
+              routeObserver
+            ], // Registra o RouteObserver aqui
+          );
+        },
       ),
     );
   }

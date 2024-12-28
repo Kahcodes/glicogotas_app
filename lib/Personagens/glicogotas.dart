@@ -11,6 +11,7 @@ import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/home.dart';
 import 'package:glicogotas_app/main.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PersonagensPage extends StatefulWidget {
@@ -178,103 +179,189 @@ class PersonagensContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     final audioManager = AudioManager();
 
     return Scaffold(
-      body: Stack(
-        children: [
-          // O fundo azul cobrindo toda a tela
-          Positioned.fill(
-            child: SvgPicture.asset(
-              'assets/images/fundo-azul.svg',
-              fit: BoxFit.cover,
-            ),
-          ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          ScreenUtil.init(
+            context,
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+          );
 
-          // Botão de configurações no topo direito
-          Positioned(
-            top: 40,
-            right: 16,
-            child: IconButton(
-              iconSize: 30,
-              icon: const Icon(Icons.settings, color: Colors.white),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const ConfigDialog(); // Chama o diálogo de configurações
+          return Stack(
+            children: [
+              // O fundo azul cobrindo toda a tela
+              Positioned.fill(
+                child: SvgPicture.asset(
+                  'assets/images/fundo-azul.svg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+
+              // Botão de configurações no topo direito
+              Positioned(
+                top: 40.h,
+                right: 16.w,
+                child: IconButton(
+                  iconSize: 30.sp,
+                  icon: const Icon(Icons.settings, color: Colors.white),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const ConfigDialog(); // Chama o diálogo de configurações
+                      },
+                    );
                   },
-                );
-              },
-            ),
-          ),
+                ),
+              ),
 
-          // Título "Bem-Vindos" com contorno branco e sombra
-          Positioned(
-            top: size.height * 0.12,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Column(
-                children: [
-                  Stack(
-                    children: [
-                      // Contorno branco
-                      Text(
-                        'Bem-Vindos',
-                        style: GoogleFonts.chewy(
-                          fontSize: size.width * 0.13, // Fonte maior
-                          fontWeight: FontWeight.w400,
-                          shadows: [
-                            Shadow(
-                              color: Colors.black
-                                  .withOpacity(0.25), // Sombra suave
-                              offset:
-                                  const Offset(3.0, 3.0), // Ajuste de sombra
-                              blurRadius: 5.0,
-                            ),
-                          ],
-                          foreground: Paint()
-                            ..style = PaintingStyle.stroke
-                            ..strokeWidth = 8
-                            ..color = const Color(
-                                0xFFFFFEFF), // Cor do contorno (branca)
-                        ),
-                      ),
-                      // Preenchimento rosa e sombra
-                      Text(
-                        'Bem-Vindos',
-                        style: GoogleFonts.chewy(
-                          color: const Color(
-                              0xFFF4719C), // Cor do preenchimento (rosa)
-                          fontSize: size.width * 0.13, // Fonte maior
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  // Frase "À Turminha do Glicogotas!"
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+              // Título "Bem-Vindos" com contorno branco e sombra
+              Positioned(
+                top: 0.05.sh,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: Column(
                     children: [
                       Stack(
                         children: [
                           // Contorno branco
                           Text(
-                            'À Turminha do Glicogotas!',
+                            'Bem-Vindos',
+                            style: GoogleFonts.chewy(
+                              fontSize: 0.13.sw, // Fonte maior
+                              fontWeight: FontWeight.w400,
+                              shadows: [
+                                Shadow(
+                                  color: Colors.black
+                                      .withOpacity(0.25), // Sombra suave
+                                  offset: const Offset(
+                                      3.0, 3.0), // Ajuste de sombra
+                                  blurRadius: 5.0,
+                                ),
+                              ],
+                              foreground: Paint()
+                                ..style = PaintingStyle.stroke
+                                ..strokeWidth = 8
+                                ..color = const Color(
+                                    0xFFFFFEFF), // Cor do contorno (branca)
+                            ),
+                          ),
+                          // Preenchimento rosa e sombra
+                          Text(
+                            'Bem-Vindos',
+                            style: GoogleFonts.chewy(
+                              color: const Color(
+                                  0xFFF4719C), // Cor do preenchimento (rosa)
+                              fontSize: 0.13.sw, // Fonte maior
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      // Frase "À Turminha do Glicogotas!"
+                      SizedBox(height: 5.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Stack(
+                            children: [
+                              // Contorno branco
+                              Text(
+                                'À Turminha do Glicogotas!',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.chewy(
+                                  fontSize: 0.06.sw,
+                                  fontWeight: FontWeight.w400,
+                                  shadows: [
+                                    Shadow(
+                                      color: Colors.black.withOpacity(0.25),
+                                      offset: const Offset(3.0, 3.0),
+                                      blurRadius: 5.0,
+                                    ),
+                                  ],
+                                  foreground: Paint()
+                                    ..style = PaintingStyle.stroke
+                                    ..strokeWidth = 5
+                                    ..color = const Color(0xFFFFFEFF),
+                                ),
+                              ),
+                              // Preenchimento rosa e sombra
+                              Text(
+                                'À Turminha do Glicogotas!',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.chewy(
+                                  color: const Color(0xFFF4719C),
+                                  fontSize: 0.06.sw,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // A imagem central ajustada para ficar parcialmente fora da tela
+              Positioned(
+                top: 0.20.sh, // Alinhamento vertical
+                left: 0, // A imagem começará da borda esquerda
+                right: 0, // A imagem terminará na borda direita
+                child: SvgPicture.asset(
+                  'assets/images/tela-inicial-perso.svg', // Caminho da imagem
+                  width: 1.sw, // Largura da imagem igual à largura da tela
+                  fit: BoxFit.cover, // Ajuste da imagem sem distorcer
+                ),
+              ),
+
+              // Botão de home no canto superior esquerdo
+              Positioned(
+                top: 40.h,
+                left: 16.w,
+                child: IconButton(
+                  iconSize: 30.sp,
+                  icon: const Icon(Icons.home_rounded, color: Colors.white),
+                  onPressed: () {
+                    audioManager.stop(); // Para o áudio ao voltar ao início
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const TelaHome()),
+                    );
+                  },
+                ),
+              ),
+
+              // Botão "Avançar"
+              Positioned(
+                bottom: 0.05.sh,
+                right: 20.w,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(right: 8.w),
+                      child: Stack(
+                        children: [
+                          Text(
+                            'Avançar',
                             textAlign: TextAlign.center,
                             style: GoogleFonts.chewy(
-                              fontSize: size.width * 0.06,
+                              fontSize: 26.sp,
                               fontWeight: FontWeight.w400,
                               shadows: [
                                 Shadow(
                                   color: Colors.black.withOpacity(0.25),
                                   offset: const Offset(3.0, 3.0),
-                                  blurRadius: 5.0,
+                                  blurRadius: 4.0,
                                 ),
                               ],
                               foreground: Paint()
@@ -283,114 +370,37 @@ class PersonagensContent extends StatelessWidget {
                                 ..color = const Color(0xFFFFFEFF),
                             ),
                           ),
-                          // Preenchimento rosa e sombra
                           Text(
-                            'À Turminha do Glicogotas!',
-                            textAlign: TextAlign.center,
+                            'Avançar',
                             style: GoogleFonts.chewy(
+                              fontSize: 26.sp,
                               color: const Color(0xFFF4719C),
-                              fontSize: size.width * 0.06,
-                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: const Color(0xfff6aebf), // Cor do ícone
+                        size: 38.sp,
+                      ),
+                      onPressed: () {
+                        audioManager.stop();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PersonagemLitaPage()),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ),
-
-          // A imagem central ajustada para ficar parcialmente fora da tela
-          Positioned(
-            top: size.height * 0.22, // Alinhamento vertical
-            left: 0, // A imagem começará da borda esquerda
-            right: 0, // A imagem terminará na borda direita
-            child: SvgPicture.asset(
-              'assets/images/tela-inicial-perso.svg', // Caminho da imagem
-              width: size.width, // Largura da imagem igual à largura da tela
-              fit: BoxFit.cover, // Ajuste da imagem sem distorcer
-            ),
-          ),
-
-          // Botão de home no canto superior esquerdo
-          Positioned(
-            top: 40,
-            left: 16,
-            child: IconButton(
-              iconSize: 30,
-              icon: const Icon(Icons.home_rounded, color: Colors.white),
-              onPressed: () {
-                audioManager.stop(); // Para o áudio ao voltar ao início
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const TelaHome()),
-                );
-              },
-            ),
-          ),
-
-          // Botão "Avançar"
-          Positioned(
-            bottom: MediaQuery.of(context).size.height * 0.08,
-            right: 20,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Stack(
-                    children: [
-                      Text(
-                        'Avançar',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.chewy(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w400,
-                          shadows: [
-                            Shadow(
-                              color: Colors.black.withOpacity(0.25),
-                              offset: const Offset(3.0, 3.0),
-                              blurRadius: 4.0,
-                            ),
-                          ],
-                          foreground: Paint()
-                            ..style = PaintingStyle.stroke
-                            ..strokeWidth = 5
-                            ..color = const Color(0xFFFFFEFF),
-                        ),
-                      ),
-                      Text(
-                        'Avançar',
-                        style: GoogleFonts.chewy(
-                          fontSize: 30,
-                          color: const Color(0xFFF4719C),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    color: Color(0xfff6aebf), // Cor do ícone
-                    size: 38,
-                  ),
-                  onPressed: () {
-                    audioManager.stop();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PersonagemLitaPage()),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
+            ],
+          );
+        },
       ),
     );
   }

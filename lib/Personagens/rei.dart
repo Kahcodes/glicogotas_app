@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/bobo.dart';
 import 'package:glicogotas_app/Personagens/lita.dart';
@@ -61,206 +62,221 @@ class PersonagemReiPageState extends State<PersonagemReiPage> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: const Color(0xFFEAF7FF),
-      body: Stack(
-        children: [
-          // Fundo com as listras
-          Positioned.fill(
-            child: SvgPicture.asset(
-              'assets/images/fundo-rei.svg',
-              fit: BoxFit.cover,
-            ),
-          ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          ScreenUtil.init(
+            context,
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+          );
 
-          // Botão de voltar no topo esquerdo
-          Positioned(
-            top: 40,
-            left: 16,
-            child: IconButton(
-              iconSize: 30,
-              icon: const Icon(
-                Icons.home_rounded,
-                color: Color.fromARGB(255, 0, 132, 255),
+          return Stack(
+            children: [
+              // Fundo com as listras
+              Positioned.fill(
+                child: SvgPicture.asset(
+                  'assets/images/fundo-rei.svg',
+                  fit: BoxFit.cover,
+                ),
               ),
-              onPressed: () {
-                _audioManager.stop(); // Para o áudio ao ir para a tela inicial
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const TelaHome()),
-                );
-              },
-            ),
-          ),
 
-          // Botão de configurações no topo direito
-          Positioned(
-            top: 40,
-            right: 16,
-            child: IconButton(
-              iconSize: 30,
-              icon: const Icon(
-                Icons.settings,
-                color: Color.fromARGB(255, 0, 132, 255),
-              ),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const ConfigDialog(); // Chama o diálogo de configurações
+              // Botão de voltar no topo esquerdo
+              Positioned(
+                top: 40.h,
+                left: 16.w,
+                child: IconButton(
+                  iconSize: 30.sp,
+                  icon: const Icon(
+                    Icons.home_rounded,
+                    color: Color.fromARGB(255, 0, 132, 255),
+                  ),
+                  onPressed: () {
+                    _audioManager
+                        .stop(); // Para o áudio ao ir para a tela inicial
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const TelaHome()),
+                    );
                   },
-                );
-              },
-            ),
-          ),
+                ),
+              ),
 
-          // Nome do personagem (Rei da Hiper) centralizado
-          Positioned(
-            top: size.height * 0.15,
-            left: 0,
-            right: 0,
-            child: Stack(
-              alignment: Alignment.center, // Alinha os textos exatamente
-              children: [
-                // Texto branco (borda)
-                Text(
-                  'Rei da Hiper',
-                  style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.13,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 8
-                      ..color = const Color(0xFFFFFEFF), // Cor da borda branca
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withOpacity(0.25), // Sombra suave
-                        offset: Offset(3.0, 3.0),
-                        blurRadius: 5.0,
+              // Botão de configurações no topo direito
+              Positioned(
+                top: 40.h,
+                right: 16.w,
+                child: IconButton(
+                  iconSize: 30.sp,
+                  icon: const Icon(
+                    Icons.settings,
+                    color: Color.fromARGB(255, 0, 132, 255),
+                  ),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const ConfigDialog(); // Chama o diálogo de configurações
+                      },
+                    );
+                  },
+                ),
+              ),
+
+              // Nome do personagem (Rei da Hiper) centralizado
+              Positioned(
+                top: 0.15.sh,
+                left: 0,
+                right: 0,
+                child: Stack(
+                  alignment: Alignment.center, // Alinha os textos exatamente
+                  children: [
+                    // Texto branco (borda)
+                    Text(
+                      'Rei da Hiper',
+                      style: GoogleFonts.chewy(
+                        fontSize: 0.13.sw,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 8
+                          ..color =
+                              const Color(0xFFFFFEFF), // Cor da borda branca
+                        shadows: [
+                          Shadow(
+                            color:
+                                Colors.black.withOpacity(0.25), // Sombra suave
+                            offset: Offset(3.0, 3.0),
+                            blurRadius: 5.0,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-                // Texto vermelho
-                Text(
-                  'Rei da Hiper',
-                  style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.13,
-                    color: const Color(0xFFEF291D), // Cor vermelha
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // A bola do personagem no fundo
-          Positioned(
-            top: size.height * 0.28,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: SvgPicture.asset(
-                'assets/images/eclipse-rei.svg',
-                height: size.height * 0.36, // Aumentei ligeiramente a bola
-              ),
-            ),
-          ),
-
-          // Personagem sobreposta à bola
-          Positioned(
-            top: size.height * 0.22,
-            left: 0,
-            right: -10,
-            child: Center(
-              child: SvgPicture.asset(
-                'assets/images/rei-da-hiper.svg',
-                height: size.height * 0.50,
-              ),
-            ),
-          ),
-
-          // Descrição do personagem
-          Positioned(
-            bottom: size.height * 0.20,
-            left: 20,
-            right: 20,
-            child: Stack(
-              alignment: Alignment
-                  .center, // Alinhamento central para as camadas de texto
-              children: [
-                // Texto branco (borda)
-                Text(
-                  'O Rei da Hiper se forma quando o açúcar está elevado. É hora de cuidar do equilíbrio do corpo!',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.06,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 8
-                      ..color = const Color(0xFFFFFEFF), // Cor da borda branca
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withOpacity(0.25), // Sombra suave
-                        offset: Offset(3.0, 3.0),
-                        blurRadius: 5.0,
+                    ),
+                    // Texto vermelho
+                    Text(
+                      'Rei da Hiper',
+                      style: GoogleFonts.chewy(
+                        fontSize: 0.13.sw,
+                        color: const Color(0xFFEF291D), // Cor vermelha
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                // Texto vermelho
-                Text(
-                  'O Rei da Hiper se forma quando o açúcar está elevado. É hora de cuidar do equilíbrio do corpo!',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.06,
-                    color: const Color(0xFFEF291D), // Cor vermelha
-                  ),
-                ),
-              ],
-            ),
-          ),
+              ),
 
-          // Botões de navegação laterais
-          Positioned(
-            bottom: size.height * 0.08,
-            left: 20, // Ajuste para ficar mais próximo da lateral esquerda
-            child: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios_rounded,
-                color: Color(0xFFEF291D),
-                size: 48,
+              // A bola do personagem no fundo
+              Positioned(
+                top: 0.28.sh,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: SvgPicture.asset(
+                    'assets/images/eclipse-rei.svg',
+                    height: 0.36.sh, // Aumentei ligeiramente a bola
+                  ),
+                ),
               ),
-              onPressed: () {
-                _audioManager.stop(); // Para o áudio ao navegar
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PersonagemLitaPage()),
-                ); // Ação do botão voltar
-              },
-            ),
-          ),
-          Positioned(
-            bottom: size.height * 0.08,
-            right: 20, // Ajuste para ficar mais próximo da lateral direita
-            child: IconButton(
-              icon: const Icon(
-                Icons.arrow_forward_ios_rounded,
-                color: Color(0xFFEF291D),
-                size: 48,
+
+              // Personagem sobreposta à bola
+              Positioned(
+                top: 0.22.sh,
+                left: 0,
+                right: -10,
+                child: Center(
+                  child: SvgPicture.asset(
+                    'assets/images/rei-da-hiper.svg',
+                    height: 0.50.sh,
+                  ),
+                ),
               ),
-              onPressed: () {
-                _audioManager.stop(); // Para o áudio ao navegar
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PersonagemBoboPage()),
-                ); // Ação do botão avançar
-              },
-            ),
-          ),
-        ],
+
+              // Descrição do personagem
+              Positioned(
+                bottom: 0.20.sh,
+                left: 20.w,
+                right: 20.w,
+                child: Stack(
+                  alignment: Alignment
+                      .center, // Alinhamento central para as camadas de texto
+                  children: [
+                    // Texto branco (borda)
+                    Text(
+                      'O Rei da Hiper se forma quando o açúcar está elevado. É hora de cuidar do equilíbrio do corpo!',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.chewy(
+                        fontSize: 0.06.sw,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 8
+                          ..color =
+                              const Color(0xFFFFFEFF), // Cor da borda branca
+                        shadows: [
+                          Shadow(
+                            color:
+                                Colors.black.withOpacity(0.25), // Sombra suave
+                            offset: Offset(3.0, 3.0),
+                            blurRadius: 5.0,
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Texto vermelho
+                    Text(
+                      'O Rei da Hiper se forma quando o açúcar está elevado. É hora de cuidar do equilíbrio do corpo!',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.chewy(
+                        fontSize: 0.06.sw,
+                        color: const Color(0xFFEF291D), // Cor vermelha
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Botões de navegação laterais
+              Positioned(
+                bottom: 0.08.sh,
+                left:
+                    20.w, // Ajuste para ficar mais próximo da lateral esquerda
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios_rounded,
+                    color: const Color(0xFFEF291D),
+                    size: 48.sp,
+                  ),
+                  onPressed: () {
+                    _audioManager.stop(); // Para o áudio ao navegar
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PersonagemLitaPage()),
+                    ); // Ação do botão voltar
+                  },
+                ),
+              ),
+              Positioned(
+                bottom: 0.08.sh,
+                right:
+                    20.w, // Ajuste para ficar mais próximo da lateral direita
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: const Color(0xFFEF291D),
+                    size: 48.sp,
+                  ),
+                  onPressed: () {
+                    _audioManager.stop(); // Para o áudio ao navegar
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PersonagemBoboPage()),
+                    ); // Ação do botão avançar
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

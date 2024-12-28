@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/pumps.dart';
 import 'package:glicogotas_app/configuracoes.dart';
@@ -61,171 +62,182 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: const Color(0xFFEAF7FF),
-      body: Stack(
-        children: [
-          // Fundo com as listras
-          Positioned.fill(
-            child: SvgPicture.asset(
-              'assets/images/fundo-betinho.svg',
-              fit: BoxFit.cover,
-            ),
-          ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          ScreenUtil.init(
+            context,
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+          );
 
-          // Botão de voltar no topo esquerdo
-          Positioned(
-            top: 40,
-            left: 16,
-            child: IconButton(
-              iconSize: 30,
-              icon: const Icon(
-                Icons.home_rounded,
-                color: Color.fromARGB(255, 0, 132, 255),
+          return Stack(
+            children: [
+              // Fundo com as listras
+              Positioned.fill(
+                child: SvgPicture.asset(
+                  'assets/images/fundo-betinho.svg',
+                  fit: BoxFit.cover,
+                ),
               ),
-              onPressed: () {
-                _audioManager.stop(); // Para o áudio ao ir para a tela inicial
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const TelaHome()),
-                );
-              },
-            ),
-          ),
 
-          // Botão de configurações no topo direito
-          Positioned(
-            top: 40,
-            right: 16,
-            child: IconButton(
-              iconSize: 30,
-              icon: const Icon(
-                Icons.settings,
-                color: Color.fromARGB(255, 0, 132, 255),
-              ),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const ConfigDialog(); // Chama o diálogo de configurações
+              // Botão de voltar no topo esquerdo
+              Positioned(
+                top: 40.h,
+                left: 16.w,
+                child: IconButton(
+                  iconSize: 30.sp,
+                  icon: const Icon(
+                    Icons.home_rounded,
+                    color: Color.fromARGB(255, 0, 132, 255),
+                  ),
+                  onPressed: () {
+                    _audioManager
+                        .stop(); // Para o áudio ao ir para a tela inicial
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const TelaHome()),
+                    );
                   },
-                );
-              },
-            ),
-          ),
-
-          // Nome do personagem (Betinho) centralizado
-          Positioned(
-            top: size.height * 0.15,
-            left: 0,
-            right: 0,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // Texto branco (borda)
-                Text(
-                  'Betinho',
-                  style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.13,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 8
-                      ..color = const Color(0xFFFFFEFF),
-                  ),
                 ),
-                // Texto verde
-                Text(
-                  'Betinho',
-                  style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.13,
-                    color: const Color(0xFF01C881),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // A bola do personagem no fundo
-          Positioned(
-            top: size.height * 0.28,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: SvgPicture.asset(
-                'assets/images/eclipse-betinho.svg',
-                height: size.height * 0.36,
               ),
-            ),
-          ),
 
-          // Personagem sobreposto à bola
-          Positioned(
-            top: size.height * 0.28,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: SvgPicture.asset(
-                'assets/images/betinho-person.svg',
-                height: size.height * 0.38,
+              // Botão de configurações no topo direito
+              Positioned(
+                top: 40.h,
+                right: 16.w,
+                child: IconButton(
+                  iconSize: 30.sp,
+                  icon: const Icon(
+                    Icons.settings,
+                    color: Color.fromARGB(255, 0, 132, 255),
+                  ),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const ConfigDialog(); // Chama o diálogo de configurações
+                      },
+                    );
+                  },
+                ),
               ),
-            ),
-          ),
 
-          // Descrição do personagem
-          Positioned(
-            bottom: size.height * 0.20,
-            left: 20,
-            right: 20,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // Texto branco (borda)
-                Text(
-                  'É o monitor de glicemia, sempre atento para manter a Lita segura!',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.06,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 8
-                      ..color = const Color(0xFFFFFEFF),
+              // Nome do personagem (Betinho) centralizado
+              Positioned(
+                top: 0.15.sh,
+                left: 0,
+                right: 0,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    // Texto branco (borda)
+                    Text(
+                      'Betinho',
+                      style: GoogleFonts.chewy(
+                        fontSize: 0.13.sw,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 8
+                          ..color = const Color(0xFFFFFEFF),
+                      ),
+                    ),
+                    // Texto verde
+                    Text(
+                      'Betinho',
+                      style: GoogleFonts.chewy(
+                        fontSize: 0.13.sw,
+                        color: const Color(0xFF01C881),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // A bola do personagem no fundo
+              Positioned(
+                top: 0.28.sh,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: SvgPicture.asset(
+                    'assets/images/eclipse-betinho.svg',
+                    height: 0.36.sh,
                   ),
                 ),
-                // Texto verde
-                Text(
-                  'É o monitor de glicemia, sempre atento para manter a Lita segura!',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.chewy(
-                    fontSize: size.width * 0.06,
-                    color: const Color(0xFF01C881),
+              ),
+
+              // Personagem sobreposto à bola
+              Positioned(
+                top: 0.28.sh,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: SvgPicture.asset(
+                    'assets/images/betinho-person.svg',
+                    height: 0.38.sh,
                   ),
                 ),
-              ],
-            ),
-          ),
-
-          Positioned(
-            bottom: size.height * 0.08,
-            left: 20, // Totalmente próximo à lateral esquerda
-            child: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios_rounded,
-                color: Color(0xFF01C881),
-                size: 48,
               ),
-              onPressed: () {
-                _audioManager.stop(); // Para o áudio ao navegar
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PersonagemPumpsPage()),
-                ); // Ação do botão voltar
-              },
-            ),
-          ),
-        ],
+
+              // Descrição do personagem
+              Positioned(
+                bottom: 0.20.sh,
+                left: 20.w,
+                right: 20.w,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    // Texto branco (borda)
+                    Text(
+                      'É o monitor de glicemia, sempre atento para manter a Lita segura!',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.chewy(
+                        fontSize: 0.06.sw,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 8
+                          ..color = const Color(0xFFFFFEFF),
+                      ),
+                    ),
+                    // Texto verde
+                    Text(
+                      'É o monitor de glicemia, sempre atento para manter a Lita segura!',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.chewy(
+                        fontSize: 0.06.sw,
+                        color: const Color(0xFF01C881),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Botões de navegação ajustados
+              Positioned(
+                bottom: 0.08.sh,
+                left:
+                    20.w, // Ajuste para ficar mais próximo da lateral esquerda
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios_rounded,
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                    size: 48.sp,
+                  ),
+                  onPressed: () {
+                    _audioManager.stop(); // Para o áudio ao navegar
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PersonagemPumpsPage()),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

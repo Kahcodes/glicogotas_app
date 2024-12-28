@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:glicogotas_app/Livro/cards.dart';
 import 'package:glicogotas_app/controleaudio.dart';
-import 'package:glicogotas_app/home.dart';
 import 'package:glicogotas_app/Livro/capa.dart';
 import 'package:glicogotas_app/Livro/pagina2.dart';
 import 'package:glicogotas_app/configuracoes.dart';
@@ -52,124 +53,135 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: const Color(0xFFfffcf3),
-      body: Stack(
-        children: [
-          // Fundo da página
-          Positioned.fill(
-            child: SvgPicture.asset(
-              'assets/images/fundopaglivro.svg',
-              fit: BoxFit.cover,
-            ),
-          ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          ScreenUtil.init(
+            context,
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+          );
 
-          // Personagem Lita
-          Positioned(
-            top: size.height * 0.25,
-            right: size.width * 0.15,
-            child: SvgPicture.asset(
-              'assets/images/lita.svg',
-              height: size.height * 0.6,
-            ),
-          ),
-
-          // Balão de fala
-          Positioned(
-            top: size.height * 0.14,
-            left: size.width * 0.02,
-            right: size.width * 0.02,
-            child: SvgPicture.asset(
-              'assets/images/balão-duplo.svg',
-              width: size.width * 0.8,
-            ),
-          ),
-
-          // Ícone Home (por cima dos botões invisíveis)
-          Positioned(
-            top: 40,
-            left: 16,
-            child: IconButton(
-              iconSize: 30,
-              icon: const Icon(
-                Icons.home_rounded,
-                color: Color(0xFF265F95),
+          return Stack(
+            children: [
+              // Fundo da página
+              Positioned.fill(
+                child: SvgPicture.asset(
+                  'assets/images/fundopaglivro.svg',
+                  fit: BoxFit.fill,
+                ),
               ),
-              onPressed: () {
-                _audioManager.stop(); // Para o áudio ao voltar à tela inicial
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const TelaHome()),
-                );
-              },
-            ),
-          ),
 
-          // Ícone Configurações (por cima dos botões invisíveis)
-          Positioned(
-            top: 40,
-            right: 16,
-            child: IconButton(
-              iconSize: 30,
-              icon: const Icon(
-                Icons.settings,
-                color: Color(0xFF265F95),
+              // Personagem Lita
+              Positioned(
+                top: 0.25.sh,
+                right: 0.22.sw,
+                child: SvgPicture.asset(
+                  'assets/images/lita.svg',
+                  height: 0.6.sh,
+                ),
               ),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const ConfigDialog();
+
+              // Balão de fala
+              Positioned(
+                top: 0.14.sh,
+                left: 0.02.sw,
+                right: 0.02.sw,
+                child: SvgPicture.asset(
+                  'assets/images/balão-duplo.svg',
+                  width: 0.8.sw,
+                ),
+              ),
+
+              // Ícone Home (por cima dos botões invisíveis)
+              Positioned(
+                top: 40.h,
+                left: 16.w,
+                child: IconButton(
+                  iconSize: 30.sp,
+                  icon: const Icon(
+                    Icons.arrow_back_ios_rounded,
+                    color: Color(0xFF265F95),
+                  ),
+                  onPressed: () {
+                    _audioManager
+                        .stop(); // Para o áudio ao voltar à tela inicial
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LivroCardsPage()),
+                    );
                   },
-                );
-              },
-            ),
-          ),
-
-          // Botão de navegação anterior
-          Positioned(
-            bottom: size.height * 0.08,
-            left: 20,
-            child: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios_rounded,
-                color: Color(0xFF265F95),
-                size: 48,
+                ),
               ),
-              onPressed: () {
-                _audioManager.stop();
-                PageDatabase.instance.saveCurrentPage(1);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CapaPage()),
-                );
-              },
-            ),
-          ),
 
-          // Botão de navegação próxima
-          Positioned(
-            bottom: size.height * 0.08,
-            right: 20,
-            child: IconButton(
-              icon: const Icon(
-                Icons.arrow_forward_ios_rounded,
-                color: Color(0xFF265F95),
-                size: 48,
+              // Ícone Configurações (por cima dos botões invisíveis)
+              Positioned(
+                top: 40.h,
+                right: 16.w,
+                child: IconButton(
+                  iconSize: 30.sp,
+                  icon: const Icon(
+                    Icons.settings,
+                    color: Color(0xFF265F95),
+                  ),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const ConfigDialog();
+                      },
+                    );
+                  },
+                ),
               ),
-              onPressed: () {
-                _audioManager.stop();
-                PageDatabase.instance.saveCurrentPage(3);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Pagina2Page()),
-                );
-              },
-            ),
-          ),
-        ],
+
+              // Botão de navegação anterior
+              Positioned(
+                bottom: 0.08.sh,
+                left: 20.w,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios_rounded,
+                    color: Color(0xFF265F95),
+                    size: 48.sp,
+                  ),
+                  onPressed: () {
+                    _audioManager.stop();
+                    PageDatabase.instance.saveCurrentPage(1);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const CapaPage()),
+                    );
+                  },
+                ),
+              ),
+
+              // Botão de navegação próxima
+              Positioned(
+                bottom: 0.08.sh,
+                right: 20.w,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: Color(0xFF265F95),
+                    size: 48.sp,
+                  ),
+                  onPressed: () {
+                    _audioManager.stop();
+                    PageDatabase.instance.saveCurrentPage(3);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Pagina2Page()),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
