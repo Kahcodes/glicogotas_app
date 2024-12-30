@@ -135,7 +135,8 @@ flutter:
     - assets/images/fundodiabetes.svg
     - assets/images/balão-page3.svg
     - assets/images/fundo-hist.svg
-    - assets/images/lita-pancreas.svg
+    - assets/images/lita-pancreas.svg    
+    - assets/images/lita-insulins.svg
     - assets/images/celulas.svg
     - assets/images/lita-respondendo.svg
     - assets/images/doutora-e-lita.svg
@@ -157,6 +158,9 @@ flutter:
     - assets/images/balao-ins-page4.svg
     - assets/images/balao-ins-page5.svg
     - assets/images/balao-ins-page6.svg
+    - assets/images/balao-ins-page7.svg
+    - assets/images/balao-ins-page8.svg
+    - assets/images/balao-ins-page9.svg
     - assets/images/insulinas.svg
     - assets/images/insulins2.svg
     - assets/images/insulins3.svg
@@ -182,6 +186,15 @@ flutter:
     - assets/audio/diabetespag4.mp3
     - assets/audio/diabetespag5.mp3
     - assets/audio/diabetespag6.mp3
+    - assets/audio/pagina1insu.mp3
+    - assets/audio/pagina2insu.mp3
+    - assets/audio/pagina3insu.mp3
+    - assets/audio/pagina4insu.mp3
+    - assets/audio/pagina5insu.mp3
+    - assets/audio/pagina6insu.mp3
+    - assets/audio/pagina7insu.mp3
+    - assets/audio/pagina8insu.mp3
+    - assets/audio/pagina9insu.mp3
     - assets/audio/audioPersonagens/bemvindos.mp3
     - assets/audio/audioPersonagens/betinho.mp3
     - assets/audio/audioPersonagens/bobo.mp3
