@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:glicogotas_app/Livro/pagina1.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:glicogotas_app/Livro/capa.dart'; // Importa a página de capa
@@ -146,7 +147,7 @@ class LivroCardsState extends State<LivroCardsPage> with RouteAware {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const CapaPage()),
+                              builder: (context) => const Pagina1Page()),
                         );
                       },
                       child: Card(

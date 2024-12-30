@@ -132,17 +132,43 @@ flutter:
     - assets/images/btn-voltar-laranja.svg
     - assets/images/balão-page2.svg
     - assets/images/lita-falando.svg
+    - assets/images/fundodiabetes.svg
     - assets/images/balão-page3.svg
     - assets/images/fundo-hist.svg
     - assets/images/lita-pancreas.svg
+    - assets/images/celulas.svg
+    - assets/images/lita-respondendo.svg
+    - assets/images/doutora-e-lita.svg
+    - assets/images/insulins.svg
+    - assets/images/lita-educando.svg
     - assets/images/balão-page4.svg  
     - assets/images/balão-page5.svg    
     - assets/images/balão-page6.svg
     - assets/images/balão-page7.svg
+    - assets/images/balao-dm1-page1.svg
+    - assets/images/balao-dm1-page3.svg
+    - assets/images/balao-dm1-page2.svg
+    - assets/images/balao-dm1-page4.svg
+    - assets/images/balao-dm1-page5.svg
+    - assets/images/balao-dm1-page6.svg
+    - assets/images/balao-ins-page1.svg
+    - assets/images/balao-ins-page3.svg
+    - assets/images/balao-ins-page2.svg
+    - assets/images/balao-ins-page4.svg
+    - assets/images/balao-ins-page5.svg
+    - assets/images/balao-ins-page6.svg
+    - assets/images/insulinas.svg
+    - assets/images/insulins2.svg
+    - assets/images/insulins3.svg
+    - assets/images/lita-coracao.svg
+    - assets/images/lita-pensa.svg
+    - assets/images/lita-uau.svg
+    - assets/images/rapido.svg
     - assets/images/pancreas.svg
     - assets/images/error.svg
     - assets/audio/titulo.mp3
     - assets/audio/panc-pagina1.mp3
+    - assets/images/fundoinsulinas.svg
     - assets/audio/musica.mp3
     - assets/audio/panc-pagina2.mp3
     - assets/audio/panc-pagina3.mp3
@@ -150,6 +176,12 @@ flutter:
     - assets/audio/panc-pagina5.mp3
     - assets/audio/panc-pagina6.mp3
     - assets/audio/panc-pagina7.mp3
+    - assets/audio/diabetespag1.mp3    
+    - assets/audio/diabetespag2.mp3
+    - assets/audio/diabetespag3.mp3
+    - assets/audio/diabetespag4.mp3
+    - assets/audio/diabetespag5.mp3
+    - assets/audio/diabetespag6.mp3
     - assets/audio/audioPersonagens/bemvindos.mp3
     - assets/audio/audioPersonagens/betinho.mp3
     - assets/audio/audioPersonagens/bobo.mp3

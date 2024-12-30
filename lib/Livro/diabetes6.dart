@@ -2,29 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Livro/cards.dart';
-import 'package:glicogotas_app/Livro/pagina2.dart'; // Importar a página anterior
-import 'package:glicogotas_app/Livro/pagina4.dart'; // Importar a próxima página
-import 'package:glicogotas_app/configuracoes.dart';
+import 'package:glicogotas_app/Livro/diabetes5.dart';
 import 'package:glicogotas_app/controleaudio.dart';
+import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
 import 'package:glicogotas_app/sqlite.dart';
 
-class Pagina3Page extends StatefulWidget {
-  const Pagina3Page({super.key});
+class Diabetes6Page extends StatefulWidget {
+  const Diabetes6Page({super.key});
 
   @override
-  Pagina3PageState createState() => Pagina3PageState();
+  State<Diabetes6Page> createState() => _Diabetes6PageState();
 }
 
-class Pagina3PageState extends State<Pagina3Page> with RouteAware {
+class _Diabetes6PageState extends State<Diabetes6Page> with RouteAware {
   final AudioManager _audioManager = AudioManager();
 
-  // Função para reproduzir o áudio
   @override
   void initState() {
     super.initState();
-    PageDatabase.instance.saveCurrentPage(3); // Salva o número da página atual
-    _audioManager.play('audio/panc-pagina3.mp3', context); // Reproduz o áudio
+    PageDatabase.instance.saveCurrentPage(2); // Salva o número da página atual
+    _audioManager.play('audio/diabetespag6.mp3', context); // Reproduz o áudio
   }
 
   @override
@@ -49,7 +47,7 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
   @override
   void didPopNext() {
     _audioManager.play(
-        'audio/panc-pagina2.mp3', context); // Reinicia o áudio ao voltar
+        'audio/diabetespag5.mp3', context); // Reinicia o áudio ao voltar
   }
 
   @override
@@ -69,34 +67,35 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
               // Fundo da página
               Positioned.fill(
                 child: SvgPicture.asset(
-                  'assets/images/fundopaglivro.svg',
+                  'assets/images/fundodiabetes.svg',
                   fit: BoxFit.fill,
                 ),
               ),
 
-              // Imagem da Lita
+              // Personagem Lita
               Positioned(
-                top: 0.25.sh, // Ajuste para mover para baixo
-                left: 0.03.sw,
+                top: 0.35.sh,
+                left: 0.02.sw,
+                right: 0.02.sw,
                 child: SvgPicture.asset(
-                  'assets/images/lita-pancreas.svg',
-                  width: 0.5.sw,
-                  height: 0.5.sh,
+                  'assets/images/insulins.svg',
+                  width: 0.4.sw,
+                  height: 0.4.sh,
                 ),
               ),
 
               // Balão de fala
               Positioned(
-                top: 0.22.sh,
-                left: 0.01.sw,
-                right: 0.03.sw,
+                top: 0.18.sh,
+                left: 0.02.sw,
+                right: 0.15.sw,
                 child: SvgPicture.asset(
-                  'assets/images/balão-page3.svg',
-                  width: 0.70.sw,
+                  'assets/images/balao-dm1-page6.svg',
+                  width: 0.7.sw,
                 ),
               ),
 
-              // Ícone Home
+              // Ícone Home (por cima dos botões invisíveis)
               Positioned(
                 top: 40.h,
                 left: 16.w,
@@ -118,7 +117,7 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
                 ),
               ),
 
-              // Ícone Configurações
+              // Ícone Configurações (por cima dos botões invisíveis)
               Positioned(
                 top: 40.h,
                 right: 16.w,
@@ -132,58 +131,36 @@ class Pagina3PageState extends State<Pagina3Page> with RouteAware {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return const ConfigDialog(); // Chama o diálogo de configurações
+                        return const ConfigDialog();
                       },
                     );
                   },
                 ),
               ),
 
-              // Botão para voltar
+              // Botão de navegação anterior
               Positioned(
                 bottom: 0.08.sh,
-                left: 20.w, // Ajuste para posicionar próximo da borda
+                left: 20.w,
                 child: IconButton(
                   icon: Icon(
                     Icons.arrow_back_ios_rounded,
-                    size: 48.sp, // Tamanho consistente com outras páginas
                     color: Color(0xFF265F95),
+                    size: 48.sp,
                   ),
                   onPressed: () {
                     _audioManager.stop();
-                    PageDatabase.instance
-                        .saveCurrentPage(2); // Para o áudio ao navegar
+                    PageDatabase.instance.saveCurrentPage(1);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const Pagina2Page()),
-                    ); // Navega para a página anterior
+                          builder: (context) => const Diabetes5Page()),
+                    );
                   },
                 ),
               ),
 
-              // Botão para avançar
-              Positioned(
-                bottom: 0.08.sh,
-                right: 20.w, // Ajuste para posicionar próximo da borda
-                child: IconButton(
-                  icon: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    size: 48.sp, // Tamanho consistente com outras páginas
-                    color: Color(0xFF265F95),
-                  ),
-                  onPressed: () {
-                    _audioManager.stop();
-                    PageDatabase.instance
-                        .saveCurrentPage(4); // Para o áudio ao navegar
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Pagina4Page()),
-                    ); // Navega para a próxima página
-                  },
-                ),
-              ),
+              // Botão de navegação próxima
             ],
           );
         },

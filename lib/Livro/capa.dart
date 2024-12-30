@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:glicogotas_app/Livro/cards.dart';
+import 'package:glicogotas_app/Livro/diabetes1.dart';
+import 'package:glicogotas_app/Livro/diabetes2.dart';
+import 'package:glicogotas_app/Livro/diabetes3.dart';
+import 'package:glicogotas_app/Livro/diabetes4.dart';
+import 'package:glicogotas_app/Livro/diabetes5.dart';
+import 'package:glicogotas_app/Livro/diabetes6.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/main.dart';
@@ -7,14 +13,6 @@ import 'package:glicogotas_app/sqlite.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'package:glicogotas_app/Livro/pagina1.dart';
-import 'package:glicogotas_app/Livro/pagina2.dart';
-import 'package:glicogotas_app/Livro/pagina3.dart';
-import 'package:glicogotas_app/Livro/pagina4.dart';
-import 'package:glicogotas_app/Livro/pagina5.dart';
-import 'package:glicogotas_app/Livro/pagina6.dart';
-import 'package:glicogotas_app/Livro/pagina7.dart';
 
 class CapaPage extends StatefulWidget {
   const CapaPage({super.key});
@@ -30,13 +28,12 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
 
   final List<Widget> _pages = const [
     CapaContent(),
-    Pagina1Page(),
-    Pagina2Page(),
-    Pagina3Page(),
-    Pagina4Page(),
-    Pagina5Page(),
-    Pagina6Page(),
-    Pagina7Page(),
+    Diabetes1Page(),
+    Diabetes2Page(),
+    Diabetes3Page(),
+    Diabetes4Page(),
+    Diabetes5Page(),
+    Diabetes6Page(),
   ];
 
   @override
@@ -286,7 +283,7 @@ class CapaContent extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Pagina1Page()),
+                        builder: (context) => const Diabetes1Page()),
                   );
                 },
               ),
