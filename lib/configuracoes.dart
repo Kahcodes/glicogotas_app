@@ -105,7 +105,7 @@ class ConfigDialogState extends State<ConfigDialog> {
 
                   SizedBox(height: 20.h),
 
-                  // Controle de volume
+                  /* Controle de volume
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -144,6 +144,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                       ),
                     ],
                   ),
+                  */
 
                   SizedBox(height: 20.h),
 
