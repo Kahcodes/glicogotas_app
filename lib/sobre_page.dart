@@ -71,7 +71,7 @@ class SobrePage extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Somos Jordana e Karyne, desenvolvedoras deste aplicativo. Ele foi inspirado em um livro de feltro interativo sobre diabetes tipo 1, lá no IFRJ.',
+                'Somos Jordana e Karyne, desenvolvedoras deste aplicativo e estudantes do IFB. Ele foi inspirado em um livro de feltro interativo sobre diabetes tipo 1, lá no IFRJ.',
                 style: GoogleFonts.chewy(
                   // Usando Chewy com Google Fonts
                   fontSize: 18,
