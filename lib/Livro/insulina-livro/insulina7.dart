@@ -2,27 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Livro/cards.dart';
-import 'package:glicogotas_app/Livro/diabetes5.dart';
+import 'package:glicogotas_app/Livro/insulina-livro/insulina6.dart';
+import 'package:glicogotas_app/Livro/insulina-livro/insulina8.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
 import 'package:glicogotas_app/sqlite.dart';
 
-class Diabetes6Page extends StatefulWidget {
-  const Diabetes6Page({super.key});
+class Insulina7Page extends StatefulWidget {
+  const Insulina7Page({super.key});
 
   @override
-  State<Diabetes6Page> createState() => _Diabetes6PageState();
+  State<Insulina7Page> createState() => _Insulina7PageState();
 }
 
-class _Diabetes6PageState extends State<Diabetes6Page> with RouteAware {
+class _Insulina7PageState extends State<Insulina7Page> with RouteAware {
   final AudioManager _audioManager = AudioManager();
 
   @override
   void initState() {
     super.initState();
-    PageDatabase.instance.saveCurrentPage(2); // Salva o número da página atual
-    _audioManager.play('audio/diabetespag6.mp3', context); // Reproduz o áudio
+    PageDatabase.instance.saveCurrentPage(7); // Salva o número da página atual
+    _audioManager.play('audio/pagina7insu.mp3', context); // Reproduz o áudio
   }
 
   @override
@@ -47,7 +48,7 @@ class _Diabetes6PageState extends State<Diabetes6Page> with RouteAware {
   @override
   void didPopNext() {
     _audioManager.play(
-        'audio/diabetespag5.mp3', context); // Reinicia o áudio ao voltar
+        'audio/pagina6insu.mp3', context); // Reinicia o áudio ao voltar
   }
 
   @override
@@ -67,31 +68,31 @@ class _Diabetes6PageState extends State<Diabetes6Page> with RouteAware {
               // Fundo da página
               Positioned.fill(
                 child: SvgPicture.asset(
-                  'assets/images/fundodiabetes.svg',
+                  'assets/images/fundoinsulinas.svg',
                   fit: BoxFit.fill,
                 ),
               ),
 
               // Personagem Lita
               Positioned(
-                top: 0.35.sh,
+                top: 0.32.sh,
                 left: 0.02.sw,
                 right: 0.02.sw,
                 child: SvgPicture.asset(
-                  'assets/images/insulins.svg',
-                  width: 0.4.sw,
-                  height: 0.4.sh,
+                  'assets/images/insulinas.svg',
+                  width: 0.6.sw,
+                  height: 0.6.sh,
                 ),
               ),
 
               // Balão de fala
               Positioned(
-                top: 0.18.sh,
+                top: 0.14.sh,
                 left: 0.02.sw,
-                right: 0.15.sw,
+                right: 0.02.sw,
                 child: SvgPicture.asset(
-                  'assets/images/balao-dm1-page6.svg',
-                  width: 0.7.sw,
+                  'assets/images/balao-ins-page7.svg',
+                  width: 0.8.sw,
                 ),
               ),
 
@@ -150,17 +151,37 @@ class _Diabetes6PageState extends State<Diabetes6Page> with RouteAware {
                   ),
                   onPressed: () {
                     _audioManager.stop();
-                    PageDatabase.instance.saveCurrentPage(1);
+                    PageDatabase.instance.saveCurrentPage(6);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const Diabetes5Page()),
+                          builder: (context) => const Insulina6Page()),
                     );
                   },
                 ),
               ),
 
               // Botão de navegação próxima
+              Positioned(
+                bottom: 0.08.sh,
+                right: 20.w,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: Color(0xFF265F95),
+                    size: 48.sp,
+                  ),
+                  onPressed: () {
+                    _audioManager.stop();
+                    PageDatabase.instance.saveCurrentPage(8);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Insulina8Page()),
+                    );
+                  },
+                ),
+              ),
             ],
           );
         },

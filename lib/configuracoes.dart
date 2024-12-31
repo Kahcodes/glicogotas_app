@@ -3,6 +3,7 @@ import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:glicogotas_app/sobre_page.dart';
 
 class ConfigDialog extends StatefulWidget {
   const ConfigDialog({super.key});
@@ -201,9 +202,18 @@ class ConfigDialogState extends State<ConfigDialog> {
                         ),
                       ),
                       SizedBox(width: 8.w),
-                      const Icon(
-                        Icons.help_outline,
-                        color: Color(0xFFFEDE74),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const SobrePage(),
+                            ),
+                          );
+                        },
+                        child: const Icon(
+                          Icons.help_outline,
+                          color: Color(0xFFFEDE74),
+                        ),
                       ),
                     ],
                   ),

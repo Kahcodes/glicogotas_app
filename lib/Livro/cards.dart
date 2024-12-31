@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:glicogotas_app/Livro/insulina1.dart';
+import 'package:glicogotas_app/Livro/insulina-livro/insulina1.dart';
 import 'package:glicogotas_app/Livro/pagina1.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -170,7 +170,7 @@ class LivroCardsState extends State<LivroCardsPage> with RouteAware {
                       ),
                     ),
                     // Card 3
-                    GestureDetector(
+                    /* GestureDetector(
                       onTap: () {
                         _audioManager.stop();
                         Navigator.push(
@@ -196,7 +196,7 @@ class LivroCardsState extends State<LivroCardsPage> with RouteAware {
                           ],
                         ),
                       ),
-                    ),
+                    ),*/
                     // Card 4
                     GestureDetector(
                       onTap: () {

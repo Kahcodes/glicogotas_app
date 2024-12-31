@@ -40,6 +40,10 @@ dependencies:
   just_audio: ^0.9.42
   sqflite: ^2.4.1
   path: ^1.9.0
+  url_launcher: ^6.3.1
+  font_awesome_flutter: ^10.8.0
+
+  
   
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -51,7 +55,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-  flutter_launcher_icons: ^0.14.1
+  
+  
 
 
 flutter_icons:
@@ -87,6 +92,7 @@ flutter:
     - assets/images/insulina-capa.png
     - assets/images/pancreas-capa.png
     - assets/images/tirinha-docura-capa.png
+    - assets/images/jo&kah.png
     - assets/images/tirinha-insu-capa.png
     - assets/images/tirinha-ins-1.png
     - assets/images/tirinha-ins-2.png
@@ -170,10 +176,10 @@ flutter:
     - assets/images/rapido.svg
     - assets/images/pancreas.svg
     - assets/images/error.svg
-    - assets/audio/titulo.mp3
-    - assets/audio/panc-pagina1.mp3
     - assets/images/fundoinsulinas.svg
+    - assets/audio/titulo.mp3
     - assets/audio/musica.mp3
+    - assets/audio/panc-pagina1.mp3
     - assets/audio/panc-pagina2.mp3
     - assets/audio/panc-pagina3.mp3
     - assets/audio/panc-pagina4.mp3
@@ -203,6 +209,7 @@ flutter:
     - assets/audio/audioPersonagens/insulins.mp3
     - assets/audio/audioPersonagens/lita.mp3
     - assets/audio/audioPersonagens/pumps.mp3
+    
 
 
   # To add assets to your application, add an assets section, like this:

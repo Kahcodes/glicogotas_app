@@ -2,28 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Livro/cards.dart';
-import 'package:glicogotas_app/Livro/insulina6.dart';
-import 'package:glicogotas_app/Livro/insulina8.dart';
+import 'package:glicogotas_app/Livro/insulina-livro/insulina1.dart';
+import 'package:glicogotas_app/Livro/insulina-livro/insulina3.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
 import 'package:glicogotas_app/sqlite.dart';
 
-class Insulina7Page extends StatefulWidget {
-  const Insulina7Page({super.key});
+class Insulina2Page extends StatefulWidget {
+  const Insulina2Page({super.key});
 
   @override
-  State<Insulina7Page> createState() => _Insulina7PageState();
+  State<Insulina2Page> createState() => _Insulina2PageState();
 }
 
-class _Insulina7PageState extends State<Insulina7Page> with RouteAware {
+class _Insulina2PageState extends State<Insulina2Page> with RouteAware {
   final AudioManager _audioManager = AudioManager();
 
   @override
   void initState() {
     super.initState();
-    PageDatabase.instance.saveCurrentPage(7); // Salva o número da página atual
-    _audioManager.play('audio/pagina7insu.mp3', context); // Reproduz o áudio
+    PageDatabase.instance.saveCurrentPage(2); // Salva o número da página atual
+    _audioManager.play('audio/pagina2insu.mp3', context); // Reproduz o áudio
   }
 
   @override
@@ -48,7 +48,7 @@ class _Insulina7PageState extends State<Insulina7Page> with RouteAware {
   @override
   void didPopNext() {
     _audioManager.play(
-        'audio/pagina6insu.mp3', context); // Reinicia o áudio ao voltar
+        'audio/pagina1insu.mp3', context); // Reinicia o áudio ao voltar
   }
 
   @override
@@ -75,23 +75,23 @@ class _Insulina7PageState extends State<Insulina7Page> with RouteAware {
 
               // Personagem Lita
               Positioned(
-                top: 0.32.sh,
+                top: 0.35.sh,
                 left: 0.02.sw,
                 right: 0.02.sw,
                 child: SvgPicture.asset(
-                  'assets/images/insulinas.svg',
-                  width: 0.6.sw,
-                  height: 0.6.sh,
+                  'assets/images/insulins2.svg',
+                  width: 0.5.sw,
+                  height: 0.5.sh,
                 ),
               ),
 
               // Balão de fala
               Positioned(
-                top: 0.14.sh,
+                top: 0.17.sh,
                 left: 0.02.sw,
                 right: 0.02.sw,
                 child: SvgPicture.asset(
-                  'assets/images/balao-ins-page7.svg',
+                  'assets/images/balao-ins-page2.svg',
                   width: 0.8.sw,
                 ),
               ),
@@ -151,11 +151,11 @@ class _Insulina7PageState extends State<Insulina7Page> with RouteAware {
                   ),
                   onPressed: () {
                     _audioManager.stop();
-                    PageDatabase.instance.saveCurrentPage(6);
+                    PageDatabase.instance.saveCurrentPage(1);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const Insulina6Page()),
+                          builder: (context) => const Insulina1Page()),
                     );
                   },
                 ),
@@ -173,11 +173,11 @@ class _Insulina7PageState extends State<Insulina7Page> with RouteAware {
                   ),
                   onPressed: () {
                     _audioManager.stop();
-                    PageDatabase.instance.saveCurrentPage(8);
+                    PageDatabase.instance.saveCurrentPage(3);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const Insulina8Page()),
+                          builder: (context) => const Insulina3Page()),
                     );
                   },
                 ),

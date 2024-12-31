@@ -221,7 +221,7 @@ class PersonagemBoboPageState extends State<PersonagemBoboPage>
                         ],
                       ),
                     ),
-                    // Texto vermelho
+                    // Texto verde
                     Text(
                       'O Bobo da Hipo aparece quando o açúcar está baixo e nos faz entrar em muita confusão!',
                       textAlign: TextAlign.center,

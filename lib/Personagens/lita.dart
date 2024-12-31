@@ -192,7 +192,7 @@ class PersonagemLitaPageState extends State<PersonagemLitaPage>
                   children: [
                     // Texto branco (borda)
                     Text(
-                      'É uma super-heroína que enfrenta o DMI em grandes aventuras!',
+                      'É uma super-heroína que enfrenta o DM1 em grandes aventuras!',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.chewy(
                         fontSize: 0.06.sw,
@@ -204,7 +204,7 @@ class PersonagemLitaPageState extends State<PersonagemLitaPage>
                     ),
                     // Texto rosa
                     Text(
-                      'É uma super-heroína que enfrenta o DMI em grandes aventuras!',
+                      'É uma super-heroína que enfrenta o DM1 em grandes aventuras!',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.chewy(
                         fontSize: 0.06.sw,

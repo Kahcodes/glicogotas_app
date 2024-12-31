@@ -2,28 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Livro/cards.dart';
-import 'package:glicogotas_app/Livro/insulina7.dart';
-import 'package:glicogotas_app/Livro/insulina9.dart';
+import 'package:glicogotas_app/Livro/diabetes-livro/diabetes2.dart';
+import 'package:glicogotas_app/Livro/diabetes-livro/diabetes4.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
 import 'package:glicogotas_app/sqlite.dart';
 
-class Insulina8Page extends StatefulWidget {
-  const Insulina8Page({super.key});
+class Diabetes3Page extends StatefulWidget {
+  const Diabetes3Page({super.key});
 
   @override
-  State<Insulina8Page> createState() => _Insulina8PageState();
+  State<Diabetes3Page> createState() => _Diabetes3PageState();
 }
 
-class _Insulina8PageState extends State<Insulina8Page> with RouteAware {
+class _Diabetes3PageState extends State<Diabetes3Page> with RouteAware {
   final AudioManager _audioManager = AudioManager();
 
   @override
   void initState() {
     super.initState();
-    PageDatabase.instance.saveCurrentPage(8); // Salva o número da página atual
-    _audioManager.play('audio/pagina8insu.mp3', context); // Reproduz o áudio
+    PageDatabase.instance.saveCurrentPage(2); // Salva o número da página atual
+    _audioManager.play('audio/diabetespag3.mp3', context); // Reproduz o áudio
   }
 
   @override
@@ -48,7 +48,7 @@ class _Insulina8PageState extends State<Insulina8Page> with RouteAware {
   @override
   void didPopNext() {
     _audioManager.play(
-        'audio/pagina7insu.mp3', context); // Reinicia o áudio ao voltar
+        'audio/diabetespag2.mp3', context); // Reinicia o áudio ao voltar
   }
 
   @override
@@ -68,7 +68,7 @@ class _Insulina8PageState extends State<Insulina8Page> with RouteAware {
               // Fundo da página
               Positioned.fill(
                 child: SvgPicture.asset(
-                  'assets/images/fundoinsulinas.svg',
+                  'assets/images/fundodiabetes.svg',
                   fit: BoxFit.fill,
                 ),
               ),
@@ -79,7 +79,7 @@ class _Insulina8PageState extends State<Insulina8Page> with RouteAware {
                 left: 0.02.sw,
                 right: 0.02.sw,
                 child: SvgPicture.asset(
-                  'assets/images/insulins.svg',
+                  'assets/images/lita-respondendo.svg',
                   width: 0.5.sw,
                   height: 0.5.sh,
                 ),
@@ -87,11 +87,11 @@ class _Insulina8PageState extends State<Insulina8Page> with RouteAware {
 
               // Balão de fala
               Positioned(
-                top: 0.14.sh,
+                top: 0.15.sh,
                 left: 0.02.sw,
                 right: 0.02.sw,
                 child: SvgPicture.asset(
-                  'assets/images/balao-ins-page8.svg',
+                  'assets/images/balao-dm1-page3.svg',
                   width: 0.7.sw,
                 ),
               ),
@@ -151,11 +151,11 @@ class _Insulina8PageState extends State<Insulina8Page> with RouteAware {
                   ),
                   onPressed: () {
                     _audioManager.stop();
-                    PageDatabase.instance.saveCurrentPage(7);
+                    PageDatabase.instance.saveCurrentPage(1);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const Insulina7Page()),
+                          builder: (context) => const Diabetes2Page()),
                     );
                   },
                 ),
@@ -173,11 +173,11 @@ class _Insulina8PageState extends State<Insulina8Page> with RouteAware {
                   ),
                   onPressed: () {
                     _audioManager.stop();
-                    PageDatabase.instance.saveCurrentPage(9);
+                    PageDatabase.instance.saveCurrentPage(3);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const Insulina9Page()),
+                          builder: (context) => const Diabetes4Page()),
                     );
                   },
                 ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:glicogotas_app/Livro/cards.dart';
-import 'package:glicogotas_app/Livro/diabetes1.dart';
-import 'package:glicogotas_app/Livro/diabetes2.dart';
-import 'package:glicogotas_app/Livro/diabetes3.dart';
-import 'package:glicogotas_app/Livro/diabetes4.dart';
-import 'package:glicogotas_app/Livro/diabetes5.dart';
-import 'package:glicogotas_app/Livro/diabetes6.dart';
+import 'package:glicogotas_app/Livro/diabetes-livro/diabetes1.dart';
+import 'package:glicogotas_app/Livro/diabetes-livro/diabetes2.dart';
+import 'package:glicogotas_app/Livro/diabetes-livro/diabetes3.dart';
+import 'package:glicogotas_app/Livro/diabetes-livro/diabetes4.dart';
+import 'package:glicogotas_app/Livro/diabetes-livro/diabetes5.dart';
+import 'package:glicogotas_app/Livro/diabetes-livro/diabetes6.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/main.dart';
@@ -256,7 +256,7 @@ class CapaContent extends StatelessWidget {
         ),
         Positioned(
           bottom: 0.08.sh,
-          right: 20.w,
+          right: 5.w,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -275,7 +275,7 @@ class CapaContent extends StatelessWidget {
                 icon: Icon(
                   Icons.arrow_forward_ios_rounded,
                   color: Colors.yellow,
-                  size: 42.sp,
+                  size: 36.sp,
                 ),
                 onPressed: () {
                   PageDatabase.instance.saveCurrentPage(1);
