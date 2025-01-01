@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
-import 'iniciar.dart.dart';
+import 'iniciar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 

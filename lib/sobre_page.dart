@@ -6,10 +6,11 @@ import 'package:google_fonts/google_fonts.dart'; // Importa o pacote google_font
 class SobrePage extends StatelessWidget {
   const SobrePage({super.key});
 
-  void _launchURL(String url) async {
+  // Função para lançar URLs
+  Future<void> _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
       throw 'Não foi possível abrir o link: $url';
     }

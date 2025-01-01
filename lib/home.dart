@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/glicogotas.dart';
 import 'package:glicogotas_app/controleaudio.dart';
-import 'package:glicogotas_app/iniciar.dart.dart';
+import 'package:glicogotas_app/iniciar.dart';
 import 'package:glicogotas_app/main.dart';
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'package:google_fonts/google_fonts.dart';

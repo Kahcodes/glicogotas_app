@@ -187,7 +187,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'AJUDA',
+                        'SOBRE',
                         style: GoogleFonts.podkova(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
