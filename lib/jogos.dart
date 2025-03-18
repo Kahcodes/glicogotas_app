@@ -61,8 +61,7 @@ class JogosPage extends StatelessWidget {
                         // Exibe o diálogo de configurações como modal transparente
                         showDialog(
                           context: context,
-                          barrierColor: Colors.black
-                              .withOpacity(0.5), // Fundo semitransparente
+                         barrierColor: Colors.black.withAlpha((0.5 * 255).toInt()),// Fundo semitransparente
                           builder: (BuildContext context) {
                             return const ConfigDialog(); // Chama o diálogo de configurações
                           },

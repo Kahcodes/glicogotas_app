@@ -132,7 +132,8 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
                     decoration: BoxDecoration(
                       color: _currentPage == index
                           ? Colors.yellow
-                          : Colors.white.withOpacity(0.5),
+                          : Colors.white.withAlpha((0.5 * 255).toInt()),
+
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),

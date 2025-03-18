@@ -36,7 +36,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                 borderRadius: BorderRadius.circular(20.r),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
+                    color: Colors.black.withAlpha((0.3 * 255).toInt()),
                     blurRadius: 10.r,
                     offset: Offset(0, 5.h),
                   ),
@@ -66,7 +66,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                               color: const Color(0xFFFCB44E),
                               shadows: [
                                 Shadow(
-                                  color: Colors.black.withOpacity(0.5),
+                                  color: Colors.black.withAlpha((0.5 * 255).toInt()),
                                   offset: Offset(2.w, 2.h),
                                   blurRadius: 4.r,
                                 ),
@@ -160,7 +160,8 @@ class ConfigDialogState extends State<ConfigDialog> {
                         color: const Color(0xFFFFFFFF),
                         shadows: [
                           Shadow(
-                            color: Colors.black.withOpacity(0.5),
+                            color: Colors.black.withAlpha((0.5 * 255).toInt()),
+
                             offset: Offset(2.w, 2.h),
                             blurRadius: 4.r,
                           ),
@@ -194,7 +195,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                           color: const Color(0xFFFFFFFF),
                           shadows: [
                             Shadow(
-                              color: Colors.black.withOpacity(0.5),
+                              color: Colors.black.withAlpha((0.5 * 255).toInt()),
                               offset: Offset(2.w, 2.h),
                               blurRadius: 4.r,
                             ),
@@ -239,7 +240,7 @@ class ConfigDialogState extends State<ConfigDialog> {
             color: const Color(0xFFFFFFFF),
             shadows: [
               Shadow(
-                color: Colors.black.withOpacity(0.5),
+                color: Colors.black.withAlpha((0.5 * 255).toInt()),
                 offset: Offset(2.w, 2.h),
                 blurRadius: 4.r,
               ),
@@ -267,7 +268,7 @@ class ConfigDialogState extends State<ConfigDialog> {
           borderRadius: BorderRadius.circular(10.r),
         ),
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-        shadowColor: Colors.black.withOpacity(0.5),
+        shadowColor: Colors.black.withAlpha((0.5 * 255).toInt()),
         elevation: 5,
       ),
       onPressed: () {
@@ -281,7 +282,7 @@ class ConfigDialogState extends State<ConfigDialog> {
           color: Colors.white,
           shadows: [
             Shadow(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withAlpha((0.5 * 255).toInt()),
               offset: Offset(2.w, 2.h),
               blurRadius: 4.r,
             ),

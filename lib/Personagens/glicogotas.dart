@@ -127,7 +127,7 @@ class PersonagensPageState extends State<PersonagensPage> with RouteAware {
                     decoration: BoxDecoration(
                       color: _currentPage == index
                           ? Colors.yellow
-                          : Colors.white.withOpacity(0.5),
+                          : Colors.white.withAlpha((0.5 * 255).toInt()),
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
@@ -236,8 +236,8 @@ class PersonagensContent extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               shadows: [
                                 Shadow(
-                                  color: Colors.black
-                                      .withOpacity(0.25), // Sombra suave
+                                  color: Colors.black.withAlpha((0.25 * 255).toInt()),
+// Sombra suave
                                   offset: const Offset(
                                       3.0, 3.0), // Ajuste de sombra
                                   blurRadius: 5.0,
@@ -280,7 +280,8 @@ class PersonagensContent extends StatelessWidget {
                                   fontWeight: FontWeight.w400,
                                   shadows: [
                                     Shadow(
-                                      color: Colors.black.withOpacity(0.25),
+                                     color: Colors.black.withAlpha((0.25 * 255).toInt()),
+
                                       offset: const Offset(3.0, 3.0),
                                       blurRadius: 5.0,
                                     ),
@@ -359,7 +360,8 @@ class PersonagensContent extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               shadows: [
                                 Shadow(
-                                  color: Colors.black.withOpacity(0.25),
+                                  color: Colors.black.withAlpha((0.25 * 255).toInt()),
+
                                   offset: const Offset(3.0, 3.0),
                                   blurRadius: 4.0,
                                 ),

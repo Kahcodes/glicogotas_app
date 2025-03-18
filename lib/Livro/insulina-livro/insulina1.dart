@@ -146,7 +146,7 @@ class _Insulina1PageState extends State<Insulina1Page> with RouteAware {
                     decoration: BoxDecoration(
                       color: _currentPage == index
                           ? Colors.yellow
-                          : Colors.white.withOpacity(0.5),
+                          : Colors.white.withAlpha((0.5 * 255).toInt()), // Correção aqui
                       borderRadius: BorderRadius.circular(4.r),
                     ),
                   ),

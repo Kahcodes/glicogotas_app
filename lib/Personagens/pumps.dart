@@ -144,7 +144,8 @@ class PersonagemPumpsPageState extends State<PersonagemPumpsPage>
                           ..color = const Color(0xFFFFFEFF),
                         shadows: [
                           Shadow(
-                            color: Colors.black.withOpacity(0.25),
+                            color: Colors.black.withAlpha((0.25 * 255).toInt()),
+
                             offset: const Offset(3.0, 3.0),
                             blurRadius: 5.0,
                           ),
@@ -209,7 +210,8 @@ class PersonagemPumpsPageState extends State<PersonagemPumpsPage>
                           ..color = const Color(0xFFFFFEFF),
                         shadows: [
                           Shadow(
-                            color: Colors.black.withOpacity(0.25),
+                            color: Colors.black.withAlpha((0.25 * 255).toInt()),
+
                             offset: const Offset(3.0, 3.0),
                             blurRadius: 5.0,
                           ),

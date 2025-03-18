@@ -146,7 +146,7 @@ class PersonagemBoboPageState extends State<PersonagemBoboPage>
                         shadows: [
                           Shadow(
                             color:
-                                Colors.black.withOpacity(0.25), // Sombra suave
+                                Colors.black.withAlpha((0.25 * 255).toInt()), // Sombra suave
                             offset: Offset(3.0, 3.0),
                             blurRadius: 5.0,
                           ),
@@ -214,7 +214,8 @@ class PersonagemBoboPageState extends State<PersonagemBoboPage>
                         shadows: [
                           Shadow(
                             color:
-                                Colors.black.withOpacity(0.25), // Sombra suave
+                                Colors.black.withAlpha((0.25 * 255).toInt()),
+
                             offset: Offset(3.0, 3.0),
                             blurRadius: 5.0,
                           ),
