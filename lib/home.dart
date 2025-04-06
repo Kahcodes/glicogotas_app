@@ -5,6 +5,7 @@ import 'package:glicogotas_app/Personagens/glicogotas.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/iniciar.dart';
 import 'package:glicogotas_app/main.dart';
+import 'package:glicogotas_app/MitosOuVerdades/cards_mitos.dart';
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:glicogotas_app/Tirinhas/tirinha.cards.dart';
@@ -35,7 +36,6 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
       listen: false,
     );
 
-    // Escuta as mudanças na configuração de música
     configProvider.addListener(() {
       if (configProvider.musicOn) {
         _audioManager.play('audio/musica.mp3', context);
@@ -44,7 +44,6 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
       }
     });
 
-    // Inicia a música se a configuração estiver habilitada
     if (configProvider.musicOn && !_audioManager.isPlaying) {
       _audioManager.setVolume(configProvider.volume);
       _audioManager.play('audio/musica.mp3', context);
@@ -54,8 +53,7 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    routeObserver.subscribe(
-        this, ModalRoute.of(context)! as PageRoute<dynamic>);
+    routeObserver.subscribe(this, ModalRoute.of(context)! as PageRoute<dynamic>);
   }
 
   @override
@@ -75,6 +73,44 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
     _audioManager.play('audio/musica.mp3', context);
   }
 
+  Widget buildButton({
+    required VoidCallback onPressed,
+    required Color color,
+    required String label,
+    required Widget icon,
+  }) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(40.r),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+      ),
+      child: SizedBox(
+        width: 160.w,
+        height: 32.h,
+        child: Row(
+          children: [
+            icon,
+            SizedBox(width: 10.w),
+            Expanded(
+              child: Text(
+                label,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.podkova(
+                  color: Colors.white,
+                  fontSize: 14.sp,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,41 +123,29 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
           );
 
           return Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-            ),
+            decoration: const BoxDecoration(color: Colors.white),
             child: Stack(
               children: [
-                // Fundo com decoração em SVG
                 Positioned.fill(
                   child: FittedBox(
                     fit: BoxFit.fill,
-                    child: SvgPicture.asset(
-                      'assets/images/decoracao.svg',
-                    ),
+                    child: SvgPicture.asset('assets/images/decoracao.svg'),
                   ),
                 ),
-
-                // Ícone de voltar
                 Positioned(
                   top: 40.h,
                   left: 16.w,
                   child: IconButton(
                     iconSize: 30.sp,
-                    icon: const Icon(Icons.arrow_back_ios,
-                        color: Color(0xFF265F95)),
+                    icon: const Icon(Icons.arrow_back_ios, color: Color(0xFF265F95)),
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const TelaInicial(),
-                        ),
+                        MaterialPageRoute(builder: (context) => const TelaInicial()),
                       );
                     },
                   ),
                 ),
-
-                // Ícone de configurações
                 Positioned(
                   top: 40.h,
                   right: 16.w,
@@ -138,19 +162,15 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
                     },
                   ),
                 ),
-
-                // Conteúdo principal
                 Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      // Texto e imagem
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.h),
-                        child: Row(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 20.h),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            // Ícone principal
                             SizedBox(
                               width: 120.w,
                               height: 200.h,
@@ -170,7 +190,6 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
                                   style: GoogleFonts.sansitaSwashed(
                                     color: const Color(0xFF37ABDC),
                                     fontSize: 24.sp,
-                                    fontWeight: FontWeight.w400,
                                   ),
                                 ),
                                 RichText(
@@ -181,7 +200,6 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
                                         style: GoogleFonts.sansitaSwashed(
                                           color: const Color(0xFFF4719C),
                                           fontSize: 24.sp,
-                                          fontWeight: FontWeight.w400,
                                         ),
                                       ),
                                       TextSpan(
@@ -189,7 +207,6 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
                                         style: GoogleFonts.sansitaSwashed(
                                           color: const Color(0xFF37ABDC),
                                           fontSize: 24.sp,
-                                          fontWeight: FontWeight.w400,
                                         ),
                                       ),
                                     ],
@@ -199,222 +216,90 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
                             ),
                           ],
                         ),
-                      ),
-
-                      SizedBox(height: 40.h),
-
-                      // Botão PERSONAGENS
-                      ElevatedButton(
-                        onPressed: () {
-                          _audioManager.stop();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const PersonagensPage(),
-                            ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF00D287),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40.r),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 12.w, vertical: 8.h),
-                        ),
-                        child: SizedBox(
-                          width: 149.w,
-                          height: 26.h,
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: SvgPicture.asset(
-                                  "assets/images/person.svg",
-                                  fit: BoxFit.cover,
-                                  height: 23.h,
-                                  width: 23.w,
-                                  colorFilter: const ColorFilter.mode(
-                                    Colors.white,
-                                    BlendMode.srcIn,
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  'PERSONAGENS',
-                                  style: GoogleFonts.podkova(
-                                    color: Colors.white,
-                                    fontSize: 18.sp,
-                                  ),
-                                ),
-                              ),
-                            ],
+                        SizedBox(height: 20.h),
+                        buildButton(
+                          onPressed: () {
+                            _audioManager.stop();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const PersonagensPage()),
+                            );
+                          },
+                          color: const Color(0xFF00D287),
+                          label: 'PERSONAGENS',
+                          icon: SvgPicture.asset(
+                            "assets/images/person.svg",
+                            height: 20.h,
+                            width: 20.w,
+                            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                           ),
                         ),
-                      ),
-
-                      SizedBox(height: 20.h),
-
-                      // Botão LIVRO
-                      ElevatedButton(
-                        onPressed: () {
-                          _audioManager.stop();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LivroCardsPage(),
-                            ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40.r),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 12.w, vertical: 8.h),
-                        ),
-                        child: SizedBox(
-                          width: 149.w,
-                          height: 26.h,
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: SvgPicture.asset(
-                                  "assets/images/livro.svg",
-                                  fit: BoxFit.cover,
-                                  height: 24.h,
-                                  width: 24.w,
-                                  colorFilter: const ColorFilter.mode(
-                                    Colors.white,
-                                    BlendMode.srcIn,
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'LIVRO',
-                                  style: GoogleFonts.podkova(
-                                    color: Colors.white,
-                                    fontSize: 18.sp,
-                                  ),
-                                ),
-                              ),
-                            ],
+                        SizedBox(height: 14.h),
+                        buildButton(
+                          onPressed: () {
+                            _audioManager.stop();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const LivroCardsPage()),
+                            );
+                          },
+                          color: Colors.blue,
+                          label: 'LIVRO',
+                          icon: SvgPicture.asset(
+                            "assets/images/livro.svg",
+                            height: 20.h,
+                            width: 20.w,
+                            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                           ),
                         ),
-                      ),
-
-                      SizedBox(height: 20.h),
-
-                      // Botão TIRINHAS
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const TirinhaCardsPage(),
-                            ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFCB44E),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40.r),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 12.w, vertical: 8.h),
-                        ),
-                        child: SizedBox(
-                          width: 149.w,
-                          height: 26.h,
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: SvgPicture.asset(
-                                  "assets/images/historia.svg",
-                                  fit: BoxFit.cover,
-                                  height: 24.h,
-                                  width: 24.w,
-                                  colorFilter: const ColorFilter.mode(
-                                    Colors.white,
-                                    BlendMode.srcIn,
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'TIRINHAS',
-                                  style: GoogleFonts.podkova(
-                                    color: Colors.white,
-                                    fontSize: 18.sp,
-                                  ),
-                                ),
-                              ),
-                            ],
+                        SizedBox(height: 14.h),
+                        buildButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const TirinhaCardsPage()),
+                            );
+                          },
+                          color: const Color(0xFFFCB44E),
+                          label: 'TIRINHAS',
+                          icon: SvgPicture.asset(
+                            "assets/images/historia.svg",
+                            height: 20.h,
+                            width: 20.w,
+                            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                           ),
                         ),
-                      ),
-
-                      SizedBox(height: 20.h),
-
-                      // Botão JOGOS
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const JogosPage(),
-                            ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.pinkAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40.r),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 12.w, vertical: 8.h),
-                        ),
-                        child: SizedBox(
-                          width: 149.w,
-                          height: 26.h,
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: SvgPicture.asset(
-                                  "assets/images/jogos.svg",
-                                  fit: BoxFit.cover,
-                                  height: 24.h,
-                                  width: 24.w,
-                                  colorFilter: const ColorFilter.mode(
-                                    Colors.white,
-                                    BlendMode.srcIn,
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'JOGOS',
-                                  style: GoogleFonts.podkova(
-                                    color: Colors.white,
-                                    fontSize: 18.sp,
-                                  ),
-                                ),
-                              ),
-                            ],
+                        SizedBox(height: 14.h),
+                        buildButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const JogosPage()),
+                            );
+                          },
+                          color: Colors.pinkAccent,
+                          label: 'JOGOS',
+                          icon: SvgPicture.asset(
+                            "assets/images/jogos.svg",
+                            height: 20.h,
+                            width: 20.w,
+                            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                           ),
                         ),
-                      ),
-                    ],
+                        SizedBox(height: 14.h),
+                        buildButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const MitosOuVerdadesPage()),
+                            );
+                          },
+                          color: const Color(0xFF9C6ADE),
+                          label: 'MITO OU VERDADE',
+                          icon: Icon(Icons.question_answer, color: Colors.white, size: 20.sp),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
