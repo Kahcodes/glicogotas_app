@@ -1,0 +1,2 @@
+C:/glicogotas_app/android/app/.cxx/RelWithDebInfo/4u4v2934/x86_64/CMakeFiles/edit_cache.dir
+C:/glicogotas_app/android/app/.cxx/RelWithDebInfo/4u4v2934/x86_64/CMakeFiles/rebuild_cache.dir

@@ -34,7 +34,7 @@ class TelaInicial extends StatelessWidget {
                   children: <Widget>[
                     // Logo
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(14.0),
                       child: Image.asset(
                         'assets/images/glicogotas_logo.png', // Caminho para o logo
                         height: 407,

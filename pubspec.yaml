@@ -55,14 +55,16 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.3 
   
   
 
 
-flutter_icons:
+flutter_launcher_icons:
   ios: true
   android: true
   image_path: "assets/icon/icon.png"
+  remove_alpha_ios: true
   
 
 
@@ -93,6 +95,7 @@ flutter:
     - assets/images/pancreas-capa.png
     - assets/images/tirinha-docura-capa.png
     - assets/images/jo&kah.png
+    - assets/images/mito2-capa.png
     - assets/images/tirinha-insu-capa.png
     - assets/images/tirinha-ins-1.png
     - assets/images/card-mv-diabete.png
