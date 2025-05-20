@@ -73,7 +73,7 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
             children: [
               Positioned.fill(
                 child: SvgPicture.asset(
-                  'assets/images/fundo-hist.svg',
+                  'assets/images/fundo-mito.svg',
                   fit: BoxFit.fill,
                 ),
               ),

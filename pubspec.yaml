@@ -110,6 +110,7 @@ flutter:
     - assets/images/livro.svg
     - assets/images/historia.svg
     - assets/images/jogos.svg
+    - assets/images/fundo-mito.svg
     - assets/images/tela-inicial-perso.svg
     - assets/images/fundo-azul.svg
     - assets/images/btn-avancar-branco.svg
