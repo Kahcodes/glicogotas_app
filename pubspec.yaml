@@ -42,6 +42,8 @@ dependencies:
   path: ^1.9.0
   url_launcher: ^6.3.1
   font_awesome_flutter: ^10.8.0
+  animate_do: ^4.2.0
+
 
   
   
@@ -95,6 +97,9 @@ flutter:
     - assets/images/pancreas-capa.png
     - assets/images/tirinha-docura-capa.png
     - assets/images/jo&kah.png
+    - assets/images/personagem_acerto.png
+    - assets/images/personagem_neutro.png
+    - assets/images/personagem_erro.png
     - assets/images/mito2-capa.png
     - assets/images/tirinha-insu-capa.png
     - assets/images/tirinha-ins-1.png
@@ -214,6 +219,10 @@ flutter:
     - assets/audio/audioPersonagens/insulins.mp3
     - assets/audio/audioPersonagens/lita.mp3
     - assets/audio/audioPersonagens/pumps.mp3
+    - assets/sounds/page_forward.mp3
+    - assets/sounds/page_back.mp3
+    - assets/sounds/erro.mp3  
+    - assets/sounds/acerto.mp3
     
 
 
