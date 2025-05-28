@@ -96,6 +96,23 @@ flutter:
     - assets/images/insulina-capa.png
     - assets/images/pancreas-capa.png
     - assets/images/tirinha-docura-capa.png
+    - assets/images/bateria-fraca-tirinha.png
+    - assets/images/tirinha-aguavai.png
+    - assets/images/glicoamigos-card.png
+    - assets/images/confusao-tirinha1.png
+    - assets/images/confusao-tirinha2.png
+    - assets/images/confusao-tirinha3.png
+    - assets/images/missao-tirinha.png
+    - assets/images/glicoamigos1.png
+    - assets/images/glicoamigos2.png
+    - assets/images/glicoamigos3.png
+    - assets/images/glicoamigos4.png
+    - assets/images/glicoamigos5.png
+    - assets/images/glicoamigos6.png
+    - assets/images/agua-tirinha1.png
+    - assets/images/agua-tirinha2.png
+    - assets/images/agua-tirinha3.png
+    - assets/images/tirinha-missao.png
     - assets/images/jo&kah.png
     - assets/images/personagem_acerto.png
     - assets/images/personagem_neutro.png

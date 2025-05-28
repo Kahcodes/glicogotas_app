@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:glicogotas_app/Tirinhas/agua_vai_tirinha.dart';
+import 'package:glicogotas_app/Tirinhas/bateria_fraca_tirinha.dart';
+import 'package:glicogotas_app/Tirinhas/glicoamigos_tirinha.dart';
+import 'package:glicogotas_app/Tirinhas/missao_ac_tirinha.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:glicogotas_app/home.dart'; // Importa a tela inicial
-import 'package:glicogotas_app/configuracoes.dart'; // Importa o diálogo de configurações
-import 'package:glicogotas_app/Tirinhas/tirinha_docura.dart'; // Importa a página Tirinha
+import 'package:glicogotas_app/home.dart';
+import 'package:glicogotas_app/configuracoes.dart';
+import 'package:glicogotas_app/Tirinhas/tirinha_docura.dart';
 import 'package:glicogotas_app/Tirinhas/tirinha_insulina.dart';
 
 class TirinhaCardsPage extends StatefulWidget {
@@ -41,7 +45,7 @@ class TirinhaCardsPageState extends State<TirinhaCardsPage> with RouteAware {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFfff3f6), // Fundo da página
+      backgroundColor: const Color(0xFFfff3f6),
       body: LayoutBuilder(
         builder: (context, constraints) {
           ScreenUtil.init(
@@ -52,7 +56,6 @@ class TirinhaCardsPageState extends State<TirinhaCardsPage> with RouteAware {
 
           return Stack(
             children: [
-              // Título "Selecione um Capítulo" com ícones
               Positioned(
                 top: 40.h,
                 left: 16.w,
@@ -60,7 +63,6 @@ class TirinhaCardsPageState extends State<TirinhaCardsPage> with RouteAware {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Ícone "Home"
                     IconButton(
                       iconSize: 30.sp,
                       icon: const Icon(
@@ -70,30 +72,28 @@ class TirinhaCardsPageState extends State<TirinhaCardsPage> with RouteAware {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const TelaHome()),
+                          MaterialPageRoute(builder: (context) => const TelaHome()),
                         );
                       },
                     ),
                     Text(
-                      'Selecione uma tirinha', // Título da página
+                      'Selecione uma tirinha',
                       style: GoogleFonts.chewy(
                         color: const Color(0xFF37ABDC),
                         fontSize: 24.sp,
                       ),
                     ),
-                    // Ícone "Configurações"
                     IconButton(
                       iconSize: 30.sp,
                       icon: const Icon(
                         Icons.settings,
-                        color: Color(0xFFF4719C), // Cor do ícone ajustada
+                        color: Color(0xFFF4719C),
                       ),
                       onPressed: () {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return const ConfigDialog(); // Chama o diálogo de configurações
+                            return const ConfigDialog();
                           },
                         );
                       },
@@ -101,11 +101,8 @@ class TirinhaCardsPageState extends State<TirinhaCardsPage> with RouteAware {
                   ],
                 ),
               ),
-
-              // Grid de cards com espaçamento ajustado
               Padding(
-                padding: EdgeInsets.only(
-                    top: 120.h), // Ajusta os cards mais para baixo
+                padding: EdgeInsets.only(top: 120.h),
                 child: GridView.count(
                   crossAxisCount: 2,
                   padding: EdgeInsets.all(16.w),
@@ -113,68 +110,96 @@ class TirinhaCardsPageState extends State<TirinhaCardsPage> with RouteAware {
                   mainAxisSpacing: 16.h,
                   children: [
                     // Card 1
-                    GestureDetector(
+                    _buildCard(
+                      imagePath: 'assets/images/tirinha-docura-capa.png',
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const Tirinha()),
+                          MaterialPageRoute(builder: (context) => const Tirinha()),
                         );
                       },
-                      child: Card(
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.r),
-                        ),
-                        clipBehavior: Clip.antiAlias,
-                        child: Stack(
-                          children: [
-                            Image.asset(
-                              'assets/images/tirinha-docura-capa.png',
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: double.infinity,
-                            ),
-                          ],
-                        ),
-                      ),
                     ),
                     // Card 2
-                    GestureDetector(
+                    _buildCard(
+                      imagePath: 'assets/images/tirinha-insu-capa.png',
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const TirinhaInsulina()),
+                          MaterialPageRoute(builder: (context) => const TirinhaInsulina()),
                         );
                       },
-                      child: Card(
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.r),
-                        ),
-                        clipBehavior: Clip.antiAlias,
-                        child: Stack(
-                          children: [
-                            Image.asset(
-                              'assets/images/tirinha-insu-capa.png', // Exemplo de imagem
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: double.infinity,
-                            ),
-                          ],
-                        ),
-                      ),
                     ),
                     // Card 3
-
-                    // Card 4 (Exemplo adicional)
+                    _buildCard(
+                      imagePath: 'assets/images/glicoamigos-card.png', 
+                      onTap: () {
+                        
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const TirinhaGlicoamigos()),
+                        );
+                        
+                      },
+                    ),
+                    // Card 4
+                    _buildCard(
+                      imagePath: 'assets/images/tirinha-aguavai.png', 
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const TirinhaAgua()),
+                        );
+                      },
+                    ),
+                    // Card 5
+                    _buildCard(
+                      imagePath: 'assets/images/bateria-fraca-tirinha.png', 
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const TirinhaBateria()),
+                        );
+                      },
+                    ),
+                    // Card 6
+                    _buildCard(
+                      imagePath: 'assets/images/tirinha-missao.png', 
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const TirinhaMissao()),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
             ],
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildCard({required String imagePath, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.r),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Stack(
+          children: [
+            Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+          ],
+        ),
       ),
     );
   }
