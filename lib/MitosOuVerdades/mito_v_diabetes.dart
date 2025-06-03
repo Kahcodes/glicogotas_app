@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,9 +18,9 @@ class MitosVerdadesScreen extends StatefulWidget {
 class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
   final List<Map<String, dynamic>> mitosVerdades = [
     {
-      'pergunta': 'Diabetes tipo 1 é causado por comer muito açúcar?',
+      'pergunta': 'O DM1 é causado por comer muito açúcar?',
       'respostaCorreta': false,
-      'titulo': 'É MITO!🚫',
+      'titulo': 'MITO! 🚫',
       'explicacao':
           'Muitas pessoas ainda acreditam que o diabetes tipo 1 surge por causa do consumo excessivo de doces, mas isso não é verdade.',
     },
@@ -96,7 +98,6 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
   }
 
   void onPageChanged(int index) {
-    // Bloqueia avanço por swipe se não respondeu
     if (!respondeu && index > currentIndex && mitosVerdades[currentIndex].containsKey('respostaCorreta')) {
       _pageController.animateToPage(
         currentIndex,
@@ -124,7 +125,6 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
     ScreenUtil.init(context, designSize: const Size(360, 690), minTextAdapt: true);
 
     final item = mitosVerdades[currentIndex];
-
     bool temResposta = item.containsKey('respostaCorreta');
 
     return Scaffold(
@@ -161,6 +161,34 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                     ],
                   ),
                 ),
+                RichText(
+                  text: TextSpan(
+                    text: 'MITO',
+                    style: GoogleFonts.chewy(
+                      textStyle: TextStyle(
+                        fontSize: 28.sp,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xFFEF291D),
+                      ),
+                    ),
+                    children: [
+                      TextSpan(
+                        text: ' ou ',
+                        style: TextStyle(color: Color(0xFF33363F)),
+                      ),
+                      TextSpan(
+                        text: 'VERDADE?',
+                        style: GoogleFonts.chewy(
+                          textStyle: TextStyle(
+                            fontSize: 28.sp,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xFF01C881),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Expanded(
                   child: PageView.builder(
                     controller: _pageController,
@@ -179,84 +207,86 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                         child: Container(
                           padding: EdgeInsets.all(16.w),
                           decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 10,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
+                            color: const Color(0xFFE5D4FF),
+                            borderRadius: BorderRadius.circular(30.r),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // Mostrar título só depois que responder (para perguntas)
                               if (!isPergunta || mostrarTitulo) ...[
                                 Text(
                                   currentItem['titulo'] ?? 'Mito ou Verdade?',
                                   style: GoogleFonts.chewy(
                                     textStyle: TextStyle(
-                                      fontSize: 24.sp,
+                                      fontSize: 25.sp,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.pink,
+                                      color: const Color(0xFFEF291D)
                                     ),
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
                                 SizedBox(height: 16.h),
                               ],
-
                               Text(
                                 currentItem['pergunta'] ?? currentItem['explicacao'] ?? '',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.chewy(
-                                  textStyle: TextStyle(fontSize: 18.sp, color: Colors.black87),
+                                  textStyle: TextStyle(fontSize: 20.sp, color: Color(0xFF33363F)),
                                 ),
                               ),
-
                               if (isPergunta && !respondeu) ...[
-                                SizedBox(height: 20.h),
-
-                                // Imagem neutra durante a seleção, você pode trocar o caminho da imagem aqui:
-                                Image.asset(
-                                  'assets/images/personagem_neutro.png',
-                                  height: 140,
-                                ),
-
-                                SizedBox(height: 30.h),
-
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                SizedBox(height: 50.h),
+                                Stack(
+                                  alignment: Alignment.topRight,
                                   children: [
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(12.r),
-                                        ),
-                                        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-                                        backgroundColor: Colors.green.shade100,
-                                      ),
-                                      onPressed: () => verificarResposta(true),
-                                      child: const Icon(Icons.check, color: Colors.green, size: 40),
+                                    Image.asset(
+                                      'assets/images/personagem_neutro.png',
+                                      height: 180,
                                     ),
-                                    SizedBox(width: 40.w),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(12.r),
+                                    
+                                  ],
+                                ),
+                                SizedBox(height: 30.h),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: FilledButton.icon(
+                                        style: FilledButton.styleFrom(
+                                          backgroundColor: const Color(0xFFA81A1A),
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+                                          padding: EdgeInsets.symmetric(vertical: 12.h),
                                         ),
-                                        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-                                        backgroundColor: Colors.red.shade100,
+                                        icon: const Icon(Icons.close, color: Colors.white),
+                                        label: Text(
+                                          'Mito',
+                                          style: GoogleFonts.chewy(
+                                            textStyle: TextStyle(color: Colors.white, fontSize: 18.sp),
+                                          ),
+                                        ),
+                                        onPressed: () => verificarResposta(false),
                                       ),
-                                      onPressed: () => verificarResposta(false),
-                                      child: const Icon(Icons.close, color: Colors.red, size: 40),
+                                    ),
+                                    SizedBox(width: 16.w),
+                                    Expanded(
+                                      child: FilledButton.icon(
+                                        style: FilledButton.styleFrom(
+                                          backgroundColor: const Color(0xFF00A369),
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+                                          padding: EdgeInsets.symmetric(vertical: 12.h),
+                                        ),
+                                        icon: const Icon(Icons.check, color: Colors.white),
+                                        label: Text(
+                                          'Verdade',
+                                          style: GoogleFonts.chewy(
+                                            textStyle: TextStyle(color: Colors.white, fontSize: 18.sp),
+                                          ),
+                                        ),
+                                        onPressed: () => verificarResposta(true),
+                                      ),
                                     ),
                                   ],
                                 ),
                               ],
-
                               if (respondeu && index == currentIndex) ...[
                                 SizedBox(height: 20.h),
                                 Text(
