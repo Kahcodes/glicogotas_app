@@ -17,9 +17,10 @@ class TelaInicial extends StatelessWidget {
             designSize: const Size(360, 690),
             minTextAdapt: true,
           );
+
           return Stack(
             children: [
-              // O fundo com as ondinhas
+              // Fundo com as ondinhas
               Positioned.fill(
                 child: SvgPicture.asset(
                   'assets/images/decoracao.svg',
@@ -27,7 +28,7 @@ class TelaInicial extends StatelessWidget {
                 ),
               ),
 
-              // Logo e conteúdo centralizado
+              // Conteúdo centralizado
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -36,11 +37,12 @@ class TelaInicial extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(14.0),
                       child: Image.asset(
-                        'assets/images/glicogotas_logo.png', // Caminho para o logo
+                        'assets/images/glicogotas_logo.png',
                         height: 407,
                       ),
                     ),
 
+                    // Texto abaixo do logo
                     SizedBox(
                       width: 300.w,
                       height: 29.h,
@@ -58,34 +60,40 @@ class TelaInicial extends StatelessWidget {
 
                     SizedBox(height: 38.h),
 
-                    // Botão de iniciar
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const TelaHome()),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF00D287),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.r),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 12.w,
-                          vertical: 8.h,
-                        ),
+                    // Botão INICIAR com acessibilidade fixa
+                    MediaQuery(
+                      data: MediaQuery.of(context).copyWith(
+                        textScaler: const TextScaler.linear(1.0),
                       ),
-                      child: SizedBox(
-                        width: 154.w,
-                        height: 32.h,
-                        child: Center(
-                          child: Text(
-                            'INICIAR',
-                            style: GoogleFonts.podkova(
-                              color: Colors.white,
-                              fontSize: 18.sp,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TelaHome(),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF00D287),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40.r),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12.w,
+                            vertical: 8.h,
+                          ),
+                        ),
+                        child: SizedBox(
+                          width: 154.w,
+                          height: 32.h,
+                          child: Center(
+                            child: Text(
+                              'INICIAR',
+                              style: GoogleFonts.podkova(
+                                color: Colors.white,
+                                fontSize: 18.sp,
+                              ),
                             ),
                           ),
                         ),

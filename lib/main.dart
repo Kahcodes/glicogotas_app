@@ -8,9 +8,8 @@ import 'package:provider/provider.dart';
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 Future<void> main() async {
-  WidgetsFlutterBinding
-      .ensureInitialized(); // Garante que o Flutter está inicializado
-  await SharedPreferences.getInstance(); // Inicializa SharedPreferences
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferences.getInstance();
   runApp(const GlicogotasApp());
 }
 
@@ -24,13 +23,24 @@ class GlicogotasApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ConfiguracoesRepository()),
       ],
       child: ScreenUtilInit(
-        designSize: const Size(360, 690), // Tamanho de design base
+        // Tamanho base mais compatível com tablets e celulares
+        designSize: const Size(390, 844),
+        minTextAdapt: true,
+        splitScreenMode: true,
         builder: (context, child) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            navigatorObservers: [routeObserver],
+            builder: (context, widget) {
+              final mediaQuery = MediaQuery.of(context);
+              return MediaQuery(
+                data: mediaQuery.copyWith(
+                  textScaler: const TextScaler.linear(1.0),
+                ),
+                child: widget ?? const SizedBox(),
+              );
+            },
             home: const TelaInicial(),
-            navigatorObservers: [
-              routeObserver
-            ], // Registra o RouteObserver aqui
           );
         },
       ),
