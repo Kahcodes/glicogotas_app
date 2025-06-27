@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:glicogotas_app/Personagens/pumps.dart';
-import 'package:glicogotas_app/Personagens/canetto.dart';
+import 'package:glicogotas_app/Personagens/betinho.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/home.dart';
@@ -10,14 +9,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:glicogotas_app/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PersonagemBetinhoPage extends StatefulWidget {
-  const PersonagemBetinhoPage({super.key});
+class PersonagemCanettoPage extends StatefulWidget {
+  const PersonagemCanettoPage({super.key});
 
   @override
-  PersonagemBetinhoPageState createState() => PersonagemBetinhoPageState();
+  PersonagemCanettoPageState createState() => PersonagemCanettoPageState();
 }
 
-class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
+class PersonagemCanettoPageState extends State<PersonagemCanettoPage>
     with RouteAware {
   final AudioManager _audioManager = AudioManager();
 
@@ -33,7 +32,7 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
     super.initState();
     _saveCurrentPage(2); // Salva o número da página atual
     _audioManager.play(
-        'audio/audioPersonagens/betinho.mp3', context); // Reproduz o áudio
+        'audio/audioPersonagens/canetto.mp3', context); // Reproduz o áudio
   }
 
   @override
@@ -57,7 +56,7 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
 
   @override
   void didPopNext() {
-    _audioManager.play('audio/audioPersonagens/betinho.mp3',
+    _audioManager.play('audio/audioPersonagens/canetto.mp3',
         context); // Reinicia o áudio ao voltar
   }
 
@@ -78,7 +77,7 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
               // Fundo com as listras
               Positioned.fill(
                 child: SvgPicture.asset(
-                  'assets/images/fundo-betinho.svg',
+                  'assets/images/fundo-canetto.svg',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -125,7 +124,7 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
                 ),
               ),
 
-              // Nome do personagem (Betinho) centralizado
+             
               Positioned(
                 top: 0.15.sh,
                 left: 0,
@@ -135,7 +134,7 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
                   children: [
                     // Texto branco (borda)
                     Text(
-                      'Betinho',
+                      'Canetto',
                       style: GoogleFonts.chewy(
                         fontSize: 0.13.sw,
                         foreground: Paint()
@@ -146,10 +145,10 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
                     ),
                     // Texto verde
                     Text(
-                      'Betinho',
+                      'Canetto',
                       style: GoogleFonts.chewy(
                         fontSize: 0.13.sw,
-                        color: const Color(0xFF01C881),
+                        color: const Color(0xFF071A51),
                       ),
                     ),
                   ],
@@ -163,7 +162,7 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
                 right: 0,
                 child: Center(
                   child: SvgPicture.asset(
-                    'assets/images/eclipse-betinho.svg',
+                    'assets/images/eclipse-canetto.svg',
                     height: 0.36.sh,
                   ),
                 ),
@@ -176,7 +175,7 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
                 right: 0,
                 child: Center(
                   child: SvgPicture.asset(
-                    'assets/images/betinho-person.svg',
+                    'assets/images/perso-canetto.svg',
                     height: 0.38.sh,
                   ),
                 ),
@@ -192,7 +191,7 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
                   children: [
                     // Texto branco (borda)
                     Text(
-                      'É o monitor de glicemia, sempre atento para manter a Lita segura!',
+                      'O Canetto aparece com precisão e cuidado para aplicar a insulina quando a Pumps precisa de ajuda!',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.chewy(
                         fontSize: 0.06.sw,
@@ -204,11 +203,11 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
                     ),
                     // Texto verde
                     Text(
-                      'É o monitor de glicemia, sempre atento para manter a Lita segura!',
+                      'O Canetto aparece com precisão e cuidado para aplicar a insulina quando a Pumps precisa de ajuda!',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.chewy(
                         fontSize: 0.06.sw,
-                        color: const Color(0xFF01C881),
+                        color: const Color(0xFF071A51),
                       ),
                     ),
                   ],
@@ -223,7 +222,7 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
                 child: IconButton(
                   icon: Icon(
                     Icons.arrow_back_ios_rounded,
-                    color: const Color.fromARGB(255, 0, 0, 0),
+                    color: const Color(0xFF071A51),
                     size: 48.sp,
                   ),
                   onPressed: () {
@@ -231,28 +230,7 @@ class PersonagemBetinhoPageState extends State<PersonagemBetinhoPage>
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const PersonagemPumpsPage()),
-                    );
-                    
-                  },
-                ),
-              ),
-              Positioned(
-                bottom: 0.08.sh,
-                right:
-                    20.w, // Ajuste para ficar mais próximo da lateral direita
-                child: IconButton(
-                  icon: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    color: const Color.fromARGB(255, 0, 0, 0),
-                    size: 48.sp,
-                  ),
-                  onPressed: () {
-                    _audioManager.stop(); // Para o áudio ao navegar
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PersonagemCanettoPage()),
+                          builder: (context) => const PersonagemBetinhoPage()),
                     );
                   },
                 ),

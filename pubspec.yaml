@@ -147,6 +147,8 @@ flutter:
     - assets/images/eclipse-bobo.svg
     - assets/images/bobo-person.svg
     - assets/images/fundo-fe.svg
+    - assets/images/perso-canetto.svg
+    - assets/images/fundo-canetto.svg
     - assets/images/eclipse-fe.svg
     - assets/images/fe-person.svg
     - assets/images/fundo-insulins.svg
@@ -157,6 +159,7 @@ flutter:
     - assets/images/fundo-pumps.svg
     - assets/images/fundo-betinho.svg
     - assets/images/eclipse-betinho.svg
+    - assets/images/eclipse-canetto.svg
     - assets/images/betinho-person.svg
     - assets/images/fundopaglivro.svg
     - assets/images/btn-avancar-laranja.svg
@@ -233,6 +236,7 @@ flutter:
     - assets/audio/audioPersonagens/bobo.mp3
     - assets/audio/audioPersonagens/fe.mp3
     - assets/audio/audioPersonagens/hiper.mp3
+    - assets/audio/audioPersonagens/canetto.mp3
     - assets/audio/audioPersonagens/insulins.mp3
     - assets/audio/audioPersonagens/lita.mp3
     - assets/audio/audioPersonagens/pumps.mp3
