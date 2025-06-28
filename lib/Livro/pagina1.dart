@@ -217,7 +217,7 @@ class Pagina1Content extends StatelessWidget {
                 top: 0.25.sh,
                 right: 0.22.sw,
                 child: SvgPicture.asset(
-                  'assets/images/lita.svg',
+                  'assets/images/lita.png',
                   height: 0.6.sh,
                 ),
               ),
