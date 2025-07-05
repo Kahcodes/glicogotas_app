@@ -140,7 +140,8 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
                     decoration: BoxDecoration(
                       color: _currentPage == index
                           ? Colors.yellow
-                          : Colors.white.withAlpha((0.5 * 255).toInt()), // Correção aqui
+                          : Colors.white
+                              .withAlpha((0.5 * 255).toInt()), // Correção aqui
                       borderRadius: BorderRadius.circular(4.r),
                     ),
                   ),
@@ -217,7 +218,7 @@ class Pagina1Content extends StatelessWidget {
                 top: 0.25.sh,
                 right: 0.22.sw,
                 child: SvgPicture.asset(
-                  'assets/images/lita.png',
+                  'assets/images/lita.svg',
                   height: 0.6.sh,
                 ),
               ),

@@ -124,7 +124,6 @@ class PersonagemCanettoPageState extends State<PersonagemCanettoPage>
                 ),
               ),
 
-             
               Positioned(
                 top: 0.15.sh,
                 left: 0,
