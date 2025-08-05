@@ -133,7 +133,6 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
                       color: _currentPage == index
                           ? Colors.yellow
                           : Colors.white.withAlpha((0.5 * 255).toInt()),
-
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
@@ -185,113 +184,116 @@ class CapaContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final audioManager = AudioManager();
-    return Stack(
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 40.h, left: 16.w),
-                  child: IconButton(
-                    iconSize: 30.sp,
-                    icon: const Icon(
-                      Icons.arrow_back_ios_rounded,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                    ),
-                    onPressed: () {
-                      audioManager.stop();
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LivroCardsPage()),
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 40.h, right: 16.w),
-                  child: IconButton(
-                    iconSize: 30.sp,
-                    icon: const Icon(
-                      Icons.settings,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                    ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const ConfigDialog();
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 100.h),
-            CustomPaint(
-              painter: ArcTextPainter(),
-              child: Container(height: 80.h),
-            ),
-            Text(
-              'DESCOMPLICANDO',
-              style: GoogleFonts.chewy(fontSize: 36.sp, color: Colors.yellow),
-            ),
-            Text(
-              'o Diabetes',
-              style: GoogleFonts.chewy(fontSize: 36.sp, color: Colors.yellow),
-            ),
-          ],
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          child: Image.asset(
-            "assets/images/talita_capa.png",
-            height: 290.h,
-            fit: BoxFit.cover,
-          ),
-        ),
-        Positioned(
-          bottom: 0.08.sh,
-          right: 5.w,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+    return Scaffold(
+      backgroundColor: const Color(0xFF265F95),
+      body: Stack(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.only(right: 8.w),
-                child: Text(
-                  'Avançar',
-                  style: GoogleFonts.chewy(
-                    fontSize: 28.sp,
-                    color: Colors.yellow,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 40.h, left: 16.w),
+                    child: IconButton(
+                      iconSize: 30.sp,
+                      icon: const Icon(
+                        Icons.arrow_back_ios_rounded,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      ),
+                      onPressed: () {
+                        audioManager.stop();
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LivroCardsPage()),
+                        );
+                      },
+                    ),
                   ),
-                ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 40.h, right: 16.w),
+                    child: IconButton(
+                      iconSize: 30.sp,
+                      icon: const Icon(
+                        Icons.settings,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const ConfigDialog();
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: Colors.yellow,
-                  size: 36.sp,
-                ),
-                onPressed: () {
-                  PageDatabase.instance.saveCurrentPage(1);
-                  audioManager.stop();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Diabetes1Page()),
-                  );
-                },
+              SizedBox(height: 100.h),
+              CustomPaint(
+                painter: ArcTextPainter(),
+                child: Container(height: 80.h),
+              ),
+              Text(
+                'DESCOMPLICANDO',
+                style: GoogleFonts.chewy(fontSize: 36.sp, color: Colors.yellow),
+              ),
+              Text(
+                'o Diabetes',
+                style: GoogleFonts.chewy(fontSize: 36.sp, color: Colors.yellow),
               ),
             ],
           ),
-        ),
-      ],
+          Positioned(
+            bottom: 0,
+            left: 0,
+            child: Image.asset(
+              "assets/images/talita_capa.png",
+              height: 290.h,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned(
+            bottom: 0.08.sh,
+            right: 5.w,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: 8.w),
+                  child: Text(
+                    'Avançar',
+                    style: GoogleFonts.chewy(
+                      fontSize: 28.sp,
+                      color: Colors.yellow,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: Colors.yellow,
+                    size: 36.sp,
+                  ),
+                  onPressed: () {
+                    PageDatabase.instance.saveCurrentPage(1);
+                    audioManager.stop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Diabetes1Page()),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

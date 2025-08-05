@@ -89,123 +89,182 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/glicogotas_logo.png
-    - assets/images/talita_icon.png
-    - assets/images/diabetes-capa.png
-    - assets/images/chaves-capa.png
-    - assets/images/insulina-capa.png
-    - assets/images/pancreas-capa.png
-    - assets/images/tirinha-docura-capa.png
-    - assets/images/bateria-fraca-tirinha.png
-    - assets/images/tirinha-aguavai.png
-    - assets/images/glicoamigos-card.png
-    - assets/images/confusao-tirinha1.png
-    - assets/images/confusao-tirinha2.png
-    - assets/images/confusao-tirinha3.png
-    - assets/images/missao-tirinha.png
-    - assets/images/glicoamigos1.png
-    - assets/images/glicoamigos2.png
-    - assets/images/glicoamigos3.png
-    - assets/images/glicoamigos4.png
-    - assets/images/glicoamigos5.png
-    - assets/images/glicoamigos6.png
     - assets/images/agua-tirinha1.png
     - assets/images/agua-tirinha2.png
     - assets/images/agua-tirinha3.png
-    - assets/images/tirinha-missao.png
-    - assets/images/jo&kah.png
-    - assets/images/personagem_acerto.png
-    - assets/images/personagem_neutro.png
-    - assets/images/personagem_erro.png
-    - assets/images/mito2-capa.png
-    - assets/images/tirinha-insu-capa.png
-    - assets/images/tirinha-ins-1.png
-    - assets/images/card-mv-diabete.png
-    - assets/images/tirinha-ins-2.png
-    - assets/images/tirinha-ins-3.png
-    - assets/images/talita_capa.png
-    - assets/images/tirinha1.png
-    - assets/images/tirinha2.png
-    - assets/images/tirinha3.png
-    - assets/images/decoracao.svg
-    - assets/images/person.svg
-    - assets/images/livro.svg
-    - assets/images/historia.svg
-    - assets/images/jogos.svg
-    - assets/images/fundo-mito.svg
-    - assets/images/tela-inicial-perso.svg
-    - assets/images/fundo-azul.svg
-    - assets/images/btn-avancar-branco.svg
-    - assets/images/fundo-lita.svg
-    - assets/images/btn-avancar-azul.svg
-    - assets/images/lita-person.svg
-    - assets/images/lita-heroina.svg
-    - assets/images/fundo-rei.svg
-    - assets/images/rei-da-hiper.svg
-    - assets/images/eclipse-rei.svg
-    - assets/images/fundo-bobo.svg
-    - assets/images/eclipse-bobo.svg
-    - assets/images/bobo-person.svg
-    - assets/images/fundo-fe.svg
-    - assets/images/perso-canetto.svg
-    - assets/images/fundo-canetto.svg
-    - assets/images/eclipse-fe.svg
-    - assets/images/fe-person.svg
-    - assets/images/fundo-insulins.svg
-    - assets/images/eclipse-insulins.svg
-    - assets/images/insulins-person.svg
-    - assets/images/pumps-person.svg
-    - assets/images/eclipse-pumps.svg
-    - assets/images/fundo-pumps.svg
-    - assets/images/fundo-betinho.svg
-    - assets/images/eclipse-betinho.svg
-    - assets/images/eclipse-canetto.svg
-    - assets/images/betinho-person.svg
-    - assets/images/fundopaglivro.svg
-    - assets/images/btn-avancar-laranja.svg
-    - assets/images/lita.svg    
-    - assets/images/balão-duplo.svg
-    - assets/images/btn-voltar-laranja.svg
-    - assets/images/balão-page2.svg
-    - assets/images/fundodiabetes.svg
-    - assets/images/balão-page3.svg
-    - assets/images/fundo-hist.svg
-    - assets/images/lita-pancreas.svg    
-    - assets/images/lita-insulins.svg
-    - assets/images/celulas.svg
-    - assets/images/lita-respondendo.svg
-    - assets/images/doutora-e-lita.svg
-    - assets/images/insulins.svg
-    - assets/images/lita-educando.svg
-    - assets/images/balão-page4.svg  
-    - assets/images/balão-page5.svg    
-    - assets/images/balão-page6.svg
-    - assets/images/balão-page7.svg
     - assets/images/balao-dm1-page1.svg
-    - assets/images/balao-dm1-page3.svg
     - assets/images/balao-dm1-page2.svg
+    - assets/images/balao-dm1-page3.svg
     - assets/images/balao-dm1-page4.svg
     - assets/images/balao-dm1-page5.svg
     - assets/images/balao-dm1-page6.svg
+    - assets/images/balão-duplo.svg
+    - assets/images/balao-hiper1.svg
+    - assets/images/balao-hiper2.svg
+    - assets/images/balao-hiper3.svg
+    - assets/images/balao-hiper4.svg
+    - assets/images/balao-hiper5.svg
+    - assets/images/balao-hiper6.svg
+    - assets/images/balao-hiper7.svg
+    - assets/images/balao-hiper8.svg
+    - assets/images/balao-hipo1.svg
+    - assets/images/balao-hipo2.svg
+    - assets/images/balao-hipo3.svg
+    - assets/images/balao-hipo4.svg
+    - assets/images/balao-hipo5.svg
+    - assets/images/balao-hipo6.svg
+    - assets/images/balao-hipo7.svg
+    - assets/images/balao-hipo8.svg
     - assets/images/balao-ins-page1.svg
-    - assets/images/balao-ins-page3.svg
     - assets/images/balao-ins-page2.svg
+    - assets/images/balao-ins-page3.svg
     - assets/images/balao-ins-page4.svg
     - assets/images/balao-ins-page5.svg
     - assets/images/balao-ins-page6.svg
     - assets/images/balao-ins-page7.svg
     - assets/images/balao-ins-page8.svg
     - assets/images/balao-ins-page9.svg
+    - assets/images/balão-page2.svg
+    - assets/images/balão-page3.svg
+    - assets/images/balão-page4.svg
+    - assets/images/balão-page5.svg
+    - assets/images/balão-page6.svg
+    - assets/images/balão-page7.svg
+    - assets/images/balao-vovo1.svg
+    - assets/images/balao-vovo2.svg
+    - assets/images/balao-vovo3.svg
+    - assets/images/balao-vovo4.svg
+    - assets/images/balao-vovo5.svg
+    - assets/images/balao-vovo6.svg
+    - assets/images/balao-vovo7.svg
+    - assets/images/balao-vovo8.svg
+    - assets/images/balao-vovo9.svg
+    - assets/images/balao-vovo10.svg
+    - assets/images/balao-vovo11.svg
+    - assets/images/balao-vovo12.svg
+    - assets/images/barraca-hipo.svg
+    - assets/images/bateria-fraca-tirinha.png
+    - assets/images/Betinho-ensinando.svg
+    - assets/images/betinho-person.svg
+    - assets/images/Betinho-pumps.svg
+    - assets/images/bobo-person.svg
+    - assets/images/btn-avancar-azul.svg
+    - assets/images/btn-avancar-branco.svg
+    - assets/images/btn-avancar-laranja.svg
+    - assets/images/btn-voltar-laranja.svg
+    - assets/images/card-hiper.png
+    - assets/images/card-hipo.png
+    - assets/images/card-mv-diabete.png
+    - assets/images/card-vovo.png
+    - assets/images/celulas.svg
+    - assets/images/chaves-capa.png
+    - assets/images/confusao-tirinha1.png
+    - assets/images/confusao-tirinha2.png
+    - assets/images/confusao-tirinha3.png
+    - assets/images/decoracao.svg
+    - assets/images/diabetes-capa.png
+    - assets/images/doutora-e-lita.svg
+    - assets/images/eclipse-betinho.svg
+    - assets/images/eclipse-bobo.svg
+    - assets/images/eclipse-canetto.svg
+    - assets/images/eclipse-fe.svg
+    - assets/images/eclipse-insulins.svg
+    - assets/images/eclipse-pumps.svg
+    - assets/images/eclipse-rei.svg
+    - assets/images/error.svg
+    - assets/images/fe-acena.svg
+    - assets/images/fe-acena2.svg
+    - assets/images/fe-forte.svg
+    - assets/images/fe-insulin.svg
+    - assets/images/fe-person.svg
+    - assets/images/fe-vovo.svg
+    - assets/images/fundo-azul.svg
+    - assets/images/fundo-betinho.svg
+    - assets/images/fundo-bobo.svg
+    - assets/images/fundo-canetto.svg
+    - assets/images/fundo-fe.svg
+    - assets/images/fundo-hiper.svg
+    - assets/images/fundo-hipo.svg
+    - assets/images/fundo-hist.svg
+    - assets/images/fundo-insulins.svg
+    - assets/images/fundo-lita.svg
+    - assets/images/fundo-mito.svg
+    - assets/images/fundo-pumps.svg
+    - assets/images/fundo-rei.svg
+    - assets/images/fundo-vovo.svg
+    - assets/images/fundodiabetes.svg
+    - assets/images/fundoinsulinas.svg
+    - assets/images/fundopaglivro.svg
+    - assets/images/glicoamigos-card.png
+    - assets/images/glicoamigos1.png
+    - assets/images/glicoamigos2.png
+    - assets/images/glicoamigos3.png
+    - assets/images/glicoamigos4.png
+    - assets/images/glicoamigos5.png
+    - assets/images/glicoamigos6.png
+    - assets/images/glicogotas_logo.png
+    - assets/images/historia.svg
+    - assets/images/insulina-capa.png
     - assets/images/insulinas.svg
+    - assets/images/insulins-person.svg
+    - assets/images/insulins.svg
     - assets/images/insulins2.svg
     - assets/images/insulins3.svg
+    - assets/images/jo&kah.png
+    - assets/images/jogos.svg
+    - assets/images/Lita-apl-insulina.svg
+    - assets/images/Lita-atencao.svg
     - assets/images/lita-coracao.svg
+    - assets/images/lita-educando.svg
+    - assets/images/Lita-espada.svg
+    - assets/images/Lita-geladeira.svg
+    - assets/images/Lita-heroina.svg
+    - assets/images/lita-insulins.svg
+    - assets/images/Lita-irritada.svg
+    - assets/images/lita-pancreas.svg
     - assets/images/lita-pensa.svg
+    - assets/images/lita-person.svg
+    - assets/images/lita-raiox.svg
+    - assets/images/lita-respondendo.svg
     - assets/images/lita-uau.svg
-    - assets/images/rapido.svg
+    - assets/images/Lita-uau2.svg
+    - assets/images/Lita-xixi.svg
+    - assets/images/lita.svg
+    - assets/images/livro.svg
+    - assets/images/Medica-lita.svg
+    - assets/images/medica-vovo.svg
+    - assets/images/missao-tirinha.png
+    - assets/images/mito2-capa.png
+    - assets/images/pancreas-capa.png
     - assets/images/pancreas.svg
-    - assets/images/error.svg
-    - assets/images/fundoinsulinas.svg
+    - assets/images/perso-canetto.svg
+    - assets/images/person.svg
+    - assets/images/personagem_acerto.png
+    - assets/images/personagem_erro.png
+    - assets/images/personagem_neutro.png
+    - assets/images/Pumps-anunciando.svg
+    - assets/images/Pumps-anunciando2.svg
+    - assets/images/pumps-ens.svg
+    - assets/images/pumps-person.svg
+    - assets/images/rapido.svg
+    - assets/images/rei-da-hiper.svg
+    - assets/images/rei-pancreas.svg
+    - assets/images/Saudavel.svg
+    - assets/images/talita_capa.png
+    - assets/images/talita_icon.png
+    - assets/images/tela-inicial-perso.svg
+    - assets/images/tirinha-aguavai.png
+    - assets/images/tirinha-docura-capa.png
+    - assets/images/tirinha-ins-1.png
+    - assets/images/tirinha-ins-2.png
+    - assets/images/tirinha-ins-3.png
+    - assets/images/tirinha-insu-capa.png
+    - assets/images/tirinha-missao.png
+    - assets/images/tirinha1.png
+    - assets/images/tirinha2.png
+    - assets/images/tirinha3.png
+
+    
     - assets/audio/titulo.mp3
     - assets/audio/musica.mp3
     - assets/audio/panc-pagina1.mp3

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:glicogotas_app/Livro/dm2-livro/vovo1.dart';
+import 'package:glicogotas_app/Livro/hiper-livro/hiper1.dart';
+import 'package:glicogotas_app/Livro/hipo-livro/hipo1.dart';
 import 'package:glicogotas_app/Livro/insulina-livro/insulina1.dart';
 import 'package:glicogotas_app/Livro/pagina1.dart';
 import 'package:glicogotas_app/controleaudio.dart';
@@ -217,6 +220,90 @@ class LivroCardsState extends State<LivroCardsPage> with RouteAware {
                           children: [
                             Image.asset(
                               'assets/images/insulina-capa.png',
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    GestureDetector(
+                      onTap: () {
+                        _audioManager.stop();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Hipo1Page()),
+                        );
+                      },
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        clipBehavior: Clip.antiAlias,
+                        child: Stack(
+                          children: [
+                            Image.asset(
+                              'assets/images/card-hipo.png',
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    GestureDetector(
+                      onTap: () {
+                        _audioManager.stop();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Hiper1Page()),
+                        );
+                      },
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        clipBehavior: Clip.antiAlias,
+                        child: Stack(
+                          children: [
+                            Image.asset(
+                              'assets/images/card-hiper.png',
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    GestureDetector(
+                      onTap: () {
+                        _audioManager.stop();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Vovo1Page()),
+                        );
+                      },
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        clipBehavior: Clip.antiAlias,
+                        child: Stack(
+                          children: [
+                            Image.asset(
+                              'assets/images/card-vovo.png',
                               fit: BoxFit.cover,
                               width: double.infinity,
                               height: double.infinity,
