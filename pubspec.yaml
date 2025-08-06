@@ -301,8 +301,40 @@ flutter:
     - assets/sounds/page_forward.mp3
     - assets/sounds/page_back.mp3
     - assets/sounds/erro.mp3  
-    - assets/sounds/acerto.mp3
-    
+    - assets/sounds/acerto.mp3 
+    - assets/audio/audios-hipoglicemia/tela1-hipoglicemia.mp3
+    - assets/audio/audios-hipoglicemia/tela2-hipoglicemia.mp3
+    - assets/audio/audios-hipoglicemia/tela3-hipoglicemia.mp3
+    - assets/audio/audios-hipoglicemia/tela4-hipoglicemia.mp3
+    - assets/audio/audios-hipoglicemia/tela5-hipoglicemia.mp3
+    - assets/audio/audios-hipoglicemia/tela6-hipoglicemia.mp3
+    - assets/audio/audios-hipoglicemia/tela7-hipoglicemia.mp3
+    - assets/audio/audios-hipoglicemia/tela8-hipoglicemia.mp3
+
+    - assets/audio/audios-hiperglicemia/tela1-hiperglicemia.mp3
+    - assets/audio/audios-hiperglicemia/tela2-hiperglicemia.mp3
+    - assets/audio/audios-hiperglicemia/tela3-hiperglicemia.mp3
+    - assets/audio/audios-hiperglicemia/tela4-hiperglicemia.mp3
+    - assets/audio/audios-hiperglicemia/tela5-hiperglicemia.mp3
+    - assets/audio/audios-hiperglicemia/tela6-hiperglicemia.mp3
+    - assets/audio/audios-hiperglicemia/tela7-hiperglicemia.mp3
+    - assets/audio/audios-hiperglicemia/tela8-hiperglicemia.mp3
+
+    - assets/audio/audios-diabtp2/diabtp2-1.mp3
+    - assets/audio/audios-diabtp2/diabtp2-2.mp3
+    - assets/audio/audios-diabtp2/diabtp2-3.mp3
+    - assets/audio/audios-diabtp2/diabtp2-4.mp3
+    - assets/audio/audios-diabtp2/diabtp2-5.mp3
+    - assets/audio/audios-diabtp2/diabtp2-6.mp3
+    - assets/audio/audios-diabtp2/diabtp2-7.mp3
+    - assets/audio/audios-diabtp2/diabtp2-8.mp3
+    - assets/audio/audios-diabtp2/diabtp2-9.mp3
+    - assets/audio/audios-diabtp2/diabtp2-10.mp3
+    - assets/audio/audios-diabtp2/diabtp2-11.mp3
+    - assets/audio/audios-diabtp2/diabtp2-12.mp3
+
+
+
 
 
   # To add assets to your application, add an assets section, like this:
