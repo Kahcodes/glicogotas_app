@@ -22,7 +22,7 @@ class _Hipo8PageState extends State<Hipo8Page> with RouteAware {
   void initState() {
     super.initState();
     PageDatabase.instance.saveCurrentPage(8); // Salva o número da página atual
-    _audioManager.play('audio/pag.mp3', context); // Reproduz o áudio
+    _audioManager.play('audio/audios-hipoglicemia/tela8-hipoglicemia.mp3', context); // Reproduz o áudio
   }
 
   @override
@@ -46,7 +46,7 @@ class _Hipo8PageState extends State<Hipo8Page> with RouteAware {
 
   @override
   void didPopNext() {
-    _audioManager.play('audio/pag.mp3', context); // Reinicia o áudio ao voltar
+    _audioManager.play('audio/audios-hipoglicemia/tela8-hipoglicemia.mp3', context); // Reinicia o áudio ao voltar
   }
 
   @override

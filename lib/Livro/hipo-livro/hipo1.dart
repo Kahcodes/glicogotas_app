@@ -40,7 +40,7 @@ class _Hipo1PageState extends State<Hipo1Page> with RouteAware {
   @override
   void initState() {
     super.initState();
-    _audioManager.play('audio/.mp3', context);
+    _audioManager.play('audio/audios-hipoglicemia/tela1-hipoglicemia.mp3', context);
     _navigateToSavedPage();
   }
 
@@ -86,7 +86,7 @@ class _Hipo1PageState extends State<Hipo1Page> with RouteAware {
 
   @override
   void didPopNext() {
-    _audioManager.play('audio/.mp3', context);
+    _audioManager.play('audio/audios-hipoglicemia/tela1-hipoglicemia.mp3', context);
   }
 
   @override
