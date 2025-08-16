@@ -13,7 +13,6 @@ class TirinhaMissao extends StatefulWidget {
 class TirinhaMissaoState extends State<TirinhaMissao> {
   final List<String> tirinha = [
     'assets/images/missao-tirinha.png',
-    
   ];
 
   int currentIndex = 0;
@@ -25,19 +24,6 @@ class TirinhaMissaoState extends State<TirinhaMissao> {
     setState(() {
       currentIndex = index;
     });
-  }
-
-  void _navigateToPage(int index) {
-    if (index >= 0 && index < tirinha.length) {
-      _pageController.animateToPage(
-        index,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-      setState(() {
-        currentIndex = index;
-      });
-    }
   }
 
   @override
@@ -163,30 +149,6 @@ class TirinhaMissaoState extends State<TirinhaMissao> {
                     ),
                   ),
                 ],
-              ),
-              // Botão para navegar para a página anterior
-              Positioned(
-                bottom: 50.h,
-                left: 20.w,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_rounded,
-                      size: 48, color: Color.fromARGB(255, 0, 0, 0)),
-                  onPressed: () {
-                    _navigateToPage(currentIndex - 1);
-                  },
-                ),
-              ),
-              // Botão para navegar para a próxima página
-              Positioned(
-                bottom: 50.h,
-                right: 20.w,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_forward_ios_rounded,
-                      size: 48, color: Color.fromARGB(255, 0, 0, 0)),
-                  onPressed: () {
-                    _navigateToPage(currentIndex + 1);
-                  },
-                ),
               ),
             ],
           );
