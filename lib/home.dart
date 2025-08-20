@@ -73,44 +73,6 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
     _audioManager.play('audio/musica.mp3', context);
   }
 
-  Widget buildButton({
-    required VoidCallback onPressed,
-    required Color color,
-    required String label,
-    required Widget icon,
-  }) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40.r),
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-      ),
-      child: SizedBox(
-        width: 160.w,
-        height: 32.h,
-        child: Row(
-          children: [
-            icon,
-            SizedBox(width: 10.w),
-            Expanded(
-              child: Text(
-                label,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.podkova(
-                  color: Colors.white,
-                  fontSize: 14.sp,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,6 +84,21 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
             minTextAdapt: true,
           );
 
+          const int columns = 2;
+          const int itemCount = 6;
+
+          final double gridHPad = 22.w;
+          final double crossSpacing = 16.w;
+          final double mainSpacing = 18.h;
+
+          final double usableWidth = constraints.maxWidth - (gridHPad * 2) - (crossSpacing * (columns - 1));
+          double itemSide = usableWidth / columns;
+
+          final double maxSide = constraints.maxHeight * 0.16;
+          final double minSide = 92.w;
+          if (itemSide > maxSide) itemSide = maxSide;
+          if (itemSide < minSide) itemSide = minSide;
+
           return Container(
             decoration: const BoxDecoration(color: Colors.white),
             child: Stack(
@@ -132,6 +109,8 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
                     child: SvgPicture.asset('assets/images/decoracao.svg'),
                   ),
                 ),
+
+                // Botão de voltar
                 Positioned(
                   top: 40.h,
                   left: 16.w,
@@ -146,6 +125,8 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
                     },
                   ),
                 ),
+
+                // Botão de configurações
                 Positioned(
                   top: 40.h,
                   right: 16.w,
@@ -162,150 +143,266 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
                     },
                   ),
                 ),
-                Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 20.h),
-                    child: Column(
+
+                // Cabeçalho fixo (Talita + texto)
+                Positioned(
+                  top: 90.h,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Row(
+                        SizedBox(
+                          width: 85.w,
+                          height: 110.h,
+                          child: Image.asset(
+                            'assets/images/talita_icon.png',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        SizedBox(width: 12.w),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(
-                              width: 120.w,
-                              height: 200.h,
-                              child: ClipRect(
-                                child: Image.asset(
-                                  'assets/images/talita_icon.png',
-                                  fit: BoxFit.contain,
-                                ),
+                            Text(
+                              'Como vamos',
+                              style: GoogleFonts.sansitaSwashed(
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.bold,
+                                color: const Color(0xFF37ABDC),
                               ),
                             ),
-                            SizedBox(width: 20.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Como vamos',
-                                  style: GoogleFonts.sansitaSwashed(
-                                    color: const Color(0xFF37ABDC),
-                                    fontSize: 24.sp,
-                                  ),
+                            RichText(
+                              text: TextSpan(
+                                style: GoogleFonts.sansitaSwashed(
+                                  fontSize: 22.sp,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: 'aprender',
-                                        style: GoogleFonts.sansitaSwashed(
-                                          color: const Color(0xFFF4719C),
-                                          fontSize: 24.sp,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: ' hoje?',
-                                        style: GoogleFonts.sansitaSwashed(
-                                          color: const Color(0xFF37ABDC),
-                                          fontSize: 24.sp,
-                                        ),
-                                      ),
-                                    ],
+                                children: const [
+                                  TextSpan(
+                                    text: 'aprender ',
+                                    style: TextStyle(color: Color(0xFFF4719C)),
                                   ),
-                                ),
-                              ],
+                                  TextSpan(
+                                    text: 'hoje?',
+                                    style: TextStyle(color: Color(0xFF37ABDC)),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
-                        SizedBox(height: 20.h),
-                        buildButton(
-                          onPressed: () {
-                            _audioManager.stop();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const PersonagensPage()),
-                            );
-                          },
-                          color: const Color(0xFF00D287),
-                          label: 'PERSONAGENS',
-                          icon: SvgPicture.asset(
-                            "assets/images/person.svg",
-                            height: 20.h,
-                            width: 20.w,
-                            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                          ),
-                        ),
-                        SizedBox(height: 14.h),
-                        buildButton(
-                          onPressed: () {
-                            _audioManager.stop();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const LivroCardsPage()),
-                            );
-                          },
-                          color: Colors.blue,
-                          label: 'LIVRO',
-                          icon: SvgPicture.asset(
-                            "assets/images/livro.svg",
-                            height: 20.h,
-                            width: 20.w,
-                            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                          ),
-                        ),
-                        SizedBox(height: 14.h),
-                        buildButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const TirinhaCardsPage()),
-                            );
-                          },
-                          color: const Color(0xFFFCB44E),
-                          label: 'TIRINHAS',
-                          icon: SvgPicture.asset(
-                            "assets/images/historia.svg",
-                            height: 20.h,
-                            width: 20.w,
-                            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                          ),
-                        ),
-                        SizedBox(height: 14.h),
-                        buildButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const JogosPage()),
-                            );
-                          },
-                          color: Colors.pinkAccent,
-                          label: 'JOGOS',
-                          icon: SvgPicture.asset(
-                            "assets/images/jogos.svg",
-                            height: 20.h,
-                            width: 20.w,
-                            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                          ),
-                        ),
-                        SizedBox(height: 14.h),
-                        buildButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const MitosOuVerdadesPage()),
-                            );
-                          },
-                          color: const Color(0xFF9C6ADE),
-                          label: 'MITO OU VERDADE',
-                          icon: Icon(Icons.question_answer, color: Colors.white, size: 20.sp),
-                        ),
                       ],
                     ),
+                  ),
+                ),
+
+                // Botões
+                Positioned(
+                  top: 230.h, // ajuste este valor para subir ou descer os botões
+                  left: 0,
+                  right: 0,
+                  bottom: 8.h,
+                  child: GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(horizontal: gridHPad),
+                    itemCount: itemCount,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: columns,
+                      crossAxisSpacing: crossSpacing,
+                      mainAxisSpacing: mainSpacing,
+                      mainAxisExtent: itemSide,
+                    ),
+                    itemBuilder: (context, index) {
+                      switch (index) {
+                        case 0:
+                          return CardButton(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const PersonagensPage(),
+                                ),
+                              );
+                            },
+                            color: const Color(0xFF00D287),
+                            label: "Personagens",
+                            icon: Icon(Icons.people, size: 22.sp, color: Colors.white),
+                          );
+                        case 1:
+                          return CardButton(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const TirinhaCardsPage(),
+                                ),
+                              );
+                            },
+                            color: Colors.orange,
+                            label: "Vídeo",
+                            icon: Icon(Icons.video_collection, size: 22.sp, color: Colors.white),
+                          );
+                        case 2:
+                          return CardButton(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LivroCardsPage(),
+                                ),
+                              );
+                            },
+                            color: Colors.blue,
+                            label: "Livro",
+                            icon: Icon(Icons.menu_book, size: 22.sp, color: Colors.white),
+                          );
+                        case 3:
+                          return CardButton(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const MitosOuVerdadesPage(),
+                                ),
+                              );
+                            },
+                            color: const Color(0xFF9C6ADE),
+                            label: "Mitos ou Verdades",
+                            icon: Icon(Icons.question_answer, size: 22.sp, color: Colors.white),
+                          );
+                        case 4:
+                          return CardButton(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const TirinhaCardsPage(),
+                                ),
+                              );
+                            },
+                            color: Colors.pinkAccent,
+                            label: "Tirinhas",
+                            icon: Icon(Icons.style, size: 22.sp, color: Colors.white),
+                          );
+                        case 5:
+                        default:
+                          return CardButton(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const JogosPage(),
+                                ),
+                              );
+                            },
+                            color: Colors.teal,
+                            label: "Jogos",
+                            icon: Icon(Icons.sports_esports, size: 22.sp, color: Colors.white),
+                          );
+                      }
+                    },
                   ),
                 ),
               ],
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+///
+/// Botão com efeito de "afundar" ao pressionar
+///
+class CardButton extends StatefulWidget {
+  final VoidCallback onTap;
+  final Color color;
+  final String label;
+  final Widget icon;
+
+  const CardButton({
+    super.key,
+    required this.onTap,
+    required this.color,
+    required this.label,
+    required this.icon,
+  });
+
+  @override
+  State<CardButton> createState() => _CardButtonState();
+}
+
+class _CardButtonState extends State<CardButton> {
+  bool _isPressed = false;
+
+  void _onTapDown(TapDownDetails details) {
+    setState(() => _isPressed = true);
+  }
+
+  void _onTapUp(TapUpDetails details) {
+    setState(() => _isPressed = false);
+    widget.onTap();
+  }
+
+  void _onTapCancel() {
+    setState(() => _isPressed = false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: _onTapDown,
+      onTapUp: _onTapUp,
+      onTapCancel: _onTapCancel,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 120),
+        decoration: BoxDecoration(
+          color: widget.color,
+          borderRadius: BorderRadius.circular(20.r),
+          border: Border(
+            bottom: BorderSide(
+              color: _isPressed
+                  ? Colors.transparent
+                  : Colors.grey.withValues(alpha: 0.4), // ✅ atualizado
+              width: 3,
+            ),
+          ),
+          boxShadow: _isPressed
+              ? []
+              : [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.15), // ✅ atualizado
+                    blurRadius: 4,
+                    offset: const Offset(0, 4,)
+                  ),
+                ],
+        ),
+        margin: EdgeInsets.all(6.w),
+        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 8.w),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            widget.icon,
+            SizedBox(height: 6.h),
+            Text(
+              widget.label.toUpperCase(),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,  
+              style: GoogleFonts.podkova(
+                color: Colors.white,
+                fontSize: 11.sp,
+                fontWeight: FontWeight.w700,
+                height: 1.1,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
