@@ -176,7 +176,7 @@ class PersonagemLitaPageState extends State<PersonagemLitaPage>
                 right: 0,
                 child: Center(
                   child: SvgPicture.asset(
-                    'assets/images/lita-heroina.svg',
+                    'assets/images/Lita-heroina.svg',
                     height: 0.42.sh,
                   ),
                 ),

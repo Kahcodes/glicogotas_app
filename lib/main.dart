@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
-import 'iniciar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'iniciar.dart';
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SharedPreferences.getInstance();
   runApp(const GlicogotasApp());
 }
 
@@ -23,7 +21,6 @@ class GlicogotasApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ConfiguracoesRepository()),
       ],
       child: ScreenUtilInit(
-        // Tamanho base mais compatível com tablets e celulares
         designSize: const Size(390, 844),
         minTextAdapt: true,
         splitScreenMode: true,

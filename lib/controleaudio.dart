@@ -14,7 +14,7 @@ class AudioManager {
     final configuracoesProvider =
         Provider.of<ConfiguracoesRepository>(context, listen: false);
 
-    if (configuracoesProvider.soundOn) {
+    if (configuracoesProvider.musicOn) {
       await _audioPlayer.play(AssetSource(assetPath));
     } else {
       await _audioPlayer.stop();

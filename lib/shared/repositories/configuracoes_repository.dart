@@ -12,41 +12,51 @@ class ConfiguracoesRepository extends ChangeNotifier {
   double get volume => _volume;
   String get language => _language;
 
-  // Obter estado do som
+  ConfiguracoesRepository() {
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    _soundOn = prefs.getBool('soundOn') ?? true;
+    _musicOn = prefs.getBool('musicOn') ?? true;
+    _volume = prefs.getDouble('volume') ?? 0.7;
+    _language = prefs.getString('language') ?? 'Português';
+    notifyListeners();
+  }
+
+  // Som
   Future<bool> getSoundOn() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool('soundOn') ?? true;
   }
 
-  // Alterar estado do som
   Future<void> switchSoundOn() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    _soundOn = !await getSoundOn();
+    _soundOn = !_soundOn;
     await prefs.setBool('soundOn', _soundOn);
     notifyListeners();
   }
 
-  // Obter estado da música
+  // Música
   Future<bool> getMusicOn() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool('musicOn') ?? true;
   }
 
-  // Alterar estado da música
   Future<void> switchMusicOn() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    _musicOn = !await getMusicOn();
+    _musicOn = !_musicOn;
     await prefs.setBool('musicOn', _musicOn);
     notifyListeners();
   }
 
-  // Obter volume
+  // Volume
   Future<double> getVolume() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getDouble('volume') ?? 0.7;
   }
 
-  // Alterar volume
   Future<void> setVolume(double value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     _volume = value;
@@ -54,13 +64,12 @@ class ConfiguracoesRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Obter idioma
+  // Idioma (mantido no repo, mas não aparece no layout)
   Future<String> getLanguage() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('language') ?? 'Português';
   }
 
-  // Alterar idioma
   Future<void> setLanguage(String lang) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     _language = lang;

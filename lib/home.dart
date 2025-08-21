@@ -21,33 +21,22 @@ class TelaHome extends StatefulWidget {
   TelaHomeState createState() => TelaHomeState();
 }
 
-class TelaHomeState extends State<TelaHome> with RouteAware {
+class TelaHomeState extends State<TelaHome> with RouteAware, WidgetsBindingObserver {
   final AudioManager _audioManager = AudioManager();
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _playBackgroundMusic();
   }
 
-  void _playBackgroundMusic() async {
-    final configProvider = Provider.of<ConfiguracoesRepository>(
-      context,
-      listen: false,
-    );
-
-    configProvider.addListener(() {
-      if (configProvider.musicOn) {
-        _audioManager.play('audio/musica.mp3', context);
-      } else {
-        _audioManager.stop();
-      }
-    });
-
-    if (configProvider.musicOn && !_audioManager.isPlaying) {
-      _audioManager.setVolume(configProvider.volume);
-      _audioManager.play('audio/musica.mp3', context);
-    }
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    routeObserver.unsubscribe(this);
+    _audioManager.stop();
+    super.dispose();
   }
 
   @override
@@ -56,11 +45,22 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
     routeObserver.subscribe(this, ModalRoute.of(context)! as PageRoute<dynamic>);
   }
 
-  @override
-  void dispose() {
-    routeObserver.unsubscribe(this);
-    _audioManager.stop();
-    super.dispose();
+  void _playBackgroundMusic() async {
+    final configProvider = Provider.of<ConfiguracoesRepository>(context, listen: false);
+
+    configProvider.addListener(() {
+      if (configProvider.musicOn) {
+        _audioManager.setVolume(configProvider.volume);
+        _audioManager.play('audio/musica.mp3', context);
+      } else {
+        _audioManager.stop();
+      }
+    });
+
+    if (configProvider.musicOn) {
+      _audioManager.setVolume(configProvider.volume);
+      _audioManager.play('audio/musica.mp3', context);
+    }
   }
 
   @override
@@ -70,7 +70,20 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
 
   @override
   void didPopNext() {
-    _audioManager.play('audio/musica.mp3', context);
+    final configProvider = Provider.of<ConfiguracoesRepository>(context, listen: false);
+    if (configProvider.musicOn) {
+      _audioManager.play('audio/musica.mp3', context);
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final configProvider = Provider.of<ConfiguracoesRepository>(context, listen: false);
+    if (state == AppLifecycleState.paused) {
+      _audioManager.stop();
+    } else if (state == AppLifecycleState.resumed && configProvider.musicOn) {
+      _audioManager.play('audio/musica.mp3', context);
+    }
   }
 
   @override
@@ -202,7 +215,7 @@ class TelaHomeState extends State<TelaHome> with RouteAware {
 
                 // Botões
                 Positioned(
-                  top: 230.h, // ajuste este valor para subir ou descer os botões
+                  top: 230.h,
                   left: 0,
                   right: 0,
                   bottom: 8.h,
@@ -368,7 +381,7 @@ class _CardButtonState extends State<CardButton> {
             bottom: BorderSide(
               color: _isPressed
                   ? Colors.transparent
-                  : Colors.grey.withValues(alpha: 0.4), // ✅ atualizado
+                  : Colors.grey.withValues(alpha: 0.4),
               width: 3,
             ),
           ),
@@ -376,9 +389,9 @@ class _CardButtonState extends State<CardButton> {
               ? []
               : [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.15), // ✅ atualizado
+                    color: Colors.black.withValues(alpha: 0.15),
                     blurRadius: 4,
-                    offset: const Offset(0, 4,)
+                    offset: const Offset(0, 4),
                   ),
                 ],
         ),
@@ -393,7 +406,7 @@ class _CardButtonState extends State<CardButton> {
               widget.label.toUpperCase(),
               textAlign: TextAlign.center,
               maxLines: 2,
-              overflow: TextOverflow.ellipsis,  
+              overflow: TextOverflow.ellipsis,
               style: GoogleFonts.podkova(
                 color: Colors.white,
                 fontSize: 11.sp,

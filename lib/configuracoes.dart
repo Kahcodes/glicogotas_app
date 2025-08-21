@@ -106,7 +106,8 @@ class ConfigDialogState extends State<ConfigDialog> {
 
                   SizedBox(height: 20.h),
 
-                  /* Controle de volume
+                  // FUTURO: Controle de volume (desabilitado por enquanto)
+                  /*
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -146,40 +147,6 @@ class ConfigDialogState extends State<ConfigDialog> {
                     ],
                   ),
                   */
-
-                  SizedBox(height: 20.h),
-
-                  // Idioma
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'IDIOMA:',
-                      style: GoogleFonts.chewy(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFFFFFFFF),
-                        shadows: [
-                          Shadow(
-                            color: Colors.black.withAlpha((0.5 * 255).toInt()),
-
-                            offset: Offset(2.w, 2.h),
-                            blurRadius: 4.r,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildLanguageButton('Português', configuracoesProvider),
-                      SizedBox(width: 10.w),
-                      _buildLanguageButton('Español', configuracoesProvider),
-                      SizedBox(width: 10.w),
-                      _buildLanguageButton('English', configuracoesProvider),
-                    ],
-                  ),
 
                   SizedBox(height: 20.h),
 
@@ -254,41 +221,6 @@ class ConfigDialogState extends State<ConfigDialog> {
           onChanged: onChanged,
         ),
       ],
-    );
-  }
-
-  Widget _buildLanguageButton(
-      String language, ConfiguracoesRepository provider) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: provider.language == language
-            ? const Color(0xFFFCB44E)
-            : const Color(0xFF37ABDC),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.r),
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-        shadowColor: Colors.black.withAlpha((0.5 * 255).toInt()),
-        elevation: 5,
-      ),
-      onPressed: () {
-        provider.setLanguage(language);
-      },
-      child: Text(
-        language,
-        style: GoogleFonts.chewy(
-          fontSize: 12.sp,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-          shadows: [
-            Shadow(
-              color: Colors.black.withAlpha((0.5 * 255).toInt()),
-              offset: Offset(2.w, 2.h),
-              blurRadius: 4.r,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
