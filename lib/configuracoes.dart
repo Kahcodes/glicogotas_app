@@ -20,13 +20,13 @@ class ConfigDialogState extends State<ConfigDialog> {
 
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pop(); // Fecha o diálogo ao tocar fora
+        Navigator.of(context).pop(); // Fecha ao tocar fora
       },
       child: Dialog(
         backgroundColor: Colors.transparent,
         insetPadding: EdgeInsets.all(10.w),
         child: GestureDetector(
-          onTap: () {}, // Impede o fechamento ao tocar dentro do diálogo
+          onTap: () {}, // Impede fechar ao tocar dentro
           child: Center(
             child: Container(
               width: 300.w,
@@ -45,7 +45,7 @@ class ConfigDialogState extends State<ConfigDialog> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Título e botão voltar
+                  // Título + voltar
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -75,82 +75,32 @@ class ConfigDialogState extends State<ConfigDialog> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 48.w), // Espaço para balancear o layout
+                      SizedBox(width: 48.w), // Balanceia layout
                     ],
                   ),
                   SizedBox(height: 20.h),
 
                   // Controle de som
                   FutureBuilder(
-                    future: configuracoesProvider.getSoundOn(),
-                    builder: (context, snapshot) {
-                      return _buildSwitchOption('SOM', snapshot.data ?? true,
-                          (value) {
-                        configuracoesProvider.switchSoundOn();
-                      });
-                    },
-                  ),
-
-                  SizedBox(height: 20.h),
-
-                  // Controle de música
-                  FutureBuilder(
                     future: configuracoesProvider.getMusicOn(),
                     builder: (context, snapshot) {
-                      return _buildSwitchOption('MÚSICA', snapshot.data ?? true,
-                          (value) {
-                        configuracoesProvider.switchMusicOn();
-                      });
+                      return _buildSwitchOption(
+                        'SOM',
+                        snapshot.data ?? true,
+                        (value) {
+                          configuracoesProvider.switchMusicOn();
+                        },
+                      );
                     },
                   ),
 
                   SizedBox(height: 20.h),
 
-                  // FUTURO: Controle de volume (desabilitado por enquanto)
-                  /*
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'VOLUME',
-                        style: GoogleFonts.chewy(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xFFFFFFFF),
-                          shadows: [
-                            Shadow(
-                              color: Colors.black.withOpacity(0.5),
-                              offset: Offset(2.w, 2.h),
-                              blurRadius: 4.r,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: SliderTheme(
-                          data: SliderThemeData(
-                            trackHeight: 4.h,
-                            thumbColor: const Color(0xFFFCB44E),
-                            activeTrackColor: const Color(0xFFFCB44E),
-                            inactiveTrackColor: const Color(0xFFFFFFFF),
-                          ),
-                          child: Slider(
-                            value: configuracoesProvider.volume,
-                            min: 0,
-                            max: 1,
-                            onChanged: (value) {
-                              configuracoesProvider.setVolume(value);
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  */
+                  Divider(color: Colors.white70),
 
                   SizedBox(height: 20.h),
 
-                  // Ícone de ajuda
+                  // Sobre
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -159,7 +109,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                         style: GoogleFonts.podkova(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
-                          color: const Color(0xFFFFFFFF),
+                          color: Colors.white,
                           shadows: [
                             Shadow(
                               color: Colors.black.withAlpha((0.5 * 255).toInt()),
@@ -196,31 +146,43 @@ class ConfigDialogState extends State<ConfigDialog> {
 
   Widget _buildSwitchOption(
       String title, bool value, ValueChanged<bool> onChanged) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: GoogleFonts.chewy(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-            color: const Color(0xFFFFFFFF),
-            shadows: [
-              Shadow(
-                color: Colors.black.withAlpha((0.5 * 255).toInt()),
-                offset: Offset(2.w, 2.h),
-                blurRadius: 4.r,
+    return InkWell(
+      onTap: () => onChanged(!value),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Icon(
+                value ? Icons.volume_up : Icons.volume_off,
+                color: const Color(0xFFFCB44E),
+              ),
+              SizedBox(width: 8.w),
+              Text(
+                title,
+                style: GoogleFonts.chewy(
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  shadows: [
+                    Shadow(
+                      color: Colors.black.withValues(alpha: 0.5),
+                      offset: Offset(2.w, 2.h),
+                      blurRadius: 4.r,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-        ),
-        Switch(
-          value: value,
-          activeColor: const Color(0xFFFCB44E),
-          inactiveTrackColor: const Color(0xFFFFFFFF),
-          onChanged: onChanged,
-        ),
-      ],
+          Switch(
+            value: value,
+            activeColor: const Color(0xFFFCB44E),
+            inactiveTrackColor: Colors.white,
+            onChanged: onChanged,
+          ),
+        ],
+      ),
     );
   }
 }

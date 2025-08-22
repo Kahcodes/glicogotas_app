@@ -8,36 +8,36 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 
-class MitosVerdadesScreen extends StatefulWidget {
-  const MitosVerdadesScreen({super.key});
+class DocesScreen extends StatefulWidget {
+  const DocesScreen({super.key});
 
   @override
-  State<MitosVerdadesScreen> createState() => _MitosVerdadesScreenState();
+  State<DocesScreen> createState() => _DocesScreenState();
 }
 
-class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
+class _DocesScreenState extends State<DocesScreen> {
   final List<Map<String, dynamic>> mitosVerdades = [
     {
-      'pergunta': 'O DM1 é causado por comer muito açúcar?',
+      'pergunta': 'Doces são completamente proibidos?',
       'respostaCorreta': false,
       'titulo': 'É MITO!',
       'explicacao':
-          'Muitas pessoas ainda acreditam que o diabetes tipo 1 surge por causa do consumo excessivo de doces, mas isso não é verdade.',
+          'Mesmo vivendo com diabetes tipo 1, a pessoa pode consumir doces — desde que faça o cálculo de carboidratos e ajuste a insulina corretamente.',
     },
     {
-      'titulo': 'O que realmente acontece?',
+      'titulo': 'O segredo está no equilíbrio ⚖️',
       'explicacao':
-          'O diabetes tipo 1 é uma condição autoimune: o sistema imunológico ataca as células do pâncreas que produzem insulina.',
+          'Não é necessário cortar totalmente os doces. O importante é aprender a incluir de forma consciente na rotina.',
     },
     {
-      'titulo': 'Nada de culpar o chocolate! 🍫',
+      'titulo': 'Conversa com a equipe médica 🍩',
       'explicacao':
-          'O diabetes tipo 1 não pode ser prevenido e não tem relação com hábitos alimentares.',
+          'O acompanhamento com nutricionista e endocrinologista ajuda a saber quando e como consumir sem prejuízos.',
     },
     {
-      'titulo': 'E o que fazer?',
+      'titulo': 'Você pode, sim! 😋',
       'explicacao':
-          'Com monitoramento, contagem de carboidratos e uso de insulina, é possível viver com saúde e energia!',
+          'Com planejamento e orientação, os doces podem fazer parte de uma vida saudável.',
     },
   ];
 
@@ -136,7 +136,7 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
     bool temResposta = item.containsKey('respostaCorreta');
 
     return Scaffold(
-      backgroundColor: const Color(0xFFfff3f6),
+      backgroundColor: const Color(0xFFFFF8F0),
       body: Stack(
         children: [
           Positioned.fill(
@@ -185,7 +185,7 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                       textStyle: TextStyle(
                         fontSize: 28.sp,
                         fontWeight: FontWeight.bold,
-                        color: const Color(0xFFEF291D),
+                        color: const Color(0xFFE53935),
                       ),
                     ),
                     children: [
@@ -199,7 +199,7 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                           textStyle: TextStyle(
                             fontSize: 28.sp,
                             fontWeight: FontWeight.bold,
-                            color: const Color(0xFF01C881),
+                            color: const Color(0xFF43A047),
                           ),
                         ),
                       ),
@@ -211,7 +211,7 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
 
                 // Conteúdo
                 SizedBox(
-                  height: 0.5.sh, // 👈 padrão menor (50% da tela)
+                  height: 0.5.sh,
                   child: PageView.builder(
                     controller: _pageController,
                     physics: temResposta && !respondeu
@@ -226,8 +226,8 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                       bool mostrarFeedback =
                           respondeu && index == currentIndex;
 
-                      // cores do título
-                      Color tituloColor = const Color(0xFF5A2D82);
+                      // cores do título das explicações → aqui eu mudei p/ azul
+                      Color tituloColor = const Color(0xFF1565C0);
                       String titulo = currentItem['titulo'] ?? '';
 
                       if (mostrarFeedback) {
@@ -252,7 +252,6 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            // Título
                             if (!isPergunta || mostrarFeedback) ...[
                               Text(
                                 titulo,
@@ -268,7 +267,6 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                               SizedBox(height: 18.h),
                             ],
 
-                            // Pergunta ou explicação
                             if (!mostrarFeedback) ...[
                               Text(
                                 currentItem['pergunta'] ??
@@ -284,16 +282,15 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                               ),
                             ],
 
-                            // Botões antes da resposta
                             if (isPergunta && !respondeu) ...[
-                              SizedBox(height: 28.h), // 👈 mais espaço antes dos botões
+                              SizedBox(height: 28.h),
                               Row(
                                 children: [
                                   Expanded(
                                     child: FilledButton.icon(
                                       style: FilledButton.styleFrom(
                                         backgroundColor:
-                                            const Color(0xFFA81A1A),
+                                            const Color(0xFFD32F2F),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(12.r),
@@ -320,7 +317,7 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                                     child: FilledButton.icon(
                                       style: FilledButton.styleFrom(
                                         backgroundColor:
-                                            const Color(0xFF00A369),
+                                            const Color(0xFF2E7D32),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(12.r),
@@ -346,7 +343,6 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                               ),
                             ],
 
-                            // Feedback depois de responder
                             if (mostrarFeedback) ...[
                               FadeIn(
                                 child: Image.asset(
@@ -390,7 +386,7 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: index == currentIndex
-                            ? Colors.pink
+                            ? Colors.deepOrange
                             : Colors.grey.shade300,
                       ),
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:glicogotas_app/MitosOuVerdades/mito_docesproibidos.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:glicogotas_app/home.dart';
@@ -139,7 +140,7 @@ class MitosOuVerdadesPageState extends State<MitosOuVerdadesPage> with RouteAwar
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const MitosVerdadesScreen()),
+                          MaterialPageRoute(builder: (context) => const DocesScreen ()),
                         );
                       },
                       child: Card(
