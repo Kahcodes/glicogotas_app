@@ -80,7 +80,7 @@ class MitosOuVerdadesPageState extends State<MitosOuVerdadesPage>
                       iconSize: 30.sp,
                       icon: const Icon(
                         Icons.arrow_back_ios_rounded, // Mudou para botão voltar
-                        color: Color(0xFFF4719C),
+                        color: Color(0xFF9C6ADE),
                       ),
                       onPressed: () {
                         _audioManager.stop(); // Para o áudio ao voltar
@@ -90,7 +90,7 @@ class MitosOuVerdadesPageState extends State<MitosOuVerdadesPage>
                     Text(
                       'Mitos ou Verdades',
                       style: GoogleFonts.chewy(
-                        color: const Color(0xFF37ABDC),
+                        color: const Color(0xFF9C6ADE),
                         fontSize: 24.sp,
                       ),
                     ),
@@ -98,7 +98,7 @@ class MitosOuVerdadesPageState extends State<MitosOuVerdadesPage>
                       iconSize: 30.sp,
                       icon: const Icon(
                         Icons.settings,
-                        color: Color(0xFFF4719C),
+                        color: Color(0xFF9C6ADE),
                       ),
                       onPressed: () {
                         showDialog(
@@ -182,6 +182,7 @@ class MitosOuVerdadesPageState extends State<MitosOuVerdadesPage>
             borderRadius: BorderRadius.circular(20.r),
             boxShadow: [
               BoxShadow(
+                // ignore: deprecated_member_use
                 color: Colors.black.withOpacity(0.1),
                 blurRadius: 4,
                 offset: const Offset(0, 2),
