@@ -236,7 +236,8 @@ class PersonagensContent extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               shadows: [
                                 Shadow(
-                                  color: Colors.black.withAlpha((0.25 * 255).toInt()),
+                                  color: Colors.black
+                                      .withAlpha((0.25 * 255).toInt()),
 // Sombra suave
                                   offset: const Offset(
                                       3.0, 3.0), // Ajuste de sombra
@@ -280,8 +281,8 @@ class PersonagensContent extends StatelessWidget {
                                   fontWeight: FontWeight.w400,
                                   shadows: [
                                     Shadow(
-                                     color: Colors.black.withAlpha((0.25 * 255).toInt()),
-
+                                      color: Colors.black
+                                          .withAlpha((0.25 * 255).toInt()),
                                       offset: const Offset(3.0, 3.0),
                                       blurRadius: 5.0,
                                     ),
@@ -360,8 +361,8 @@ class PersonagensContent extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               shadows: [
                                 Shadow(
-                                  color: Colors.black.withAlpha((0.25 * 255).toInt()),
-
+                                  color: Colors.black
+                                      .withAlpha((0.25 * 255).toInt()),
                                   offset: const Offset(3.0, 3.0),
                                   blurRadius: 4.0,
                                 ),

@@ -43,6 +43,7 @@ dependencies:
   url_launcher: ^6.3.1
   font_awesome_flutter: ^10.8.0
   animate_do: ^4.2.0
+  video_player: ^2.10.0
 
 
   
@@ -263,6 +264,13 @@ flutter:
     - assets/images/tirinha1.png
     - assets/images/tirinha2.png
     - assets/images/tirinha3.png
+    - assets/images/ativ_fisica.svg
+    - assets/images/causa.svg
+    - assets/images/diet.svg
+    - assets/images/doces.svg
+    - assets/images/frutas.svg
+    - assets/images/mel.svg
+
 
     
     - assets/audio/titulo.mp3
@@ -332,6 +340,8 @@ flutter:
     - assets/audio/audios-diabtp2/diabtp2-10.mp3
     - assets/audio/audios-diabtp2/diabtp2-11.mp3
     - assets/audio/audios-diabtp2/diabtp2-12.mp3
+
+    - assets/videos/Lita_DM1.mp4
 
 
 

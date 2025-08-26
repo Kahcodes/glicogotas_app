@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/glicogotas.dart';
+import 'package:glicogotas_app/Video/diabetes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/iniciar.dart';
 import 'package:glicogotas_app/main.dart';
@@ -21,7 +22,8 @@ class TelaHome extends StatefulWidget {
   TelaHomeState createState() => TelaHomeState();
 }
 
-class TelaHomeState extends State<TelaHome> with RouteAware, WidgetsBindingObserver {
+class TelaHomeState extends State<TelaHome>
+    with RouteAware, WidgetsBindingObserver {
   final AudioManager _audioManager = AudioManager();
 
   @override
@@ -35,18 +37,21 @@ class TelaHomeState extends State<TelaHome> with RouteAware, WidgetsBindingObser
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     routeObserver.unsubscribe(this);
-    _audioManager.stop();
+    _audioManager.stop(); // Para o áudio ao sair da página
+    _audioManager.dispose(); // Dispose do AudioManager
     super.dispose();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context)! as PageRoute<dynamic>);
+    routeObserver.subscribe(
+        this, ModalRoute.of(context)! as PageRoute<dynamic>);
   }
 
   void _playBackgroundMusic() async {
-    final configProvider = Provider.of<ConfiguracoesRepository>(context, listen: false);
+    final configProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: false);
 
     configProvider.addListener(() {
       if (configProvider.musicOn) {
@@ -63,14 +68,25 @@ class TelaHomeState extends State<TelaHome> with RouteAware, WidgetsBindingObser
     }
   }
 
+  // Função para navegar pausando o áudio
+  void _navigateToPage(Widget page) {
+    _audioManager.stop(); // Para o áudio antes de navegar
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
+  }
+
   @override
   void didPushNext() {
-    _audioManager.stop();
+    _audioManager.stop(); // Para o áudio quando vai para próxima página
   }
 
   @override
   void didPopNext() {
-    final configProvider = Provider.of<ConfiguracoesRepository>(context, listen: false);
+    // Reinicia o áudio quando volta para esta página
+    final configProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: false);
     if (configProvider.musicOn) {
       _audioManager.play('audio/musica.mp3', context);
     }
@@ -78,8 +94,10 @@ class TelaHomeState extends State<TelaHome> with RouteAware, WidgetsBindingObser
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    final configProvider = Provider.of<ConfiguracoesRepository>(context, listen: false);
-    if (state == AppLifecycleState.paused) {
+    final configProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: false);
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive) {
       _audioManager.stop();
     } else if (state == AppLifecycleState.resumed && configProvider.musicOn) {
       _audioManager.play('audio/musica.mp3', context);
@@ -104,7 +122,9 @@ class TelaHomeState extends State<TelaHome> with RouteAware, WidgetsBindingObser
           final double crossSpacing = 16.w;
           final double mainSpacing = 18.h;
 
-          final double usableWidth = constraints.maxWidth - (gridHPad * 2) - (crossSpacing * (columns - 1));
+          final double usableWidth = constraints.maxWidth -
+              (gridHPad * 2) -
+              (crossSpacing * (columns - 1));
           double itemSide = usableWidth / columns;
 
           final double maxSide = constraints.maxHeight * 0.16;
@@ -129,11 +149,14 @@ class TelaHomeState extends State<TelaHome> with RouteAware, WidgetsBindingObser
                   left: 16.w,
                   child: IconButton(
                     iconSize: 30.sp,
-                    icon: const Icon(Icons.arrow_back_ios, color: Color(0xFF265F95)),
+                    icon: const Icon(Icons.arrow_back_ios,
+                        color: Color(0xFF265F95)),
                     onPressed: () {
+                      _audioManager.stop(); // Para o áudio ao voltar
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const TelaInicial()),
+                        MaterialPageRoute(
+                            builder: (context) => const TelaInicial()),
                       );
                     },
                   ),
@@ -233,88 +256,57 @@ class TelaHomeState extends State<TelaHome> with RouteAware, WidgetsBindingObser
                       switch (index) {
                         case 0:
                           return CardButton(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const PersonagensPage(),
-                                ),
-                              );
-                            },
+                            onTap: () =>
+                                _navigateToPage(const PersonagensPage()),
                             color: const Color(0xFF00D287),
                             label: "Personagens",
-                            icon: Icon(Icons.people, size: 22.sp, color: Colors.white),
+                            icon: Icon(Icons.people,
+                                size: 22.sp, color: Colors.white),
                           );
                         case 1:
                           return CardButton(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const TirinhaCardsPage(),
-                                ),
-                              );
-                            },
+                            onTap: () =>
+                                _navigateToPage(const VideoDiabetesPage()),
                             color: Colors.orange,
                             label: "Vídeo",
-                            icon: Icon(Icons.video_collection, size: 22.sp, color: Colors.white),
+                            icon: Icon(Icons.video_collection,
+                                size: 22.sp, color: Colors.white),
                           );
                         case 2:
                           return CardButton(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LivroCardsPage(),
-                                ),
-                              );
-                            },
+                            onTap: () =>
+                                _navigateToPage(const LivroCardsPage()),
                             color: Colors.blue,
                             label: "Livro",
-                            icon: Icon(Icons.menu_book, size: 22.sp, color: Colors.white),
+                            icon: Icon(Icons.menu_book,
+                                size: 22.sp, color: Colors.white),
                           );
                         case 3:
                           return CardButton(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const MitosOuVerdadesPage(),
-                                ),
-                              );
-                            },
+                            onTap: () =>
+                                _navigateToPage(const MitosOuVerdadesPage()),
                             color: const Color(0xFF9C6ADE),
                             label: "Mitos ou Verdades",
-                            icon: Icon(Icons.question_answer, size: 22.sp, color: Colors.white),
+                            icon: Icon(Icons.question_answer,
+                                size: 22.sp, color: Colors.white),
                           );
                         case 4:
                           return CardButton(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const TirinhaCardsPage(),
-                                ),
-                              );
-                            },
+                            onTap: () =>
+                                _navigateToPage(const TirinhaCardsPage()),
                             color: Colors.pinkAccent,
                             label: "Tirinhas",
-                            icon: Icon(Icons.style, size: 22.sp, color: Colors.white),
+                            icon: Icon(Icons.style,
+                                size: 22.sp, color: Colors.white),
                           );
                         case 5:
                         default:
                           return CardButton(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const JogosPage(),
-                                ),
-                              );
-                            },
+                            onTap: () => _navigateToPage(const JogosPage()),
                             color: Colors.teal,
                             label: "Jogos",
-                            icon: Icon(Icons.sports_esports, size: 22.sp, color: Colors.white),
+                            icon: Icon(Icons.sports_esports,
+                                size: 22.sp, color: Colors.white),
                           );
                       }
                     },

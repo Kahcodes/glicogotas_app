@@ -1,4 +1,7 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:glicogotas_app/Livro/cards.dart';
 import 'package:glicogotas_app/Livro/diabetes-livro/diabetes1.dart';
 import 'package:glicogotas_app/Livro/diabetes-livro/diabetes2.dart';
@@ -8,11 +11,8 @@ import 'package:glicogotas_app/Livro/diabetes-livro/diabetes5.dart';
 import 'package:glicogotas_app/Livro/diabetes-livro/diabetes6.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
-import 'package:glicogotas_app/main.dart';
+import 'package:glicogotas_app/main.dart'; // routeObserver
 import 'package:glicogotas_app/sqlite.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'dart:math';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CapaPage extends StatefulWidget {
   const CapaPage({super.key});
@@ -39,6 +39,7 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
   @override
   void initState() {
     super.initState();
+    PageDatabase.instance.saveCurrentPage(1); // garante que começa na capa
     _audioManager.play('audio/titulo.mp3', context);
     _navigateToSavedPage();
   }
@@ -49,9 +50,7 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-            builder: (_) => _getPageByNumber(savedPage),
-          ),
+          MaterialPageRoute(builder: (_) => _getPageByNumber(savedPage)),
         );
       });
     }
@@ -61,7 +60,13 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
     if (pageNumber > 0 && pageNumber <= _pages.length) {
       return _pages[pageNumber - 1];
     }
-    return const CapaPage();
+    return const CapaContent();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context) as PageRoute<dynamic>);
   }
 
   @override
@@ -78,6 +83,11 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
   }
 
   @override
+  void didPopNext() {
+    _audioManager.play('audio/titulo.mp3', context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF265F95),
@@ -88,9 +98,7 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
               controller: _pageController,
               itemCount: _pages.length,
               onPageChanged: (index) {
-                setState(() {
-                  _currentPage = index;
-                });
+                setState(() => _currentPage = index);
               },
               itemBuilder: (context, index) {
                 return AnimatedBuilder(
@@ -107,17 +115,16 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
 
                     return Transform.scale(
                       scale: scale,
-                      child: Opacity(
-                        opacity: opacity,
-                        child: _pages[index],
-                      ),
+                      child: Opacity(opacity: opacity, child: _pages[index]),
                     );
                   },
                 );
               },
             ),
+
+            // Indicadores
             Positioned(
-              bottom: 16,
+              bottom: 16.h,
               left: 0,
               right: 0,
               child: Row(
@@ -126,26 +133,28 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
                   _pages.length,
                   (index) => AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    height: 8,
-                    width: _currentPage == index ? 12 : 8,
+                    margin: EdgeInsets.symmetric(horizontal: 4.w),
+                    height: 8.h,
+                    width: _currentPage == index ? 12.w : 8.w,
                     decoration: BoxDecoration(
                       color: _currentPage == index
                           ? Colors.yellow
-                          : Colors.white.withAlpha((0.5 * 255).toInt()),
-                      borderRadius: BorderRadius.circular(4),
+                          : Colors.white.withAlpha(127),
+                      borderRadius: BorderRadius.circular(4.r),
                     ),
                   ),
                 ),
               ),
             ),
+
+            // Botão voltar
             if (_currentPage > 0)
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.5,
-                left: 16,
+                left: 16.w,
                 child: IconButton(
                   icon: const Icon(Icons.arrow_back_ios,
-                      color: Color.fromARGB(0, 255, 255, 255)),
+                      color: Colors.transparent),
                   onPressed: () {
                     _audioManager.stop();
                     _pageController.previousPage(
@@ -155,13 +164,15 @@ class _CapaPageState extends State<CapaPage> with RouteAware {
                   },
                 ),
               ),
+
+            // Botão avançar
             if (_currentPage < _pages.length - 1)
               Positioned(
                 top: MediaQuery.of(context).size.height * 0.5,
-                right: 16,
+                right: 16.w,
                 child: IconButton(
                   icon: const Icon(Icons.arrow_forward_ios,
-                      color: Color.fromARGB(0, 255, 255, 255)),
+                      color: Colors.transparent),
                   onPressed: () {
                     _audioManager.stop();
                     _pageController.nextPage(
@@ -186,11 +197,17 @@ class CapaContent extends StatelessWidget {
     final audioManager = AudioManager();
     return Scaffold(
       backgroundColor: const Color(0xFF265F95),
-      body: Stack(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          ScreenUtil.init(
+            context,
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+          );
+
+          return Stack(
             children: [
+              // Topo com botões
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -198,10 +215,8 @@ class CapaContent extends StatelessWidget {
                     padding: EdgeInsets.only(top: 40.h, left: 16.w),
                     child: IconButton(
                       iconSize: 30.sp,
-                      icon: const Icon(
-                        Icons.arrow_back_ios_rounded,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                      ),
+                      icon: const Icon(Icons.arrow_back_ios_rounded,
+                          color: Colors.white),
                       onPressed: () {
                         audioManager.stop();
                         Navigator.pushReplacement(
@@ -216,83 +231,74 @@ class CapaContent extends StatelessWidget {
                     padding: EdgeInsets.only(top: 40.h, right: 16.w),
                     child: IconButton(
                       iconSize: 30.sp,
-                      icon: const Icon(
-                        Icons.settings,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                      ),
+                      icon: const Icon(Icons.settings, color: Colors.white),
                       onPressed: () {
                         showDialog(
                           context: context,
-                          builder: (BuildContext context) {
-                            return const ConfigDialog();
-                          },
+                          builder: (_) => const ConfigDialog(),
                         );
                       },
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 100.h),
-              CustomPaint(
-                painter: ArcTextPainter(),
-                child: Container(height: 80.h),
+
+              // Texto do título
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(height: 100.h),
+                  CustomPaint(
+                      painter: ArcTextPainter(),
+                      child: Container(height: 80.h)),
+                  Text('DESCOMPLICANDO',
+                      style: GoogleFonts.chewy(
+                          fontSize: 36.sp, color: Colors.yellow)),
+                  Text('o Diabetes',
+                      style: GoogleFonts.chewy(
+                          fontSize: 36.sp, color: Colors.yellow)),
+                ],
               ),
-              Text(
-                'DESCOMPLICANDO',
-                style: GoogleFonts.chewy(fontSize: 36.sp, color: Colors.yellow),
+
+              // Personagem
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Image.asset(
+                  "assets/images/talita_capa.png",
+                  height: 290.h,
+                  fit: BoxFit.cover,
+                ),
               ),
-              Text(
-                'o Diabetes',
-                style: GoogleFonts.chewy(fontSize: 36.sp, color: Colors.yellow),
+
+              // Botão avançar
+              Positioned(
+                bottom: 0.08.sh,
+                right: 20.w,
+                child: Row(
+                  children: [
+                    Text('Avançar',
+                        style: GoogleFonts.chewy(
+                            fontSize: 28.sp, color: Colors.yellow)),
+                    IconButton(
+                      icon: Icon(Icons.arrow_forward_ios_rounded,
+                          color: Colors.yellow, size: 36.sp),
+                      onPressed: () {
+                        PageDatabase.instance.saveCurrentPage(2);
+                        audioManager.stop();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Diabetes1Page()),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            child: Image.asset(
-              "assets/images/talita_capa.png",
-              height: 290.h,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Positioned(
-            bottom: 0.08.sh,
-            right: 5.w,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(right: 8.w),
-                  child: Text(
-                    'Avançar',
-                    style: GoogleFonts.chewy(
-                      fontSize: 28.sp,
-                      color: Colors.yellow,
-                    ),
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    color: Colors.yellow,
-                    size: 36.sp,
-                  ),
-                  onPressed: () {
-                    PageDatabase.instance.saveCurrentPage(1);
-                    audioManager.stop();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Diabetes1Page()),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
@@ -308,10 +314,7 @@ class ArcTextPainter extends CustomPainter {
     );
 
     final textStyle = GoogleFonts.chewy(
-      fontSize: 50,
-      color: Colors.yellow,
-      fontWeight: FontWeight.bold,
-    );
+        fontSize: 50, color: Colors.yellow, fontWeight: FontWeight.bold);
 
     const text = "GLICOGOTAS";
     final radius = size.width / 4;
@@ -324,10 +327,8 @@ class ArcTextPainter extends CustomPainter {
 
     for (int i = 0; i < text.length; i++) {
       final angle = startAngle + (i * anglePerLetter);
-      final offset = Offset(
-        centerX + radius * cos(angle),
-        centerY + radius * sin(angle),
-      );
+      final offset =
+          Offset(centerX + radius * cos(angle), centerY + radius * sin(angle));
 
       textPainter.text = TextSpan(text: text[i], style: textStyle);
       textPainter.layout();
@@ -336,15 +337,11 @@ class ArcTextPainter extends CustomPainter {
       canvas.translate(offset.dx, offset.dy);
       canvas.rotate(angle + pi / 2);
       textPainter.paint(
-        canvas,
-        Offset(-textPainter.width / 2, -textPainter.height / 2),
-      );
+          canvas, Offset(-textPainter.width / 2, -textPainter.height / 2));
       canvas.restore();
     }
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
