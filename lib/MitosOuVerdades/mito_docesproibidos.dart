@@ -22,7 +22,7 @@ class _DocesScreenState extends State<DocesScreen> {
       'respostaCorreta': false,
       'titulo': 'É MITO!',
       'explicacao':
-          'Mesmo vivendo com diabetes tipo 1, a pessoa pode consumir doces — desde que faça o cálculo de carboidratos e ajuste a insulina corretamente.',
+          'Quem tem diabetes tipo 1 pode comer doces, desde que conte os carboidratos e ajuste a insulina.',
     },
     {
       'titulo': 'O segredo está no equilíbrio ⚖️',
@@ -237,136 +237,124 @@ class _DocesScreenState extends State<DocesScreen> {
                           tituloColor = Colors.green;
                         } else {
                           titulo =
-                              "Errar faz parte! Veja a VERDADE";
+                              "Errar faz parte!";
                           tituloColor = Colors.red;
                         }
                       }
 
                       return Container(
-                        margin: EdgeInsets.symmetric(horizontal: 24.w),
-                        padding: EdgeInsets.all(20.w),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFE5D4FF),
-                          borderRadius: BorderRadius.circular(30.r),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            if (!isPergunta || mostrarFeedback) ...[
-                              Text(
-                                titulo,
-                                style: GoogleFonts.chewy(
-                                  textStyle: TextStyle(
-                                    fontSize: 22.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: tituloColor,
-                                  ),
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(height: 18.h),
-                            ],
+  margin: EdgeInsets.symmetric(horizontal: 24.w),
+  padding: EdgeInsets.all(20.w),
+  decoration: BoxDecoration(
+    color: const Color(0xFFE5D4FF),
+    borderRadius: BorderRadius.circular(30.r),
+  ),
+  child: SingleChildScrollView( // 👈 permite rolar caso o texto não caiba
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (!isPergunta || mostrarFeedback) ...[
+          Text(
+            titulo,
+            style: GoogleFonts.chewy(
+              textStyle: TextStyle(
+                fontSize: 22.sp,
+                fontWeight: FontWeight.bold,
+                color: tituloColor,
+              ),
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 18.h),
+        ],
+        if (!mostrarFeedback) ...[
+          Text(
+            currentItem['pergunta'] ??
+                currentItem['explicacao'] ??
+                '',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.chewy(
+              textStyle: TextStyle(
+                fontSize: isPergunta ? 20.sp : 18.sp,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+        ],
+        if (isPergunta && !respondeu) ...[
+          SizedBox(height: 28.h),
+          Row(
+            children: [
+              Expanded(
+                child: FilledButton.icon(
+                  style: FilledButton.styleFrom(
+                    backgroundColor: const Color(0xFFD32F2F),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                  ),
+                  icon: const Icon(Icons.close, color: Colors.white),
+                  label: Text(
+                    'Mito',
+                    style: GoogleFonts.chewy(
+                      textStyle: TextStyle(
+                          color: Colors.white, fontSize: 18.sp),
+                    ),
+                  ),
+                  onPressed: () => verificarResposta(false),
+                ),
+              ),
+              SizedBox(width: 16.w),
+              Expanded(
+                child: FilledButton.icon(
+                  style: FilledButton.styleFrom(
+                    backgroundColor: const Color(0xFF2E7D32),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                  ),
+                  icon: const Icon(Icons.check, color: Colors.white),
+                  label: Text(
+                    'Verdade',
+                    style: GoogleFonts.chewy(
+                      textStyle: TextStyle(
+                          color: Colors.white, fontSize: 18.sp),
+                    ),
+                  ),
+                  onPressed: () => verificarResposta(true),
+                ),
+              ),
+            ],
+          ),
+        ],
+        if (mostrarFeedback) ...[
+          FadeIn(
+            child: Image.asset(
+              acertou == true
+                  ? 'assets/images/personagem_acerto.png'
+                  : 'assets/images/personagem_erro.png',
+              height: 120.h,
+            ),
+          ),
+          SizedBox(height: 12.h),
+          Text(
+            currentItem['explicacao'] ?? '',
+            style: GoogleFonts.chewy(
+              textStyle: TextStyle(
+                fontSize: 16.sp,
+                color: Colors.black87,
+              ),
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ],
+    ),
+  ),
+);
 
-                            if (!mostrarFeedback) ...[
-                              Text(
-                                currentItem['pergunta'] ??
-                                    currentItem['explicacao'] ??
-                                    '',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.chewy(
-                                  textStyle: TextStyle(
-                                    fontSize: isPergunta ? 20.sp : 18.sp,
-                                    color: Colors.black87,
-                                  ),
-                                ),
-                              ),
-                            ],
-
-                            if (isPergunta && !respondeu) ...[
-                              SizedBox(height: 28.h),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: FilledButton.icon(
-                                      style: FilledButton.styleFrom(
-                                        backgroundColor:
-                                            const Color(0xFFD32F2F),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12.r),
-                                        ),
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 12.h),
-                                      ),
-                                      icon: const Icon(Icons.close,
-                                          color: Colors.white),
-                                      label: Text(
-                                        'Mito',
-                                        style: GoogleFonts.chewy(
-                                          textStyle: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18.sp),
-                                        ),
-                                      ),
-                                      onPressed: () =>
-                                          verificarResposta(false),
-                                    ),
-                                  ),
-                                  SizedBox(width: 16.w),
-                                  Expanded(
-                                    child: FilledButton.icon(
-                                      style: FilledButton.styleFrom(
-                                        backgroundColor:
-                                            const Color(0xFF2E7D32),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12.r),
-                                        ),
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 12.h),
-                                      ),
-                                      icon: const Icon(Icons.check,
-                                          color: Colors.white),
-                                      label: Text(
-                                        'Verdade',
-                                        style: GoogleFonts.chewy(
-                                          textStyle: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18.sp),
-                                        ),
-                                      ),
-                                      onPressed: () =>
-                                          verificarResposta(true),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-
-                            if (mostrarFeedback) ...[
-                              FadeIn(
-                                child: Image.asset(
-                                  acertou == true
-                                      ? 'assets/images/personagem_acerto.png'
-                                      : 'assets/images/personagem_erro.png',
-                                  height: 120.h,
-                                ),
-                              ),
-                              SizedBox(height: 12.h),
-                              Text(
-                                currentItem['explicacao'] ?? '',
-                                style: GoogleFonts.chewy(
-                                  textStyle: TextStyle(
-                                    fontSize: 16.sp,
-                                    color: Colors.black87,
-                                  ),
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ],
-                        ),
-                      );
                     },
                   ),
                 ),

@@ -235,7 +235,7 @@ class _FrutasScreenState extends State<FrutasScreen> {
                               "Boa! Você acertou! ${currentItem['titulo'] ?? ''}";
                           tituloColor = Colors.green;
                         } else {
-                          titulo = "Errar faz parte! Veja a VERDADE";
+                          titulo = "Errar faz parte!";
                           tituloColor = Colors.red;
                         }
                       }
