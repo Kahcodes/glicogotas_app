@@ -272,28 +272,39 @@ class CapaContent extends StatelessWidget {
               ),
 
               // Botão avançar
+              // Botão avançar
               Positioned(
                 bottom: 0.08.sh,
                 right: 20.w,
-                child: Row(
-                  children: [
-                    Text('Avançar',
+                child: GestureDetector(
+                  onTap: () {
+                    PageDatabase.instance.saveCurrentPage(2);
+                    audioManager.stop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Diabetes1Page()),
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        'Avançar',
                         style: GoogleFonts.chewy(
-                            fontSize: 28.sp, color: Colors.yellow)),
-                    IconButton(
-                      icon: Icon(Icons.arrow_forward_ios_rounded,
-                          color: Colors.yellow, size: 36.sp),
-                      onPressed: () {
-                        PageDatabase.instance.saveCurrentPage(2);
-                        audioManager.stop();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Diabetes1Page()),
-                        );
-                      },
-                    ),
-                  ],
+                          fontSize: 28.sp,
+                          color: Colors.yellow,
+                        ),
+                      ),
+                      SizedBox(
+                          width:
+                              4.w), // pequeno espaçamento entre texto e ícone
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Colors.yellow,
+                        size: 36.sp,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

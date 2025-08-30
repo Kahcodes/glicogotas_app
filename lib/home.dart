@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/glicogotas.dart';
 import 'package:glicogotas_app/Video/diabetes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
-import 'package:glicogotas_app/iniciar.dart';
+
 import 'package:glicogotas_app/main.dart';
 import 'package:glicogotas_app/MitosOuVerdades/cards_mitos.dart';
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
@@ -143,24 +143,7 @@ class TelaHomeState extends State<TelaHome>
                   ),
                 ),
 
-                // Botão de voltar
-                Positioned(
-                  top: 40.h,
-                  left: 16.w,
-                  child: IconButton(
-                    iconSize: 30.sp,
-                    icon: const Icon(Icons.arrow_back_ios,
-                        color: Color(0xFF265F95)),
-                    onPressed: () {
-                      _audioManager.stop(); // Para o áudio ao voltar
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const TelaInicial()),
-                      );
-                    },
-                  ),
-                ),
+              
 
                 // Botão de configurações
                 Positioned(
@@ -303,8 +286,8 @@ class TelaHomeState extends State<TelaHome>
                         default:
                           return CardButton(
                             onTap: () => _navigateToPage(const JogosPage()),
-                            color: Colors.teal,
-                            label: "Jogos",
+                            color:  const Color(0xFF737373),
+                            label: "Jogos (em breve)",
                             icon: Icon(Icons.sports_esports,
                                 size: 22.sp, color: Colors.white),
                           );

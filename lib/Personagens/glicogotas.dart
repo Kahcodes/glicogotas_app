@@ -342,6 +342,7 @@ class PersonagensContent extends StatelessWidget {
               ),
 
               // Botão "Avançar"
+              // Botão "Avançar"
               Positioned(
                 bottom: 0.05.sh,
                 right: 20.w,
@@ -349,38 +350,49 @@ class PersonagensContent extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: 8.w),
-                      child: Stack(
-                        children: [
-                          Text(
-                            'Avançar',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.chewy(
-                              fontSize: 26.sp,
-                              fontWeight: FontWeight.w400,
-                              shadows: [
-                                Shadow(
-                                  color: Colors.black
-                                      .withAlpha((0.25 * 255).toInt()),
-                                  offset: const Offset(3.0, 3.0),
-                                  blurRadius: 4.0,
-                                ),
-                              ],
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 5
-                                ..color = const Color(0xFFFFFEFF),
-                            ),
+                    GestureDetector(
+                      onTap: () {
+                        audioManager.stop();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PersonagemLitaPage(),
                           ),
-                          Text(
-                            'Avançar',
-                            style: GoogleFonts.chewy(
-                              fontSize: 26.sp,
-                              color: const Color(0xFFF4719C),
+                        );
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 8.w),
+                        child: Stack(
+                          children: [
+                            Text(
+                              'Avançar',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.chewy(
+                                fontSize: 26.sp,
+                                fontWeight: FontWeight.w400,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black
+                                        .withAlpha((0.25 * 255).toInt()),
+                                    offset: const Offset(3.0, 3.0),
+                                    blurRadius: 4.0,
+                                  ),
+                                ],
+                                foreground: Paint()
+                                  ..style = PaintingStyle.stroke
+                                  ..strokeWidth = 5
+                                  ..color = const Color(0xFFFFFEFF),
+                              ),
                             ),
-                          ),
-                        ],
+                            Text(
+                              'Avançar',
+                              style: GoogleFonts.chewy(
+                                fontSize: 26.sp,
+                                color: const Color(0xFFF4719C),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     IconButton(
@@ -394,7 +406,8 @@ class PersonagensContent extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const PersonagemLitaPage()),
+                            builder: (context) => const PersonagemLitaPage(),
+                          ),
                         );
                       },
                     ),
