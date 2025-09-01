@@ -11,7 +11,7 @@ import 'package:glicogotas_app/Livro/diabetes-livro/diabetes5.dart';
 import 'package:glicogotas_app/Livro/diabetes-livro/diabetes6.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
-import 'package:glicogotas_app/main.dart'; // routeObserver
+import 'package:glicogotas_app/main.dart'; 
 import 'package:glicogotas_app/sqlite.dart';
 
 class CapaPage extends StatefulWidget {
@@ -215,7 +215,7 @@ class CapaContent extends StatelessWidget {
                     padding: EdgeInsets.only(top: 40.h, left: 16.w),
                     child: IconButton(
                       iconSize: 30.sp,
-                      icon: const Icon(Icons.arrow_back_ios_rounded,
+                      icon: const Icon(Icons.menu_book,
                           color: Colors.white),
                       onPressed: () {
                         audioManager.stop();
@@ -272,7 +272,7 @@ class CapaContent extends StatelessWidget {
               ),
 
               // Botão avançar
-              // Botão avançar
+             
               Positioned(
                 bottom: 0.08.sh,
                 right: 20.w,
@@ -297,7 +297,7 @@ class CapaContent extends StatelessWidget {
                       ),
                       SizedBox(
                           width:
-                              4.w), // pequeno espaçamento entre texto e ícone
+                              4.w), 
                       Icon(
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.yellow,

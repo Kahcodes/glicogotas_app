@@ -156,7 +156,7 @@ class _FrutasScreenState extends State<FrutasScreen> {
                     children: [
                       IconButton(
                         iconSize: 30.sp,
-                        icon: const Icon(Icons.arrow_back_ios_rounded,
+                        icon: const Icon(Icons.question_answer,
                             color: Colors.black),
                         onPressed: () => Navigator.pop(context),
                       ),

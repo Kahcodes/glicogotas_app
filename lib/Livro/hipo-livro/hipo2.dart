@@ -102,7 +102,7 @@ class _Hipo2PageState extends State<Hipo2Page> with RouteAware {
                 child: IconButton(
                   iconSize: 30.sp,
                   icon: const Icon(
-                    Icons.arrow_back_ios_rounded,
+                    Icons.menu_book,
                     color: Color(0xFF265F95),
                   ),
                   onPressed: () {
