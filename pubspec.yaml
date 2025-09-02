@@ -150,13 +150,8 @@ flutter:
     - assets/images/betinho-person.svg
     - assets/images/Betinho-pumps.svg
     - assets/images/bobo-person.svg
-    - assets/images/btn-avancar-azul.svg
-    - assets/images/btn-avancar-branco.svg
-    - assets/images/btn-avancar-laranja.svg
-    - assets/images/btn-voltar-laranja.svg
     - assets/images/card-hiper.png
     - assets/images/card-hipo.png
-    - assets/images/card-mv-diabete.png
     - assets/images/card-vovo.png
     - assets/images/celulas.svg
     - assets/images/chaves-capa.png
@@ -205,7 +200,6 @@ flutter:
     - assets/images/glicoamigos5.png
     - assets/images/glicoamigos6.png
     - assets/images/glicogotas_logo.png
-    - assets/images/historia.svg
     - assets/images/insulina-capa.png
     - assets/images/insulinas.svg
     - assets/images/insulins-person.svg
@@ -213,7 +207,6 @@ flutter:
     - assets/images/insulins2.svg
     - assets/images/insulins3.svg
     - assets/images/jo&kah.png
-    - assets/images/jogos.svg
     - assets/images/Lita-apl-insulina.svg
     - assets/images/Lita-atencao.svg
     - assets/images/lita-coracao.svg
@@ -232,7 +225,6 @@ flutter:
     - assets/images/Lita-uau2.svg
     - assets/images/Lita-xixi.svg
     - assets/images/lita.svg
-    - assets/images/livro.svg
     - assets/images/Medica-lita.svg
     - assets/images/medica-vovo.svg
     - assets/images/missao-tirinha.png
@@ -240,7 +232,6 @@ flutter:
     - assets/images/pancreas-capa.png
     - assets/images/pancreas.svg
     - assets/images/perso-canetto.svg
-    - assets/images/person.svg
     - assets/images/personagem_acerto.png
     - assets/images/personagem_erro.png
     - assets/images/personagem_neutro.png

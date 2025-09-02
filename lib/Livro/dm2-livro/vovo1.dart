@@ -278,7 +278,7 @@ class Vovo1Content extends StatelessWidget {
                   iconSize: 30.sp,
                   icon: const Icon(
                     Icons.settings,
-                    color: Color(0xFF265F95),
+                    color: Colors.blue,
                   ),
                   onPressed: () {
                     showDialog(
@@ -298,7 +298,7 @@ class Vovo1Content extends StatelessWidget {
                 child: IconButton(
                   icon: Icon(
                     Icons.arrow_forward_ios_rounded,
-                    color: Color(0xFF265F95),
+                    color: Colors.blue,
                     size: 48.sp,
                   ),
                   onPressed: () {

@@ -103,7 +103,7 @@ class _Hipo6PageState extends State<Hipo6Page> with RouteAware {
                   iconSize: 30.sp,
                   icon: const Icon(
                     Icons.menu_book,
-                    color: Color(0xFF265F95),
+                    color: Colors.blue,
                   ),
                   onPressed: () {
                     _audioManager
@@ -125,7 +125,7 @@ class _Hipo6PageState extends State<Hipo6Page> with RouteAware {
                   iconSize: 30.sp,
                   icon: const Icon(
                     Icons.settings,
-                    color: Color(0xFF265F95),
+                    color: Colors.blue,
                   ),
                   onPressed: () {
                     showDialog(

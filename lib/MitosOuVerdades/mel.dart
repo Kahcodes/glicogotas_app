@@ -157,13 +157,13 @@ class _MelScreenState extends State<MelScreen> {
                       IconButton(
                         iconSize: 30.sp,
                         icon: const Icon(Icons.question_answer,
-                            color: Colors.black),
+                            color: Color (0xFF9C6ADE)),
                         onPressed: () => Navigator.pop(context),
                       ),
                       const Spacer(),
                       IconButton(
                         iconSize: 30.sp,
-                        icon: const Icon(Icons.settings, color: Colors.black),
+                        icon: const Icon(Icons.settings, color: Color (0xFF9C6ADE)),
                         onPressed: () {
                           showDialog(
                             context: context,
