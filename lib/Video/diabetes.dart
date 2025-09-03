@@ -71,7 +71,7 @@ class _VideoDiabetesPageState extends State<VideoDiabetesPage>
                 /// Fundo SVG
                 Positioned.fill(
                   child: SvgPicture.asset(
-                    'assets/images/fundopaglivro.svg',
+                    'assets/images/fundo-video.svg',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -89,7 +89,7 @@ class _VideoDiabetesPageState extends State<VideoDiabetesPage>
                         iconSize: 30.sp,
                         icon: const Icon(
                           Icons.home_rounded,
-                          color: Color(0xFF37ABDC),
+                          color: Colors.orange,
                         ),
                         onPressed: () {
                           _controller.pause();
@@ -116,7 +116,7 @@ class _VideoDiabetesPageState extends State<VideoDiabetesPage>
                         iconSize: 30.sp,
                         icon: const Icon(
                           Icons.settings,
-                          color: Color(0xFF37ABDC),
+                          color: Colors.orange,
                         ),
                         onPressed: () {
                           showDialog(

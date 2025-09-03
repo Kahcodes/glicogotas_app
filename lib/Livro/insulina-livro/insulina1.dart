@@ -249,7 +249,7 @@ class Insulina1Content extends StatelessWidget {
                   iconSize: 30.sp,
                   icon: const Icon(
                     Icons.menu_book,
-                    color: Colors.blue,
+                    color: Color(0xFF265F95),
                   ),
                   onPressed: () {
                     audioManager
@@ -271,7 +271,7 @@ class Insulina1Content extends StatelessWidget {
                   iconSize: 30.sp,
                   icon: const Icon(
                     Icons.settings,
-                    color: Colors.blue,
+                    color: Color(0xFF265F95),
                   ),
                   onPressed: () {
                     showDialog(

@@ -71,7 +71,7 @@ class TirinhaState extends State<Tirinha> {
                         // Ícone de seta de voltar
                         IconButton(
                           iconSize: 30.sp,
-                          icon: const Icon(Icons.arrow_back_ios_rounded,
+                          icon: const Icon(Icons.style,
                               color: Colors.black),
                           onPressed: () {
                             Navigator.pop(context);

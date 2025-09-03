@@ -82,7 +82,7 @@ class TirinhaGlicoamigosState extends State<TirinhaGlicoamigos> {
                         // Ícone de seta de voltar
                         IconButton(
                           iconSize: 30.sp,
-                          icon: const Icon(Icons.arrow_back_ios_rounded,
+                          icon: const Icon(Icons.style,
                               color: Colors.black), // Cor preta
                           onPressed: () {
                             Navigator.pop(

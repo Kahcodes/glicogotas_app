@@ -104,7 +104,7 @@ class _Diabetes5PageState extends State<Diabetes5Page> with RouteAware {
                   iconSize: 30.sp,
                   icon: const Icon(
                     Icons.menu_book,
-                    color: Colors.blue,
+                    color: Color(0xFF265F95),
                   ),
                   onPressed: () {
                     _audioManager
@@ -126,7 +126,7 @@ class _Diabetes5PageState extends State<Diabetes5Page> with RouteAware {
                   iconSize: 30.sp,
                   icon: const Icon(
                     Icons.settings,
-                    color: Colors.blue,
+                    color: Color(0xFF265F95),
                   ),
                   onPressed: () {
                     showDialog(
