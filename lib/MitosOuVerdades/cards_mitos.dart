@@ -79,7 +79,7 @@ class MitosOuVerdadesPageState extends State<MitosOuVerdadesPage>
                     IconButton(
                       iconSize: 30.sp,
                       icon: const Icon(
-                        Icons.arrow_back_ios_rounded, // Mudou para botão voltar
+                        Icons.home_rounded, 
                         color: Color(0xFF9C6ADE),
                       ),
                       onPressed: () {
@@ -90,7 +90,8 @@ class MitosOuVerdadesPageState extends State<MitosOuVerdadesPage>
                     Text(
                       'Mitos ou Verdades',
                       style: GoogleFonts.chewy(
-                        color: const Color(0xFF9C6ADE),
+                        color: const Color(0xFF680DDF),
+
                         fontSize: 24.sp,
                       ),
                     ),

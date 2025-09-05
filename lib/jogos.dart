@@ -31,11 +31,10 @@ class JogosPage extends StatelessWidget {
                   children: [
                     // Botão Home
                     IconButton(
-                      iconSize: 32.sp,
+                      iconSize: 30.sp,
                       icon: const Icon(
                         Icons.home_rounded,
                         color: Color(0xFFFF4081), // Cor FF4081
-                        size: 32,
                       ),
                       onPressed: () {
                         Navigator.pop(context); // Volta para a página anterior
@@ -51,17 +50,17 @@ class JogosPage extends StatelessWidget {
                     ),
                     // Botão Configurações
                     IconButton(
-                      iconSize: 32.sp,
+                      iconSize: 30.sp,
                       icon: const Icon(
                         Icons.settings,
                         color: Color(0xFFFF4081), // Cor FF4081
-                        size: 32,
                       ),
                       onPressed: () {
                         // Exibe o diálogo de configurações como modal transparente
                         showDialog(
                           context: context,
-                         barrierColor: Colors.black.withAlpha((0.5 * 255).toInt()),// Fundo semitransparente
+                          barrierColor: Colors.black.withAlpha(
+                              (0.5 * 255).toInt()), // Fundo semitransparente
                           builder: (BuildContext context) {
                             return const ConfigDialog(); // Chama o diálogo de configurações
                           },
@@ -85,14 +84,14 @@ class JogosPage extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: GoogleFonts.chewy(
                           fontSize: 14.sp,
-                          color: const Color(0xFF37ABDC), // Cor FF4081
+                          color: const Color(0xFF37ABDC), // Azul
                         ),
                       ),
                       SizedBox(
                         height: 20.h, // Espaçamento entre o texto e a imagem
                       ),
                       SvgPicture.asset(
-                        "assets/images/error.svg", // Caminho correto da imagem SVG
+                        "assets/images/error.svg", 
                         width: 450.w, // Tamanho da imagem
                         height: 450.h, // Tamanho da imagem
                         fit: BoxFit.cover, // Ajuste da imagem
