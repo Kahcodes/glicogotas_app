@@ -23,7 +23,8 @@ class _Vovo9PageState extends State<Vovo9Page> with RouteAware {
   void initState() {
     super.initState();
     PageDatabase.instance.saveCurrentPage(9); // Salva o número da página atual
-    _audioManager.play('audio/audios-diabtp2/diabtp2-9.mp3', context); // Reproduz o áudio
+    _audioManager.play(
+        'audio/audios-diabtp2/diabtp2-9.mp3', context); // Reproduz o áudio
   }
 
   @override
@@ -47,7 +48,8 @@ class _Vovo9PageState extends State<Vovo9Page> with RouteAware {
 
   @override
   void didPopNext() {
-    _audioManager.play('audio/audios-diabtp2/diabtp2-9.mp3', context); // Reinicia o áudio ao voltar
+    _audioManager.play('audio/audios-diabtp2/diabtp2-9.mp3',
+        context); // Reinicia o áudio ao voltar
   }
 
   @override
@@ -87,11 +89,11 @@ class _Vovo9PageState extends State<Vovo9Page> with RouteAware {
               // Balão de fala
               Positioned(
                 top: 0.17.sh,
-                left: 0.02.sw,
+                left: 0.08.sw,
                 right: 0.02.sw,
                 child: SvgPicture.asset(
                   'assets/images/balao-vovo9.svg',
-                  width: 0.8.sw,
+                  width: 0.7.sw,
                 ),
               ),
 

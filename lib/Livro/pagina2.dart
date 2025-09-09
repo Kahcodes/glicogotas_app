@@ -86,7 +86,7 @@ class Pagina2PageState extends State<Pagina2Page> with RouteAware {
 
               // Balão de fala
               Positioned(
-                top: 0.08.sh,
+                top: 0.05.sh,
                 left: 0.03.sw,
                 right: 0.03.sw,
                 child: SvgPicture.asset(

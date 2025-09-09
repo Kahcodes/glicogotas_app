@@ -24,12 +24,14 @@ class TelaHome extends StatefulWidget {
 
 class TelaHomeState extends State<TelaHome>
     with RouteAware, WidgetsBindingObserver {
-  final AudioManager _audioManager = AudioManager();
+  final AudioManager _homeAudioManager = AudioManager(); // Nome específico
+  bool _isCurrentPage = true;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _isCurrentPage = true;
     _playBackgroundMusic();
   }
 
@@ -37,40 +39,50 @@ class TelaHomeState extends State<TelaHome>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     routeObserver.unsubscribe(this);
-    _audioManager.stop(); // Para o áudio ao sair da página
-    _audioManager.dispose(); // Dispose do AudioManager
+    _isCurrentPage = false;
+    _homeAudioManager.stop(); // Usa instância específica
+    _homeAudioManager.dispose();
+
+    final configProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: false);
+    configProvider.removeListener(_onConfigChanged);
+
     super.dispose();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    routeObserver.subscribe(
-        this, ModalRoute.of(context)! as PageRoute<dynamic>);
-  }
-
-  void _playBackgroundMusic() async {
+  void _playBackgroundMusic() {
     final configProvider =
         Provider.of<ConfiguracoesRepository>(context, listen: false);
 
-    configProvider.addListener(() {
-      if (configProvider.musicOn) {
-        _audioManager.setVolume(configProvider.volume);
-        _audioManager.play('audio/musica.mp3', context);
-      } else {
-        _audioManager.stop();
-      }
-    });
+    configProvider.addListener(_onConfigChanged);
+
+    if (configProvider.musicOn && _isCurrentPage) {
+      _homeAudioManager.setVolume(configProvider.volume);
+      _homeAudioManager.play('audio/musica.mp3', context);
+    }
+  }
+
+  void _onConfigChanged() {
+    final configProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: false);
+
+    if (!_isCurrentPage) return;
 
     if (configProvider.musicOn) {
-      _audioManager.setVolume(configProvider.volume);
-      _audioManager.play('audio/musica.mp3', context);
+      _homeAudioManager.setVolume(configProvider.volume);
+      _homeAudioManager.resume(context); // Usa resume ao invés de play
+    } else {
+      _homeAudioManager.stop();
     }
   }
 
   // Função para navegar pausando o áudio
   void _navigateToPage(Widget page) {
-    _audioManager.stop(); // Para o áudio antes de navegar
+    _isCurrentPage = false;
+    _homeAudioManager.stop();
+    final configProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: false);
+    configProvider.removeListener(_onConfigChanged);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => page),
@@ -79,16 +91,24 @@ class TelaHomeState extends State<TelaHome>
 
   @override
   void didPushNext() {
-    _audioManager.stop(); // Para o áudio quando vai para próxima página
+    _isCurrentPage = false;
+    _homeAudioManager.stop();
+
+    final configProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: false);
+    configProvider.removeListener(_onConfigChanged);
   }
 
   @override
   void didPopNext() {
-    // Reinicia o áudio quando volta para esta página
+    _isCurrentPage = true;
+
     final configProvider =
         Provider.of<ConfiguracoesRepository>(context, listen: false);
+    configProvider.addListener(_onConfigChanged);
+
     if (configProvider.musicOn) {
-      _audioManager.play('audio/musica.mp3', context);
+      _homeAudioManager.resume(context); // Usa resume
     }
   }
 
@@ -98,9 +118,11 @@ class TelaHomeState extends State<TelaHome>
         Provider.of<ConfiguracoesRepository>(context, listen: false);
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.inactive) {
-      _audioManager.stop();
-    } else if (state == AppLifecycleState.resumed && configProvider.musicOn) {
-      _audioManager.play('audio/musica.mp3', context);
+      _homeAudioManager.stop();
+    } else if (state == AppLifecycleState.resumed &&
+        configProvider.musicOn &&
+        _isCurrentPage) {
+      _homeAudioManager.resume(context); // Usa resume
     }
   }
 
@@ -142,8 +164,6 @@ class TelaHomeState extends State<TelaHome>
                     child: SvgPicture.asset('assets/images/decoracao.svg'),
                   ),
                 ),
-
-              
 
                 // Botão de configurações
                 Positioned(
@@ -286,7 +306,7 @@ class TelaHomeState extends State<TelaHome>
                         default:
                           return CardButton(
                             onTap: () => _navigateToPage(const JogosPage()),
-                            color:  const Color(0xFF737373),
+                            color: const Color(0xFF737373),
                             label: "Jogos (em breve)",
                             icon: Icon(Icons.sports_esports,
                                 size: 22.sp, color: Colors.white),
@@ -304,9 +324,6 @@ class TelaHomeState extends State<TelaHome>
   }
 }
 
-///
-/// Botão com efeito de "afundar" ao pressionar
-///
 class CardButton extends StatefulWidget {
   final VoidCallback onTap;
   final Color color;

@@ -12,7 +12,9 @@ import 'package:glicogotas_app/Livro/hiper-livro/hiper8.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
+import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'package:glicogotas_app/sqlite.dart';
+import 'package:provider/provider.dart';
 
 class Hiper1Page extends StatefulWidget {
   const Hiper1Page({super.key});
@@ -22,9 +24,11 @@ class Hiper1Page extends StatefulWidget {
 }
 
 class _Hiper1PageState extends State<Hiper1Page> with RouteAware {
-  final AudioManager _audioManager = AudioManager();
+  final AudioManager _pageAudioManager =
+      AudioManager(); // Instância específica da página
   final PageController _pageController = PageController();
   int _currentPage = 0;
+  bool _isCurrentPage = true;
 
   final List<Widget> _pages = const [
     Hiper1Content(),
@@ -40,8 +44,31 @@ class _Hiper1PageState extends State<Hiper1Page> with RouteAware {
   @override
   void initState() {
     super.initState();
-    _audioManager.play('audio/audios-hiperglicemia/tela1-hiperglicemia.mp3', context);
+    _isCurrentPage = true;
+    _pageAudioManager.play(
+        'audio/audios-hiperglicemia/tela1-hiperglicemia.mp3', context);
     _navigateToSavedPage();
+    _setupConfigListener();
+  }
+
+  void _setupConfigListener() {
+    final configProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: false);
+    configProvider.addListener(_onConfigChanged);
+  }
+
+  void _onConfigChanged() {
+    final configProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: false);
+
+    if (!_isCurrentPage) return;
+
+    if (configProvider.musicOn) {
+      _pageAudioManager
+          .resume(context); // Resume o áudio específico desta página
+    } else {
+      _pageAudioManager.stop();
+    }
   }
 
   Future<void> _navigateToSavedPage() async {
@@ -74,19 +101,27 @@ class _Hiper1PageState extends State<Hiper1Page> with RouteAware {
   @override
   void dispose() {
     routeObserver.unsubscribe(this);
-    _audioManager.stop();
-    _audioManager.dispose();
+    _isCurrentPage = false;
+    _pageAudioManager.stop();
+    _pageAudioManager.dispose();
+
+    final configProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: false);
+    configProvider.removeListener(_onConfigChanged);
+
     super.dispose();
   }
 
   @override
   void didPushNext() {
-    _audioManager.stop();
+    _isCurrentPage = false;
+    _pageAudioManager.stop();
   }
 
   @override
   void didPopNext() {
-    _audioManager.play('audio/audios-hiperglicemia/tela1-hiperglicemia.mp3', context);
+    _isCurrentPage = true;
+    _pageAudioManager.resume(context);
   }
 
   @override
@@ -160,7 +195,7 @@ class _Hiper1PageState extends State<Hiper1Page> with RouteAware {
                   icon: const Icon(Icons.arrow_back_ios,
                       color: Color.fromARGB(0, 0, 0, 0)),
                   onPressed: () {
-                    _audioManager.stop();
+                    _pageAudioManager.stop();
                     _pageController.previousPage(
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.easeInOut,
@@ -176,7 +211,7 @@ class _Hiper1PageState extends State<Hiper1Page> with RouteAware {
                   icon: const Icon(Icons.arrow_forward_ios,
                       color: Color.fromARGB(0, 0, 0, 0)),
                   onPressed: () {
-                    _audioManager.stop();
+                    _pageAudioManager.stop();
                     _pageController.nextPage(
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.easeInOut,
@@ -219,13 +254,13 @@ class Hiper1Content extends StatelessWidget {
 
               // Personagem Lita
               Positioned(
-                top: 0.25.sh,
+                top: 0.30.sh,
                 left: 0.02.sw,
                 right: 0.02.sw,
                 child: SvgPicture.asset(
                   'assets/images/Pumps-anunciando.svg',
-                  width: 0.6.sw,
-                  height: 0.6.sh,
+                  width: 0.5.sw,
+                  height: 0.5.sh,
                 ),
               ),
 

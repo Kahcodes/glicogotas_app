@@ -69,7 +69,7 @@ class TirinhaBateriaState extends State<TirinhaBateria> {
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 16.w,
-                      vertical: 40
+                      vertical: 18
                           .h, // Ajuste no padding para afastar os elementos do topo
                     ),
                     child: Row(
@@ -170,8 +170,8 @@ class TirinhaBateriaState extends State<TirinhaBateria> {
                 bottom: 50.h,
                 left: 20.w,
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_rounded,
-                      size: 48, color: Color.fromARGB(255, 0, 0, 0)),
+                  icon: Icon(Icons.arrow_back_ios_rounded,
+                      size: 48.sp, color: Color.fromARGB(255, 0, 0, 0)),
                   onPressed: () {
                     _navigateToPage(currentIndex - 1);
                   },
@@ -181,13 +181,16 @@ class TirinhaBateriaState extends State<TirinhaBateria> {
               Positioned(
                 bottom: 50.h,
                 right: 20.w,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_forward_ios_rounded,
-                      size: 48, color: Color.fromARGB(255, 0, 0, 0)),
-                  onPressed: () {
-                    _navigateToPage(currentIndex + 1);
-                  },
-                ),
+                child: currentIndex < tirinha.length - 1
+                    ? IconButton(
+                        icon: Icon(Icons.arrow_forward_ios_rounded,
+                            size: 48.sp, color: Color.fromARGB(255, 0, 0, 0)),
+                        onPressed: () {
+                          _navigateToPage(currentIndex + 1);
+                        },
+                      )
+                    : const SizedBox
+                        .shrink(), // Widget vazio quando na última página
               ),
             ],
           );

@@ -40,7 +40,8 @@ class _Hipo1PageState extends State<Hipo1Page> with RouteAware {
   @override
   void initState() {
     super.initState();
-    _audioManager.play('audio/audios-hipoglicemia/tela1-hipoglicemia.mp3', context);
+    _audioManager.play(
+        'audio/audios-hipoglicemia/tela1-hipoglicemia.mp3', context);
     _navigateToSavedPage();
   }
 
@@ -86,7 +87,8 @@ class _Hipo1PageState extends State<Hipo1Page> with RouteAware {
 
   @override
   void didPopNext() {
-    _audioManager.play('audio/audios-hipoglicemia/tela1-hipoglicemia.mp3', context);
+    _audioManager.play(
+        'audio/audios-hipoglicemia/tela1-hipoglicemia.mp3', context);
   }
 
   @override
@@ -219,13 +221,13 @@ class Hipo1Content extends StatelessWidget {
 
               // Personagem Lita
               Positioned(
-                top: 0.31.sh,
+                top: 0.35.sh,
                 left: 0.02.sw,
                 right: 0.02.sw,
                 child: SvgPicture.asset(
                   'assets/images/betinho-person.svg',
-                  width: 0.6.sw,
-                  height: 0.6.sh,
+                  width: 0.5.sw,
+                  height: 0.5.sh,
                 ),
               ),
 
@@ -236,7 +238,7 @@ class Hipo1Content extends StatelessWidget {
                 right: 0.02.sw,
                 child: SvgPicture.asset(
                   'assets/images/balao-hipo1.svg',
-                  width: 0.7.sw,
+                  width: 0.6.sw,
                 ),
               ),
 

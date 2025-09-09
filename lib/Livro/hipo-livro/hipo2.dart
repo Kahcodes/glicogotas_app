@@ -23,7 +23,8 @@ class _Hipo2PageState extends State<Hipo2Page> with RouteAware {
   void initState() {
     super.initState();
     PageDatabase.instance.saveCurrentPage(2); // Salva o número da página atual
-    _audioManager.play('audio/audios-hipoglicemia/tela2-hipoglicemia.mp3', context); // Reproduz o áudio
+    _audioManager.play('audio/audios-hipoglicemia/tela2-hipoglicemia.mp3',
+        context); // Reproduz o áudio
   }
 
   @override
@@ -47,7 +48,8 @@ class _Hipo2PageState extends State<Hipo2Page> with RouteAware {
 
   @override
   void didPopNext() {
-    _audioManager.play('audio/audios-hipoglicemia/tela2-hipoglicemia.mp3', context); // Reinicia o áudio ao voltar
+    _audioManager.play('audio/audios-hipoglicemia/tela2-hipoglicemia.mp3',
+        context); // Reinicia o áudio ao voltar
   }
 
   @override
@@ -74,13 +76,13 @@ class _Hipo2PageState extends State<Hipo2Page> with RouteAware {
 
               // Personagem Lita
               Positioned(
-                top: 0.35.sh,
+                top: 0.31.sh,
                 left: 0.02.sw,
                 right: 0.02.sw,
                 child: SvgPicture.asset(
                   'assets/images/error.svg',
-                  width: 0.5.sw,
-                  height: 0.5.sh,
+                  width: 0.6.sw,
+                  height: 0.6.sh,
                 ),
               ),
 

@@ -240,7 +240,7 @@ class Vovo1Content extends StatelessWidget {
               // Balão de fala
               Positioned(
                 top: 0.14.sh,
-                left: 0.02.sw,
+                left: 0.06.sw,
                 right: 0.02.sw,
                 child: SvgPicture.asset(
                   'assets/images/balao-vovo1.svg',

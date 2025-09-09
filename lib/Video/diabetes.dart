@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,15 +33,14 @@ class _VideoDiabetesPageState extends State<VideoDiabetesPage>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _controller.pause(); // Pausa o vídeo
-    _controller.dispose(); // Dispose do controller
+    _controller.pause();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    // Pausa o vídeo quando o app vai para background
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.inactive) {
       _controller.pause();
@@ -47,7 +48,7 @@ class _VideoDiabetesPageState extends State<VideoDiabetesPage>
   }
 
   void _navigateBack() {
-    _controller.pause(); // Pausa antes de sair
+    _controller.pause();
     Navigator.pop(context);
   }
 
@@ -57,147 +58,284 @@ class _VideoDiabetesPageState extends State<VideoDiabetesPage>
       backgroundColor: const Color(0xFFFFF4E6),
       body: LayoutBuilder(
         builder: (context, constraints) {
+          // Configuração responsiva do ScreenUtil
+          final double screenWidth = constraints.maxWidth;
+          final double screenHeight = constraints.maxHeight;
+
+          // Detecta tipo de dispositivo
+          bool isPhone = screenWidth < 600;
+          bool isTablet = screenWidth >= 600 && screenWidth < 1200;
+
           ScreenUtil.init(
             context,
-            designSize: constraints.maxWidth > 600
-                ? const Size(768, 1024)
-                : const Size(360, 690),
+            designSize: isPhone
+                ? const Size(360, 690) // Phone
+                : isTablet
+                    ? const Size(768, 1024) // Tablet
+                    : const Size(1200, 800), // Desktop
             minTextAdapt: true,
           );
 
-          bool isTablet = constraints.maxWidth > 600;
+          // Tamanhos responsivos
+          double titleSize = isPhone
+              ? 24.sp
+              : isTablet
+                  ? 28.sp
+                  : 32.sp;
+          double fabSize = isPhone
+              ? 28.sp
+              : isTablet
+                  ? 32.sp
+                  : 36.sp;
+          double progressHeight = isPhone
+              ? 6.h
+              : isTablet
+                  ? 8.h
+                  : 10.h;
 
-          // ignore: deprecated_member_use
-          return WillPopScope(
-            onWillPop: () async {
-              _controller.pause(); // Pausa quando usar botão voltar do sistema
-              return true;
+          double titleVideoSpacing = isPhone
+              ? 8.h
+              : isTablet
+                  ? 12.h
+                  : 16.h;
+          double videoButtonSpacing = isPhone
+              ? 12.h
+              : isTablet
+                  ? 16.h
+                  : 20.h;
+
+          // Constraint para o vídeo
+          double maxVideoWidth = isPhone
+              ? screenWidth * 0.95
+              : isTablet
+                  ? screenWidth * 0.8
+                  : screenWidth * 0.6;
+
+          double maxVideoHeight = isPhone
+              ? screenHeight * 0.6
+              : isTablet
+                  ? screenHeight * 0.65
+                  : screenHeight * 0.7;
+
+          return PopScope(
+            // ignore: deprecated_member_use
+            onPopInvoked: (didPop) {
+              if (didPop) _controller.pause();
             },
             child: Stack(
               children: [
-                // Fundo SVG
+                // Fundo SVG responsivo
                 Positioned.fill(
                   child: SvgPicture.asset(
                     'assets/images/fundopaglivro.svg',
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 ),
 
-                SafeArea(
-                  child: Column(
-                    children: [
-                      // AppBar customizado
-
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 16.w, vertical: 8.h),
-                        child: Row(
-                          children: [
-                            IconButton(
-                              iconSize: isTablet ? 35.sp : 30.sp,
-                              icon: const Icon(Icons.home_rounded,
-                                  color: Colors.pinkAccent),
-                              onPressed:
-                                  _navigateBack, // Usa a função que pausa
-                            ),
-                            const Spacer(),
-                            IconButton(
-                              iconSize: isTablet ? 35.sp : 30.sp,
-                              icon: const Icon(Icons.settings,
-                                  color: Colors.pinkAccent),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return const ConfigDialog();
-                                  },
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                Column(
+                  children: [
+                    // AppBar personalizada
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 55.h,
+                        left: 26.w,
+                        right: 26.w,
+                        bottom: 26.h,
                       ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // Botão de voltar padronizado
+                          IconButton(
+                            iconSize: 30.sp,
+                            icon: const Icon(
+                              Icons.arrow_back_ios_rounded,
+                              color: Color.fromARGB(255, 255, 50, 132),
+                            ),
+                            onPressed: _navigateBack,
+                          ),
 
-                      // Centraliza título, vídeo e botão
-                      Expanded(
-                        child: Center(
+                          // Botão de configurações padronizado
+                          IconButton(
+                            iconSize: 30.sp,
+                            icon: const Icon(
+                              Icons.settings,
+                              color: Color.fromARGB(255, 255, 50, 132),
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const ConfigDialog();
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // Conteúdo principal responsivo
+                    Expanded(
+                      child: Center(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxWidth: maxVideoWidth,
+                            maxHeight: screenHeight * 0.8,
+                          ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              // Título bem próximo do vídeo
-                              Text(
-                                'Lita - Diabetes Tipo 1',
-                                style: GoogleFonts.chewy(
-                                  color: Colors.orange,
-                                  fontSize: isTablet ? 28.sp : 24.sp,
+                              // Título responsivo
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: isPhone ? 16.w : 24.w,
                                 ),
-                                textAlign: TextAlign.center,
+                                child: Text(
+                                  'Lita - Diabetes Tipo 1',
+                                  style: GoogleFonts.chewy(
+                                    color: Colors.orange,
+                                    fontSize: titleSize,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  maxLines: isPhone ? 2 : 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
 
-                              SizedBox(height: 8.h),
+                              SizedBox(height: titleVideoSpacing),
 
-                              // Vídeo
-                              _isLoading
-                                  ? CircularProgressIndicator(
-                                      color: Colors.orange,
-                                      strokeWidth: isTablet ? 4.0 : 2.0,
-                                    )
-                                  : AspectRatio(
-                                      aspectRatio:
-                                          _controller.value.aspectRatio,
-                                      child: Stack(
-                                        alignment: Alignment.bottomCenter,
-                                        children: [
-                                          VideoPlayer(_controller),
-                                          Positioned(
-                                            bottom: 0,
-                                            left: 0,
-                                            right: 0,
-                                            child: SizedBox(
-                                              height: isTablet ? 8.h : 6.h,
-                                              child: VideoProgressIndicator(
-                                                _controller,
-                                                allowScrubbing: true,
-                                                colors:
-                                                    const VideoProgressColors(
-                                                  playedColor: Colors.orange,
-                                                  backgroundColor:
-                                                      Colors.white54,
-                                                  bufferedColor: Colors.white24,
+                              // Container do vídeo responsivo
+                              Flexible(
+                                child: Container(
+                                  constraints: BoxConstraints(
+                                    maxWidth: maxVideoWidth,
+                                    maxHeight: maxVideoHeight,
+                                  ),
+                                  child: _isLoading
+                                      ? Center(
+                                          child: CircularProgressIndicator(
+                                            color: Colors.orange,
+                                            strokeWidth: isPhone ? 3.0 : 4.0,
+                                          ),
+                                        )
+                                      : ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                            isPhone
+                                                ? 12.r
+                                                : isTablet
+                                                    ? 16.r
+                                                    : 20.r,
+                                          ),
+                                          child: AspectRatio(
+                                            aspectRatio:
+                                                _controller.value.aspectRatio,
+                                            child: Stack(
+                                              alignment: Alignment.bottomCenter,
+                                              children: [
+                                                VideoPlayer(_controller),
+                                                // Barra de progresso responsiva
+                                                Positioned(
+                                                  bottom: 0,
+                                                  left: 0,
+                                                  right: 0,
+                                                  child: Container(
+                                                    height: progressHeight,
+                                                    decoration: BoxDecoration(
+                                                      gradient: LinearGradient(
+                                                        begin:
+                                                            Alignment.topCenter,
+                                                        end: Alignment
+                                                            .bottomCenter,
+                                                        colors: [
+                                                          Colors.transparent,
+                                                          Colors.black
+                                                              // ignore: deprecated_member_use
+                                                              .withOpacity(0.3),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    child:
+                                                        VideoProgressIndicator(
+                                                      _controller,
+                                                      allowScrubbing: true,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                        horizontal: isPhone
+                                                            ? 8.w
+                                                            : 12.w,
+                                                      ),
+                                                      colors:
+                                                          VideoProgressColors(
+                                                        playedColor:
+                                                            Colors.orange,
+                                                        backgroundColor: Colors
+                                                            .white
+                                                            // ignore: deprecated_member_use
+                                                            .withOpacity(0.3),
+                                                        bufferedColor: Colors
+                                                            .white
+                                                            // ignore: deprecated_member_use
+                                                            .withOpacity(0.6),
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-
-                              SizedBox(height: 12.h),
-
-                              // Botão logo abaixo do vídeo
-                              FloatingActionButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _controller.value.isPlaying
-                                        ? _controller.pause()
-                                        : _controller.play();
-                                  });
-                                },
-                                backgroundColor: Colors.orange,
-                                child: Icon(
-                                  _controller.value.isPlaying
-                                      ? Icons.pause
-                                      : Icons.play_arrow,
-                                  color: Colors.white,
-                                  size: isTablet ? 32.sp : 28.sp,
+                                        ),
                                 ),
                               ),
+
+                              SizedBox(height: videoButtonSpacing),
+
+                              // Botão play/pause responsivo
+                              Container(
+                                width: isPhone
+                                    ? 56.w
+                                    : isTablet
+                                        ? 64.w
+                                        : 72.w,
+                                height: isPhone
+                                    ? 56.w
+                                    : isTablet
+                                        ? 64.w
+                                        : 72.w,
+                                child: FloatingActionButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _controller.value.isPlaying
+                                          ? _controller.pause()
+                                          : _controller.play();
+                                    });
+                                  },
+                                  backgroundColor: Colors.orange,
+                                  elevation: isPhone ? 6 : 8,
+                                  child: Icon(
+                                    _controller.value.isPlaying
+                                        ? Icons.pause
+                                        : Icons.play_arrow,
+                                    color: Colors.white,
+                                    size: fabSize,
+                                  ),
+                                ),
+                              ),
+
+                              // Espaçamento inferior responsivo
+                              SizedBox(
+                                  height: isPhone
+                                      ? 16.h
+                                      : isTablet
+                                          ? 24.h
+                                          : 32.h),
                             ],
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),

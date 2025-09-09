@@ -23,7 +23,8 @@ class _Vovo8PageState extends State<Vovo8Page> with RouteAware {
   void initState() {
     super.initState();
     PageDatabase.instance.saveCurrentPage(8); // Salva o número da página atual
-    _audioManager.play('audio/audios-diabtp2/diabtp2-8.mp3', context); // Reproduz o áudio
+    _audioManager.play(
+        'audio/audios-diabtp2/diabtp2-8.mp3', context); // Reproduz o áudio
   }
 
   @override
@@ -47,7 +48,8 @@ class _Vovo8PageState extends State<Vovo8Page> with RouteAware {
 
   @override
   void didPopNext() {
-    _audioManager.play('audio/audios-diabtp2/diabtp2-8.mp3', context); // Reinicia o áudio ao voltar
+    _audioManager.play('audio/audios-diabtp2/diabtp2-8.mp3',
+        context); // Reinicia o áudio ao voltar
   }
 
   @override
@@ -74,7 +76,7 @@ class _Vovo8PageState extends State<Vovo8Page> with RouteAware {
 
               // Personagem Lita
               Positioned(
-                top: 0.35.sh,
+                top: 0.36.sh,
                 left: 0.02.sw,
                 right: 0.02.sw,
                 child: SvgPicture.asset(
@@ -86,12 +88,12 @@ class _Vovo8PageState extends State<Vovo8Page> with RouteAware {
 
               // Balão de fala
               Positioned(
-                top: 0.17.sh,
-                left: 0.02.sw,
+                top: 0.16.sh,
+                left: 0.08.sw,
                 right: 0.02.sw,
                 child: SvgPicture.asset(
                   'assets/images/balao-vovo8.svg',
-                  width: 0.8.sw,
+                  width: 0.7.sw,
                 ),
               ),
 

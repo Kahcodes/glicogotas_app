@@ -64,15 +64,14 @@ class TirinhaState extends State<Tirinha> {
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 16.w,
-                      vertical: 40.h,
+                      vertical: 18.h,
                     ),
                     child: Row(
                       children: [
                         // Ícone de seta de voltar
                         IconButton(
                           iconSize: 30.sp,
-                          icon: const Icon(Icons.style,
-                              color: Colors.black),
+                          icon: const Icon(Icons.style, color: Colors.black),
                           onPressed: () {
                             Navigator.pop(context);
                           },
@@ -119,8 +118,9 @@ class TirinhaState extends State<Tirinha> {
                           bottom: 50.h,
                           left: 20.w,
                           child: IconButton(
-                            icon: const Icon(Icons.arrow_back_ios_rounded,
-                                size: 48, color: Color.fromARGB(255, 0, 0, 0)),
+                            icon: Icon(Icons.arrow_back_ios_rounded,
+                                size: 48.sp,
+                                color: Color.fromARGB(255, 0, 0, 0)),
                             onPressed: () {
                               _navigateToPage(currentIndex - 1);
                             },
@@ -131,13 +131,17 @@ class TirinhaState extends State<Tirinha> {
                         Positioned(
                           bottom: 50.h,
                           right: 20.w,
-                          child: IconButton(
-                            icon: const Icon(Icons.arrow_forward_ios_rounded,
-                                size: 48, color: Color.fromARGB(255, 0, 0, 0)),
-                            onPressed: () {
-                              _navigateToPage(currentIndex + 1);
-                            },
-                          ),
+                          child: currentIndex < tirinha.length - 1
+                              ? IconButton(
+                                  icon: Icon(Icons.arrow_forward_ios_rounded,
+                                      size: 48.sp,
+                                      color: Color.fromARGB(255, 0, 0, 0)),
+                                  onPressed: () {
+                                    _navigateToPage(currentIndex + 1);
+                                  },
+                                )
+                              : const SizedBox
+                                  .shrink(), // Widget vazio quando na última página
                         ),
                       ],
                     ),

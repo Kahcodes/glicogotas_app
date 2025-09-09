@@ -230,7 +230,7 @@ class Pagina1Content extends StatelessWidget {
                 right: 0.02.sw,
                 child: SvgPicture.asset(
                   'assets/images/balão-duplo.svg',
-                  width: 0.8.sw,
+                  width: 0.7.sw,
                 ),
               ),
 

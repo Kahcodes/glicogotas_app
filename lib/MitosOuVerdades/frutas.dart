@@ -157,13 +157,14 @@ class _FrutasScreenState extends State<FrutasScreen> {
                       IconButton(
                         iconSize: 30.sp,
                         icon: const Icon(Icons.question_answer,
-                            color: Color (0xFF9C6ADE)),
+                            color: Color(0xFF9C6ADE)),
                         onPressed: () => Navigator.pop(context),
                       ),
                       const Spacer(),
                       IconButton(
                         iconSize: 30.sp,
-                        icon: const Icon(Icons.settings, color: Color (0xFF9C6ADE)),
+                        icon: const Icon(Icons.settings,
+                            color: Color(0xFF9C6ADE)),
                         onPressed: () {
                           showDialog(
                             context: context,
@@ -387,33 +388,27 @@ class _FrutasScreenState extends State<FrutasScreen> {
                 ),
 
                 // Botões de navegação
-                Padding(
-                  padding: EdgeInsets.only(bottom: 16.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back_ios_rounded,
-                            size: 48, color: Colors.black),
-                        onPressed: currentIndex > 0 ? voltarPergunta : null,
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.arrow_forward_ios_rounded,
-                            size: 48, color: Colors.black),
-                        onPressed: () {
-                          final currentItem = mitosVerdades[currentIndex];
-                          bool temResposta =
-                              currentItem.containsKey('respostaCorreta');
-
-                          if (currentIndex < mitosVerdades.length - 1 &&
-                              (!temResposta || respondeu)) {
-                            proximaPergunta();
-                          }
-                        },
-                      ),
-                    ],
+                if (respondeu || !temResposta)
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 16.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.arrow_back_ios_rounded,
+                              size: 48.sp, color: Colors.black),
+                          onPressed: currentIndex > 0 ? voltarPergunta : null,
+                        ),
+                        currentIndex < mitosVerdades.length - 1
+                            ? IconButton(
+                                icon: Icon(Icons.arrow_forward_ios_rounded,
+                                    size: 48.sp, color: Colors.black),
+                                onPressed: proximaPergunta,
+                              )
+                            : const SizedBox.shrink(),
+                      ],
+                    ),
                   ),
-                ),
               ],
             ),
           ),

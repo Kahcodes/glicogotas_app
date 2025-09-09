@@ -5,6 +5,7 @@ import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart
 
 class AudioManager {
   final AudioPlayer _audioPlayer = AudioPlayer();
+  String? _currentAssetPath;
 
   Future<void> setVolume(double volume) async {
     await _audioPlayer.setVolume(volume);
@@ -14,10 +15,21 @@ class AudioManager {
     final configuracoesProvider =
         Provider.of<ConfiguracoesRepository>(context, listen: false);
 
+    _currentAssetPath = assetPath; // Armazena o caminho atual
+
     if (configuracoesProvider.musicOn) {
       await _audioPlayer.play(AssetSource(assetPath));
     } else {
       await _audioPlayer.stop();
+    }
+  }
+
+  Future<void> resume(BuildContext context) async {
+    final configuracoesProvider =
+        Provider.of<ConfiguracoesRepository>(context, listen: false);
+
+    if (configuracoesProvider.musicOn && _currentAssetPath != null) {
+      await _audioPlayer.play(AssetSource(_currentAssetPath!));
     }
   }
 

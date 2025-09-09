@@ -193,12 +193,12 @@ flutter:
     - assets/images/fundoinsulinas.svg
     - assets/images/fundopaglivro.svg
     - assets/images/glicoamigos-card.png
-    - assets/images/glicoamigos1.png
-    - assets/images/glicoamigos2.png
-    - assets/images/glicoamigos3.png
-    - assets/images/glicoamigos4.png
-    - assets/images/glicoamigos5.png
-    - assets/images/glicoamigos6.png
+    - assets/images/glicoamigos1.svg
+    - assets/images/glicoamigos2.svg
+    - assets/images/glicoamigos3.svg
+    - assets/images/glicoamigos4.svg
+    - assets/images/glicoamigos5.svg
+    - assets/images/glicoamigos6.svg
     - assets/images/glicogotas_logo.png
     - assets/images/insulina-capa.png
     - assets/images/insulinas.svg
@@ -249,9 +249,9 @@ flutter:
     - assets/images/tela-inicial-perso.svg
     - assets/images/tirinha-aguavai.png
     - assets/images/tirinha-docura-capa.png
-    - assets/images/tirinha-ins-1.png
-    - assets/images/tirinha-ins-2.png
-    - assets/images/tirinha-ins-3.png
+    - assets/images/tirinha-ins-1.svg
+    - assets/images/tirinha-ins-2.svg
+    - assets/images/tirinha-ins-3.svg
     - assets/images/tirinha-insu-capa.png
     - assets/images/tirinha-missao.png
     - assets/images/tirinha1.png

@@ -23,7 +23,8 @@ class _Hiper3PageState extends State<Hiper3Page> with RouteAware {
   void initState() {
     super.initState();
     PageDatabase.instance.saveCurrentPage(3); // Salva o número da página atual
-    _audioManager.play('audio/audios-hiperglicemia/tela3-hiperglicemia.mp3', context); // Reproduz o áudio
+    _audioManager.play('audio/audios-hiperglicemia/tela3-hiperglicemia.mp3',
+        context); // Reproduz o áudio
   }
 
   @override
@@ -47,7 +48,8 @@ class _Hiper3PageState extends State<Hiper3Page> with RouteAware {
 
   @override
   void didPopNext() {
-    _audioManager.play('audio/audios-hiperglicemia/tela3-hiperglicemia.mp3', context); // Reinicia o áudio ao voltar
+    _audioManager.play('audio/audios-hiperglicemia/tela3-hiperglicemia.mp3',
+        context); // Reinicia o áudio ao voltar
   }
 
   @override

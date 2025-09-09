@@ -146,7 +146,8 @@ class _Insulina1PageState extends State<Insulina1Page> with RouteAware {
                     decoration: BoxDecoration(
                       color: _currentPage == index
                           ? Colors.yellow
-                          : Colors.white.withAlpha((0.5 * 255).toInt()), // Correção aqui
+                          : Colors.white
+                              .withAlpha((0.5 * 255).toInt()), // Correção aqui
                       borderRadius: BorderRadius.circular(4.r),
                     ),
                   ),
@@ -233,8 +234,8 @@ class Insulina1Content extends StatelessWidget {
               // Balão de fala
               Positioned(
                 top: 0.14.sh,
-                left: 0.02.sw,
-                right: 0.02.sw,
+                left: 0.20.sw,
+                right: 0.01.sw,
                 child: SvgPicture.asset(
                   'assets/images/balao-ins-page1.svg',
                   width: 0.7.sw,

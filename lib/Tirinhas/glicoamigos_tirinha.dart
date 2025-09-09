@@ -12,14 +12,12 @@ class TirinhaGlicoamigos extends StatefulWidget {
 
 class TirinhaGlicoamigosState extends State<TirinhaGlicoamigos> {
   final List<String> tirinha = [
-    'assets/images/glicoamigos1.png',
-    'assets/images/glicoamigos2.png',
-    'assets/images/glicoamigos3.png',
-    'assets/images/glicoamigos4.png',
-    'assets/images/glicoamigos5.png',
-    'assets/images/glicoamigos6.png',
-
-    
+    'assets/images/glicoamigos1.svg',
+    'assets/images/glicoamigos2.svg',
+    'assets/images/glicoamigos3.svg',
+    'assets/images/glicoamigos4.svg',
+    'assets/images/glicoamigos5.svg',
+    'assets/images/glicoamigos6.svg',
   ];
 
   int currentIndex = 0;
@@ -74,7 +72,7 @@ class TirinhaGlicoamigosState extends State<TirinhaGlicoamigos> {
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 16.w,
-                      vertical: 40
+                      vertical: 18
                           .h, // Ajuste no padding para afastar os elementos do topo
                     ),
                     child: Row(
@@ -135,7 +133,7 @@ class TirinhaGlicoamigosState extends State<TirinhaGlicoamigos> {
                               scale: scale,
                               child: Opacity(
                                 opacity: opacity,
-                                child: Image.asset(
+                                child: SvgPicture.asset(
                                   tirinha[index],
                                   fit: BoxFit.contain,
                                 ),
@@ -175,8 +173,8 @@ class TirinhaGlicoamigosState extends State<TirinhaGlicoamigos> {
                 bottom: 50.h,
                 left: 20.w,
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_rounded,
-                      size: 48, color: Color.fromARGB(255, 0, 0, 0)),
+                  icon: Icon(Icons.arrow_back_ios_rounded,
+                      size: 48.sp, color: Color.fromARGB(255, 0, 0, 0)),
                   onPressed: () {
                     _navigateToPage(currentIndex - 1);
                   },
@@ -186,13 +184,16 @@ class TirinhaGlicoamigosState extends State<TirinhaGlicoamigos> {
               Positioned(
                 bottom: 50.h,
                 right: 20.w,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_forward_ios_rounded,
-                      size: 48, color: Color.fromARGB(255, 0, 0, 0)),
-                  onPressed: () {
-                    _navigateToPage(currentIndex + 1);
-                  },
-                ),
+                child: currentIndex < tirinha.length - 1
+                    ? IconButton(
+                        icon: Icon(Icons.arrow_forward_ios_rounded,
+                            size: 48.sp, color: Color.fromARGB(255, 0, 0, 0)),
+                        onPressed: () {
+                          _navigateToPage(currentIndex + 1);
+                        },
+                      )
+                    : const SizedBox
+                        .shrink(), // Widget vazio quando na última página
               ),
             ],
           );

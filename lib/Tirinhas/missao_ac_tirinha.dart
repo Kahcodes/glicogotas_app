@@ -54,7 +54,7 @@ class TirinhaMissaoState extends State<TirinhaMissao> {
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 16.w,
-                      vertical: 40
+                      vertical: 18
                           .h, // Ajuste no padding para afastar os elementos do topo
                     ),
                     child: Row(

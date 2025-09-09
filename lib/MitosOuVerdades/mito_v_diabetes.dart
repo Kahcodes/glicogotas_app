@@ -157,13 +157,14 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                       IconButton(
                         iconSize: 30.sp,
                         icon: const Icon(Icons.question_answer,
-                            color: Color (0xFF9C6ADE)),
+                            color: Color(0xFF9C6ADE)),
                         onPressed: () => Navigator.pop(context),
                       ),
                       const Spacer(),
                       IconButton(
                         iconSize: 30.sp,
-                        icon: const Icon(Icons.settings, color: Color (0xFF9C6ADE)),
+                        icon: const Icon(Icons.settings,
+                            color: Color(0xFF9C6ADE)),
                         onPressed: () {
                           showDialog(
                             context: context,
@@ -224,8 +225,7 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                       final currentItem = mitosVerdades[index];
                       bool isPergunta =
                           currentItem.containsKey('respostaCorreta');
-                      bool mostrarFeedback =
-                          respondeu && index == currentIndex;
+                      bool mostrarFeedback = respondeu && index == currentIndex;
 
                       // cores do título
                       Color tituloColor = const Color(0xFF5A2D82);
@@ -243,118 +243,130 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                       }
 
                       return Container(
-  margin: EdgeInsets.symmetric(horizontal: 24.w),
-  padding: EdgeInsets.all(20.w),
-  decoration: BoxDecoration(
-    color: const Color(0xFFE5D4FF),
-    borderRadius: BorderRadius.circular(30.r),
-  ),
-  child: SingleChildScrollView( // 👈 permite rolar caso o texto não caiba
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        if (!isPergunta || mostrarFeedback) ...[
-          Text(
-            titulo,
-            style: GoogleFonts.chewy(
-              textStyle: TextStyle(
-                fontSize: 22.sp,
-                fontWeight: FontWeight.bold,
-                color: tituloColor,
-              ),
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 18.h),
-        ],
-        if (!mostrarFeedback) ...[
-          Text(
-            currentItem['pergunta'] ??
-                currentItem['explicacao'] ??
-                '',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.chewy(
-              textStyle: TextStyle(
-                fontSize: isPergunta ? 20.sp : 18.sp,
-                color: Colors.black87,
-              ),
-            ),
-          ),
-        ],
-        if (isPergunta && !respondeu) ...[
-          SizedBox(height: 28.h),
-          Row(
-            children: [
-              Expanded(
-                child: FilledButton.icon(
-                  style: FilledButton.styleFrom(
-                    backgroundColor: const Color(0xFFD32F2F),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 12.h),
-                  ),
-                  icon: const Icon(Icons.close, color: Colors.white),
-                  label: Text(
-                    'Mito',
-                    style: GoogleFonts.chewy(
-                      textStyle: TextStyle(
-                          color: Colors.white, fontSize: 18.sp),
-                    ),
-                  ),
-                  onPressed: () => verificarResposta(false),
-                ),
-              ),
-              SizedBox(width: 16.w),
-              Expanded(
-                child: FilledButton.icon(
-                  style: FilledButton.styleFrom(
-                    backgroundColor: const Color(0xFF2E7D32),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 12.h),
-                  ),
-                  icon: const Icon(Icons.check, color: Colors.white),
-                  label: Text(
-                    'Verdade',
-                    style: GoogleFonts.chewy(
-                      textStyle: TextStyle(
-                          color: Colors.white, fontSize: 18.sp),
-                    ),
-                  ),
-                  onPressed: () => verificarResposta(true),
-                ),
-              ),
-            ],
-          ),
-        ],
-        if (mostrarFeedback) ...[
-          FadeIn(
-            child: Image.asset(
-              acertou == true
-                  ? 'assets/images/personagem_acerto.png'
-                  : 'assets/images/personagem_erro.png',
-              height: 120.h,
-            ),
-          ),
-          SizedBox(height: 12.h),
-          Text(
-            currentItem['explicacao'] ?? '',
-            style: GoogleFonts.chewy(
-              textStyle: TextStyle(
-                fontSize: 16.sp,
-                color: Colors.black87,
-              ),
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ],
-    ),
-  ),
-);
-
+                        margin: EdgeInsets.symmetric(horizontal: 24.w),
+                        padding: EdgeInsets.all(20.w),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFE5D4FF),
+                          borderRadius: BorderRadius.circular(30.r),
+                        ),
+                        child: SingleChildScrollView(
+                          // 👈 permite rolar caso o texto não caiba
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (!isPergunta || mostrarFeedback) ...[
+                                Text(
+                                  titulo,
+                                  style: GoogleFonts.chewy(
+                                    textStyle: TextStyle(
+                                      fontSize: 22.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: tituloColor,
+                                    ),
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: 18.h),
+                              ],
+                              if (!mostrarFeedback) ...[
+                                Text(
+                                  currentItem['pergunta'] ??
+                                      currentItem['explicacao'] ??
+                                      '',
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.chewy(
+                                    textStyle: TextStyle(
+                                      fontSize: isPergunta ? 20.sp : 18.sp,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                              if (isPergunta && !respondeu) ...[
+                                SizedBox(height: 28.h),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: FilledButton.icon(
+                                        style: FilledButton.styleFrom(
+                                          backgroundColor:
+                                              const Color(0xFFD32F2F),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12.r),
+                                          ),
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 12.h),
+                                        ),
+                                        icon: const Icon(Icons.close,
+                                            color: Colors.white),
+                                        label: Text(
+                                          'Mito',
+                                          style: GoogleFonts.chewy(
+                                            textStyle: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18.sp),
+                                          ),
+                                        ),
+                                        onPressed: () =>
+                                            verificarResposta(false),
+                                      ),
+                                    ),
+                                    SizedBox(width: 16.w),
+                                    Expanded(
+                                      child: FilledButton.icon(
+                                        style: FilledButton.styleFrom(
+                                          backgroundColor:
+                                              const Color(0xFF2E7D32),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12.r),
+                                          ),
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 12.h),
+                                        ),
+                                        icon: const Icon(Icons.check,
+                                            color: Colors.white),
+                                        label: Text(
+                                          'Verdade',
+                                          style: GoogleFonts.chewy(
+                                            textStyle: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18.sp),
+                                          ),
+                                        ),
+                                        onPressed: () =>
+                                            verificarResposta(true),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                              if (mostrarFeedback) ...[
+                                FadeIn(
+                                  child: Image.asset(
+                                    acertou == true
+                                        ? 'assets/images/personagem_acerto.png'
+                                        : 'assets/images/personagem_erro.png',
+                                    height: 120.h,
+                                  ),
+                                ),
+                                SizedBox(height: 12.h),
+                                Text(
+                                  currentItem['explicacao'] ?? '',
+                                  style: GoogleFonts.chewy(
+                                    textStyle: TextStyle(
+                                      fontSize: 16.sp,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -382,33 +394,27 @@ class _MitosVerdadesScreenState extends State<MitosVerdadesScreen> {
                 ),
 
                 // Botões de navegação
-                Padding(
-                  padding: EdgeInsets.only(bottom: 16.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back_ios_rounded,
-                            size: 48, color: Colors.black),
-                        onPressed: currentIndex > 0 ? voltarPergunta : null,
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.arrow_forward_ios_rounded,
-                            size: 48, color: Colors.black),
-                        onPressed: () {
-                          final currentItem = mitosVerdades[currentIndex];
-                          bool temResposta =
-                              currentItem.containsKey('respostaCorreta');
-
-                          if (currentIndex < mitosVerdades.length - 1 &&
-                              (!temResposta || respondeu)) {
-                            proximaPergunta();
-                          }
-                        },
-                      ),
-                    ],
+                if (respondeu || !temResposta)
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 16.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.arrow_back_ios_rounded,
+                              size: 48.sp, color: Colors.black),
+                          onPressed: currentIndex > 0 ? voltarPergunta : null,
+                        ),
+                        currentIndex < mitosVerdades.length - 1
+                            ? IconButton(
+                                icon: Icon(Icons.arrow_forward_ios_rounded,
+                                    size: 48.sp, color: Colors.black),
+                                onPressed: proximaPergunta,
+                              )
+                            : const SizedBox.shrink(),
+                      ],
+                    ),
                   ),
-                ),
               ],
             ),
           ),
