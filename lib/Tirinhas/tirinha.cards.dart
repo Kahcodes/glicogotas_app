@@ -72,7 +72,8 @@ class TirinhaCardsPageState extends State<TirinhaCardsPage> with RouteAware {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const TelaHome()),
+                          MaterialPageRoute(
+                              builder: (context) => const TelaHome()),
                         );
                       },
                     ),
@@ -115,7 +116,8 @@ class TirinhaCardsPageState extends State<TirinhaCardsPage> with RouteAware {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Tirinha()),
+                          MaterialPageRoute(
+                              builder: (context) => const Tirinha()),
                         );
                       },
                     ),
@@ -125,49 +127,52 @@ class TirinhaCardsPageState extends State<TirinhaCardsPage> with RouteAware {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const TirinhaInsulina()),
+                          MaterialPageRoute(
+                              builder: (context) => const TirinhaInsulina()),
                         );
                       },
                     ),
                     // Card 3
                     _buildCard(
-                      imagePath: 'assets/images/glicoamigos-card.png', 
+                      imagePath: 'assets/images/glicoamigos-card.png',
                       onTap: () {
-                        
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const TirinhaGlicoamigos()),
+                          MaterialPageRoute(
+                              builder: (context) => const TirinhaGlicoamigos()),
                         );
-                        
                       },
                     ),
                     // Card 4
                     _buildCard(
-                      imagePath: 'assets/images/tirinha-aguavai.png', 
+                      imagePath: 'assets/images/tirinha-aguavai.png',
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const TirinhaAgua()),
+                          MaterialPageRoute(
+                              builder: (context) => const TirinhaAgua()),
                         );
                       },
                     ),
                     // Card 5
                     _buildCard(
-                      imagePath: 'assets/images/bateria-fraca-tirinha.png', 
+                      imagePath: 'assets/images/bateria-fraca-tirinha.png',
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const TirinhaBateria()),
+                          MaterialPageRoute(
+                              builder: (context) => const TirinhaBateria()),
                         );
                       },
                     ),
                     // Card 6
                     _buildCard(
-                      imagePath: 'assets/images/tirinha-missao.png', 
+                      imagePath: 'assets/images/tirinha-missao.png',
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const TirinhaMissao()),
+                          MaterialPageRoute(
+                              builder: (context) => const TirinhaMissao()),
                         );
                       },
                     ),

@@ -12,7 +12,7 @@ class TirinhaMissao extends StatefulWidget {
 
 class TirinhaMissaoState extends State<TirinhaMissao> {
   final List<String> tirinha = [
-    'assets/images/missao-tirinha.png',
+    'assets/images/missao-tirinha.svg',
   ];
 
   int currentIndex = 0;

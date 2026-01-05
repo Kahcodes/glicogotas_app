@@ -91,9 +91,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/agua-tirinha1.png
-    - assets/images/agua-tirinha2.png
-    - assets/images/agua-tirinha3.png
+
     - assets/images/balao-dm1-page1.svg
     - assets/images/balao-dm1-page2.svg
     - assets/images/balao-dm1-page3.svg
@@ -155,9 +153,6 @@ flutter:
     - assets/images/card-vovo.png
     - assets/images/celulas.svg
     - assets/images/chaves-capa.png
-    - assets/images/confusao-tirinha1.png
-    - assets/images/confusao-tirinha2.png
-    - assets/images/confusao-tirinha3.png
     - assets/images/decoracao.svg
     - assets/images/diabetes-capa.png
     - assets/images/doutora-e-lita.svg
@@ -227,7 +222,6 @@ flutter:
     - assets/images/lita.svg
     - assets/images/Medica-lita.svg
     - assets/images/medica-vovo.svg
-    - assets/images/missao-tirinha.png
     - assets/images/mito2-capa.png
     - assets/images/pancreas-capa.png
     - assets/images/pancreas.svg
@@ -254,9 +248,6 @@ flutter:
     - assets/images/tirinha-ins-3.svg
     - assets/images/tirinha-insu-capa.png
     - assets/images/tirinha-missao.png
-    - assets/images/tirinha1.png
-    - assets/images/tirinha2.png
-    - assets/images/tirinha3.png
     - assets/images/ativ_fisica.svg
     - assets/images/causa.svg
     - assets/images/diet.svg
