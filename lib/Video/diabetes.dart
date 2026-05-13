@@ -161,9 +161,9 @@ class _VideoDiabetesPageState extends State<VideoDiabetesPage>
                                       colors: VideoProgressColors(
                                         playedColor: Colors.orange,
                                         bufferedColor:
-                                            Colors.white.withOpacity(0.9),
+                                            Colors.white.withValues(alpha: 0.9),
                                         backgroundColor:
-                                            Colors.white.withOpacity(0.7),
+                                            Colors.white.withValues(alpha: 0.7),
                                       ),
                                     ),
                                   ),

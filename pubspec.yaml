@@ -33,7 +33,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.9.3
-  google_fonts: ^6.2.1
+  google_fonts: ^8.1.0
   flutter_svg: ^2.0.10
   audioplayers: ^6.1.0
   shared_preferences: ^2.3.3
