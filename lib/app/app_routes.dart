@@ -3,4 +3,5 @@ abstract final class AppRoutes {
   static const home = 'home';
   static const bookChapters = 'book_chapters';
   static const characters = 'characters';
+  static const mythsTruths = 'myths_truths';
 }

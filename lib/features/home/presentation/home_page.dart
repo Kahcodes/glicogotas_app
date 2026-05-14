@@ -11,6 +11,7 @@ import 'package:glicogotas_app/features/book/presentation/book_chapters_page.dar
 import 'package:glicogotas_app/features/characters/presentation/characters_page.dart';
 import 'package:glicogotas_app/features/home/domain/home_menu_item.dart';
 import 'package:glicogotas_app/features/home/presentation/home_menu_button.dart';
+import 'package:glicogotas_app/features/myths_truths/presentation/myths_truths_page.dart';
 import 'package:glicogotas_app/features/settings/data/settings_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -31,13 +32,22 @@ class _HomePageState extends State<HomePage>
           label: 'Personagens',
           color: AppColors.green,
           icon: Icons.people,
+          routeName: AppRoutes.characters,
           builder: (_) => const CharactersPage(),
         ),
         HomeMenuItem(
           label: 'Livro',
           color: Colors.blue,
           icon: Icons.menu_book,
+          routeName: AppRoutes.bookChapters,
           builder: (_) => const BookChaptersPage(),
+        ),
+        HomeMenuItem(
+          label: 'Mitos ou Verdades',
+          color: AppColors.pink,
+          icon: Icons.quiz,
+          routeName: AppRoutes.mythsTruths,
+          builder: (_) => const MythsTruthsPage(),
         ),
       ];
 
@@ -68,11 +78,7 @@ class _HomePageState extends State<HomePage>
     Navigator.push(
       context,
       MaterialPageRoute(
-        settings: RouteSettings(
-          name: item.label == 'Livro'
-              ? AppRoutes.bookChapters
-              : AppRoutes.characters,
-        ),
+        settings: RouteSettings(name: item.routeName),
         builder: item.builder,
       ),
     );

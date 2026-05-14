@@ -4,6 +4,7 @@ import 'package:glicogotas_app/app/app_routes.dart';
 import 'package:glicogotas_app/core/navigation/app_navigator.dart';
 import 'package:glicogotas_app/features/book/data/diabetes_chapter.dart';
 import 'package:glicogotas_app/features/characters/data/character_profiles.dart';
+import 'package:glicogotas_app/features/myths_truths/data/myth_truth_topics.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:glicogotas_app/main.dart';
@@ -57,6 +58,20 @@ void main() {
       'Betinho',
       'Canetto',
     ]);
+  });
+
+  test('feature mitos e verdades mantem temas declarativos atuais', () {
+    expect(mythTruthTopics.map((topic) => topic.id), [
+      'causas_diabetes',
+      'doces',
+      'frutas',
+      'diet',
+      'mel',
+      'atividade_fisica',
+    ]);
+    expect(mythTruthTopics.every((topic) => topic.pages.length == 4), isTrue);
+    expect(
+        mythTruthTopics.every((topic) => topic.pages.first.isQuestion), isTrue);
   });
 
   testWidgets('botao de casinha volta para Home sem duplicar rota', (
