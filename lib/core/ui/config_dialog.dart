@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:glicogotas_app/features/about/presentation/about_page.dart';
 import 'package:glicogotas_app/features/settings/data/settings_repository.dart';
-import 'package:glicogotas_app/sobre_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -103,7 +103,7 @@ class ConfigDialog extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const SobrePage(),
+                              builder: (context) => const AboutPage(),
                             ),
                           );
                         },

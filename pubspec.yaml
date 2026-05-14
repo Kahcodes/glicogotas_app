@@ -37,14 +37,9 @@ dependencies:
   flutter_svg: ^2.0.10
   audioplayers: ^6.1.0
   shared_preferences: ^2.3.3
-  just_audio: ^0.10.4
-  sqflite: ^2.4.1
-  path: ^1.9.0
   url_launcher: ^6.3.1
   font_awesome_flutter: ^10.8.0
-  animate_do: ^4.2.0
   video_player: ^2.10.0
-  auto_size_text: ^3.0.0
 
 
   
@@ -53,7 +48,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   provider: ^6.1.2
-  logger: ^2.5.0
 
 dev_dependencies:
   flutter_test:
@@ -248,6 +242,13 @@ flutter:
     - assets/images/tirinha-ins-3.svg
     - assets/images/tirinha-insu-capa.png
     - assets/images/tirinha-missao.png
+    - assets/images/agua-tirinha1.svg
+    - assets/images/agua-tirinha2.svg
+    - assets/images/agua-tirinha3.svg
+    - assets/images/confusão-tirinha1.svg
+    - assets/images/confusão-tirinha2.svg
+    - assets/images/confusão-tirinha3.svg
+    - assets/images/missão-tirinha.svg
     - assets/images/ativ_fisica.svg
     - assets/images/causa.svg
     - assets/images/diet.svg

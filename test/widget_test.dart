@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:glicogotas_app/app/app_routes.dart';
 import 'package:glicogotas_app/core/navigation/app_navigator.dart';
+import 'package:glicogotas_app/core/persistence/preferences_store.dart';
+import 'package:glicogotas_app/features/book/data/book_chapters.dart';
 import 'package:glicogotas_app/features/book/data/diabetes_chapter.dart';
 import 'package:glicogotas_app/features/characters/data/character_profiles.dart';
+import 'package:glicogotas_app/features/comics/data/comics.dart';
 import 'package:glicogotas_app/features/myths_truths/data/myth_truth_topics.dart';
+import 'package:glicogotas_app/features/settings/data/settings_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:glicogotas_app/main.dart';
-import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 
 void main() {
   testWidgets('exibe a tela inicial do app', (WidgetTester tester) async {
@@ -28,7 +31,8 @@ void main() {
       'volume': 0.7,
     });
 
-    final repository = ConfiguracoesRepository();
+    final repository = SettingsRepository(PreferencesStore());
+    await repository.load();
 
     await repository.switchMusicOn();
     await repository.setVolume(0.4);
@@ -45,6 +49,17 @@ void main() {
     expect(diabetesChapter.title, 'Diabetes');
     expect(diabetesChapter.pages, hasLength(7));
     expect(diabetesChapter.pages.first.isCover, isTrue);
+  });
+
+  test('livro mantem todos os capitulos declarativos', () {
+    expect(bookChapters.map((chapter) => chapter.id), [
+      'diabetes',
+      'pancreas',
+      'insulina',
+      'hipoglicemia',
+      'hiperglicemia',
+      'diabetes_tipo_2',
+    ]);
   });
 
   test('mvp mantem todos os personagens atuais', () {
@@ -72,6 +87,17 @@ void main() {
     expect(mythTruthTopics.every((topic) => topic.pages.length == 4), isTrue);
     expect(
         mythTruthTopics.every((topic) => topic.pages.first.isQuestion), isTrue);
+  });
+
+  test('feature tirinhas mantem tirinhas declarativas atuais', () {
+    expect(comics.map((comic) => comic.id), [
+      'docura',
+      'insulina',
+      'glicoamigos',
+      'agua_vai',
+      'bateria_fraca',
+      'missao',
+    ]);
   });
 
   testWidgets('botao de casinha volta para Home sem duplicar rota', (

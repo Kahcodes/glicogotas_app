@@ -9,10 +9,13 @@ import 'package:glicogotas_app/core/theme/app_colors.dart';
 import 'package:glicogotas_app/core/ui/config_dialog.dart';
 import 'package:glicogotas_app/features/book/presentation/book_chapters_page.dart';
 import 'package:glicogotas_app/features/characters/presentation/characters_page.dart';
+import 'package:glicogotas_app/features/comics/presentation/comics_page.dart';
+import 'package:glicogotas_app/features/games/presentation/games_page.dart';
 import 'package:glicogotas_app/features/home/domain/home_menu_item.dart';
 import 'package:glicogotas_app/features/home/presentation/home_menu_button.dart';
 import 'package:glicogotas_app/features/myths_truths/presentation/myths_truths_page.dart';
 import 'package:glicogotas_app/features/settings/data/settings_repository.dart';
+import 'package:glicogotas_app/features/video/presentation/video_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -48,6 +51,27 @@ class _HomePageState extends State<HomePage>
           icon: Icons.quiz,
           routeName: AppRoutes.mythsTruths,
           builder: (_) => const MythsTruthsPage(),
+        ),
+        HomeMenuItem(
+          label: 'Tirinhas',
+          color: AppColors.sky,
+          icon: Icons.collections,
+          routeName: AppRoutes.comics,
+          builder: (_) => const ComicsPage(),
+        ),
+        HomeMenuItem(
+          label: 'Vídeo',
+          color: Colors.orange,
+          icon: Icons.play_circle,
+          routeName: AppRoutes.video,
+          builder: (_) => const VideoPage(),
+        ),
+        HomeMenuItem(
+          label: 'Jogos',
+          color: Colors.deepPurple,
+          icon: Icons.sports_esports,
+          routeName: AppRoutes.games,
+          builder: (_) => const GamesPage(),
         ),
       ];
 
@@ -209,9 +233,9 @@ class _HomePageState extends State<HomePage>
                   top: 250.h,
                   left: 0,
                   right: 0,
+                  bottom: 20.h,
                   child: GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     padding: EdgeInsets.symmetric(horizontal: gridHPad),
                     itemCount: _items.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
