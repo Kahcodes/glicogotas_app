@@ -1,4 +1,4 @@
-package com.example.glicogotas_app
+package br.com.glicogotas.app
 
 import io.flutter.embedding.android.FlutterActivity
 

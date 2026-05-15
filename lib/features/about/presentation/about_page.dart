@@ -98,6 +98,18 @@ class AboutPage extends StatelessWidget {
                           ),
                           textAlign: TextAlign.center,
                         ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'Este aplicativo tem finalidade educativa e não substitui orientação médica. '
+                          'Ele não é um dispositivo médico e não diagnostica, trata, cura ou previne qualquer condição médica. '
+                          'Em caso de dúvidas sobre saúde, procure uma equipe de saúde qualificada.',
+                          style: AppTextStyles.chewy(
+                            fontSize: bodySize - 2,
+                            color: Colors.white,
+                            height: 1.4,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                         const SizedBox(height: 32),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
