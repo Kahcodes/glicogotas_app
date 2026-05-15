@@ -237,11 +237,15 @@ flutter:
     - assets/images/tela-inicial-perso.svg
     - assets/images/tirinha-aguavai.png
     - assets/images/tirinha-docura-capa.png
+    - assets/images/tirinha1.svg
+    - assets/images/tirinha2.svg
+    - assets/images/tirinha3.svg
     - assets/images/tirinha-ins-1.svg
     - assets/images/tirinha-ins-2.svg
     - assets/images/tirinha-ins-3.svg
     - assets/images/tirinha-insu-capa.png
     - assets/images/tirinha-missao.png
+    - assets/images/missao-tirinha.png
     - assets/images/agua-tirinha1.svg
     - assets/images/agua-tirinha2.svg
     - assets/images/agua-tirinha3.svg
