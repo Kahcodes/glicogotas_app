@@ -151,7 +151,7 @@ class AboutPage extends StatelessWidget {
                         const SizedBox(height: 16),
                         GestureDetector(
                           onTap: () => _launchUrl(
-                            'https://www.instagram.com/glicogotas.ifrj/',
+                            'https://www.instagram.com/glicogotas/',
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
