@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glicogotas_app/app/app_providers.dart';
 import 'package:glicogotas_app/app/route_observer.dart';
 import 'package:glicogotas_app/features/startup/presentation/start_page.dart';
 
-class GlicogotasApp extends StatelessWidget {
+class GlicogotasApp extends StatefulWidget {
   const GlicogotasApp({super.key});
+
+  @override
+  State<GlicogotasApp> createState() => _GlicogotasAppState();
+}
+
+class _GlicogotasAppState extends State<GlicogotasApp> {
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  }
 
   @override
   Widget build(BuildContext context) {

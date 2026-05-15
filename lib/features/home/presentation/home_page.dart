@@ -6,7 +6,9 @@ import 'package:glicogotas_app/app/route_observer.dart';
 import 'package:glicogotas_app/core/audio/audio_controller.dart';
 import 'package:glicogotas_app/core/theme/app_assets.dart';
 import 'package:glicogotas_app/core/theme/app_colors.dart';
+import 'package:glicogotas_app/core/theme/app_text_styles.dart';
 import 'package:glicogotas_app/core/ui/config_dialog.dart';
+import 'package:glicogotas_app/core/ui/system_bars_style.dart';
 import 'package:glicogotas_app/features/book/presentation/book_chapters_page.dart';
 import 'package:glicogotas_app/features/characters/presentation/characters_page.dart';
 import 'package:glicogotas_app/features/comics/presentation/comics_page.dart';
@@ -16,7 +18,6 @@ import 'package:glicogotas_app/features/home/presentation/home_menu_button.dart'
 import 'package:glicogotas_app/features/myths_truths/presentation/myths_truths_page.dart';
 import 'package:glicogotas_app/features/settings/data/settings_repository.dart';
 import 'package:glicogotas_app/features/video/presentation/video_page.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,50 +31,50 @@ class _HomePageState extends State<HomePage>
     with RouteAware, WidgetsBindingObserver, PageAudioMixin<HomePage> {
   bool _isCurrentPage = true;
 
-  List<HomeMenuItem> get _items => [
-        HomeMenuItem(
-          label: 'Personagens',
-          color: AppColors.green,
-          icon: Icons.people,
-          routeName: AppRoutes.characters,
-          builder: (_) => const CharactersPage(),
-        ),
-        HomeMenuItem(
-          label: 'Livro',
-          color: Colors.blue,
-          icon: Icons.menu_book,
-          routeName: AppRoutes.bookChapters,
-          builder: (_) => const BookChaptersPage(),
-        ),
-        HomeMenuItem(
-          label: 'Mitos ou Verdades',
-          color: AppColors.pink,
-          icon: Icons.quiz,
-          routeName: AppRoutes.mythsTruths,
-          builder: (_) => const MythsTruthsPage(),
-        ),
-        HomeMenuItem(
-          label: 'Tirinhas',
-          color: AppColors.sky,
-          icon: Icons.collections,
-          routeName: AppRoutes.comics,
-          builder: (_) => const ComicsPage(),
-        ),
-        HomeMenuItem(
-          label: 'Vídeo',
-          color: Colors.orange,
-          icon: Icons.play_circle,
-          routeName: AppRoutes.video,
-          builder: (_) => const VideoPage(),
-        ),
-        HomeMenuItem(
-          label: 'Jogos',
-          color: Colors.deepPurple,
-          icon: Icons.sports_esports,
-          routeName: AppRoutes.games,
-          builder: (_) => const GamesPage(),
-        ),
-      ];
+  static final List<HomeMenuItem> _items = [
+    HomeMenuItem(
+      label: 'Personagens',
+      color: AppColors.green,
+      icon: Icons.people,
+      routeName: AppRoutes.characters,
+      builder: (_) => const CharactersPage(),
+    ),
+    HomeMenuItem(
+      label: 'Livro',
+      color: Colors.blue,
+      icon: Icons.menu_book,
+      routeName: AppRoutes.bookChapters,
+      builder: (_) => const BookChaptersPage(),
+    ),
+    HomeMenuItem(
+      label: 'Mitos ou Verdades',
+      color: AppColors.pink,
+      icon: Icons.quiz,
+      routeName: AppRoutes.mythsTruths,
+      builder: (_) => const MythsTruthsPage(),
+    ),
+    HomeMenuItem(
+      label: 'Tirinhas',
+      color: AppColors.sky,
+      icon: Icons.collections,
+      routeName: AppRoutes.comics,
+      builder: (_) => const ComicsPage(),
+    ),
+    HomeMenuItem(
+      label: 'Vídeo',
+      color: Colors.orange,
+      icon: Icons.play_circle,
+      routeName: AppRoutes.video,
+      builder: (_) => const VideoPage(),
+    ),
+    HomeMenuItem(
+      label: 'Jogos',
+      color: Colors.deepPurple,
+      icon: Icons.sports_esports,
+      routeName: AppRoutes.games,
+      builder: (_) => const GamesPage(),
+    ),
+  ];
 
   @override
   void initState() {
@@ -132,133 +133,134 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          ScreenUtil.init(
-            context,
-            designSize: const Size(360, 690),
-            minTextAdapt: true,
-          );
+    return SystemBarsStyle(
+      statusBarColor: Colors.white,
+      navigationBarColor: Colors.white,
+      child: Scaffold(
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            const columns = 2;
+            final gridHPad = 22.w;
+            final crossSpacing = 16.w;
+            final usableWidth =
+                constraints.maxWidth - (gridHPad * 2) - crossSpacing;
+            var itemSide = usableWidth / columns;
+            final maxSide = constraints.maxHeight * 0.16;
+            final minSide = 92.w;
+            if (itemSide > maxSide) itemSide = maxSide;
+            if (itemSide < minSide) itemSide = minSide;
 
-          const columns = 2;
-          final gridHPad = 22.w;
-          final crossSpacing = 16.w;
-          final usableWidth =
-              constraints.maxWidth - (gridHPad * 2) - crossSpacing;
-          var itemSide = usableWidth / columns;
-          final maxSide = constraints.maxHeight * 0.16;
-          final minSide = 92.w;
-          if (itemSide > maxSide) itemSide = maxSide;
-          if (itemSide < minSide) itemSide = minSide;
-
-          return Container(
-            decoration: const BoxDecoration(color: Colors.white),
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: FittedBox(
-                    fit: BoxFit.fill,
-                    child: SvgPicture.asset(AppAssets.decoracao),
+            return Container(
+              decoration: const BoxDecoration(color: Colors.white),
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: RepaintBoundary(
+                      child: SvgPicture.asset(
+                        AppAssets.decoracao,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
                   ),
-                ),
-                Positioned(
-                  top: 40.h,
-                  right: 16.w,
-                  child: IconButton(
-                    iconSize: 30.sp,
-                    icon: const Icon(Icons.settings, color: AppColors.blue),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (_) => const ConfigDialog(),
-                      );
-                    },
+                  Positioned(
+                    top: 40.h,
+                    right: 16.w,
+                    child: IconButton(
+                      iconSize: 30.sp,
+                      icon: const Icon(Icons.settings, color: AppColors.blue),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (_) => const ConfigDialog(),
+                        );
+                      },
+                    ),
                   ),
-                ),
-                Positioned(
-                  top: 90.h,
-                  left: 0,
-                  right: 0,
-                  child: Center(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 85.w,
-                          height: 110.h,
-                          child: Image.asset(
-                            AppAssets.talitaIcon,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        SizedBox(width: 12.w),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Como vamos',
-                              style: GoogleFonts.sansitaSwashed(
-                                fontSize: 22.sp,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.sky,
-                              ),
+                  Positioned(
+                    top: 90.h,
+                    left: 0,
+                    right: 0,
+                    child: Center(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 85.w,
+                            height: 110.h,
+                            child: Image.asset(
+                              AppAssets.talitaIcon,
+                              fit: BoxFit.contain,
+                              cacheHeight: 260,
                             ),
-                            RichText(
-                              text: TextSpan(
-                                style: GoogleFonts.sansitaSwashed(
+                          ),
+                          SizedBox(width: 12.w),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Como vamos',
+                                style: AppTextStyles.sansitaSwashed(
                                   fontSize: 22.sp,
                                   fontWeight: FontWeight.bold,
+                                  color: AppColors.sky,
                                 ),
-                                children: const [
-                                  TextSpan(
-                                    text: 'aprender ',
-                                    style: TextStyle(color: AppColors.pink),
-                                  ),
-                                  TextSpan(
-                                    text: 'hoje?',
-                                    style: TextStyle(color: AppColors.sky),
-                                  ),
-                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                              RichText(
+                                text: TextSpan(
+                                  style: AppTextStyles.sansitaSwashed(
+                                    fontSize: 22.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  children: const [
+                                    TextSpan(
+                                      text: 'aprender ',
+                                      style: TextStyle(color: AppColors.pink),
+                                    ),
+                                    TextSpan(
+                                      text: 'hoje?',
+                                      style: TextStyle(color: AppColors.sky),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  top: 250.h,
-                  left: 0,
-                  right: 0,
-                  bottom: 20.h,
-                  child: GridView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: gridHPad),
-                    itemCount: _items.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: columns,
-                      crossAxisSpacing: crossSpacing,
-                      mainAxisSpacing: 18.h,
-                      mainAxisExtent: itemSide,
+                  Positioned(
+                    top: 250.h,
+                    left: 0,
+                    right: 0,
+                    bottom: 20.h,
+                    child: GridView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      padding: EdgeInsets.symmetric(horizontal: gridHPad),
+                      itemCount: _items.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: columns,
+                        crossAxisSpacing: crossSpacing,
+                        mainAxisSpacing: 18.h,
+                        mainAxisExtent: itemSide,
+                      ),
+                      itemBuilder: (context, index) {
+                        final item = _items[index];
+                        return HomeMenuButton(
+                          onTap: () => _navigateTo(item),
+                          color: item.color,
+                          label: item.label,
+                          icon: item.icon,
+                        );
+                      },
                     ),
-                    itemBuilder: (context, index) {
-                      final item = _items[index];
-                      return HomeMenuButton(
-                        onTap: () => _navigateTo(item),
-                        color: item.color,
-                        label: item.label,
-                        icon: item.icon,
-                      );
-                    },
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

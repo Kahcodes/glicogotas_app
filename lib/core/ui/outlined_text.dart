@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:glicogotas_app/core/theme/app_text_styles.dart';
 
 class OutlinedText extends StatelessWidget {
   const OutlinedText({
@@ -29,7 +29,7 @@ class OutlinedText extends StatelessWidget {
         Text(
           text,
           textAlign: textAlign,
-          style: GoogleFonts.chewy(
+          style: AppTextStyles.chewy(
             fontSize: fontSize,
             shadows: shadows,
             foreground: Paint()
@@ -41,7 +41,7 @@ class OutlinedText extends StatelessWidget {
         Text(
           text,
           textAlign: textAlign,
-          style: GoogleFonts.chewy(
+          style: AppTextStyles.chewy(
             fontSize: fontSize,
             color: color,
           ),

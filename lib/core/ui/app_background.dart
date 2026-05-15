@@ -14,7 +14,9 @@ class SvgBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned.fill(
-      child: SvgPicture.asset(asset, fit: fit),
+      child: RepaintBoundary(
+        child: SvgPicture.asset(asset, fit: fit),
+      ),
     );
   }
 }

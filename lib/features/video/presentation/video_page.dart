@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/core/theme/app_colors.dart';
+import 'package:glicogotas_app/core/theme/app_text_styles.dart';
 import 'package:glicogotas_app/core/ui/config_dialog.dart';
+import 'package:glicogotas_app/core/ui/system_bars_style.dart';
 import 'package:glicogotas_app/features/video/data/app_videos.dart';
 import 'package:glicogotas_app/features/video/domain/app_video.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:video_player/video_player.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoPage extends StatelessWidget {
   const VideoPage({super.key});
@@ -28,24 +31,26 @@ class VideoPlayerPage extends StatefulWidget {
 
 class _VideoPlayerPageState extends State<VideoPlayerPage>
     with WidgetsBindingObserver {
-  late final VideoPlayerController _controller;
-  bool _isLoading = true;
+  late final YoutubePlayerController _controller;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _controller = VideoPlayerController.asset(widget.video.asset)
-      ..initialize().then((_) {
-        if (!mounted) return;
-        setState(() => _isLoading = false);
-        _controller.play();
-      });
+    _controller = YoutubePlayerController(
+      initialVideoId: widget.video.youtubeId,
+      flags: const YoutubePlayerFlags(
+        autoPlay: true,
+        controlsVisibleAtStart: true,
+        enableCaption: false,
+      ),
+    );
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _restorePortraitUi();
     _controller.dispose();
     super.dispose();
   }
@@ -58,127 +63,166 @@ class _VideoPlayerPageState extends State<VideoPlayerPage>
     }
   }
 
+  Future<void> _openOnYoutube() async {
+    final uri = Uri.parse(widget.video.youtubeUrl);
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  }
+
+  void _restorePortraitUi() {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: SystemUiOverlay.values,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-      context,
-      designSize: const Size(360, 690),
-      minTextAdapt: true,
+    final player = YoutubePlayer(
+      controller: _controller,
+      showVideoProgressIndicator: true,
+      progressIndicatorColor: Colors.orange,
+      progressColors: ProgressBarColors(
+        playedColor: Colors.orange,
+        handleColor: Colors.orange.shade700,
+      ),
+      bottomActions: [
+        CurrentPosition(),
+        ProgressBar(isExpanded: true),
+        RemainingDuration(),
+        FullScreenButton(),
+      ],
     );
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFFFF4E6),
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: SvgPicture.asset(
-              'assets/images/fundopaglivro.svg',
-              fit: BoxFit.fill,
+    return YoutubePlayerBuilder(
+      player: player,
+      builder: (context, player) => _VideoContent(
+        video: widget.video,
+        player: player,
+        onOpenOnYoutube: _openOnYoutube,
+      ),
+    );
+  }
+}
+
+class _VideoContent extends StatelessWidget {
+  const _VideoContent({
+    required this.video,
+    required this.player,
+    required this.onOpenOnYoutube,
+  });
+
+  final AppVideo video;
+  final Widget player;
+  final VoidCallback onOpenOnYoutube;
+
+  @override
+  Widget build(BuildContext context) {
+    return SystemBarsStyle(
+      statusBarColor: const Color(0xFFFCB44E),
+      navigationBarColor: const Color(0xFFFEDE74),
+      child: Scaffold(
+        backgroundColor: const Color(0xFFFFF4E6),
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: RepaintBoundary(
+                child: SvgPicture.asset(
+                  'assets/images/fundopaglivro.svg',
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
-          ),
-          Positioned(
-            top: 40.h,
-            left: 16.w,
-            child: IconButton(
-              iconSize: 30.sp,
-              icon: const Icon(Icons.arrow_back_ios_rounded),
-              color: AppColors.pink,
-              onPressed: () => Navigator.pop(context),
+            Positioned(
+              top: 40.h,
+              left: 16.w,
+              child: IconButton(
+                iconSize: 30.sp,
+                icon: const Icon(Icons.arrow_back_ios_rounded),
+                color: AppColors.pink,
+                onPressed: () => Navigator.pop(context),
+              ),
             ),
-          ),
-          Positioned(
-            top: 40.h,
-            right: 16.w,
-            child: IconButton(
-              iconSize: 30.sp,
-              icon: const Icon(Icons.settings),
-              color: AppColors.pink,
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (_) => const ConfigDialog(),
-                );
-              },
+            Positioned(
+              top: 40.h,
+              right: 16.w,
+              child: IconButton(
+                iconSize: 30.sp,
+                icon: const Icon(Icons.settings),
+                color: AppColors.pink,
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => const ConfigDialog(),
+                  );
+                },
+              ),
             ),
-          ),
-          Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  widget.video.title,
-                  style: GoogleFonts.chewy(
-                    color: Colors.orange,
-                    fontSize: 22.sp,
-                    fontWeight: FontWeight.bold,
+            Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    video.title,
+                    style: AppTextStyles.chewy(
+                      color: Colors.orange,
+                      fontSize: 22.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 16.h),
-                SizedBox(
-                  width: 320.w,
-                  height: 200.h,
-                  child: _isLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.orange,
-                          ),
-                        )
-                      : ClipRRect(
-                          borderRadius: BorderRadius.circular(14.r),
-                          child: Stack(
-                            alignment: Alignment.bottomCenter,
-                            children: [
-                              VideoPlayer(_controller),
-                              Positioned(
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: SizedBox(
-                                  height: 8.h,
-                                  child: VideoProgressIndicator(
-                                    _controller,
-                                    allowScrubbing: true,
-                                    colors: VideoProgressColors(
-                                      playedColor: Colors.orange,
-                                      bufferedColor:
-                                          Colors.white.withValues(alpha: 0.9),
-                                      backgroundColor:
-                                          Colors.white.withValues(alpha: 0.7),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                ),
-                SizedBox(height: 20.h),
-                SizedBox(
-                  width: 50.w,
-                  height: 50.w,
-                  child: FloatingActionButton(
-                    backgroundColor: Colors.orange,
-                    onPressed: () {
-                      setState(() {
-                        _controller.value.isPlaying
-                            ? _controller.pause()
-                            : _controller.play();
-                      });
-                    },
-                    child: Icon(
-                      _controller.value.isPlaying
-                          ? Icons.pause
-                          : Icons.play_arrow,
-                      size: 30.sp,
-                      color: Colors.white,
+                  SizedBox(height: 16.h),
+                  SizedBox(
+                    width: 320.w,
+                    height: 200.h,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(14.r),
+                      child: player,
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 12.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 32.w),
+                    child: Text(
+                      'Este vídeo precisa de internet para carregar.',
+                      style: AppTextStyles.chewy(
+                        color: AppColors.blue,
+                        fontSize: 14.sp,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(height: 12.h),
+                  FilledButton.icon(
+                    style: FilledButton.styleFrom(
+                      backgroundColor: Colors.orange,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.r),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 18.w,
+                        vertical: 8.h,
+                      ),
+                    ),
+                    onPressed: onOpenOnYoutube,
+                    icon: Icon(
+                      Icons.open_in_new_rounded,
+                      color: Colors.white,
+                      size: 20.sp,
+                    ),
+                    label: Text(
+                      'Abrir no YouTube',
+                      style: AppTextStyles.chewy(
+                        color: Colors.white,
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

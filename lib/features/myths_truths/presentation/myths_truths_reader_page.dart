@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/core/audio/audio_player_service.dart';
+import 'package:glicogotas_app/core/theme/app_text_styles.dart';
+import 'package:glicogotas_app/core/ui/asset_precache.dart';
 import 'package:glicogotas_app/core/ui/config_dialog.dart';
+import 'package:glicogotas_app/core/ui/system_bars_style.dart';
 import 'package:glicogotas_app/features/myths_truths/domain/myth_truth_page_content.dart';
 import 'package:glicogotas_app/features/myths_truths/domain/myth_truth_topic.dart';
 import 'package:glicogotas_app/features/settings/data/settings_repository.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class MythsTruthsReaderPage extends StatefulWidget {
@@ -26,6 +28,7 @@ class _MythsTruthsReaderPageState extends State<MythsTruthsReaderPage> {
   int _currentIndex = 0;
   bool? _answeredCorrectly;
   bool _answered = false;
+  bool _didPrecache = false;
 
   MythTruthPageContent get _currentPage => widget.topic.pages[_currentIndex];
 
@@ -34,6 +37,16 @@ class _MythsTruthsReaderPageState extends State<MythsTruthsReaderPage> {
     super.initState();
     _pageController = PageController();
     _feedbackAudio = AudioPlayerService();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_didPrecache) return;
+    _didPrecache = true;
+    precacheLocalAsset(context, 'assets/images/fundo-mito.svg');
+    precacheLocalAsset(context, 'assets/images/personagem_acerto.png');
+    precacheLocalAsset(context, 'assets/images/personagem_erro.png');
   }
 
   @override
@@ -112,118 +125,120 @@ class _MythsTruthsReaderPageState extends State<MythsTruthsReaderPage> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(
-      context,
-      designSize: const Size(360, 690),
-      minTextAdapt: true,
-    );
-
     final canNavigate = _answered || !_currentPage.isQuestion;
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFFFF3F6),
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: SvgPicture.asset(
-              'assets/images/fundo-mito.svg',
-              fit: BoxFit.fill,
+    return SystemBarsStyle(
+      statusBarColor: const Color(0xFF6AE5B9),
+      navigationBarColor: const Color(0xFFA166FF),
+      child: Scaffold(
+        backgroundColor: const Color(0xFFFFF3F6),
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: RepaintBoundary(
+                child: SvgPicture.asset(
+                  'assets/images/fundo-mito.svg',
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
-          ),
-          SafeArea(
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 8.h,
-                  ),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        iconSize: 30.sp,
-                        icon: const Icon(
-                          Icons.question_answer,
-                          color: _purple,
+            SafeArea(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 8.h,
+                    ),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          iconSize: 30.sp,
+                          icon: const Icon(
+                            Icons.question_answer,
+                            color: _purple,
+                          ),
+                          onPressed: () => Navigator.pop(context),
                         ),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        iconSize: 30.sp,
-                        icon: const Icon(Icons.settings, color: _purple),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (_) => const ConfigDialog(),
-                          );
-                        },
-                      ),
-                    ],
+                        const Spacer(),
+                        IconButton(
+                          iconSize: 30.sp,
+                          icon: const Icon(Icons.settings, color: _purple),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) => const ConfigDialog(),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: 20.h),
-                _MythTruthTitle(fontSize: 28.sp),
-                const Spacer(),
-                SizedBox(
-                  height: 0.5.sh,
-                  child: PageView.builder(
-                    controller: _pageController,
-                    physics: _currentPage.isQuestion && !_answered
-                        ? const NeverScrollableScrollPhysics()
-                        : const BouncingScrollPhysics(),
-                    onPageChanged: _onPageChanged,
-                    itemCount: widget.topic.pages.length,
-                    itemBuilder: (context, index) {
-                      return _MythTruthCard(
-                        page: widget.topic.pages[index],
-                        isCurrentPage: index == _currentIndex,
-                        answered: _answered,
-                        answeredCorrectly: _answeredCorrectly,
-                        onAnswer: _answer,
-                      );
-                    },
+                  SizedBox(height: 20.h),
+                  _MythTruthTitle(fontSize: 28.sp),
+                  const Spacer(),
+                  SizedBox(
+                    height: 0.5.sh,
+                    child: PageView.builder(
+                      controller: _pageController,
+                      physics: _currentPage.isQuestion && !_answered
+                          ? const NeverScrollableScrollPhysics()
+                          : const BouncingScrollPhysics(),
+                      onPageChanged: _onPageChanged,
+                      itemCount: widget.topic.pages.length,
+                      itemBuilder: (context, index) {
+                        return RepaintBoundary(
+                          child: _MythTruthCard(
+                            page: widget.topic.pages[index],
+                            isCurrentPage: index == _currentIndex,
+                            answered: _answered,
+                            answeredCorrectly: _answeredCorrectly,
+                            onAnswer: _answer,
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
-                const Spacer(),
-                _PageDots(
-                  count: widget.topic.pages.length,
-                  currentIndex: _currentIndex,
-                ),
-                SizedBox(
-                  height: 72.h,
-                  child: canNavigate
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            IconButton(
-                              icon: Icon(
-                                Icons.arrow_back_ios_rounded,
-                                size: 42.sp,
-                                color: Colors.black,
-                              ),
-                              onPressed:
-                                  _currentIndex > 0 ? _previousPage : null,
-                            ),
-                            if (_currentIndex < widget.topic.pages.length - 1)
+                  const Spacer(),
+                  _PageDots(
+                    count: widget.topic.pages.length,
+                    currentIndex: _currentIndex,
+                  ),
+                  SizedBox(
+                    height: 72.h,
+                    child: canNavigate
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
                               IconButton(
                                 icon: Icon(
-                                  Icons.arrow_forward_ios_rounded,
+                                  Icons.arrow_back_ios_rounded,
                                   size: 42.sp,
                                   color: Colors.black,
                                 ),
-                                onPressed: _nextPage,
-                              )
-                            else
-                              SizedBox(width: 48.w),
-                          ],
-                        )
-                      : null,
-                ),
-              ],
+                                onPressed:
+                                    _currentIndex > 0 ? _previousPage : null,
+                              ),
+                              if (_currentIndex < widget.topic.pages.length - 1)
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    size: 42.sp,
+                                    color: Colors.black,
+                                  ),
+                                  onPressed: _nextPage,
+                                )
+                              else
+                                SizedBox(width: 48.w),
+                            ],
+                          )
+                        : null,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -239,7 +254,7 @@ class _MythTruthTitle extends StatelessWidget {
     return RichText(
       text: TextSpan(
         text: 'MITO',
-        style: GoogleFonts.chewy(
+        style: AppTextStyles.chewy(
           textStyle: TextStyle(
             fontSize: fontSize,
             fontWeight: FontWeight.bold,
@@ -253,7 +268,7 @@ class _MythTruthTitle extends StatelessWidget {
           ),
           TextSpan(
             text: 'VERDADE?',
-            style: GoogleFonts.chewy(
+            style: AppTextStyles.chewy(
               textStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
@@ -286,7 +301,7 @@ class _MythTruthCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titleStyle = GoogleFonts.chewy(
+    final titleStyle = AppTextStyles.chewy(
       textStyle: TextStyle(
         fontSize: 22.sp,
         fontWeight: FontWeight.bold,
@@ -317,7 +332,7 @@ class _MythTruthCard extends StatelessWidget {
               Text(
                 page.question ?? page.explanation,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.chewy(
+                style: AppTextStyles.chewy(
                   textStyle: TextStyle(
                     fontSize: page.isQuestion ? 20.sp : 18.sp,
                     color: Colors.black87,
@@ -340,7 +355,7 @@ class _MythTruthCard extends StatelessWidget {
                       icon: const Icon(Icons.close, color: Colors.white),
                       label: Text(
                         'Mito',
-                        style: GoogleFonts.chewy(
+                        style: AppTextStyles.chewy(
                           textStyle: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
@@ -363,7 +378,7 @@ class _MythTruthCard extends StatelessWidget {
                       icon: const Icon(Icons.check, color: Colors.white),
                       label: Text(
                         'Verdade',
-                        style: GoogleFonts.chewy(
+                        style: AppTextStyles.chewy(
                           textStyle: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
@@ -390,7 +405,7 @@ class _MythTruthCard extends StatelessWidget {
               SizedBox(height: 12.h),
               Text(
                 page.explanation,
-                style: GoogleFonts.chewy(
+                style: AppTextStyles.chewy(
                   textStyle: TextStyle(
                     fontSize: 16.sp,
                     color: Colors.black87,

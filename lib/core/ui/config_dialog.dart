@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glicogotas_app/features/about/presentation/about_page.dart';
 import 'package:glicogotas_app/features/settings/data/settings_repository.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:glicogotas_app/core/theme/app_text_styles.dart';
 import 'package:provider/provider.dart';
 
 class ConfigDialog extends StatelessWidget {
@@ -10,8 +10,6 @@ class ConfigDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settings = context.watch<SettingsRepository>();
-
     return GestureDetector(
       onTap: () => Navigator.of(context).pop(),
       child: Dialog(
@@ -51,7 +49,7 @@ class ConfigDialog extends StatelessWidget {
                         child: Center(
                           child: Text(
                             'CONFIGURAÇÕES',
-                            style: GoogleFonts.chewy(
+                            style: AppTextStyles.chewy(
                               fontSize: 23.sp,
                               fontWeight: FontWeight.bold,
                               color: const Color(0xFFFCB44E),
@@ -71,10 +69,16 @@ class ConfigDialog extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 20.h),
-                  _SwitchOption(
-                    title: 'SOM',
-                    value: settings.musicOn,
-                    onChanged: (_) => settings.switchMusicOn(),
+                  Selector<SettingsRepository, bool>(
+                    selector: (_, settings) => settings.musicOn,
+                    builder: (context, musicOn, child) {
+                      final settings = context.read<SettingsRepository>();
+                      return _SwitchOption(
+                        title: 'SOM',
+                        value: musicOn,
+                        onChanged: (_) => settings.switchMusicOn(),
+                      );
+                    },
                   ),
                   SizedBox(height: 20.h),
                   const Divider(color: Colors.white70),
@@ -84,7 +88,7 @@ class ConfigDialog extends StatelessWidget {
                     children: [
                       Text(
                         'SOBRE',
-                        style: GoogleFonts.podkova(
+                        style: AppTextStyles.podkova(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -151,7 +155,7 @@ class _SwitchOption extends StatelessWidget {
               SizedBox(width: 8.w),
               Text(
                 title,
-                style: GoogleFonts.chewy(
+                style: AppTextStyles.chewy(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
