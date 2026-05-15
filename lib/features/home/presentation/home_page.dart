@@ -68,8 +68,8 @@ class _HomePageState extends State<HomePage>
       builder: (_) => const VideoPage(),
     ),
     HomeMenuItem(
-      label: 'Jogos',
-      color: Colors.deepPurple,
+      label: 'Jogos\nEm breve',
+      color: Colors.grey,
       icon: Icons.sports_esports,
       routeName: AppRoutes.games,
       builder: (_) => const GamesPage(),
