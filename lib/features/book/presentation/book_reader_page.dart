@@ -106,132 +106,136 @@ class _BookReaderPageState extends State<BookReaderPage>
           widget.chapter.pages[currentPage],
         );
 
-        return SystemBarsStyle(
-          statusBarColor: barsStyle.statusBarColor,
-          navigationBarColor: barsStyle.navigationBarColor,
+        return SystemBarsStyle.transparent(
+          statusBarIconBrightness: barsStyle.iconBrightness,
+          navigationBarIconBrightness: barsStyle.iconBrightness,
           child: Scaffold(
             backgroundColor: AppColors.blue,
-            body: SafeArea(
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: ValueListenableBuilder<int>(
-                      valueListenable: _currentPageNotifier,
-                      builder: (context, currentPage, child) {
-                        return _BookBackground(
-                          page: widget.chapter.pages[currentPage],
-                        );
-                      },
-                    ),
-                  ),
-                  PageView.builder(
-                    controller: _pageController,
-                    itemCount: widget.chapter.pages.length,
-                    onPageChanged: _onPageChanged,
-                    itemBuilder: (context, index) {
-                      return BookPageLayout(
-                        page: widget.chapter.pages[index],
-                      );
-                    },
-                  ),
-                  ValueListenableBuilder<int>(
+            body: Stack(
+              children: [
+                Positioned.fill(
+                  child: ValueListenableBuilder<int>(
                     valueListenable: _currentPageNotifier,
                     builder: (context, currentPage, child) {
-                      final page = widget.chapter.pages[currentPage];
-                      final controlsColor =
-                          page.isCover ? Colors.white : AppColors.blue;
-                      return Stack(
-                        children: [
-                          Positioned(
-                            top: 40.h,
-                            left: 16.w,
-                            child: IconButton(
-                              iconSize: 30.sp,
-                              icon: Icon(
-                                Icons.menu_book,
-                                color: controlsColor,
-                              ),
-                              onPressed: () => Navigator.pop(context),
-                            ),
-                          ),
-                          Positioned(
-                            top: 40.h,
-                            right: 16.w,
-                            child: IconButton(
-                              iconSize: 30.sp,
-                              icon: Icon(
-                                Icons.settings,
-                                color: controlsColor,
-                              ),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (_) => const ConfigDialog(),
-                                );
-                              },
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 16.h,
-                            left: 0,
-                            right: 0,
-                            child: _BookPageDots(
-                              count: widget.chapter.pages.length,
-                              currentPage: currentPage,
-                            ),
-                          ),
-                          if (currentPage > 0)
-                            Positioned(
-                              bottom: 0.08.sh,
-                              left: 20.w,
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.arrow_back_ios_rounded,
-                                  color: page.isCover
-                                      ? Colors.yellow
-                                      : AppColors.blue,
-                                  size: 48.sp,
-                                ),
-                                onPressed: () => _goTo(currentPage - 1),
-                              ),
-                            ),
-                          if (currentPage < widget.chapter.pages.length - 1)
-                            Positioned(
-                              bottom: 0.08.sh,
-                              right: 20.w,
-                              child: GestureDetector(
-                                onTap: () => _goTo(currentPage + 1),
-                                child: page.isCover
-                                    ? Row(
-                                        children: [
-                                          Text(
-                                            'Avançar',
-                                            style: AppTextStyles.chewy(
-                                              fontSize: 28.sp,
-                                              color: Colors.yellow,
-                                            ),
-                                          ),
-                                          SizedBox(width: 4.w),
-                                          Icon(
-                                            Icons.arrow_forward_ios_rounded,
-                                            color: Colors.yellow,
-                                            size: 36.sp,
-                                          ),
-                                        ],
-                                      )
-                                    : Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        color: AppColors.blue,
-                                        size: 48.sp,
-                                      ),
-                              ),
-                            ),
-                        ],
+                      return _BookBackground(
+                        page: widget.chapter.pages[currentPage],
                       );
                     },
                   ),
-                ],
-              ),
+                ),
+                SafeArea(
+                  child: Stack(
+                    children: [
+                      PageView.builder(
+                        controller: _pageController,
+                        itemCount: widget.chapter.pages.length,
+                        onPageChanged: _onPageChanged,
+                        itemBuilder: (context, index) {
+                          return BookPageLayout(
+                            page: widget.chapter.pages[index],
+                          );
+                        },
+                      ),
+                      ValueListenableBuilder<int>(
+                        valueListenable: _currentPageNotifier,
+                        builder: (context, currentPage, child) {
+                          final page = widget.chapter.pages[currentPage];
+                          final controlsColor =
+                              page.isCover ? Colors.white : AppColors.blue;
+                          return Stack(
+                            children: [
+                              Positioned(
+                                top: 40.h,
+                                left: 16.w,
+                                child: IconButton(
+                                  iconSize: 30.sp,
+                                  icon: Icon(
+                                    Icons.menu_book,
+                                    color: controlsColor,
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                ),
+                              ),
+                              Positioned(
+                                top: 40.h,
+                                right: 16.w,
+                                child: IconButton(
+                                  iconSize: 30.sp,
+                                  icon: Icon(
+                                    Icons.settings,
+                                    color: controlsColor,
+                                  ),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) => const ConfigDialog(),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 16.h,
+                                left: 0,
+                                right: 0,
+                                child: _BookPageDots(
+                                  count: widget.chapter.pages.length,
+                                  currentPage: currentPage,
+                                ),
+                              ),
+                              if (currentPage > 0)
+                                Positioned(
+                                  bottom: 0.08.sh,
+                                  left: 20.w,
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.arrow_back_ios_rounded,
+                                      color: page.isCover
+                                          ? Colors.yellow
+                                          : AppColors.blue,
+                                      size: 48.sp,
+                                    ),
+                                    onPressed: () => _goTo(currentPage - 1),
+                                  ),
+                                ),
+                              if (currentPage < widget.chapter.pages.length - 1)
+                                Positioned(
+                                  bottom: 0.08.sh,
+                                  right: 20.w,
+                                  child: GestureDetector(
+                                    onTap: () => _goTo(currentPage + 1),
+                                    child: page.isCover
+                                        ? Row(
+                                            children: [
+                                              Text(
+                                                'Avançar',
+                                                style: AppTextStyles.chewy(
+                                                  fontSize: 28.sp,
+                                                  color: Colors.yellow,
+                                                ),
+                                              ),
+                                              SizedBox(width: 4.w),
+                                              Icon(
+                                                Icons.arrow_forward_ios_rounded,
+                                                color: Colors.yellow,
+                                                size: 36.sp,
+                                              ),
+                                            ],
+                                          )
+                                        : Icon(
+                                            Icons.arrow_forward_ios_rounded,
+                                            color: AppColors.blue,
+                                            size: 48.sp,
+                                          ),
+                                  ),
+                                ),
+                            ],
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         );
@@ -241,33 +245,16 @@ class _BookReaderPageState extends State<BookReaderPage>
 }
 
 class _BookSystemBarsStyle {
-  const _BookSystemBarsStyle({
-    required this.statusBarColor,
-    required this.navigationBarColor,
-  });
+  const _BookSystemBarsStyle({required this.iconBrightness});
 
-  final Color statusBarColor;
-  final Color navigationBarColor;
+  final Brightness iconBrightness;
 
   factory _BookSystemBarsStyle.fromPage(BookPageContent page) {
     if (page.isCover) {
-      return const _BookSystemBarsStyle(
-        statusBarColor: AppColors.blue,
-        navigationBarColor: AppColors.blue,
-      );
+      return const _BookSystemBarsStyle(iconBrightness: Brightness.light);
     }
 
-    if (page.backgroundAsset.endsWith('fundopaglivro.svg')) {
-      return const _BookSystemBarsStyle(
-        statusBarColor: Color(0xFFFCB44E),
-        navigationBarColor: Color(0xFFFEDE74),
-      );
-    }
-
-    return const _BookSystemBarsStyle(
-      statusBarColor: Color(0xFF7CF0FF),
-      navigationBarColor: Color(0xFF00D287),
-    );
+    return const _BookSystemBarsStyle(iconBrightness: Brightness.dark);
   }
 }
 

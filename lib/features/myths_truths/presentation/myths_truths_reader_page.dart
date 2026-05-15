@@ -127,9 +127,9 @@ class _MythsTruthsReaderPageState extends State<MythsTruthsReaderPage> {
   Widget build(BuildContext context) {
     final canNavigate = _answered || !_currentPage.isQuestion;
 
-    return SystemBarsStyle(
-      statusBarColor: const Color(0xFF6AE5B9),
-      navigationBarColor: const Color(0xFFA166FF),
+    return SystemBarsStyle.transparent(
+      statusBarIconBrightness: Brightness.dark,
+      navigationBarIconBrightness: Brightness.light,
       child: Scaffold(
         backgroundColor: const Color(0xFFFFF3F6),
         body: Stack(

@@ -106,130 +106,141 @@ class _CharactersPageState extends State<CharactersPage>
     return ValueListenableBuilder<int>(
       valueListenable: _currentPageNotifier,
       builder: (context, currentPage, child) {
-        final barsColor = currentPage == 0
-            ? const Color(0xFF23A6F0)
-            : characterProfiles[currentPage - 1].color;
+        final iconBrightness = currentPage == 0
+            ? Brightness.light
+            : _systemIconBrightnessFor(
+                characterProfiles[currentPage - 1].color,
+              );
 
-        return SystemBarsStyle(
-          statusBarColor: barsColor,
-          navigationBarColor: barsColor,
+        return SystemBarsStyle.transparent(
+          statusBarIconBrightness: iconBrightness,
+          navigationBarIconBrightness: iconBrightness,
           child: Scaffold(
             backgroundColor: const Color(0xFF265F95),
-            body: SafeArea(
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: ValueListenableBuilder<int>(
-                      valueListenable: _currentPageNotifier,
-                      builder: (context, currentPage, child) {
-                        return _CharactersBackground(currentPage: currentPage);
-                      },
-                    ),
-                  ),
-                  PageView.builder(
-                    controller: _pageController,
-                    itemCount: _pageCount,
-                    onPageChanged: _onPageChanged,
-                    itemBuilder: (context, index) {
-                      if (index == 0) {
-                        return const CharactersIntroPage();
-                      }
-
-                      return CharacterDetailPage(
-                        profile: characterProfiles[index - 1],
-                      );
-                    },
-                  ),
-                  ValueListenableBuilder<int>(
+            body: Stack(
+              children: [
+                Positioned.fill(
+                  child: ValueListenableBuilder<int>(
                     valueListenable: _currentPageNotifier,
                     builder: (context, currentPage, child) {
-                      final pageColor = currentPage == 0
-                          ? Colors.white
-                          : characterProfiles[currentPage - 1].color;
-                      final controlsColor = currentPage == 0
-                          ? Colors.white
-                          : const Color.fromARGB(255, 0, 132, 255);
-                      return Stack(
-                        children: [
-                          Positioned(
-                            top: 40.h,
-                            left: 16.w,
-                            child: IconButton(
-                              iconSize: 30.sp,
-                              icon: Icon(
-                                Icons.home_rounded,
-                                color: controlsColor,
-                              ),
-                              onPressed: () => AppNavigator.goHome(context),
-                            ),
-                          ),
-                          Positioned(
-                            top: 40.h,
-                            right: 16.w,
-                            child: IconButton(
-                              iconSize: 30.sp,
-                              icon: Icon(
-                                Icons.settings,
-                                color: controlsColor,
-                              ),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (_) => const ConfigDialog(),
-                                );
-                              },
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 16,
-                            left: 0,
-                            right: 0,
-                            child: _CharacterPageDots(
-                              count: _pageCount,
-                              currentPage: currentPage,
-                            ),
-                          ),
-                          if (currentPage > 0)
-                            Positioned(
-                              bottom: 0.08.sh,
-                              left: 20.w,
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.arrow_back_ios_rounded,
-                                  color: pageColor,
-                                  size: 48.sp,
-                                ),
-                                onPressed: () => _goTo(currentPage - 1),
-                              ),
-                            ),
-                          if (currentPage < _pageCount - 1)
-                            Positioned(
-                              bottom: 0.08.sh,
-                              right: 20.w,
-                              child: currentPage == 0
-                                  ? _CharactersIntroNextButton(
-                                      onTap: () => _goTo(currentPage + 1),
-                                    )
-                                  : IconButton(
-                                      icon: Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        color: pageColor,
-                                        size: 48.sp,
-                                      ),
-                                      onPressed: () => _goTo(currentPage + 1),
-                                    ),
-                            ),
-                        ],
-                      );
+                      return _CharactersBackground(currentPage: currentPage);
                     },
                   ),
-                ],
-              ),
+                ),
+                SafeArea(
+                  child: Stack(
+                    children: [
+                      PageView.builder(
+                        controller: _pageController,
+                        itemCount: _pageCount,
+                        onPageChanged: _onPageChanged,
+                        itemBuilder: (context, index) {
+                          if (index == 0) {
+                            return const CharactersIntroPage();
+                          }
+
+                          return CharacterDetailPage(
+                            profile: characterProfiles[index - 1],
+                          );
+                        },
+                      ),
+                      ValueListenableBuilder<int>(
+                        valueListenable: _currentPageNotifier,
+                        builder: (context, currentPage, child) {
+                          final pageColor = currentPage == 0
+                              ? Colors.white
+                              : characterProfiles[currentPage - 1].color;
+                          final controlsColor = currentPage == 0
+                              ? Colors.white
+                              : const Color.fromARGB(255, 0, 132, 255);
+                          return Stack(
+                            children: [
+                              Positioned(
+                                top: 40.h,
+                                left: 16.w,
+                                child: IconButton(
+                                  iconSize: 30.sp,
+                                  icon: Icon(
+                                    Icons.home_rounded,
+                                    color: controlsColor,
+                                  ),
+                                  onPressed: () => AppNavigator.goHome(context),
+                                ),
+                              ),
+                              Positioned(
+                                top: 40.h,
+                                right: 16.w,
+                                child: IconButton(
+                                  iconSize: 30.sp,
+                                  icon: Icon(
+                                    Icons.settings,
+                                    color: controlsColor,
+                                  ),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) => const ConfigDialog(),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 16,
+                                left: 0,
+                                right: 0,
+                                child: _CharacterPageDots(
+                                  count: _pageCount,
+                                  currentPage: currentPage,
+                                ),
+                              ),
+                              if (currentPage > 0)
+                                Positioned(
+                                  bottom: 0.08.sh,
+                                  left: 20.w,
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.arrow_back_ios_rounded,
+                                      color: pageColor,
+                                      size: 48.sp,
+                                    ),
+                                    onPressed: () => _goTo(currentPage - 1),
+                                  ),
+                                ),
+                              if (currentPage < _pageCount - 1)
+                                Positioned(
+                                  bottom: 0.08.sh,
+                                  right: 20.w,
+                                  child: currentPage == 0
+                                      ? _CharactersIntroNextButton(
+                                          onTap: () => _goTo(currentPage + 1),
+                                        )
+                                      : IconButton(
+                                          icon: Icon(
+                                            Icons.arrow_forward_ios_rounded,
+                                            color: pageColor,
+                                            size: 48.sp,
+                                          ),
+                                          onPressed: () =>
+                                              _goTo(currentPage + 1),
+                                        ),
+                                ),
+                            ],
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         );
       },
     );
+  }
+
+  Brightness _systemIconBrightnessFor(Color color) {
+    return color.computeLuminance() < 0.45 ? Brightness.light : Brightness.dark;
   }
 }
 

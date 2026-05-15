@@ -13,9 +13,7 @@ class StartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SystemBarsStyle(
-      statusBarColor: Colors.white,
-      navigationBarColor: Colors.white,
+    return SystemBarsStyle.transparent(
       child: Scaffold(
         body: Stack(
           children: [

@@ -11,6 +11,14 @@ class SystemBarsStyle extends StatelessWidget {
     this.navigationBarIconBrightness,
   });
 
+  const SystemBarsStyle.transparent({
+    super.key,
+    required this.child,
+    this.statusBarIconBrightness = Brightness.dark,
+    this.navigationBarIconBrightness = Brightness.dark,
+  })  : statusBarColor = Colors.transparent,
+        navigationBarColor = Colors.transparent;
+
   final Color statusBarColor;
   final Color navigationBarColor;
   final Brightness? statusBarIconBrightness;
@@ -31,9 +39,11 @@ class SystemBarsStyle extends StatelessWidget {
         statusBarBrightness: statusIcons == Brightness.light
             ? Brightness.dark
             : Brightness.light,
+        systemStatusBarContrastEnforced: false,
         systemNavigationBarColor: navigationBarColor,
         systemNavigationBarDividerColor: navigationBarColor,
         systemNavigationBarIconBrightness: navigationIcons,
+        systemNavigationBarContrastEnforced: false,
       ),
       child: child,
     );

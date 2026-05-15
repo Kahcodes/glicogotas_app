@@ -70,10 +70,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage>
 
   void _restorePortraitUi() {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual,
-      overlays: SystemUiOverlay.values,
-    );
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
 
   @override
@@ -118,9 +115,7 @@ class _VideoContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SystemBarsStyle(
-      statusBarColor: const Color(0xFFFCB44E),
-      navigationBarColor: const Color(0xFFFEDE74),
+    return SystemBarsStyle.transparent(
       child: Scaffold(
         backgroundColor: const Color(0xFFFFF4E6),
         body: Stack(

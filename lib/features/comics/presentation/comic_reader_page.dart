@@ -60,9 +60,9 @@ class _ComicReaderPageState extends State<ComicReaderPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SystemBarsStyle(
-      statusBarColor: const Color(0xFFCC6AE5),
-      navigationBarColor: const Color(0xFFCC6AE5),
+    return SystemBarsStyle.transparent(
+      statusBarIconBrightness: Brightness.light,
+      navigationBarIconBrightness: Brightness.dark,
       child: Scaffold(
         backgroundColor: const Color(0xFFFFF3F6),
         body: Stack(
