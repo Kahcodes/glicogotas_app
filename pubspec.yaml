@@ -1,37 +1,16 @@
 name: glicogotas_app
 description: "A new Flutter project."
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-# In Windows, build-name is used as the major, minor, and patch parts
-# of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
 
 environment:
   sdk: ^3.5.0
 
-  
-
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
+
   flutter_screenutil: ^5.9.3
   google_fonts: ^6.2.1
   flutter_svg: ^2.0.10
@@ -45,12 +24,6 @@ dependencies:
   animate_do: ^4.2.0
   video_player: ^2.10.0
   auto_size_text: ^3.0.0
-
-
-  
-  
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   provider: ^6.1.2
   logger: ^2.5.0
@@ -59,47 +32,29 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
-  flutter_launcher_icons: ^0.14.3 
-  
-  
 
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.3
 
 flutter_launcher_icons:
   ios: true
   android: true
   image_path: "assets/icon/icon.png"
   remove_alpha_ios: true
-  
 
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
   assets:
-
     - assets/images/balao-dm1-page1.svg
     - assets/images/balao-dm1-page2.svg
     - assets/images/balao-dm1-page3.svg
     - assets/images/balao-dm1-page4.svg
     - assets/images/balao-dm1-page5.svg
     - assets/images/balao-dm1-page6.svg
+
     - assets/images/balão-duplo.svg
+
     - assets/images/balao-hiper1.svg
     - assets/images/balao-hiper2.svg
     - assets/images/balao-hiper3.svg
@@ -108,6 +63,7 @@ flutter:
     - assets/images/balao-hiper6.svg
     - assets/images/balao-hiper7.svg
     - assets/images/balao-hiper8.svg
+
     - assets/images/balao-hipo1.svg
     - assets/images/balao-hipo2.svg
     - assets/images/balao-hipo3.svg
@@ -116,6 +72,7 @@ flutter:
     - assets/images/balao-hipo6.svg
     - assets/images/balao-hipo7.svg
     - assets/images/balao-hipo8.svg
+
     - assets/images/balao-ins-page1.svg
     - assets/images/balao-ins-page2.svg
     - assets/images/balao-ins-page3.svg
@@ -125,12 +82,14 @@ flutter:
     - assets/images/balao-ins-page7.svg
     - assets/images/balao-ins-page8.svg
     - assets/images/balao-ins-page9.svg
+
     - assets/images/balão-page2.svg
     - assets/images/balão-page3.svg
     - assets/images/balão-page4.svg
     - assets/images/balão-page5.svg
     - assets/images/balão-page6.svg
     - assets/images/balão-page7.svg
+
     - assets/images/balao-vovo1.svg
     - assets/images/balao-vovo2.svg
     - assets/images/balao-vovo3.svg
@@ -143,20 +102,25 @@ flutter:
     - assets/images/balao-vovo10.svg
     - assets/images/balao-vovo11.svg
     - assets/images/balao-vovo12.svg
+
     - assets/images/barraca-hipo.svg
     - assets/images/bateria-fraca-tirinha.png
+
     - assets/images/Betinho-ensinando.svg
     - assets/images/betinho-person.svg
     - assets/images/Betinho-pumps.svg
     - assets/images/bobo-person.svg
+
     - assets/images/card-hiper.png
     - assets/images/card-hipo.png
     - assets/images/card-vovo.png
+
     - assets/images/celulas.svg
     - assets/images/chaves-capa.png
     - assets/images/decoracao.svg
     - assets/images/diabetes-capa.png
     - assets/images/doutora-e-lita.svg
+
     - assets/images/eclipse-betinho.svg
     - assets/images/eclipse-bobo.svg
     - assets/images/eclipse-canetto.svg
@@ -164,13 +128,16 @@ flutter:
     - assets/images/eclipse-insulins.svg
     - assets/images/eclipse-pumps.svg
     - assets/images/eclipse-rei.svg
+
     - assets/images/error.svg
+
     - assets/images/fe-acena.svg
     - assets/images/fe-acena2.svg
     - assets/images/fe-forte.svg
     - assets/images/fe-insulin.svg
     - assets/images/fe-person.svg
     - assets/images/fe-vovo.svg
+
     - assets/images/fundo-azul.svg
     - assets/images/fundo-betinho.svg
     - assets/images/fundo-bobo.svg
@@ -188,22 +155,27 @@ flutter:
     - assets/images/fundodiabetes.svg
     - assets/images/fundoinsulinas.svg
     - assets/images/fundopaglivro.svg
+    - assets/images/fundo-video.svg
+
     - assets/images/glicoamigos-card.png
     - assets/images/glicoamigos1.svg
-    - assets/images/glicoamigos-2.svg
     - assets/images/glicoamigos2.png
     - assets/images/glicoamigos3.svg
     - assets/images/glicoamigos4.svg
     - assets/images/glicoamigos5.svg
     - assets/images/glicoamigos6.svg
+
     - assets/images/glicogotas_logo.png
+
     - assets/images/insulina-capa.png
     - assets/images/insulinas.svg
     - assets/images/insulins-person.svg
     - assets/images/insulins.svg
     - assets/images/insulins2.svg
     - assets/images/insulins3.svg
+
     - assets/images/jo&kah.png
+
     - assets/images/Lita-apl-insulina.svg
     - assets/images/Lita-atencao.svg
     - assets/images/lita-coracao.svg
@@ -222,27 +194,33 @@ flutter:
     - assets/images/Lita-uau2.svg
     - assets/images/Lita-xixi.svg
     - assets/images/lita.svg
+
     - assets/images/Medica-lita.svg
     - assets/images/medica-vovo.svg
+
     - assets/images/mito2-capa.png
     - assets/images/pancreas-capa.png
     - assets/images/pancreas.svg
+
     - assets/images/perso-canetto.svg
     - assets/images/personagem_acerto.png
     - assets/images/personagem_erro.png
     - assets/images/personagem_neutro.png
+
     - assets/images/Pumps-anunciando.svg
     - assets/images/Pumps-anunciando2.svg
     - assets/images/pumps-ens.svg
     - assets/images/pumps-person.svg
-    - assets/images/fundo-video.svg
+
     - assets/images/rapido.svg
     - assets/images/rei-da-hiper.svg
     - assets/images/rei-pancreas.svg
     - assets/images/Saudavel.svg
+
     - assets/images/talita_capa.png
     - assets/images/talita_icon.png
     - assets/images/tela-inicial-perso.svg
+
     - assets/images/tirinha-aguavai.png
     - assets/images/tirinha-docura-capa.png
     - assets/images/tirinha-ins-1.svg
@@ -250,6 +228,22 @@ flutter:
     - assets/images/tirinha-ins-3.svg
     - assets/images/tirinha-insu-capa.png
     - assets/images/tirinha-missao.png
+    - assets/images/missao-tirinha.svg
+
+    # Tirinhas internas que estavam faltando
+    - assets/images/agua-tirinha1.svg
+    - assets/images/agua-tirinha2.svg
+    - assets/images/agua-tirinha3.svg
+
+    - assets/images/tirinha1.svg
+    - assets/images/tirinha2.svg
+    - assets/images/tirinha3.svg
+
+    # Esses arquivos precisam estar SEM acento no nome
+    - assets/images/confusao-tirinha1.svg
+    - assets/images/confusao-tirinha2.svg
+    - assets/images/confusao-tirinha3.svg
+
     - assets/images/ativ_fisica.svg
     - assets/images/causa.svg
     - assets/images/diet.svg
@@ -257,10 +251,9 @@ flutter:
     - assets/images/frutas.svg
     - assets/images/mel.svg
 
-
-    
     - assets/audio/titulo.mp3
     - assets/audio/musica.mp3
+
     - assets/audio/panc-pagina1.mp3
     - assets/audio/panc-pagina2.mp3
     - assets/audio/panc-pagina3.mp3
@@ -268,12 +261,14 @@ flutter:
     - assets/audio/panc-pagina5.mp3
     - assets/audio/panc-pagina6.mp3
     - assets/audio/panc-pagina7.mp3
-    - assets/audio/diabetespag1.mp3    
+
+    - assets/audio/diabetespag1.mp3
     - assets/audio/diabetespag2.mp3
     - assets/audio/diabetespag3.mp3
     - assets/audio/diabetespag4.mp3
     - assets/audio/diabetespag5.mp3
     - assets/audio/diabetespag6.mp3
+
     - assets/audio/pagina1insu.mp3
     - assets/audio/pagina2insu.mp3
     - assets/audio/pagina3insu.mp3
@@ -283,6 +278,7 @@ flutter:
     - assets/audio/pagina7insu.mp3
     - assets/audio/pagina8insu.mp3
     - assets/audio/pagina9insu.mp3
+
     - assets/audio/audioPersonagens/bemvindos.mp3
     - assets/audio/audioPersonagens/betinho.mp3
     - assets/audio/audioPersonagens/bobo.mp3
@@ -292,10 +288,12 @@ flutter:
     - assets/audio/audioPersonagens/insulins.mp3
     - assets/audio/audioPersonagens/lita.mp3
     - assets/audio/audioPersonagens/pumps.mp3
+
     - assets/sounds/page_forward.mp3
     - assets/sounds/page_back.mp3
-    - assets/sounds/erro.mp3  
-    - assets/sounds/acerto.mp3 
+    - assets/sounds/erro.mp3
+    - assets/sounds/acerto.mp3
+
     - assets/audio/audios-hipoglicemia/tela1-hipoglicemia.mp3
     - assets/audio/audios-hipoglicemia/tela2-hipoglicemia.mp3
     - assets/audio/audios-hipoglicemia/tela3-hipoglicemia.mp3
@@ -328,39 +326,3 @@ flutter:
     - assets/audio/audios-diabtp2/diabtp2-12.mp3
 
     - assets/videos/Lita_DM1.mp4
-
-
-
-
-
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/to/resolution-aware-images
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/to/asset-from-package
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/to/font-from-package
