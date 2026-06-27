@@ -130,7 +130,7 @@ class TirinhaAguaState extends State<TirinhaAgua> {
                               scale: scale,
                               child: Opacity(
                                 opacity: opacity,
-                                child: Image.asset(
+                                child: SvgPicture.asset(
                                   tirinha[index],
                                   fit: BoxFit.contain,
                                 ),

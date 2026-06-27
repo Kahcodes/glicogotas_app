@@ -130,7 +130,7 @@ class TirinhaBateriaState extends State<TirinhaBateria> {
                               scale: scale,
                               child: Opacity(
                                 opacity: opacity,
-                                child: Image.asset(
+                                child: SvgPicture.asset(
                                   tirinha[index],
                                   fit: BoxFit.contain,
                                 ),

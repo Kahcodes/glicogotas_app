@@ -85,8 +85,8 @@ class SobrePage extends StatelessWidget {
 
                       // Texto introdutório
                       Text(
-                        'Somos Jordana e Karyne, desenvolvedoras deste aplicativo e estudantes do IFB. '
-                        'Ele foi inspirado em um livro de feltro interativo sobre diabetes tipo 1, lá no IFRJ.',
+                        'Somos Jordana e Karyne, desenvolvedoras deste aplicativo e técnicas em Sistemas para Internet, formadas pelo IFB. '
+                        'Tudo começou com o nosso Trabalho de Conclusão de Curso (TCC), quando desenvolvemos este aplicativo inspiradas em um livro em feltro interativo sobre diabetes tipo 1, desenvolvido no IFRJ.',
                         style: GoogleFonts.chewy(
                           fontSize: bodySize,
                           color: Colors.white,
@@ -148,7 +148,13 @@ class SobrePage extends StatelessWidget {
                         fontSizeName: colabNameSize,
                         fontSizeRole: colabNameSize - 2,
                       ),
-
+                      const SizedBox(height: 16),
+                      _creditLine(
+                        "Imagens",
+                        "Talita Kellen",
+                        fontSizeName: colabNameSize,
+                        fontSizeRole: colabNameSize - 2,
+                      ), 
                       const SizedBox(height: 40),
                       Divider(color: Colors.white70, thickness: 1),
                       const SizedBox(height: 32),
@@ -158,7 +164,7 @@ class SobrePage extends StatelessWidget {
                       const SizedBox(height: 16),
                       GestureDetector(
                         onTap: () => _launchURL(
-                            'https://www.instagram.com/glicogotas.ifrj/'),
+                            'https://www.instagram.com/glicogotas'),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -166,7 +172,7 @@ class SobrePage extends StatelessWidget {
                                 color: Colors.white, size: 30),
                             const SizedBox(width: 10),
                             Text(
-                              "@glicogotas.ifrj",
+                              "@glicogotas",
                               style: GoogleFonts.chewy(
                                 fontSize: bodySize,
                                 color: Colors.white,
@@ -181,7 +187,7 @@ class SobrePage extends StatelessWidget {
 
                       // Rodapé
                       Text(
-                        'Versão 1.0 | © 2024/2025 | Feito com 💕',
+                        'Versão 1.0 | Feito com 💕',
                         style: GoogleFonts.chewy(
                           fontSize: isTablet ? 18 : 14,
                           color: Colors.white,

@@ -105,7 +105,7 @@ class TirinhaState extends State<Tirinha> {
                             itemCount: tirinha.length,
                             onPageChanged: _onPageChanged,
                             itemBuilder: (context, index) {
-                              return Image.asset(
+                              return SvgPicture.asset(
                                 tirinha[index],
                                 fit: BoxFit.contain,
                               );
