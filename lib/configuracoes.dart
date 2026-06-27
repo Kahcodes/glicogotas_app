@@ -177,7 +177,7 @@ class ConfigDialogState extends State<ConfigDialog> {
           ),
           Switch(
             value: value,
-            activeColor: const Color(0xFFFCB44E),
+            activeThumbColor: const Color(0xFFFCB44E),
             inactiveTrackColor: Colors.white,
             onChanged: onChanged,
           ),
