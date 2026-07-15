@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ConfiguracoesRepository extends ChangeNotifier {
+  static const int _currentSettingsVersion = 6;
+
   bool _soundOn = true;
   bool _musicOn = true;
   double _volume = 0.7;
@@ -18,9 +20,18 @@ class ConfiguracoesRepository extends ChangeNotifier {
 
   Future<void> _loadPreferences() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final int savedSettingsVersion = prefs.getInt('settingsVersion') ?? 0;
+
+    if (savedSettingsVersion < _currentSettingsVersion) {
+      await prefs.setBool('soundOn', true);
+      await prefs.setBool('musicOn', true);
+      await prefs.setDouble('volume', 0.7);
+      await prefs.setInt('settingsVersion', _currentSettingsVersion);
+    }
+
     _soundOn = prefs.getBool('soundOn') ?? true;
     _musicOn = prefs.getBool('musicOn') ?? true;
-    _volume = prefs.getDouble('volume') ?? 0.7;
+    _volume = (prefs.getDouble('volume') ?? 0.7).clamp(0.1, 1.0);
     _language = prefs.getString('language') ?? 'Português';
     notifyListeners();
   }
@@ -44,17 +55,18 @@ class ConfiguracoesRepository extends ChangeNotifier {
     return prefs.getBool('musicOn') ?? true;
   }
 
-  Future<void> switchMusicOn() async {
+  Future<bool> switchMusicOn() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     _musicOn = !_musicOn;
     await prefs.setBool('musicOn', _musicOn);
     notifyListeners();
+    return _musicOn;
   }
 
   // Volume
   Future<double> getVolume() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getDouble('volume') ?? 0.7;
+    return (prefs.getDouble('volume') ?? 0.7).clamp(0.1, 1.0);
   }
 
   Future<void> setVolume(double value) async {
