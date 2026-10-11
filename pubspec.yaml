@@ -48,6 +48,7 @@ flutter:
 
   assets:
     - assets/audio/audioPersonagens/senhorpancreas.mp3
+    - assets/sounds/conquista_desbloqueada.mp3
     - assets/images/fundo-srpancreas.svg
     - assets/images/srpancreas-person.svg
     - assets/images/srpancreas-person.png

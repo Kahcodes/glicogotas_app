@@ -1,3 +1,4 @@
+import 'package:glicogotas_app/MitosOuVerdades/conquistas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Adicionado import do SVG
@@ -114,9 +115,23 @@ class MitosOuVerdadesPageState extends State<MitosOuVerdadesPage>
                 ),
               ),
 
+              Positioned(
+                top: 90.h,
+                left: 16.w,
+                right: 16.w,
+                child: Center(child: TextButton.icon(
+                  onPressed: () {
+                    _audioManager.stop();
+                    mostrarConquistasMitos(context);
+                  },
+                  icon: const Icon(Icons.emoji_events_rounded, color: Color(0xFFFFB300)),
+                  label: Text('Conquistas', style: GoogleFonts.chewy(color: const Color(0xFFFFB300), fontSize: 18.sp)),
+                )),
+              ),
+
               // Grid de cards
               Padding(
-                padding: EdgeInsets.only(top: 120.h),
+                padding: EdgeInsets.only(top: 145.h),
                 child: GridView.count(
                   crossAxisCount: 2,
                   padding: EdgeInsets.all(16.w),
