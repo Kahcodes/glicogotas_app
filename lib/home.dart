@@ -26,13 +26,24 @@ class TelaHomeState extends State<TelaHome>
     with RouteAware, WidgetsBindingObserver {
   final AudioManager _homeAudioManager = AudioManager(); // Nome específico
   bool _isCurrentPage = true;
+  late ConfiguracoesRepository _configProvider;
 
   @override
   void initState() {
     super.initState();
+    _configProvider = Provider.of<ConfiguracoesRepository>(context, listen: false);
     WidgetsBinding.instance.addObserver(this);
     _isCurrentPage = true;
     _playBackgroundMusic();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route is PageRoute) {
+      routeObserver.subscribe(this, route);
+    }
   }
 
   @override
@@ -43,16 +54,14 @@ class TelaHomeState extends State<TelaHome>
     _homeAudioManager.stop(); // Usa instância específica
     _homeAudioManager.dispose();
 
-    final configProvider =
-        Provider.of<ConfiguracoesRepository>(context, listen: false);
+    final configProvider = _configProvider;
     configProvider.removeListener(_onConfigChanged);
 
     super.dispose();
   }
 
   void _playBackgroundMusic() {
-    final configProvider =
-        Provider.of<ConfiguracoesRepository>(context, listen: false);
+    final configProvider = _configProvider;
 
     configProvider.addListener(_onConfigChanged);
 
@@ -63,8 +72,7 @@ class TelaHomeState extends State<TelaHome>
   }
 
   void _onConfigChanged() {
-    final configProvider =
-        Provider.of<ConfiguracoesRepository>(context, listen: false);
+    final configProvider = _configProvider;
 
     if (!_isCurrentPage) return;
 
@@ -80,12 +88,14 @@ class TelaHomeState extends State<TelaHome>
   void _navigateToPage(Widget page) {
     _isCurrentPage = false;
     _homeAudioManager.stop();
-    final configProvider =
-        Provider.of<ConfiguracoesRepository>(context, listen: false);
+    final configProvider = _configProvider;
     configProvider.removeListener(_onConfigChanged);
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => page),
+      MaterialPageRoute(
+        settings: RouteSettings(name: '/${page.runtimeType}'),
+        builder: (context) => page,
+      ),
     );
   }
 
@@ -94,8 +104,7 @@ class TelaHomeState extends State<TelaHome>
     _isCurrentPage = false;
     _homeAudioManager.stop();
 
-    final configProvider =
-        Provider.of<ConfiguracoesRepository>(context, listen: false);
+    final configProvider = _configProvider;
     configProvider.removeListener(_onConfigChanged);
   }
 
@@ -103,8 +112,7 @@ class TelaHomeState extends State<TelaHome>
   void didPopNext() {
     _isCurrentPage = true;
 
-    final configProvider =
-        Provider.of<ConfiguracoesRepository>(context, listen: false);
+    final configProvider = _configProvider;
     configProvider.addListener(_onConfigChanged);
 
     if (configProvider.musicOn) {
@@ -114,8 +122,7 @@ class TelaHomeState extends State<TelaHome>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    final configProvider =
-        Provider.of<ConfiguracoesRepository>(context, listen: false);
+    final configProvider = _configProvider;
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.inactive) {
       _homeAudioManager.stop();

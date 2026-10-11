@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/shared/repositories/configuracoes_repository.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -14,13 +13,6 @@ class ConfigDialog extends StatefulWidget {
 }
 
 class ConfigDialogState extends State<ConfigDialog> {
-  Future<void> _toggleMusic(ConfiguracoesRepository repository) async {
-    final bool musicOn = await repository.switchMusicOn();
-    if (!musicOn) {
-      await AudioManager.stopAll();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final configuracoesProvider =
@@ -96,7 +88,7 @@ class ConfigDialogState extends State<ConfigDialog> {
                         'SOM',
                         snapshot.data ?? true,
                         (value) {
-                          _toggleMusic(configuracoesProvider);
+                          configuracoesProvider.switchMusicOn();
                         },
                       );
                     },

@@ -27,6 +27,8 @@ dependencies:
   provider: ^6.1.2
   logger: ^2.5.0
   youtube_player_flutter: ^10.0.1
+  firebase_core: 4.7.0
+  video_player: 2.11.1
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +47,11 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/audio/audioPersonagens/senhorpancreas.mp3
+    - assets/images/fundo-srpancreas.svg
+    - assets/images/srpancreas-person.svg
+    - assets/images/srpancreas-person.png
+    - assets/images/eclipse-srpancreas.svg
     - assets/fonts/
     - assets/images/balao-dm1-page1.svg
     - assets/images/balao-dm1-page2.svg

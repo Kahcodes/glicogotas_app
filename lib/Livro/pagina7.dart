@@ -49,7 +49,7 @@ class Pagina7PageState extends State<Pagina7Page> with RouteAware {
   @override
   void didPopNext() {
     _audioManager.play(
-        'audio/panc-pagina6.mp3', context); // Reinicia o áudio ao voltar
+        'audio/panc-pagina7.mp3', context); // Reinicia o áudio ao voltar
   }
 
   @override

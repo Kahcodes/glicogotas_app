@@ -144,7 +144,7 @@ class SobrePage extends StatelessWidget {
                       const SizedBox(height: 16),
                       _creditLine(
                         "Colaboradores",
-                        "Talita Kellen, Fabrícia Viana Fonseca, Thalia Candido",
+                        "Talita Kellen, Fabrícia Fonseca, Thalia Candido, Felipe Cabói",
                         fontSizeName: colabNameSize,
                         fontSizeRole: colabNameSize - 2,
                       ),

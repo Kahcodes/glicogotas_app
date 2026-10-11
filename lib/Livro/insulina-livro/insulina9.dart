@@ -47,7 +47,7 @@ class _Insulina9PageState extends State<Insulina9Page> with RouteAware {
   @override
   void didPopNext() {
     _audioManager.play(
-        'audio/pagina8insu.mp3', context); // Reinicia o áudio ao voltar
+        'audio/pagina9insu.mp3', context); // Reinicia o áudio ao voltar
   }
 
   @override
@@ -108,7 +108,7 @@ class _Insulina9PageState extends State<Insulina9Page> with RouteAware {
                   onPressed: () {
                     _audioManager
                         .stop(); // Para o áudio ao voltar à tela inicial
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const LivroCardsPage()),
@@ -151,7 +151,7 @@ class _Insulina9PageState extends State<Insulina9Page> with RouteAware {
                   onPressed: () {
                     _audioManager.stop();
                     PageDatabase.instance.saveCurrentPage(8);
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Insulina8Page()),

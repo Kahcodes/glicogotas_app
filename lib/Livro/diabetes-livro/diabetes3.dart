@@ -48,7 +48,7 @@ class _Diabetes3PageState extends State<Diabetes3Page> with RouteAware {
   @override
   void didPopNext() {
     _audioManager.play(
-        'audio/diabetespag2.mp3', context); // Reinicia o áudio ao voltar
+        'audio/diabetespag3.mp3', context); // Reinicia o áudio ao voltar
   }
 
   @override
@@ -109,7 +109,7 @@ class _Diabetes3PageState extends State<Diabetes3Page> with RouteAware {
                   onPressed: () {
                     _audioManager
                         .stop(); // Para o áudio ao voltar à tela inicial
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const LivroCardsPage()),
@@ -152,7 +152,7 @@ class _Diabetes3PageState extends State<Diabetes3Page> with RouteAware {
                   onPressed: () {
                     _audioManager.stop();
                     PageDatabase.instance.saveCurrentPage(1);
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Diabetes2Page()),
@@ -174,7 +174,7 @@ class _Diabetes3PageState extends State<Diabetes3Page> with RouteAware {
                   onPressed: () {
                     _audioManager.stop();
                     PageDatabase.instance.saveCurrentPage(3);
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Diabetes4Page()),

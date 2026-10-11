@@ -1,10 +1,10 @@
+import 'ordem_personagens.dart';
+import 'package:glicogotas_app/navegacao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/home.dart';
-import 'package:glicogotas_app/Personagens/insulins.dart';
-import 'package:glicogotas_app/Personagens/betinho.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:glicogotas_app/main.dart';
@@ -96,10 +96,7 @@ class PersonagemPumpsPageState extends State<PersonagemPumpsPage>
                   onPressed: () {
                     _audioManager
                         .stop(); // Para o áudio ao ir para a tela inicial
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const TelaHome()),
-                    );
+                    voltarAoMenu(context, '/TelaHome', const TelaHome());
                   },
                 ),
               ),
@@ -244,11 +241,7 @@ class PersonagemPumpsPageState extends State<PersonagemPumpsPage>
                   ),
                   onPressed: () {
                     _audioManager.stop(); // Para o áudio ao navegar
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PersonagemInsulinsPage()),
-                    );
+                    navegarPersonagem(context, PersonagemPumpsPage, -1);
                   },
                 ),
               ),
@@ -265,11 +258,7 @@ class PersonagemPumpsPageState extends State<PersonagemPumpsPage>
                   ),
                   onPressed: () {
                     _audioManager.stop(); // Para o áudio ao navegar
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PersonagemBetinhoPage()),
-                    );
+                    navegarPersonagem(context, PersonagemPumpsPage, 1);
                   },
                 ),
               ),

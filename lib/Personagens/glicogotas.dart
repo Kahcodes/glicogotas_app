@@ -1,3 +1,5 @@
+import 'ordem_personagens.dart';
+import 'package:glicogotas_app/navegacao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/Personagens/betinho.dart';
@@ -333,10 +335,7 @@ class PersonagensContent extends StatelessWidget {
                   icon: const Icon(Icons.home_rounded, color: Colors.white),
                   onPressed: () {
                     audioManager.stop(); // Para o áudio ao voltar ao início
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const TelaHome()),
-                    );
+                    voltarAoMenu(context, '/TelaHome', const TelaHome());
                   },
                 ),
               ),
@@ -353,12 +352,7 @@ class PersonagensContent extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         audioManager.stop();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PersonagemLitaPage(),
-                          ),
-                        );
+                        navegarPersonagem(context, PersonagensPage, 1);
                       },
                       child: Padding(
                         padding: EdgeInsets.only(right: 8.w),
@@ -403,12 +397,7 @@ class PersonagensContent extends StatelessWidget {
                       ),
                       onPressed: () {
                         audioManager.stop();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PersonagemLitaPage(),
-                          ),
-                        );
+                        navegarPersonagem(context, PersonagensPage, 1);
                       },
                     ),
                   ],

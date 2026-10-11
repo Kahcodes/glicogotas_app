@@ -99,6 +99,7 @@ class _Hipo1PageState extends State<Hipo1Page> with RouteAware {
         child: Stack(
           children: [
             PageView.builder(
+              physics: const NeverScrollableScrollPhysics(),
               controller: _pageController,
               itemCount: _pages.length,
               onPageChanged: (index) {
@@ -255,7 +256,7 @@ class Hipo1Content extends StatelessWidget {
                   onPressed: () {
                     audioManager
                         .stop(); // Para o áudio ao voltar à tela inicial
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const LivroCardsPage()),
@@ -298,7 +299,7 @@ class Hipo1Content extends StatelessWidget {
                   onPressed: () {
                     audioManager.stop();
                     PageDatabase.instance.saveCurrentPage(2);
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Hipo2Page()),

@@ -105,6 +105,7 @@ class _Vovo1PageState extends State<Vovo1Page> with RouteAware {
         child: Stack(
           children: [
             PageView.builder(
+              physics: const NeverScrollableScrollPhysics(),
               controller: _pageController,
               itemCount: _pages.length,
               onPageChanged: (index) {
@@ -261,7 +262,7 @@ class Vovo1Content extends StatelessWidget {
                   onPressed: () {
                     audioManager
                         .stop(); // Para o áudio ao voltar à tela inicial
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const LivroCardsPage()),
@@ -304,7 +305,7 @@ class Vovo1Content extends StatelessWidget {
                   onPressed: () {
                     audioManager.stop();
                     PageDatabase.instance.saveCurrentPage(2);
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Vovo2Page()),
