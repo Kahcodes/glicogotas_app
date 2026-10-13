@@ -1,10 +1,10 @@
+import 'ordem_personagens.dart';
+import 'package:glicogotas_app/navegacao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/home.dart';
-import 'package:glicogotas_app/Personagens/glicogotas.dart';
-import 'package:glicogotas_app/Personagens/rei.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/main.dart'; // Importa o routeObserver
 import 'package:google_fonts/google_fonts.dart';
@@ -96,10 +96,7 @@ class PersonagemLitaPageState extends State<PersonagemLitaPage>
                   onPressed: () {
                     _audioManager
                         .stop(); // Para o áudio ao ir para a tela inicial
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const TelaHome()),
-                    );
+                    voltarAoMenu(context, '/TelaHome', const TelaHome());
                   },
                 ),
               ),
@@ -227,11 +224,7 @@ class PersonagemLitaPageState extends State<PersonagemLitaPage>
                   ),
                   onPressed: () {
                     _audioManager.stop(); // Para o áudio ao navegar
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PersonagensPage()),
-                    );
+                    navegarPersonagem(context, PersonagemLitaPage, -1);
                   },
                 ),
               ),
@@ -246,11 +239,7 @@ class PersonagemLitaPageState extends State<PersonagemLitaPage>
                   ),
                   onPressed: () {
                     _audioManager.stop(); // Para o áudio ao navegar
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PersonagemReiPage()),
-                    );
+                    navegarPersonagem(context, PersonagemLitaPage, 1);
                   },
                 ),
               ),

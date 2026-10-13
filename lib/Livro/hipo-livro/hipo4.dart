@@ -108,7 +108,7 @@ class _Hipo4PageState extends State<Hipo4Page> with RouteAware {
                   onPressed: () {
                     _audioManager
                         .stop(); // Para o áudio ao voltar à tela inicial
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const LivroCardsPage()),
@@ -151,7 +151,7 @@ class _Hipo4PageState extends State<Hipo4Page> with RouteAware {
                   onPressed: () {
                     _audioManager.stop();
                     PageDatabase.instance.saveCurrentPage(3);
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Hipo3Page()),
@@ -173,7 +173,7 @@ class _Hipo4PageState extends State<Hipo4Page> with RouteAware {
                   onPressed: () {
                     _audioManager.stop();
                     PageDatabase.instance.saveCurrentPage(5);
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Hipo5Page()),

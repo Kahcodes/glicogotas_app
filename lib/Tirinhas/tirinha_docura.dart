@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 
 class Tirinha extends StatefulWidget {
@@ -18,9 +19,13 @@ class TirinhaState extends State<Tirinha> {
   ];
 
   int currentIndex = 0;
-
-  // Controlador para a navegação por arrasto
   final PageController _pageController = PageController();
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   void _onPageChanged(int index) {
     setState(() {
@@ -38,9 +43,17 @@ class TirinhaState extends State<Tirinha> {
     }
   }
 
+  Widget _buildTirinha(String path) {
+    if (path.toLowerCase().endsWith('.svg')) {
+      return SvgPicture.asset(path, fit: BoxFit.contain);
+    }
+    return Image.asset(path, fit: BoxFit.contain);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFFFF3F6),
       body: LayoutBuilder(
         builder: (context, constraints) {
           ScreenUtil.init(
@@ -51,7 +64,6 @@ class TirinhaState extends State<Tirinha> {
 
           return Stack(
             children: [
-              // Fundo com a imagem SVG
               Positioned.fill(
                 child: SvgPicture.asset(
                   'assets/images/fundo-hist.svg',
@@ -60,96 +72,55 @@ class TirinhaState extends State<Tirinha> {
               ),
               Column(
                 children: [
-                  // Linha com o título e os ícones no topo da tela
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
-                      vertical: 18.h,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
                     child: Row(
                       children: [
-                        // Ícone de seta de voltar
                         IconButton(
                           iconSize: 30.sp,
                           icon: const Icon(Icons.style, color: Colors.black),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
+                          onPressed: () => Navigator.pop(context),
                         ),
                         const Spacer(),
-                        // Ícone de engrenagem
                         IconButton(
                           iconSize: 30.sp,
                           icon: const Icon(Icons.settings, color: Colors.black),
                           onPressed: () {
                             showDialog(
                               context: context,
-                              builder: (BuildContext context) {
-                                return const ConfigDialog();
-                              },
+                              builder: (context) => const ConfigDialog(),
                             );
                           },
                         ),
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        // Exibição das imagens com navegação por arrasto
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: 0.5.h), // Ajuste o valor conforme necessário
-                          child: PageView.builder(
-                            controller: _pageController,
-                            itemCount: tirinha.length,
-                            onPageChanged: _onPageChanged,
-                            itemBuilder: (context, index) {
-                              return SvgPicture.asset(
-                                tirinha[index],
-                                fit: BoxFit.contain,
-                              );
-                            },
-                          ),
-                        ),
-
-                        // Botão para navegar para a página anterior
-                        Positioned(
-                          bottom: 50.h,
-                          left: 20.w,
-                          child: IconButton(
-                            icon: Icon(Icons.arrow_back_ios_rounded,
-                                size: 48.sp,
-                                color: Color.fromARGB(255, 0, 0, 0)),
-                            onPressed: () {
-                              _navigateToPage(currentIndex - 1);
-                            },
-                          ),
-                        ),
-
-                        // Botão para navegar para a próxima página
-                        Positioned(
-                          bottom: 50.h,
-                          right: 20.w,
-                          child: currentIndex < tirinha.length - 1
-                              ? IconButton(
-                                  icon: Icon(Icons.arrow_forward_ios_rounded,
-                                      size: 48.sp,
-                                      color: Color.fromARGB(255, 0, 0, 0)),
-                                  onPressed: () {
-                                    _navigateToPage(currentIndex + 1);
-                                  },
-                                )
-                              : const SizedBox
-                                  .shrink(), // Widget vazio quando na última página
-                        ),
-                      ],
+                  // Posição e tamanho padronizados para todas as tirinhas.
+                  SizedBox(height: 40.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Text(
+                      'Doçura',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.chewy(
+                        fontSize: 28.sp,
+                        color: const Color(0xFF37ABDC),
+                      ),
                     ),
                   ),
-
-                  // Indicadores de página (dots)
+                  SizedBox(height: 4.h),
+                  Expanded(
+                    child: PageView.builder(
+                      controller: _pageController,
+                      itemCount: tirinha.length,
+                      onPageChanged: _onPageChanged,
+                      itemBuilder: (context, index) {
+                        return _buildTirinha(tirinha[index]);
+                      },
+                    ),
+                  ),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 20.h),
+                    padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
@@ -161,15 +132,31 @@ class TirinhaState extends State<Tirinha> {
                           width: 8.w,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: currentIndex == index
-                                ? Colors.black
-                                : Colors.grey,
+                            color: currentIndex == index ? Colors.black : Colors.grey,
                           ),
                         ),
                       ),
                     ),
                   ),
                 ],
+              ),
+              Positioned(
+                bottom: 50.h,
+                left: 20.w,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back_ios_rounded, size: 48.sp, color: Colors.black),
+                  onPressed: currentIndex > 0 ? () => _navigateToPage(currentIndex - 1) : null,
+                ),
+              ),
+              Positioned(
+                bottom: 50.h,
+                right: 20.w,
+                child: currentIndex < tirinha.length - 1
+                    ? IconButton(
+                        icon: Icon(Icons.arrow_forward_ios_rounded, size: 48.sp, color: Colors.black),
+                        onPressed: () => _navigateToPage(currentIndex + 1),
+                      )
+                    : const SizedBox.shrink(),
               ),
             ],
           );

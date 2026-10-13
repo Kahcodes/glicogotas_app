@@ -108,7 +108,7 @@ class _Vovo7PageState extends State<Vovo7Page> with RouteAware {
                   onPressed: () {
                     _audioManager
                         .stop(); // Para o áudio ao voltar à tela inicial
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const LivroCardsPage()),
@@ -151,7 +151,7 @@ class _Vovo7PageState extends State<Vovo7Page> with RouteAware {
                   onPressed: () {
                     _audioManager.stop();
                     PageDatabase.instance.saveCurrentPage(6);
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Vovo6Page()),
@@ -173,7 +173,7 @@ class _Vovo7PageState extends State<Vovo7Page> with RouteAware {
                   onPressed: () {
                     _audioManager.stop();
                     PageDatabase.instance.saveCurrentPage(8);
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Vovo8Page()),

@@ -108,7 +108,7 @@ class _Hiper5PageState extends State<Hiper5Page> with RouteAware {
                   onPressed: () {
                     _audioManager
                         .stop(); // Para o áudio ao voltar à tela inicial
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const LivroCardsPage()),
@@ -151,7 +151,7 @@ class _Hiper5PageState extends State<Hiper5Page> with RouteAware {
                   onPressed: () {
                     _audioManager.stop();
                     PageDatabase.instance.saveCurrentPage(4);
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Hiper4Page()),
@@ -173,7 +173,7 @@ class _Hiper5PageState extends State<Hiper5Page> with RouteAware {
                   onPressed: () {
                     _audioManager.stop();
                     PageDatabase.instance.saveCurrentPage(6);
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Hiper6Page()),

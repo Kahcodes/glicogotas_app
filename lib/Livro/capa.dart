@@ -279,7 +279,7 @@ class CapaContent extends StatelessWidget {
                   onTap: () {
                     PageDatabase.instance.saveCurrentPage(2);
                     audioManager.stop();
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Diabetes1Page()),

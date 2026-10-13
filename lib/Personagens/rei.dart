@@ -1,8 +1,8 @@
+import 'ordem_personagens.dart';
+import 'package:glicogotas_app/navegacao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:glicogotas_app/Personagens/bobo.dart';
-import 'package:glicogotas_app/Personagens/lita.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 import 'package:glicogotas_app/controleaudio.dart';
 import 'package:glicogotas_app/home.dart';
@@ -95,10 +95,7 @@ class PersonagemReiPageState extends State<PersonagemReiPage> with RouteAware {
                   onPressed: () {
                     _audioManager
                         .stop(); // Para o áudio ao ir para a tela inicial
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const TelaHome()),
-                    );
+                    voltarAoMenu(context, '/TelaHome', const TelaHome());
                   },
                 ),
               ),
@@ -248,11 +245,7 @@ class PersonagemReiPageState extends State<PersonagemReiPage> with RouteAware {
                   ),
                   onPressed: () {
                     _audioManager.stop(); // Para o áudio ao navegar
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PersonagemLitaPage()),
-                    ); // Ação do botão voltar
+                    navegarPersonagem(context, PersonagemReiPage, -1); // Ação do botão voltar
                   },
                 ),
               ),
@@ -268,11 +261,7 @@ class PersonagemReiPageState extends State<PersonagemReiPage> with RouteAware {
                   ),
                   onPressed: () {
                     _audioManager.stop(); // Para o áudio ao navegar
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PersonagemBoboPage()),
-                    ); // Ação do botão avançar
+                    navegarPersonagem(context, PersonagemReiPage, 1); // Ação do botão avançar
                   },
                 ),
               ),

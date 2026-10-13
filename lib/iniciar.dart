@@ -1,3 +1,4 @@
+import 'package:glicogotas_app/navegacao.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -67,12 +68,7 @@ class TelaInicial extends StatelessWidget {
                       ),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const TelaHome(),
-                            ),
-                          );
+                          voltarAoMenu(context, '/TelaHome', const TelaHome());
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF00D287),

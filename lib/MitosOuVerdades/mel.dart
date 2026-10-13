@@ -1,3 +1,4 @@
+import 'package:glicogotas_app/MitosOuVerdades/conquistas.dart';
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
@@ -41,6 +42,25 @@ class _MelScreenState extends State<MelScreen> {
     },
   ];
 
+  // Conta apenas a primeira resposta de cada pergunta nesta visita.
+  final Set<int> _respostasRegistradas = <int>{};
+  bool _temaRegistrado = false;
+  Future<void> _somResposta = Future<void>.value();
+
+  void _registrarConclusao() {
+    final perguntas = <int>{
+      for (var i = 0; i < mitosVerdades.length; i++)
+        if (mitosVerdades[i].containsKey('respostaCorreta')) i,
+    };
+    if (!_temaRegistrado && currentIndex == mitosVerdades.length - 1 &&
+        _respostasRegistradas.containsAll(perguntas)) {
+      _temaRegistrado = true;
+      avisarConquistas(context, ConquistasMitosService.instance.registrar(
+        temaConcluido: 'mel',
+      ), esperarSom: _somResposta);
+    }
+  }
+
   int currentIndex = 0;
   bool? acertou;
   bool respondeu = false;
@@ -61,8 +81,13 @@ class _MelScreenState extends State<MelScreen> {
         acertou = correta;
         respondeu = true;
       });
-      await _player
-          .play(AssetSource(correta ? 'sounds/acerto.mp3' : 'sounds/erro.mp3'));
+      _somResposta = tocarSomRespostaMitos(_player, correta);
+      if (_respostasRegistradas.add(currentIndex)) {
+        avisarConquistas(context, ConquistasMitosService.instance.registrar(
+          pergunta: 'mel:$currentIndex', correta: correta,
+        ), esperarSom: _somResposta);
+      }
+      _registrarConclusao();
     }
   }
 
@@ -78,6 +103,7 @@ class _MelScreenState extends State<MelScreen> {
         acertou = null;
         respondeu = false;
       });
+      _registrarConclusao();
       await _pageController.animateToPage(
         currentIndex,
         duration: const Duration(milliseconds: 500),
@@ -117,6 +143,7 @@ class _MelScreenState extends State<MelScreen> {
         acertou = null;
         respondeu = false;
       });
+      _registrarConclusao();
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:glicogotas_app/configuracoes.dart';
 
 class TirinhaGlicoamigos extends StatefulWidget {
@@ -21,7 +22,6 @@ class TirinhaGlicoamigosState extends State<TirinhaGlicoamigos> {
   ];
 
   int currentIndex = 0;
-
   final PageController _pageController = PageController();
 
   @override
@@ -46,18 +46,11 @@ class TirinhaGlicoamigosState extends State<TirinhaGlicoamigos> {
     }
   }
 
-  Widget _buildImagemTirinha(String path) {
+  Widget _buildTirinha(String path) {
     if (path.toLowerCase().endsWith('.svg')) {
-      return SvgPicture.asset(
-        path,
-        fit: BoxFit.contain,
-      );
+      return SvgPicture.asset(path, fit: BoxFit.contain);
     }
-
-    return Image.asset(
-      path,
-      fit: BoxFit.contain,
-    );
+    return Image.asset(path, fit: BoxFit.contain);
   }
 
   @override
@@ -80,90 +73,57 @@ class TirinhaGlicoamigosState extends State<TirinhaGlicoamigos> {
                   fit: BoxFit.fill,
                 ),
               ),
-
               Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
-                      vertical: 18.h,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
                     child: Row(
                       children: [
                         IconButton(
                           iconSize: 30.sp,
-                          icon: const Icon(
-                            Icons.style,
-                            color: Colors.black,
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
+                          icon: const Icon(Icons.style, color: Colors.black),
+                          onPressed: () => Navigator.pop(context),
                         ),
-
                         const Spacer(),
-
                         IconButton(
                           iconSize: 30.sp,
-                          icon: const Icon(
-                            Icons.settings,
-                            color: Colors.black,
-                          ),
+                          icon: const Icon(Icons.settings, color: Colors.black),
                           onPressed: () {
                             showDialog(
                               context: context,
-                              builder: (BuildContext context) {
-                                return const ConfigDialog();
-                              },
+                              builder: (context) => const ConfigDialog(),
                             );
                           },
                         ),
                       ],
                     ),
                   ),
-
+                  // Posição e tamanho padronizados para todas as tirinhas.
+                  SizedBox(height: 40.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Text(
+                      'Glicoamigos',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.chewy(
+                        fontSize: 28.sp,
+                        color: const Color(0xFF37ABDC),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 4.h),
                   Expanded(
                     child: PageView.builder(
                       controller: _pageController,
                       itemCount: tirinha.length,
                       onPageChanged: _onPageChanged,
                       itemBuilder: (context, index) {
-                        return AnimatedBuilder(
-                          animation: _pageController,
-                          builder: (context, child) {
-                            double scale = 1.0;
-                            double opacity = 1.0;
-
-                            if (_pageController.position.haveDimensions) {
-                              final double page =
-                                  _pageController.page ?? currentIndex.toDouble();
-
-                              scale = (1 - (index - page).abs()).clamp(0.85, 1.0);
-                              opacity = (1 - (index - page).abs()).clamp(0.0, 1.0);
-                            }
-
-                            return Center(
-                              child: Transform.scale(
-                                scale: scale,
-                                child: Opacity(
-                                  opacity: opacity,
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 24.w,
-                                    ),
-                                    child: _buildImagemTirinha(tirinha[index]),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        );
+                        return _buildTirinha(tirinha[index]);
                       },
                     ),
                   ),
-
                   Padding(
-                    padding: EdgeInsets.only(top: 16.h, bottom: 20.h),
+                    padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
@@ -175,9 +135,7 @@ class TirinhaGlicoamigosState extends State<TirinhaGlicoamigos> {
                           width: 8.w,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: currentIndex == index
-                                ? Colors.black
-                                : Colors.grey,
+                            color: currentIndex == index ? Colors.black : Colors.grey,
                           ),
                         ),
                       ),
@@ -185,37 +143,21 @@ class TirinhaGlicoamigosState extends State<TirinhaGlicoamigos> {
                   ),
                 ],
               ),
-
               Positioned(
                 bottom: 50.h,
                 left: 20.w,
-                child: currentIndex > 0
-                    ? IconButton(
-                        icon: Icon(
-                          Icons.arrow_back_ios_rounded,
-                          size: 48.sp,
-                          color: Colors.black,
-                        ),
-                        onPressed: () {
-                          _navigateToPage(currentIndex - 1);
-                        },
-                      )
-                    : const SizedBox.shrink(),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back_ios_rounded, size: 48.sp, color: Colors.black),
+                  onPressed: currentIndex > 0 ? () => _navigateToPage(currentIndex - 1) : null,
+                ),
               ),
-
               Positioned(
                 bottom: 50.h,
                 right: 20.w,
                 child: currentIndex < tirinha.length - 1
                     ? IconButton(
-                        icon: Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 48.sp,
-                          color: Colors.black,
-                        ),
-                        onPressed: () {
-                          _navigateToPage(currentIndex + 1);
-                        },
+                        icon: Icon(Icons.arrow_forward_ios_rounded, size: 48.sp, color: Colors.black),
+                        onPressed: () => _navigateToPage(currentIndex + 1),
                       )
                     : const SizedBox.shrink(),
               ),

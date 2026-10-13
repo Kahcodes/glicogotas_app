@@ -93,6 +93,7 @@ class _Pagina1PageState extends State<Pagina1Page> with RouteAware {
         child: Stack(
           children: [
             PageView.builder(
+              physics: const NeverScrollableScrollPhysics(),
               controller: _pageController,
               itemCount: _pages.length,
               onPageChanged: (index) {
@@ -247,7 +248,7 @@ class Pagina1Content extends StatelessWidget {
                   onPressed: () {
                     audioManager
                         .stop(); // Para o áudio ao voltar à tela inicial
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const LivroCardsPage()),
@@ -290,7 +291,7 @@ class Pagina1Content extends StatelessWidget {
                   onPressed: () {
                     audioManager.stop();
                     PageDatabase.instance.saveCurrentPage(3);
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Pagina2Page()),

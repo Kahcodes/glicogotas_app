@@ -50,7 +50,7 @@ class Pagina5PageState extends State<Pagina5Page> with RouteAware {
   @override
   void didPopNext() {
     _audioManager.play(
-        'audio/panc-pagina4.mp3', context); // Reinicia o áudio ao voltar
+        'audio/panc-pagina5.mp3', context); // Reinicia o áudio ao voltar
   }
 
   @override
@@ -172,7 +172,7 @@ class Pagina5PageState extends State<Pagina5Page> with RouteAware {
                   onPressed: () {
                     _audioManager.stop();
                     PageDatabase.instance.saveCurrentPage(6);
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Pagina6Page()),
